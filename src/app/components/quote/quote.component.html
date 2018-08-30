@@ -1,0 +1,6 @@
+<div class="quote animated slideInUp" *ngIf="quotes">
+  <div *ngFor="let quote of quotes" >
+    <div class="quote-content" [innerHTML]='quote.content '></div>
+    <span>--{{quote.title}}</span>
+  </div>
+</div>

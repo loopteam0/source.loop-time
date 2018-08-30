@@ -1,0 +1,96 @@
+
+@import "~@angular/material/theming";
+@import "../../../custom-theme.scss ";
+
+table {
+    width: 100%;
+
+    td {
+        cursor: default;
+    }
+}
+
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+    text-align: center;
+}
+
+.cdk-column-title.mat-column-title {
+    text-align: left;
+}
+
+h4.lead {
+    font-size: 2rem;
+}
+
+.wrapper {
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+.container-fluid {
+    padding-top: 1rem;
+}
+
+table {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    
+    mat-icon{
+        color: inherit;
+        opacity: 0.7;
+    }
+}
+
+tr{
+    border-bottom: 1px solid $border-color;
+}
+
+th,
+td {
+    text-align: center;
+
+    mat-icon {
+        color: inherit;
+    }
+}
+
+thead{
+    border-bottom:1px solid darken($border-color, 10%);
+}
+
+td.align {
+    text-align: left;
+}
+
+app-spinner {
+    width: 100%;
+    margin: auto;
+}
+
+.mat-elevation-z5 {
+    border-radius: 3px;
+}
+
+.tool-bar{
+    mat-form-field{
+        mat-icon {
+            cursor: pointer !important;
+        &:hover {
+            
+            color: mat-color($primary) !important;
+            transition: 0.3s ease-out !important;
+        }
+        }
+    }
+}
+  
+button mat-icon{
+    margin: auto !important;
+    transition: opacity 0.3 ease-out;
+
+    &:hover{
+        opacity: 1;
+    }
+}

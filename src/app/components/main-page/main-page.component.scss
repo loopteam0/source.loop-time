@@ -1,0 +1,105 @@
+@import "../../scss/variables";
+@import "../../scss/mixins";
+@import "~@angular/material/theming";
+@import "../../../custom-theme.scss";
+
+.main-grid {
+    // width: 100vw - 3.7vw;
+    .container-fluid {
+        margin: 0;
+    }
+    .centered {
+        width: 400px;
+        text-align: center;
+        margin: auto;
+        margin-bottom: 100px;
+    }
+    .main-tab-container {
+        padding: 0px 20px;
+        padding-top: 30px;
+        padding-right: 0;
+        margin-right: 0;
+        height: 25.5rem;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: start;
+        -webkit-box-shadow: inset -1px 0px 34px -9px rgba(0, 0, 0, 1);
+        transition: overflow cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border-radius: 3px;
+
+
+        // scroll bar
+        &::-webkit-scrollbar{
+            width: 2px !important;
+}
+        
+         
+         &::-webkit-scrollbar-thumb{
+            border-radius: 5px;
+            background: mat-color($primary);
+        }
+ 
+        &:hover{
+           overflow-x: scroll; 
+           transition: 3s ease-out;
+        }
+    
+       
+
+        app-spinner {
+            margin: auto;
+        }
+        .card-container {
+            p {
+                box-sizing: border-box;
+                text-align: center;
+                margin-top: 8px;
+                width: $card-width;
+                padding: 0 10px;
+                &:hover {
+                    color: mat-color($accent);
+                    cursor: pointer;
+                    transition: .3s ease-out;
+                }
+            }
+        }
+        mat-card {
+            @include mat-elevation-transition;
+            width: $card-width;
+            height: $card-height;
+            cursor: pointer;
+            margin: 5px 10px;
+            &:hover {
+                @include mat-elevation-transition;
+                @include mat-elevation(15);
+                transition: .5s ease;
+            }
+            img {
+                height: inherit;
+                border-radius: inherit;
+                width: inherit;
+                border: 0.5px solid transparent;
+            }
+        }
+    }
+    h3.lead {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 2rem;
+    }
+    div.alert {
+        display: block;
+        max-width: 40rem;
+        max-height: 5rem;
+
+        p.lead {
+            text-align: center;
+        }
+    }
+
+
+}
+    

@@ -1,0 +1,107 @@
+@import "~@angular/material/theming";
+@import "../../scss/variables";
+@import "../../scss/mixins";
+@import "../../../custom-theme.scss ";
+
+.lead{
+    margin: 1rem 0.5rem 0;
+    font-size: 2rem;
+}
+
+.tead-text {
+    .eb-lora {
+        text-align: left;
+        font-family: Lora, sans-serif;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 3em;
+        padding: 2.5em 1em 1em;
+    }
+
+    .eb-lora-p {
+        font-size: 17px;
+        font-size: 1.2em;
+        max-width: 610px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1.5em;
+        line-height: 1.9em;
+
+        mat-icon{
+            color: red;
+        }
+
+    }
+
+    .eb-lora-fl {
+        font-size: 7em;
+        float: left;
+        line-height: 0.8em;
+        margin-top: -0.29em;
+
+    }
+    .app-details {
+        max-width: 610px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1.7em;
+
+        .UpdateMsg {
+            margin-left: 8px;
+        }
+    }
+    .footer-msg {
+        margin: auto;
+        text-align: center;
+        img.img-1 {
+            width: 60px;
+        }
+        img.img-2 {
+            width: 100px;
+        }
+        p {
+            margin-bottom: 0;
+        }
+    }
+
+}
+
+.donate form {
+    display: flex;
+    flex-direction: column;
+}
+
+.donate form > * {
+    width: 100%;
+}
+
+.donate form {
+    button {
+        width: auto;
+    }
+}
+
+.donate {
+    .help {
+        font-size: 12px;
+    }
+}
+
+.license-donate {
+    margin-bottom: 20px;
+
+    a {
+        cursor: pointer;
+        color: mat-color($primary);
+        &:hover {
+            color: darken($color: mat-color($primary), $amount: 20%);
+            transition: 0.5s;
+        }
+    }
+
+    
+}
+span.imp{
+        font-size: 1.05rem;
+        text-transform: uppercase;
+    }

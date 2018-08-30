@@ -1,0 +1,20 @@
+@import '~@angular/material/theming';
+
+body { margin: 0;padding: 0 }
+
+div.appcontainer{
+  display: grid;
+  grid-template-columns: 50px auto;
+
+}
+
+.toolbar{
+  @include mat-elevation(10);
+  z-index: 98;
+
+}
+.appcontainer{
+  min-height: 100vh;
+  background-color: #ebebeb;
+}
+

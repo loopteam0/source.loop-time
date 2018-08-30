@@ -1,0 +1,106 @@
+<div *ngIf="retry" class="errorHandler">
+     <h1>
+       An error occured
+     </h1>
+       <button mat-raised-button color="accent" (click)="RETRY()">RETRY</button>
+</div>
+
+<app-spinner *ngIf="showDataloading"></app-spinner>
+
+<div class="details-container animated fadeInLeft" *ngIf="showDetails">
+    <div class="title">
+        <h3 class="">{{showDetails.title}}</h3>
+        <p class="">Posted on {{showDetails.air_day}} {{showDetails.air_time}}</p>
+    </div>
+
+
+    <div class="details-image">
+
+        <mat-card>
+            <img class="card-img-top" src="{{showDetails.images.banner}}" alt="Not found">
+        </mat-card>
+    </div>
+
+    <div class="storyline">
+        <mat-card>
+            <p><strong>Storyline:</strong> {{showDetails.synopsis}} </p>
+        </mat-card>
+    </div>
+
+    <div class="props">
+        <mat-card color="primary">
+            <mat-card-content>
+
+                <h4>Media info</h4>
+                <div class="general">
+                    <div class="cat-1">
+                        <p><strong>title: </strong> <span>{{showDetails.title}} </span></p>
+                        <p><strong>imdb_id: </strong><span>{{showDetails._id}} </span> </p>
+                        <p><strong>year: </strong> <span>{{showDetails.year}} </span></p>
+                        <p><strong>runtime: </strong> <span>{{showDetails.runtime}}min</span></p>
+                    </div>
+                    <div class="cat-2">
+                        <p><strong>network: </strong> <span>{{showDetails.network}} </span></p>
+                        <p><strong>rating: </strong> <span>{{showDetails.rating.percentage}}% </span></p>
+                        <p><strong>provider: </strong> <span>EZTV </span></p>
+                        <p><strong>genres: </strong> <span>{{showDetails.genres}} </span></p>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <h4>Download</h4>
+                    <mat-accordion>
+                        <mat-expansion-panel data-simplebar data-simplebar-auto-hide="false" >
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    All Episodes
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    All Avaliable TV Series in 720p and 1080p Quality || EZTV only
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+
+                            <app-spinner *ngIf="episodesLoading"></app-spinner>
+
+                            <mat-nav-list *ngFor="let episode of episodes">
+
+                                <mat-list-item *ngIf="!episodesLoading" class="animated bounceInRight">
+
+                                    <a class="trucn" matTooltip="{{episode.date_released_unix * 1000 | date:'full'}}" matLine href="{{episode.torrent_url}}" (click)="openSnackBar(episode.title)">{{episode.title}}</a>
+                                    <span>{{episode.size_bytes | convert}}</span>
+
+                                    <a mat-icon-button href="{{episode.torrent_url}} " (click)="openSnackBar(episode.title)" class="series-link">
+                                        <mat-icon matTooltip="Seeds: {{episode.seeds}} || Peers: {{episode.peers}}  " color="primary">file_download</mat-icon>
+                                    </a>
+
+                                    <mat-divider [inset]="true"></mat-divider>
+
+                                </mat-list-item>
+
+                            </mat-nav-list>
+
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                    <div class="mb-2"></div>
+                    <div *ngIf="true" class="container">
+                        <div id="pagination">
+                           <mat-paginator [length]="length"
+                              [pageSize]="50"
+                              [pageSizeOptions]="[100 ,50, 30 ]" (page)="page($event)">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+
+    </div>
+
+
+</div>
+<app-quote></app-quote>
+<!-- magnet:?xt=urn:btih:{{item.hash}}&dn=Rampage+%28
+magnet:?xt=urn:btih:{{item.hash}}&dn=Pacific+Rim%3A+Uprising+%28
+magnet:?xt=urn:btih:{{item.hash}}&dn=Pacific+Rim%3A+Uprising+%28
+magnet:?xt=urn:btih:{{item.hash}}&dn=Rampage+%28 -->

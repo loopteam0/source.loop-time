@@ -1,0 +1,177 @@
+<div class="main-grid">
+
+    <div class="container-fluid">
+
+        <mat-tab-group class="main-tab-group animated slideInDown">
+
+            <!-- //////////Moives tab////////// -->
+            <mat-tab>
+
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon"></mat-icon>
+                    <span class="tab-head">Trending</span>
+                </ng-template>
+                <!--
+                <div class="wrapper">
+                    <h3 class="lead">Upcoming Movies</h3>
+
+
+                    <div class="main-tab-container">
+                        <app-spinner *ngIf="moviesLoading"></app-spinner>
+                        <div *ngIf="false" class="alert alert-danger" role="alert">
+                            <p class="lead">{{errorMsg}}</p>
+                        </div>
+
+                        <div class="card-container " *ngFor="let item of UpcomigMovies">
+                            <mat-card (click)="onSelectMovie(item)" class="animated bounceInRight">
+                                <img (click)="onSelectMovie(item)" mat-card-image src="{{imageurl}}{{item.poster_path}}" alt="{{ item.title }} ">
+                            </mat-card>
+                            <p (click)="onSelectMovie(item)" class="animated fadeInDown ">
+                                {{item.title}}</p>
+                        </div>
+
+                    </div>
+
+                    <div class="container">
+                        <div id="pagination">
+                            <mat-paginator [length]="254" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event , 'Upcoming Movies')">
+                            </mat-paginator>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+                
+-->
+
+                <div class="wrapper">
+
+                    <h3 class="lead">New Movies</h3>
+                    <div  class="main-tab-container">
+                        <app-spinner *ngIf="!MoviesNowPlaying"></app-spinner>
+
+                        <div class="card-container " *ngFor="let item of MoviesNowPlaying">
+                            
+                                <mat-card (click)="onSelectMovie(item)" class="animated bounceInRight">
+                                    <img (click)="onSelectMovie(item)" mat-card-image src="{{imageurl}}{{item.poster_path}}" alt="{{ item.title }} ">
+                                </mat-card>
+                                <p (click)="onSelectMovie(item)" class="animated fadeInDown ">
+                                    {{item.title}}</p>
+                         
+                        </div>
+
+                    </div>
+
+                    <div class="container">
+                        <div id="pagination">
+                            <mat-paginator [length]="254" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event , 'New Movies')">
+                            </mat-paginator>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+                
+                <h3 class="lead">Tv Shows Airing today</h3>
+
+                <div class="main-tab-container">
+
+                    <app-spinner *ngIf="!showsAiringToday"></app-spinner>
+
+                    <div class="card-container " *ngFor="let item of showsAiringToday">
+                        <mat-card (click)="onSelectShow(item)" class="animated bounceInRight">
+                            <img (click)="onSelectShow(item)" mat-card-image src="{{imageurl}}{{item.poster_path}}" alt="{{ item.title }} ">
+                        </mat-card>
+                        <p (click)="onSelectShow(item)" class="animated fadeInDown ">
+                            {{item.name}}</p>
+                    </div>
+
+                </div>
+
+                <div class="container">
+                    <div id="pagination">
+                        <mat-paginator length="60" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event , 'Tv Shows Airing today')">
+                        </mat-paginator>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <h3 class="lead">Top Rated Shows</h3>
+
+
+                <div class="main-tab-container">
+
+                    <app-spinner *ngIf="!topRatedShows"></app-spinner>
+
+                    <div class="card-container " *ngFor="let item of topRatedShows">
+                        <mat-card (click)="onSelectShow(item)" class="animated bounceInRight">
+                            <img (click)="onSelectShow(item)" mat-card-image src="{{imageurl}}{{item.poster_path}}" alt="{{item.title}} ">
+                        </mat-card>
+                        <p (click)="onSelectShow(item)" class="animated fadeInDown ">
+                            {{item.name}}</p>
+                    </div>
+
+                </div>
+
+                <div class="container">
+                    <div id="pagination">
+                        <mat-paginator length="605" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event , 'Top Rated Shows')">
+                        </mat-paginator>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <h3 class="lead">Top Rated Movies</h3>
+
+
+                <div class="main-tab-container" id="top">
+
+                    <app-spinner *ngIf="!Movies"></app-spinner>
+
+                    <div class="card-container" *ngFor="let item of Movies">
+                        <mat-card (click)="onSelectMovie(item)" class="animated bounceInRight ">
+                            <img (click)="onSelectMovie(item)" mat-card-image class="" src="{{imageurl}}{{item.poster_path}}" alt="">
+                        </mat-card>
+                        <p (click)="onSelectMovie(item)" class="animated fadeInDown delay-0.5s">
+                            {{item.title}}</p>
+                    </div>
+
+                </div>
+
+
+                <div class="container">
+                    <div id="pagination">
+                        <mat-paginator [length]="6032" [pageSize]="20" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions" (page)="Page($event , 'Most Rated Movies')">
+                        </mat-paginator>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="mb-2"></div>
+
+
+            </mat-tab>
+
+
+            <!-- search tab -->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">search</mat-icon>
+                    <span class="tab-head">Search</span>
+                </ng-template>
+
+                <app-other-search></app-other-search>
+
+            </mat-tab>
+
+
+        </mat-tab-group>
+
+        <app-quote></app-quote>
+    </div>
+
+</div>

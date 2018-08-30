@@ -1,0 +1,77 @@
+<app-spinner *ngIf="loading" class="animated fadeInDown">
+
+</app-spinner>
+
+<div class="details-container mat-app-background" *ngIf="animeDetails">
+    <div class="title animated fadeInRight">
+        <h3 class="mat-title">{{animeDetails.title}}</h3>
+        <p class="text-muted"><strong>Posted on</strong> {{animeDetails.air_day}} {{animeDetails.air_time}}</p>
+    </div>
+
+
+    <div class="details-image animated fadeInUp">
+        <div class="mat-card ">
+            <div class="card-body">
+                <img class="card-img-top" src="{{animeDetails.images.banner}}" alt="Not found">
+            </div>
+        </div>
+    </div>
+
+    <div class="storyline animated  fadeInLeft delay-0.5s">
+        <mat-card>
+            <p><strong>Storyline:</strong> {{animeDetails.synopsis}} </p>
+        </mat-card>
+    </div>
+
+    <div class="props animated fadeInLeft  delay-1s">
+        <mat-card>
+            <mat-card-content>
+
+                <h4>Media info</h4>
+                <div class="general">
+                    <p><strong>title: </strong> <span>{{animeDetails.title}} </span></p>
+                    <p><strong>id: </strong><span>{{animeDetails._id}} </span> </p>
+                    <p><strong>year: </strong> <span>{{animeDetails.year}} </span></p>
+                    <p><strong>runtime: </strong> <span>{{animeDetails.runtime}}min</span></p>
+                    <p><strong>last update: </strong> <span>{{animeDetails.released}} </span></p>
+                    <p><strong>genres: </strong> <span>{{animeDetails.genres}} </span></p>
+                    <p><strong>rating: </strong> <span>{{animeDetails.rating.percentage}}% </span></p>
+                    <p><strong>network: </strong> <span>{{animeDetails.network}} </span></p>
+                </div>
+
+                <div class="tabs">
+
+                    <!-- <mat-accordion>
+           <mat-expansion-panel>
+             <mat-expansion-panel-header>
+               <mat-panel-title>
+                 All Episodes
+               </mat-panel-title>
+               <mat-panel-description>
+                   All Avaliable TV Series in HDTV and 720p Quality
+               </mat-panel-description>
+             </mat-expansion-panel-header>
+
+             <mat-nav-list *ngFor="let episode of episodes">
+                 <mat-list-item >
+                     <a matLine href="{{episode.torrent_url}}">{{episode.title}}</a>
+                     <a mat-icon-button href="{{episode.torrent_url}}" class="series-link">
+                       <mat-icon>file_download</mat-icon>
+                     </a>
+
+                 </mat-list-item>
+
+             </mat-nav-list>
+           </mat-expansion-panel>
+         </mat-accordion> -->
+
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+
+    </div>
+
+
+</div>
+<app-quote></app-quote>

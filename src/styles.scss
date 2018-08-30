@@ -1,0 +1,112 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "./app/scss/variables";
+@import "./app/scss/mixins";
+@import "~@angular/material/theming";
+@import "./custom-theme";
+
+
+a {
+    text-decoration: none;
+}
+
+p {
+    -webkit-font-smoothing: antialiased;
+    font-size: 1.02rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+    letter-spacing: .03225em;
+}
+
+strong {
+    @extend p;
+    font-size: 1.015rem;
+
+}
+
+.tab-head {
+    -webkit-font-smoothing: antialiased;
+    font-size: 1.2rem;
+    letter-spacing: .04125em;
+}
+
+.nav-tabs .nav-link {
+    width: 10rem;
+    text-align: center;
+
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+    border-top-width: 1.5px !important;
+    border-top-color: mat-color($primary) !important;
+    transition: 0.1s ease-out;
+}
+
+trucn {
+    text-overflow: ellipsis;
+}
+
+.simplebar-scrollbar:before {
+    background: mat-color($primary) !important;
+}
+
+.simplebar-track.horizontal {
+    visibility: hidden !important;
+    display: none !important;
+}
+
+.simplebar-track .horizontal {
+    visibility: hidden !important;
+    display: none !important;
+}
+.simplebar-content{
+    margin-right: -8px !important;
+}
+
+.errorHandler{
+    text-align: center;
+    margin: 100px auto;
+        text-transform: uppercase;
+        font-family: monospace;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+
+
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+
+}
+
+
+
+
+@-webkit-keyframes fadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}

@@ -1,0 +1,139 @@
+<div class="abt-grid mat-background">
+
+  <div class="container">
+
+    <h4 class="lead animated slideInDown">About LOOP CLIENT</h4>
+
+    <div class="tead-text">
+      <mat-card class="animated slideInRight">
+        <div class="eb-lora">
+          <p class="eb-lora-p">
+            <span class="eb-lora-fl">L</span>oop Client was made with <mat-icon>favorite</mat-icon> by the loop team.A small elite team that always gets the job done
+            right </p>
+
+          <!--     <p class="eb-lora-p">
+            Loop Time is made possible by the help of Chromium ,Electron ,Angular Js and other open source software.
+          </p> -->
+        </div>
+
+        <div class="app-details">
+          <p>
+            <strong>App Version: </strong>
+            <span> 0.5.0 Beta</span>
+          </p>
+          <p>
+            <strong>Release Date: </strong>
+            <span>25 August 2018 </span>
+          </p>
+          <button mat-raised-button (click)="showMsg()">
+            Check For Update</button>
+          <span class="UpdateMsg animated fadeIn delay-1s"> {{ updateMsg }}</span>
+          <!--  <p>
+              <strong>App Version: </strong> <span> 0.0.4 Alpha</span>
+            </p> -->
+        </div>
+
+        <mat-card-footer>
+          <div class="footer-msg">
+             <img class="img-1" src="../../../assets/themoviedb.svg" alt=""> 
+            <img class="img-2" src="../../../assets/imageedit_2_4680332925.jpg" alt="">
+            <p>Copyright © 2018 MIT THE LOOP TEAM. All rights reserved.</p>
+          </div>
+        </mat-card-footer>
+
+      </mat-card>
+
+    </div>
+
+
+    <div class="license-donate">
+      <mat-accordion>
+
+        <mat-expansion-panel class="animated slideInLeft " (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="animated infinite flash delay-2s">
+              Donate
+            </mat-panel-title>
+            <mat-panel-description>
+              Help the developer of the app improve this app
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>
+            <strong>BitCoin: </strong> 16Eed2TfKrai6528tJ2Q9ugVwKG5UacWP6 </p>
+          <p>
+            <strong>Ether: </strong> 0x3B13067BD0ab336341ae667fD01f9924A8724a17 </p>
+          <p>
+            <strong>PayPal: </strong>
+            <a (click)="openlink('https://www.paypal.me/danqtech')">PayPal.Me/danqtech</a>
+          </p>
+          <p>
+            <strong>Patreon: </strong>
+            <a (click)="openlink('https://www.patreon.com/loopteam')">https://www.patreon.com/loopteam</a>
+          </p>
+          <mat-divider></mat-divider>
+          <p>Subscribe to our channel for latest updates</p>
+          <p>
+            <strong>Youtube: </strong>
+            <a (click)="openlink('https://bit.ly/2Jz7ncC')">https://bit.ly/2Jz7ncC</a>
+          </p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel class="animated slideInLeft" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Send feedback
+            </mat-panel-title>
+            <mat-panel-description>
+              Help the developer of the app improve this app
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <div class="donate">
+            <p>
+              <strong>Email:</strong> Loopteam0@gmail.com</p>
+            <span class="help">All suggestions will be treated the care</span>
+        
+          </div>
+
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel class="animated slideInLeft ">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              The MIT License (MIT)
+            </mat-panel-title>
+            <mat-panel-description>
+              All Rights Reserved
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <p>
+            Copyright © 2018 'The Loop Team'
+          </p>
+
+          <p>
+            <span class="imp"> Downloading copyrighted material might be illegal in your country use at your own risk. 
+            The developers can not be held resposible for any CLAIM, DAMAGES OR OTHER LIABILITY.</span>
+            <br>
+            Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+            files , to deal in the Software without restriction, including without limitation the rights
+            to use the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+            conditions: The above copyright notice and this permission notice shall be included in all copies or substantial
+            portions of the Software. THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+            INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+            IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+            IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+            OR OTHER DEALINGS IN THE SOFTWARE.
+          </p>
+        </mat-expansion-panel>
+
+
+      </mat-accordion>
+    </div>
+
+
+
+
+  </div>
+</div>

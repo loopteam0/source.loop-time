@@ -1,0 +1,69 @@
+@import "../../scss/variables";
+@import "../../scss/mixins";
+@import "~@angular/material/theming";
+
+@import "../../../custom-theme.scss "; // width: 100vw - 3.7vw;
+.container-fluid {
+    padding-right: 0;
+    margin: 0;
+}
+
+.centered {
+    width: 400px;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 100px;
+}
+
+
+.main-tab-container {
+    margin-top: 1rem;
+    padding: 0;
+    padding-right: 0;
+    margin-right: 0; // flex setting and override
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-around;
+
+    .card-container {
+
+        p {
+            box-sizing: border-box;
+            text-align: center;
+            margin-top: 8px;
+            width: $card-width;
+            padding: 0 10px;
+
+            &:hover {
+                color: mat-color($accent);
+                cursor: pointer;
+                transition: .3s ease;
+            }
+        }
+
+    }
+    mat-card {
+        @include mat-elevation-transition;
+        width: $card-width;
+        height: $card-height;
+        cursor: pointer;
+        margin: 5px 10px;
+
+        &:hover {
+            @include mat-elevation-transition;
+            @include mat-elevation(20);
+            transition: .3s ease-out;
+
+        }
+
+        img {
+            height: inherit;
+            border-radius: inherit;
+            width: inherit;
+            border: 0.5px solid transparent;
+        }
+    }
+
+}

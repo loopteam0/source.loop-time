@@ -1,0 +1,33 @@
+<div *ngIf="retry" class="errorHandler">
+    <h1>
+      An error occured
+    </h1>
+    <button mat-raised-button color="accent" (click)="RETRY()">RETRY</button>
+  </div>
+
+<app-spinner *ngIf="showsLoading"></app-spinner>
+
+<div class="main-tab-container">
+
+    
+
+    <div class="card-container " *ngFor="let show of Shows ">
+        
+        <div *ngIf="!showsLoading">
+        <mat-card (click)="onSelectShow(show)" class=" animated bounceInUp">
+            <img (click)="onSelectShow(show)" mat-card-image class="card-image" src="{{show.images.poster}}" alt="{{show.title}} ">
+        </mat-card>
+        <p (click)="onSelectShow(show)" class="animated fadeInDown ">
+      {{ show.title}}</p>
+    </div>
+
+    </div>
+
+</div>
+
+<div class="container">
+    <div id="pagination">
+        <mat-paginator showFirstLastButtons [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event)">
+        </mat-paginator>
+    </div>
+</div>

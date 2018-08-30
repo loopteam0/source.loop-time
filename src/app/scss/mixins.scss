@@ -1,0 +1,7 @@
+@mixin mediaQ ($args) {
+    @media screen and (max-width : $args ) {
+        transition: 1s ease;
+        @content;
+    }
+
+}
