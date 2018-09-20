@@ -13,7 +13,7 @@ export class AnimesListComponent implements OnInit {
   results;
   loading;
   searchLoading;
-  retry = false;
+  errorState = false;
   constructor(private Torrent: TorrentSearchApiService, private snackbar: MatSnackBar) {}
 
   ngOnInit() {
@@ -25,23 +25,23 @@ export class AnimesListComponent implements OnInit {
     this.Torrent.getAnimes('anime', 50).subscribe(res => {
       this.animes = res;
       this.loading = false;
-    this.retry = false;
+    this.errorState = false;
   },
     err => {
       this.loading = false;
-    this.retry = true;
+      this.errorState = true;
     });
   }
 
-  searchTorrents(title) {
+  search(title) {
     this.searchLoading = true;
-    this.Torrent.getAnimes(title, 30).subscribe(res => {
-      this.results = res;
-      this.searchLoading = false;
+    this.Torrent.getAnimes(title, 50).subscribe(res => {
+      this.animes = res;
+      this.loading = false;
   },
     err => {
       this.showError(err);
-      this.searchLoading = false;
+      this.loading = false;
     });
   }
 

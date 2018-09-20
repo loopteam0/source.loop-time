@@ -1,5 +1,6 @@
 @import "../../scss/variables";
 @import "../../scss/mixins";
+@import "../../scss/searchbar";
 @import "~@angular/material/theming";
 @import "../../../custom-theme.scss "; // width: 100vw - 3.7vw;
 .container-fluid {
@@ -18,7 +19,7 @@
 .main-tab-container {
     padding: 16px;
     padding-right: 0;
-    margin-right: 0; // flez setting and override
+    margin-right: 0; // flex setting and override
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

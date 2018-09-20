@@ -7,14 +7,14 @@
                 <mat-icon>new_releases</mat-icon> Trending</a>
                 <mat-divider></mat-divider>
             <a mat-list-item [routerLink]="['/movies']" routerLinkActive="active" class="indent">
-                <mat-icon>high_quality</mat-icon> Movies</a>
+                <mat-icon>high_quality</mat-icon>HD Movies</a>
             <a mat-list-item [routerLink]="['/shows']" routerLinkActive="active" class="indent">
                 <mat-icon>live_tv</mat-icon> TV Shows</a>
             <a mat-list-item [routerLink]="['/animes']" routerLinkActive="active" class="indent">
                 <mat-icon>local_movies
                 </mat-icon> Amime</a>
-            <a mat-list-item [routerLink]="['/search']" routerLinkActive="active">
-                <mat-icon>search</mat-icon> Search</a>
+            <!-- <a mat-list-item [routerLink]="['/search']" routerLinkActive="active">
+                <mat-icon>search</mat-icon> Search</a> -->
             <mat-divider></mat-divider>
 
             <a mat-list-item [routerLink]="['/games']" routerLinkActive="active" class="">
@@ -36,14 +36,14 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content >
-        <mat-toolbar color="primary" >
+        <!-- <mat-toolbar color="primary" >
             <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
             <span>Loop Client</span>
             <span class="example-spacer"></span>
-           <!--  <mat-slide-toggle (change)="change()" >Switch Theme</mat-slide-toggle> -->
-        </mat-toolbar>
+           <mat-slide-toggle (change)="change()" >Switch Theme</mat-slide-toggle>
+        </mat-toolbar> -->
         <!-- Add Content Here -->
         <router-outlet>
 

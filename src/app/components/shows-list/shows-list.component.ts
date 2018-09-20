@@ -13,13 +13,14 @@ export class ShowsListComponent implements OnInit {
 
   public Shows;
   public Pages;
-  retry;
+  pagination: boolean = true;
+  errorState;
   retryIndex = 1;
 
   showsLoading;
 
   /** PAGINATION */
-  length = 2503;
+  length = 2504;
   pageSize = 50;
   pageIndex;
   pageSizeOptions = [50, 30, 10];
@@ -40,22 +41,42 @@ export class ShowsListComponent implements OnInit {
 
   requestShowList(i) {
     this.showsLoading = true;
+    this.pagination = false;
     this.request.getShowsList(i).subscribe(data => {
       this.Shows = data;
       this.showsLoading = false;
-    this.retry = false;
+      this.pagination = true;
+    this.errorState = false;
   }, err =>{
     this.showError(err);
-    this.retry = true;
+    this.errorState = true;
     this.showsLoading = false;
 
   });
 
   }
 
-  RETRY() {
+  
+  search(keyword) {
+    
+    this.showsLoading = true;
+
+    this.request.getShowsByKeyword(keyword).subscribe(
+      data =>{
+         this.Shows = data
+         this.showsLoading = false;
+         this.pagination = false; 
+        }, err => {
+          this.showError(`Unknown Error Occured while searching Try Again`);
+          this.showsLoading = false;
+          this.pagination = true;
+        }
+    )
+  }
+
+  Retry() {
+    this.errorState = false;
     this.requestShowList(this.retryIndex);
-    console.log(this.retryIndex);
   }
 
   Page(e) {
@@ -65,11 +86,11 @@ export class ShowsListComponent implements OnInit {
      this.request.getShowsList((e.pageIndex + 1)).subscribe(data => {
       this.Shows = data;
       this.showsLoading = false;
-     this.retry = false;
+     this.errorState = false;
    }, err => { 
      this.showError(err);
      this.showsLoading = false;
-     this.retry = true;
+     this.errorState = true;
    });
 
   }

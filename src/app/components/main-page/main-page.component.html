@@ -11,39 +11,6 @@
                     <mat-icon class="example-tab-icon"></mat-icon>
                     <span class="tab-head">Trending</span>
                 </ng-template>
-                <!--
-                <div class="wrapper">
-                    <h3 class="lead">Upcoming Movies</h3>
-
-
-                    <div class="main-tab-container">
-                        <app-spinner *ngIf="moviesLoading"></app-spinner>
-                        <div *ngIf="false" class="alert alert-danger" role="alert">
-                            <p class="lead">{{errorMsg}}</p>
-                        </div>
-
-                        <div class="card-container " *ngFor="let item of UpcomigMovies">
-                            <mat-card (click)="onSelectMovie(item)" class="animated bounceInRight">
-                                <img (click)="onSelectMovie(item)" mat-card-image src="{{imageurl}}{{item.poster_path}}" alt="{{ item.title }} ">
-                            </mat-card>
-                            <p (click)="onSelectMovie(item)" class="animated fadeInDown ">
-                                {{item.title}}</p>
-                        </div>
-
-                    </div>
-
-                    <div class="container">
-                        <div id="pagination">
-                            <mat-paginator [length]="254" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event , 'Upcoming Movies')">
-                            </mat-paginator>
-                        </div>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                </div>
-                
--->
 
                 <div class="wrapper">
 

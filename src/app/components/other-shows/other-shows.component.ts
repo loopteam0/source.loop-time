@@ -18,7 +18,7 @@ export class OtherShowsComponent implements OnInit {
   imageurl;
   episodeloading;
   error;
-  retry = false;
+  errorState = false;
   Loop = 'Loop for Available Episodes';
   episodes;
     
@@ -48,9 +48,9 @@ export class OtherShowsComponent implements OnInit {
     this.movieDB.getDetails(this.Id, 'tv').subscribe(res => {
       this.details = res;
       this.loading = false;
-    this.retry = false;
+    this.errorState = false;
     },err => {
-    this.retry = true;
+    this.errorState = true;
     this.loading = false;
     });
   }

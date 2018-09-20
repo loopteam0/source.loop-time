@@ -9,10 +9,9 @@ import { MatSnackBar } from '@angular/material';
 })
 export class BookPageComponent implements OnInit {
   others;
-  results;
   loading;
   searchLoading;
-  retry = false;
+  errorState = false;
   constructor(private Torrent: TorrentSearchApiService, private snackbar: MatSnackBar) {}
 
   ngOnInit() {
@@ -24,21 +23,21 @@ export class BookPageComponent implements OnInit {
     this.Torrent.getOthers("books", 50).subscribe(res => {
       this.others = res;
       this.loading = false;
-    this.retry = false;
+    this.errorState = false;
     }, err => {
-    this.retry = true;
+    this.errorState = true;
     this.loading = false;
     });
   }
 
-  searchTorrents(title) {
-    this.searchLoading = true;
+  search(title) {
+    this.loading = true;
     this.Torrent.getOthers(title, 30).subscribe(res => {
-      this.results = res;
-      this.searchLoading = false;
+      this.others = res;
+      this.loading = false;
     }, err => {
     this.showError(err);
-    this.searchLoading = false;
+    this.loading = false;
     });
   }
 

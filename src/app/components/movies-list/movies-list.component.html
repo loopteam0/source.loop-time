@@ -1,35 +1,56 @@
 <!-- //////////Moives tab////////// -->
-  <div *ngIf="retry" class="errorHandler">
-    <h1>
-      An error occured
-    </h1>
-    <button mat-raised-button color="accent" (click)="RETRY()">RETRY</button>
-  </div>
-
-
-  <app-spinner *ngIf="moviesLoading"></app-spinner>
-
-  <div class="main-tab-container" id="top">
-
-
-    <div class="card-container" *ngFor="let item of Movies ">
-      <div *ngIf="!moviesLoading">
-      <mat-card (click)="onSelectMovie(item)" class="animated bounceInUp" >
-        <img (click)="onSelectMovie(item)" mat-card-image src="{{item.large_cover_image}}" class="card-image"  alt="">
-      </mat-card>
-      <p (click)="onSelectMovie(item)" class="animated fadeInDown">
-        {{item.title}}</p>
-    </div>
-</div>
-
-  </div>
-
+  
 
   <div class="container">
-    <div id="pagination">
-      <mat-paginator showFirstLastButtons [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions" (page)="paginate($event , 'Movies')">
-      </mat-paginator>
+    <div class="title head">
+        <div class="nun">
+          <h4 class="lead">
+            HD Movies
+        </h4>
+        </div>
+        <div class="spacer"></div>
+        <mat-form-field>
+          <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
+          <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
+      </mat-form-field>
     </div>
-  </div>
-  <div class="b4-clear-fix"></div>
+<mat-divider>
+</mat-divider>
 
+<div class="">
+
+             <div *ngIf="errorState" class="errorHandler">
+                <h1>
+                    An error occured
+                </h1>
+                <button mat-raised-button color="accent" (click)="RETRY()">RETRY</button>
+            </div>
+          
+            <app-spinner *ngIf="moviesLoading"></app-spinner>
+          
+            <div class="main-tab-container" id="top">
+          
+          
+              <div class="card-container" *ngFor="let item of Movies ">
+                <div *ngIf="!moviesLoading">
+                <mat-card (click)="onSelectMovie(item)" class="animated bounceInUp" >
+                  <img (click)="onSelectMovie(item)" mat-card-image src="{{item.large_cover_image}}" class="card-image"  alt="">
+                </mat-card>
+                <p (click)="onSelectMovie(item)" class="animated fadeInDown">
+                  {{item.title}}</p>
+              </div>
+          </div>
+          
+            </div>
+          
+          
+            <div class="container" *ngIf="pagination">
+              <div id="pagination">
+                <mat-paginator showFirstLastButtons [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions" (page)="paginate($event , 'Movies')">
+                </mat-paginator>
+              </div>
+            </div>
+    
+</div>
+</div>
+<app-quote></app-quote>

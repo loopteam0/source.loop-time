@@ -13,14 +13,13 @@ import { TorrentSearchApiService } from '../../services/torrent-search-api.servi
   styleUrls: [`./music-page.component.scss`]
 })
 export class MusicPageComponent implements OnInit {
- Results;   
  loading;
- searchLoading;
- musics;  
-  retry = false;   
-  constructor(private Torrent: TorrentSearchApiService,private snackbar: MatSnackBar ) {
-   
-  }
+ Musics;  
+ errorState = false;   
+
+  constructor(
+    private Torrent: TorrentSearchApiService,
+    private snackbar: MatSnackBar ) {}
 // dataSource = new MatTableDataSource<torrent>(this.Results);
 
 
@@ -35,12 +34,12 @@ export class MusicPageComponent implements OnInit {
     this.loading = true;
     this.Torrent.getMusics('2018', 50)
       .subscribe(torrents => {     
-        this.musics = torrents;
+        this.Musics = torrents;
         this.loading = false;
-      this.retry = false;
+      this.errorState = false;
       },
         err => {
-      this.retry = true;
+      this.errorState = true;
       this.loading = false;
 
         }
@@ -48,14 +47,14 @@ export class MusicPageComponent implements OnInit {
   }
 
    searchMusic(title){
-       this.searchLoading = true;
+       this.loading = true;
     this.Torrent.getMusics(title, 30)
       .subscribe(torrents => {     
-        this.Results = torrents;
-        this.searchLoading = false;
+        this.Musics = torrents;
+        this.loading = false;
       }, err => {
       this.showError(err);
-      this.searchLoading = false;
+      this.loading = false;
       });
    }
     

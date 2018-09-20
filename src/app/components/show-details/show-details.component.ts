@@ -12,7 +12,7 @@ import { tap } from '../../../../node_modules/rxjs/operators';
   styleUrls: ['./show-details.component.scss']
 })
 export class ShowDetailsComponent implements OnInit, OnDestroy {
-  retry = false;
+  errorState = false;
   showDetails;
   episodes ;
   Id;
@@ -33,9 +33,9 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
        .subscribe( data => {
         this.showDetails = data;
         this.showDataloading = false;
-       this.retry = false;
+       this.errorState = false;
      }, err => {
-       this.retry = true;
+       this.errorState = true;
        this.showDataloading = false;
      });
 

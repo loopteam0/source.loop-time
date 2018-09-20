@@ -21,7 +21,7 @@ export class OtherMoviesComponent implements OnInit {
   movies;
   Loop = "Loop For Movie";
   imageurl;
-  retry;
+  errorState;
   try = 'the meg: retrun - home';
   
   constructor(
@@ -51,9 +51,9 @@ export class OtherMoviesComponent implements OnInit {
     this.movieDB.getDetails(this.Id, "movie").subscribe(res => {
       this.details = res;
       this.loading = false;
-    this.retry = false;
+    this.errorState = false;
     }, err => {
-    this.retry = true;
+    this.errorState = true;
     this.loading = false;
 
     } );

@@ -13,10 +13,10 @@ export class MoviesListComponent implements OnInit {
 
   public Movies;
   public Pages;
-  retry = false;
+  errorState = false;
   moviesLoading;
   retryIndex = 1;
-
+  pagination: boolean = true;
   length;
   pageSize = 50;
   pageIndex;
@@ -37,24 +37,64 @@ export class MoviesListComponent implements OnInit {
  /** Get Movies List from Yts */
   requestMoviesList(i) {
     this.moviesLoading = true;
+    this.pagination = false;
     this.request.getMoviesList(i, 50).subscribe(data => {
       this.Movies = data['movies'];
       this.length = data['movie_count'];
       this.moviesLoading = false;
-      this.retry = false;
+      this.errorState = false;
+      this.pagination = true;
   }, err => {
       this.showError(err);
-      this.retry = true;
+      this.errorState = true;
       this.moviesLoading = false;
+      this.pagination = false;
+
   });
 
   }
 
-  RETRY(){
-    this.requestMoviesList(this.retryIndex);
-    console.log(this.retryIndex);
+  search(keyword) {
+    this.moviesLoading = true;
+    this.pagination = false;
+    this.request.getMoviesByKeyword(keyword).subscribe(
+     data => {
+       this.moviesLoading = false
+       this.Movies = data['movies'];
+      }, err => {
+        this.showError(`Unknown Error Occured while searching Try Searching Again`);
+        this.moviesLoading = false;
+        this.pagination = true;
+      })
+
   }
 
+  paginate(e , cat ) {
+    this.retryIndex = (e.pageIndex+ 1);
+      this.moviesLoading = true;  
+      this.pagination = true;
+      this.opensnackbar((e.pageIndex + 1), cat);
+      this.request.getMoviesList((e.pageIndex + 1), e.pageSize)
+        .subscribe(
+          data => {
+           this.Movies = data['movies'];
+           this.moviesLoading = false;
+            this.errorState = false;
+        }, err => { 
+          this.showError(err);
+          this.errorState = true;
+          this.moviesLoading = false;
+          
+        });
+     
+  }
+
+
+  RETRY(){
+    this.errorState = false;
+    this.requestMoviesList(this.retryIndex);
+  }
+ 
   onSelectMovie(item) {
     this.router.navigate(['/movies', item.id]);
   }
@@ -67,26 +107,11 @@ export class MoviesListComponent implements OnInit {
   }
 
 
-  paginate(e , cat ) {
-    this.retryIndex = (e.pageIndex+ 1);
-      this.moviesLoading = true;  
-      this.opensnackbar((e.pageIndex + 1), cat);
-      this.request.getMoviesList((e.pageIndex + 1), e.pageSize)
-        .subscribe(
-          data => {
-           this.Movies = data['movies'];
-           this.moviesLoading = false;
-            this.retry = false;
-        }, err => { 
-          this.showError(err);
-          this.retry = true;
-          this.moviesLoading = false;
-        });
-     
-  }
 
   showError(err){
-    this.snackBar.open(err);
+    this.snackBar.open(err , '' , {
+      duration: 5000
+    });
   }
 
   navigateTop() {

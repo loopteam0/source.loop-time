@@ -1,9 +1,3 @@
-@import "../../scss/variables";
-@import "../../scss/mixins";
-@import "../../scss/searchbar";
-@import "../../scss/table-data";
-@import "~@angular/material/theming";
-
 mat-icon {
     margin-right: 10px;
 }
@@ -49,4 +43,12 @@ mat-tab-group {
 container-fluid {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
+}
+
+.spacer{
+    flex: 1 1 auto;
+}
+
+div.title.head{
+    display: flex;
 }

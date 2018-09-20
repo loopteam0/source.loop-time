@@ -18,7 +18,7 @@ export class SoftwarePageComponent implements OnInit {
   loading;
   searching;
   results;
-  retry = false;
+  errorState = false;
   constructor(private Torrent: TorrentSearchApiService, private snackbar: MatSnackBar) { }
 
 
@@ -38,12 +38,12 @@ export class SoftwarePageComponent implements OnInit {
       res => {
         this.softwares = res;
         this.loading = false;
-        this.retry = false;
+        this.errorState = false;
     }, 
       err =>{
         this.showError(err);
         this.loading = false;
-      this.retry = true;
+      this.errorState = true;
    });
 
   }

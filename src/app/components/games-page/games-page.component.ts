@@ -8,11 +8,9 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ["./games-page.component.scss"]
 })
 export class GamesPageComponent implements OnInit {
-  games;
-  results;
+  Games;
   loading;
-  searchLoading;
-  retry = false;
+  errorState = false;
   constructor(private Torrent: TorrentSearchApiService, private snackbar: MatSnackBar) {}
 
   ngOnInit() {
@@ -22,25 +20,25 @@ export class GamesPageComponent implements OnInit {
   showTorrents() {
     this.loading = true;
     this.Torrent.getGames("2018", 50).subscribe(res => {
-      this.games = res;
+      this.Games = res;
       this.loading = false;
-    this.retry = false;
+    this.errorState = false;
   },
     err => {
       this.loading = false;
-      this.retry = true;
+      this.errorState = true;
     });
   }
 
   searchTorrents(title) {
-    this.searchLoading = true;
+    this.loading = true;
     this.Torrent.getGames(title, 30).subscribe(res => {
-      this.results = res;
-      this.searchLoading = false;
+      this.Games = res;
+      this.loading = false;
   },
     err => {
     this.showError(err);
-      this.searchLoading = false;
+      this.loading = false;
     });
   }
 

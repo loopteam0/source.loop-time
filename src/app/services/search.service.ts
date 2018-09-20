@@ -99,7 +99,7 @@ export class SearchService {
      const url = `${this.yts_url}list_movies.json?query_term=${keyword}&sort_by=download_count&limit=50`;
     return  this.http.get(url)
     .pipe(
-      map(res => res.json().data.movies),
+      map(res => res.json().data),
       catchError(this.handleError), // then handle the error
        retry(2) // retry a failed request up to 3 times
     );

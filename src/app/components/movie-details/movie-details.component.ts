@@ -18,7 +18,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   loading: boolean;
   video;
   parms;
-  retry = false;
+  errorState = false;
   constructor(
     private route: ActivatedRoute,
     private request: SearchService,
@@ -33,9 +33,9 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     this.request.getMovieDetails(this.Id).subscribe(data => {
       this.movieDetails = data;
       this.loading = false;
-    this.retry = false;
+    this.errorState = false;
   }, err => {
-      this.retry = true;
+      this.errorState = true;
       this.loading = false;
   });
     
