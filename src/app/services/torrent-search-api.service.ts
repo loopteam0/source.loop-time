@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
-import { TorrentSearchApi } from 'torrent-search-api';
+import { TorrentSearchApi } from '../../assets/providers/torrent-search-api';
 import { ElectronService } from './electron.service';
 import {
   catchError,
@@ -24,6 +24,8 @@ export class TorrentSearchApiService {
   constructor(private electron: ElectronService) {
     if (this.electron.isElectron()) {
       this.torrentApi = window.require('torrent-search-api');
+    } else{
+    console.log('Not an electron app');
     }
   }
 

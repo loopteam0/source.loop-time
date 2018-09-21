@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container full-screen">
 
 
     <div class="title head">
         <div class="nun">
-          <h4 class="lead">
+          <h4 class="lead ">
             TV SHOWS
         </h4>
         </div>
@@ -13,7 +13,8 @@
           <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
       </mat-form-field>
     </div>
-   
+   <mat-divider>
+   </mat-divider>
     
     <div *ngIf="errorState" class="errorHandler">
         <h1>

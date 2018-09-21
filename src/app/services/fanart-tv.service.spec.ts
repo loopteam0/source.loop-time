@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { TraktTvApiService } from './trakt-tv-api.service';
+import { FanartTvService } from './fanart-tv.service';
 
 describe('TraktTvApiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TraktTvApiService]
+      providers: [FanartTvService]
     });
   });
 
-  it('should be created', inject([TraktTvApiService], (service: TraktTvApiService) => {
+  it('should be created', inject([FanartTvService], (service: FanartTvService) => {
     expect(service).toBeTruthy();
   }));
 });

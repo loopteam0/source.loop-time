@@ -18,6 +18,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   loading: boolean;
   video;
   parms;
+  imdb_id;
   errorState = false;
   constructor(
     private route: ActivatedRoute,
@@ -45,7 +46,9 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     // this the id of the movie form the route
     this.parms = this.route.paramMap.subscribe((params: ParamMap) => {
       const imdb_id = params.get('imdb_id');
-      this.Id = imdb_id;
+      const id = params.get('id');
+      this.Id = id;
+      this.imdb_id = imdb_id;
     });
 
     this.getmoviedetails();

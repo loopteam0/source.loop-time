@@ -73,6 +73,7 @@ export class MoviesListComponent implements OnInit {
     this.retryIndex = (e.pageIndex+ 1);
       this.moviesLoading = true;  
       this.pagination = true;
+      this.errorState = false;
       this.opensnackbar((e.pageIndex + 1), cat);
       this.request.getMoviesList((e.pageIndex + 1), e.pageSize)
         .subscribe(
@@ -96,7 +97,7 @@ export class MoviesListComponent implements OnInit {
   }
  
   onSelectMovie(item) {
-    this.router.navigate(['/movies', item.id]);
+    this.router.navigate(['/movies', item.id, item.imdb_code]);
   }
 
   opensnackbar(index, cat) {

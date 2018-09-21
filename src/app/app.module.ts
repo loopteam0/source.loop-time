@@ -35,7 +35,7 @@ import { ShowsListComponent } from './components/shows-list/shows-list.component
 import { AnimesListComponent } from './components/animes-list/animes-list.component';
 import { FontModule } from './modules/font/font.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { TraktTvApiService } from './services/trakt-tv-api.service';
+import { FanartTvService } from './services/fanart-tv.service';
 import { MovieDbService } from './services/movie-db.service';
 import { OtherMoviesComponent } from './components/other-movies/other-movies.component';
 import { MusicPageComponent } from './components/music-page/music-page.component';
@@ -92,7 +92,7 @@ import { OthersModule } from './modules/others/others.module';
 ,   SharedModule, CoreModule, TorrentModule, OthersModule,
     JsonpModule, NgxPaginationModule,
   ],
-  providers: [ SearchService, MovieDbService , ElectronService , TraktTvApiService,
+  providers: [ SearchService, MovieDbService , ElectronService , FanartTvService,
     { provide: HTTP_INTERCEPTORS,
       useClass: ServiceInterceptor,
       multi: true}

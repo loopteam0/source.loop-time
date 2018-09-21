@@ -82,6 +82,7 @@ export class ShowsListComponent implements OnInit {
   Page(e) {
     this.retryIndex = (e.pageIndex + 1);
       this.showsLoading = true;
+      this.errorState = false;
       this.opensnackbar((e.pageIndex + 1));;
      this.request.getShowsList((e.pageIndex + 1)).subscribe(data => {
       this.Shows = data;

@@ -38,7 +38,7 @@
                                 "input": "./node_modules/simplebar/dist/simplebar.min.css"
               },
                             {
-                                "input": "./src/assets/animate.css"
+                                "input": "./src/assets/animate.scss"
               }
 
             ],

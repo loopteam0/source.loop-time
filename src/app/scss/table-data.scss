@@ -73,19 +73,6 @@ app-spinner {
     border-radius: 3px;
 }
 
-.tool-bar{
-    mat-form-field{
-        mat-icon {
-            cursor: pointer !important;
-        &:hover {
-            
-            color: mat-color($primary) !important;
-            transition: 0.3s ease-out !important;
-        }
-        }
-    }
-}
-  
 button mat-icon{
     margin: auto !important;
     transition: opacity 0.3 ease-out;

@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { map } from "rxjs/operators";
 import { TorrentSearchApiService } from "../../services/torrent-search-api.service";
+import { TorrentSearchApi } from '../../../assets/providers/torrent-search-api';
 import { MatSnackBar } from '@angular/material';
+import { ElectronService } from "../../services/electron.service";
 
 @Component({
   selector: "app-animes-list",
@@ -13,8 +15,18 @@ export class AnimesListComponent implements OnInit {
   results;
   loading;
   searchLoading;
+  TorrentApi;
   errorState = false;
-  constructor(private Torrent: TorrentSearchApiService, private snackbar: MatSnackBar) {}
+
+  constructor(private Torrent: TorrentSearchApiService, 
+    private snackbar: MatSnackBar,
+     private electron: ElectronService) {
+
+      if (this.electron.isElectron()) {
+        this.TorrentApi = window.require('torrent-search-api')
+      }
+
+     }
 
   ngOnInit() {
     this.showTorrents();

@@ -15,36 +15,10 @@ mat-icon {
     width: 90%;
 }
 
-.toolbar {
-    margin-bottom: 30px;
-
-    mat-icon {
-        &:hover {
-            cursor: pointer;
-        }
-    }
-
-
-    mat-card {
-        padding: 8px;
-        margin: 1rem auto;
-
-    }
-
-    mat-form-field {
-        padding: 1.25em 1.25em 1em 1.25em;
-        width: 25rem;
-    }
-
-}
-
 mat-tab-group {
     overflow: hidden;
 }
 
-.container {
-    margin-top: 1rem;
-}
 
 container-fluid {
     padding-left: 2.5rem;
