@@ -6,29 +6,29 @@
 
 
 
-    // .screenshots {
-    //     display: flex;
-    //     flex-direction: row;
+    .screenshots {
+        display: flex;
+        flex-direction: row;
 
-    //     img {
-    //         width: 50%;
-    //         &:last-child {
-    //             margin-left: 5px;
-    //         }
-    //     }
-    // }
-    // .tab-content {
-    //     margin: 5px 16px;
-    //     padding: 16px;
+        img {
+            width: 50%;
+            height: 140px;
+            &:last-child {
+                margin-left: 5px;
+            }
+        }
+    }
+    .tab-content {
+        margin: 5px 16px;
+        padding: 16px;
 
-    //     .cat {
-    //         display: grid;
-    //         grid-template-columns: 50% 50%;
+        .cat {
+            display: grid;
+            grid-template-columns: 50% 50%;
 
+        }
 
-    //     }
-
-    // }
+    }
     // .download {
     //     margin: 10px auto;
     //     padding: 15px;
@@ -52,49 +52,33 @@
     //     }
     // }
 
-    // .general {
-    //     margin: 16px;
-    //     padding: 16px;
-    //     display: grid;
-    //     grid-template-columns: 50% 50%;
+    .general {
+        margin: 16px;
+        padding: 16px;
+        display: grid;
+        grid-template-columns: 50% 50%;
 
-    //     border: {
-    //         style: solid;
-    //         width: 1px 0px;
-    //         color: $border-color;
-    //     }
-    //     .cat-1 {
-    //         a {
-    //             cursor: pointer;
-    //             color: mat-color($primary);
-    //             &:hover {
-    //                 color: darken($color: mat-color($primary), $amount: 5%);
-    //                 transition: 0.3s;
-    //             }
-    //         }
-    //     }
+        border: {
+            style: solid;
+            width: 0 0 1px 0;
+            color: $border-color;
+        }
+        strong{
+          text-transform: capitalize;
+        }
+        .cat-1 {
+            a {
+                cursor: pointer;
+                color: mat-color($primary);
+                &:hover {
+                    color: darken($color: mat-color($primary), $amount: 5%);
+                    transition: 0.3s;
+                }
+            }
+        }
 
-    // }
+    }
 
-    // .props {
-    //     margin-bottom: 100px;
 
-    //     h4 {
-    //         text-align: center;
-
-    //     }
-    // }
-
-    // p.magnet {
-    //     overflow: scroll;
-    // }
-
-    // .tabs {
-    //     margin-top: 25px;
-
-    //     h4 {
-    //         margin-bottom: 0;
-    //     }
-    // }
 
 

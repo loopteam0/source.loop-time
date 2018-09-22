@@ -1,11 +1,79 @@
-<div *ngIf="errorState" class="errorHandler">
-     <h1>
-       An error occured
-     </h1>
-       <button mat-raised-button color="accent" (click)="RETRY()">RETRY</button>
-</div>
+<div id="details-page">
+    <div *ngIf="errorState" class="errorHandler">
+        <h1>
+          An error occured
+        </h1>
+          <button mat-raised-button color="accent" (click)="RETRY()">RETRY</button>
+   </div>
 
-<app-spinner *ngIf="showDataloading"></app-spinner>
+    <!-- show spinner here -->
+    <app-spinner *ngIf="showDataloading"></app-spinner>
+
+  <mat-card *ngIf="showDetails" class="main-card">
+    <div class="details-container animated fadeInLeft" *ngIf="true">
+
+      <div class="details-image">
+      <mat-card>
+         <img class="card-img-top" src="{{showDetails.images.banner}}" alt="image not found">
+           <!-- <img class="card-img-top" src="../../../assets/large-cover.jpg" alt="image not found"> -->
+      </mat-card>
+      </div>
+
+      <div class="flex-flow">
+        <div class="title-head">
+            <h3>{{showDetails.title}}</h3>
+
+            <mat-chip-list >
+              <mat-chip *ngFor="let item of showDetails.genres">{{item}}</mat-chip>
+            </mat-chip-list>
+
+            <div>
+
+            </div>
+        </div>
+
+
+      <mat-tab-group class="tab-group" >
+
+        <mat-tab label="INFO">
+          <div class="container">
+            <p><strong>Storyline:</strong> {{showDetails.synopsis}} </p>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="MEDIA">
+            <div class="general">
+                <div class="cat-1">
+                    <p><strong>title: </strong> <span>{{showDetails.title}} </span></p>
+                    <p><strong>imdb_id: </strong><span>{{showDetails._id}} </span> </p>
+                    <p><strong>year: </strong> <span>{{showDetails.year}} </span></p>
+                    <p><strong>runtime: </strong> <span>{{showDetails.runtime}}min</span></p>
+                </div>
+                <div class="cat-2">
+                    <p><strong>network: </strong> <span>{{showDetails.network}} </span></p>
+                    <p><strong>rating: </strong> <span>{{showDetails.rating.percentage}}% </span></p>
+                    <p><strong>provider: </strong> <span>EZTV </span></p>
+                    <p><strong>genres: </strong> <span>{{showDetails.genres}} </span></p>
+                </div>
+            </div>
+        </mat-tab>
+
+      </mat-tab-group>
+    </div>
+
+    </div>
+  </mat-card>
+
+
+  </div>
+
+
+
+
+
+<!--
+
+
 
 <div class="details-container animated fadeInLeft" *ngIf="showDetails">
     <div class="title">
@@ -13,17 +81,9 @@
         <p class="">Posted on {{showDetails.air_day}} {{showDetails.air_time}}</p>
     </div>
 
-
-    <div class="details-image">
-
-        <mat-card>
-            <img class="card-img-top" src="{{showDetails.images.banner}}" alt="Not found">
-        </mat-card>
-    </div>
-
     <div class="storyline">
         <mat-card>
-            <p><strong>Storyline:</strong> {{showDetails.synopsis}} </p>
+
         </mat-card>
     </div>
 
@@ -32,22 +92,9 @@
             <mat-card-content>
 
                 <h4>Media info</h4>
-                <div class="general">
-                    <div class="cat-1">
-                        <p><strong>title: </strong> <span>{{showDetails.title}} </span></p>
-                        <p><strong>imdb_id: </strong><span>{{showDetails._id}} </span> </p>
-                        <p><strong>year: </strong> <span>{{showDetails.year}} </span></p>
-                        <p><strong>runtime: </strong> <span>{{showDetails.runtime}}min</span></p>
-                    </div>
-                    <div class="cat-2">
-                        <p><strong>network: </strong> <span>{{showDetails.network}} </span></p>
-                        <p><strong>rating: </strong> <span>{{showDetails.rating.percentage}}% </span></p>
-                        <p><strong>provider: </strong> <span>EZTV </span></p>
-                        <p><strong>genres: </strong> <span>{{showDetails.genres}} </span></p>
-                    </div>
-                </div>
 
-                <div class="tabs">
+
+                 <div class="tabs">
                     <h4>Download</h4>
                     <mat-accordion>
                         <mat-expansion-panel data-simplebar data-simplebar-auto-hide="false" >
@@ -100,7 +147,4 @@
 
 </div>
 <app-quote></app-quote>
-<!-- magnet:?xt=urn:btih:{{item.hash}}&dn=Rampage+%28
-magnet:?xt=urn:btih:{{item.hash}}&dn=Pacific+Rim%3A+Uprising+%28
-magnet:?xt=urn:btih:{{item.hash}}&dn=Pacific+Rim%3A+Uprising+%28
-magnet:?xt=urn:btih:{{item.hash}}&dn=Rampage+%28 -->
+ -->

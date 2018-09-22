@@ -11,14 +11,25 @@ import { ElectronService } from '../../services/electron.service';
 })
 export class NavBarComponent {
 darkTheme = false;
+mdScreen;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
 
   constructor(private breakpointObserver: BreakpointObserver, private electron: ElectronService,
-) {}
-    
+) {
+  // breakpointObserver.observe([
+  //   Breakpoints.HandsetLandscape,
+  //   Breakpoints.HandsetPortrait
+  // ]).subscribe(result => {
+  //   if (result.matches) {
+  //     this.mdScreen = true;
+  //   }
+  // });
+}
+
   showLink() {
     if (this.electron.isElectron()) {
       this.electron.shell.openExternal('https://bit.ly/2Jz7ncC');
@@ -26,7 +37,7 @@ darkTheme = false;
       window.open('https://bit.ly/2Jz7ncC');
     }
   }
-    change(){
+    change() {
         console.log('changed');
         this.darkTheme = !this.darkTheme;
     }

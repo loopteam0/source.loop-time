@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { SearchService } from '../../services/search.service';
-import { tap } from 'rxjs/operators'
+import { tap } from 'rxjs/operators';
+import { FanartTvService } from '../../services/fanart-tv.service';
 
 @Component({
   selector: 'app-movies-list',
@@ -16,11 +17,14 @@ export class MoviesListComponent implements OnInit {
   errorState = false;
   moviesLoading;
   retryIndex = 1;
+  // tslint:disable-next-line:no-inferrable-types
   pagination: boolean = true;
   length;
   pageSize = 50;
   pageIndex;
   pageSizeOptions = [50, 30, 10];
+  background;
+  banner;
 
 
 
@@ -28,7 +32,8 @@ export class MoviesListComponent implements OnInit {
     private el: ElementRef,
     private request: SearchService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private fanartApi: FanartTvService
   ) {}
 
   ngOnInit() {
@@ -59,19 +64,19 @@ export class MoviesListComponent implements OnInit {
     this.pagination = false;
     this.request.getMoviesByKeyword(keyword).subscribe(
      data => {
-       this.moviesLoading = false
+       this.moviesLoading = false;
        this.Movies = data['movies'];
       }, err => {
         this.showError(`Unknown Error Occured while searching Try Searching Again`);
         this.moviesLoading = false;
         this.pagination = true;
-      })
+      });
 
   }
 
   paginate(e , cat ) {
-    this.retryIndex = (e.pageIndex+ 1);
-      this.moviesLoading = true;  
+    this.retryIndex = (e.pageIndex + 1);
+      this.moviesLoading = true;
       this.pagination = true;
       this.errorState = false;
       this.opensnackbar((e.pageIndex + 1), cat);
@@ -81,21 +86,29 @@ export class MoviesListComponent implements OnInit {
            this.Movies = data['movies'];
            this.moviesLoading = false;
             this.errorState = false;
-        }, err => { 
+        }, err => {
           this.showError(err);
           this.errorState = true;
           this.moviesLoading = false;
-          
+
         });
-     
+
   }
 
+  showImage(id){
+    this.fanartApi.getMovieImages(id, 'movies').subscribe(
+      res => {
+        this.background = res['moviebackground'];
+        this.banner = res['moviebanner'];
+      }
+    )
+  }
 
   RETRY(){
     this.errorState = false;
     this.requestMoviesList(this.retryIndex);
   }
- 
+
   onSelectMovie(item) {
     this.router.navigate(['/movies', item.id, item.imdb_code]);
   }
@@ -106,8 +119,6 @@ export class MoviesListComponent implements OnInit {
   opensnack(cat) {
     this.snackBar.open(`Page 0 doesn't exist for ${cat}`);
   }
-
-
 
   showError(err){
     this.snackBar.open(err , '' , {

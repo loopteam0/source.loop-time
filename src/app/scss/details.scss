@@ -1,15 +1,17 @@
 
 @import "~@angular/material/theming";
 @import "../../../custom-theme.scss ";
+@import "./mixins.scss";
 
-$image-width : 16rem;
+$image-width : 14rem;
+$min-image-width: 10rem;
 #details-page{
     margin: 0;
     background-color: aqua;
   //  background-image: '../../assets/large-screenshot3.jpg';
     width: 100%;
     height: 100%;
-    padding: 130px 20px 0px 20px;
+    padding: 160px 20px 0px 20px;
   //  background-size: cover;
   //  background: fixed;
 }
@@ -17,13 +19,15 @@ $image-width : 16rem;
  //   position: relative;
     display: flex;
     flex-direction: row;
-    flex-basis: $image-width auto;
-    width: 100%;
+    flex-basis: auto auto;
+    flex-wrap: initial;
+   // width: 100%;
 
     .details-image {
         width: $image-width;
+       // max-width: $min-image-width;
         mat-card {
-            @include mat-elevation(24);
+            @include mat-elevation(8);
             position: relative;
             top: -100px;
             width: inherit;
@@ -40,6 +44,95 @@ $image-width : 16rem;
     .flex-flow{
         width: 100%;
         margin-left: 20px;
+
+        @media (min-width: 960px) {
+          mat-tab-group{
+            width: 600px;
+          }
+        }
+      }
+
+
     }
-    
-}
+
+
+    .title-head{
+      h1{
+        display: inline;
+      }
+
+
+    .year{
+      font-size: medium;
+      display: inline;
+      padding-bottom: 20px;
+      margin-left: 5px;
+      position: relative;
+      top: -4px;
+
+    }
+    .rating{
+      .star {
+        position: relative;
+        display: inline-block;
+        font-size: 1.8rem;
+        color: #d3d3d3;
+      }
+
+      .full {
+        color: red;
+      }
+
+      .half {
+        position: absolute;
+        display: inline-block;
+        overflow: hidden;
+        color: red;
+      }
+    }
+
+    .runtime{
+      display: flex;
+
+      p{
+        display: inline;
+      }
+    }
+    .download-button{
+      margin-top: 30px;
+    }
+  }
+
+  .properties{
+
+    position: relative;
+    top: -80px;
+
+    .tab-group{
+      padding-top: 8px;
+      overflow-x: hidden;
+    }
+    .container{
+      margin-top: 10px;
+    }
+
+    .cast{
+      .row{
+        margin-top: 10px;
+
+        img{
+          display: block;
+          margin: auto;
+          border-radius: 50%;
+        }
+
+        p{
+          text-align: center;
+          margin-bottom: 5px;
+        }
+        p.small{
+          font-size: .8rem;
+        }
+      }
+    }
+  }

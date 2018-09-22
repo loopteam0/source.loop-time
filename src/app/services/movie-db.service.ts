@@ -138,7 +138,7 @@ SearchAll( keyword, page): Observable<any> {
   const request = this.httpClient.get(url).pipe(
     retry(2), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
-  );;
+  );
 
       return request;
 }
@@ -148,7 +148,7 @@ find(id ): Observable<any> {
   const request = this.httpClient.get(url).pipe(
     retry(2), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
-  );;
+  );
 
       return request;
 }

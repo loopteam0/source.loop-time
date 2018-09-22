@@ -20,7 +20,7 @@ export class DurationPipe implements PipeTransform {
     } else {
       const hours = Math.trunc( value / 60 );
       const mins = value % 60;
-      this.time = `${hours}h ${mins}m`;
+      this.time = `${hours}h ${mins}min`;
 
     }
     return this.time;

@@ -4,30 +4,32 @@
 
 .head{
     mat-icon {
-        margin-right: 10px;
+        margin-right: 5px;
     }
 
     input{
         margin-right: 5px;
     }
-    
+
         mat-icon {
             &:hover {
                 color: mat-color($primary);
                 cursor: pointer !important;
             }
         }
-    
+
         mat-form-field {
-            width: 15rem;
-            margin-right: 70px;
+            width: 12rem;
            padding-top: 10px;
-        }
-    
+
+
+          }
+
+
     .spacer{
         flex: 1 1 auto;
     }
-    
+
     h4.lead{
         margin-top: 15px;
         animation-duration: 0.3s;

@@ -1,5 +1,5 @@
 <mat-sidenav-container [class.darkTheme]="darkTheme">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'side' : 'side'" [opened]="!(isHandset$ | async)">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'push' : 'side'" [opened]="!(isHandset$ | async)">
         <mat-toolbar color="primary">Menu</mat-toolbar>
         <!-- [opened]="!(isHandset$ | async)" -->
         <mat-nav-list>
@@ -35,11 +35,13 @@
 
         </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content >
-        <!-- <mat-toolbar color="primary" >
-            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    <mat-sidenav-content [ngStyle]="{'show': (!isHandset$ | async)}" >
+      <div [ngStyle]="{'menu-toggler': (isHandset$ | async)}">
+      <button class="menu-toggler" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
+      </div>
+        <!-- <mat-toolbar color="primary" >
             <span>Loop Client</span>
             <span class="example-spacer"></span>
            <mat-slide-toggle (change)="change()" >Switch Theme</mat-slide-toggle>

@@ -6,6 +6,13 @@ import { MatSnackBar } from '@angular/material';
 
 import { SearchService } from '../../services/search.service';
 import { ElectronService } from '../../services/electron.service';
+import { Inject} from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-movie-details',
@@ -21,6 +28,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   imdb_id;
   errorState = false;
   constructor(
+    private dialog: MatDialog,
     private route: ActivatedRoute,
     private request: SearchService,
     public snackBar: MatSnackBar,
@@ -39,7 +47,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
       this.errorState = true;
       this.loading = false;
   });
-    
+
   }
 
   ngOnInit() {
@@ -52,6 +60,18 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     });
 
     this.getmoviedetails();
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(downloadDialog, {
+      width: '250px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
   }
 
   openSnackBar(title: string, quality: string) {
@@ -81,5 +101,22 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     this.parms.unsubscribe();
   }
 
+
+}
+
+
+@Component({
+  selector: 'download-dialog',
+  templateUrl: 'download-dialog.html',
+})
+export class downloadDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<downloadDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }

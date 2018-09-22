@@ -30,7 +30,7 @@ function createWindow() {
         width: 1024,
         height: 720,
         show: false,
-        minWidth: 900,
+        minWidth: 960,
         darkTheme: false,
         icon: path.join(__dirname, '/src/icon.ico'),
         webPreferences: {
@@ -45,7 +45,7 @@ function createWindow() {
     //     pathname: path.join(__dirname, '/dist/ngapp3/index.html'),
     //     protocol: 'file',
     //     slashes: true
-    // })); 
+    // }));
 
 
     win.loadURL(`http://localhost:4200`)

@@ -1,5 +1,4 @@
-<div class="container full-screen">
-
+<div class="custom-container">
 
     <div class="title head">
         <div class="nun">
@@ -13,24 +12,27 @@
           <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
       </mat-form-field>
     </div>
-   <mat-divider>
-   </mat-divider>
-    
+  </div>
+  <mat-divider>
+    </mat-divider>
+  <div class=" full-screen">
+
+
     <div *ngIf="errorState" class="errorHandler">
         <h1>
           An error occured
         </h1>
         <button mat-raised-button color="accent" (click)="errorState()">RETRY</button>
       </div>
-    
+
     <app-spinner *ngIf="showsLoading"></app-spinner>
-    
+
     <div class="main-tab-container">
-    
-        
-    
+
+
+
         <div class="card-container " *ngFor="let show of Shows ">
-            
+
             <div *ngIf="!showsLoading">
             <mat-card (click)="onSelectShow(show)" class=" animated bounceInUp">
                 <img (click)="onSelectShow(show)" mat-card-image class="card-image" src="{{show.images.poster}}" alt="{{show.title}} ">
@@ -38,17 +40,17 @@
             <p (click)="onSelectShow(show)" class="animated fadeInDown ">
           {{ show.title}}</p>
         </div>
-    
+
         </div>
-    
+
     </div>
-    
+
     <div class="container" *ngIf="pagination">
         <div id="pagination">
             <mat-paginator showFirstLastButtons [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event)">
             </mat-paginator>
         </div>
     </div>
-    
+
 
 </div>

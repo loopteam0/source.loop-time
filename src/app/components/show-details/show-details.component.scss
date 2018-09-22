@@ -1,127 +1,128 @@
 @import "~@angular/material/theming";
-@import "../../../custom-theme.scss ";
+@import "../../../custom-theme";
 @import "../../scss/variables";
+@import "../../scss/details";
 
 
-.details-container {
-    max-width: $content-width;
-    margin: auto;
-    padding: 20px 50px;
+// .details-container {
+//     max-width: $content-width;
+//     margin: auto;
+//     padding: 20px 50px;
 
-    border: {
-        style: solid;
-        width: 0px 1px;
-        color: $border-color;
-    }
+//     border: {
+//         style: solid;
+//         width: 0px 1px;
+//         color: $border-color;
+//     }
 
-    strong {
-        text-transform: capitalize;
-    }
-    .title {
-        h3 {
-            margin: 0;
-            padding: {
-                top: 8px;
-                bottom: 8px;
-            }
-            border: {
-                style: solid;
-                width: 0 0 1px 0;
-                color: $border-color;
-            }
-        }
+//     strong {
+//         text-transform: capitalize;
+//     }
+//     .title {
+//         h3 {
+//             margin: 0;
+//             padding: {
+//                 top: 8px;
+//                 bottom: 8px;
+//             }
+//             border: {
+//                 style: solid;
+//                 width: 0 0 1px 0;
+//                 color: $border-color;
+//             }
+//         }
 
-        p {
-            border-bottom: 1px solid $border-color;
-            margin: 0 0 50px 0;
-            padding: {
-                top: 4px;
-                bottom: 4px;
-            }
-        }
-    }
+//         p {
+//             border-bottom: 1px solid $border-color;
+//             margin: 0 0 50px 0;
+//             padding: {
+//                 top: 4px;
+//                 bottom: 4px;
+//             }
+//         }
+//     }
 
-    .details-image {
-        @include mat-elevation(24);
-        width: 16rem;
-        margin: auto;
+//     .details-image {
+//         @include mat-elevation(24);
+//         width: 16rem;
+//         margin: auto;
 
-        mat-card {
-            width: inherit;
-            margin: 0;
-            padding: 0;
+//         mat-card {
+//             width: inherit;
+//             margin: 0;
+//             padding: 0;
 
-            img {
-                height: inherit;
-                border-radius: inherit;
-                width: inherit;
-            }
-        }
+//             img {
+//                 height: inherit;
+//                 border-radius: inherit;
+//                 width: inherit;
+//             }
+//         }
 
-    }
+//     }
 
-    .storyline {
-        margin: 30px auto;
+//     .storyline {
+//         margin: 30px auto;
 
-    }
+//     }
 
-    .tab-content {
-        margin: 16px;
-        padding: 16px;
+//     .tab-content {
+//         margin: 16px;
+//         padding: 16px;
 
-    }
-    .download {
-        margin: auto;
-        margin-bottom: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
+//     }
+//     .download {
+//         margin: auto;
+//         margin-bottom: 30px;
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-around;
 
-        button {
-            @include mat-elevation(2);
-            margin-bottom: 8px;
-            &:hover {
-                @include mat-elevation-transition;
-                @include mat-elevation(8);
-            }
-            &:active {
-                @include mat-elevation(8);
-            }
-        }
-    }
+//         button {
+//             @include mat-elevation(2);
+//             margin-bottom: 8px;
+//             &:hover {
+//                 @include mat-elevation-transition;
+//                 @include mat-elevation(8);
+//             }
+//             &:active {
+//                 @include mat-elevation(8);
+//             }
+//         }
+//     }
 
-    .general {
-        @extend .tab-content;
-        display: grid;
-        grid-template-columns: 50% 50%;
-        /* justify-content: space-between; */
-        border: {
-            style: solid;
-            width: 1px 0px;
-            color: $border-color;
-        }
+//     .general {
+//         @extend .tab-content;
+//         display: grid;
+//         grid-template-columns: 50% 50%;
+//         /* justify-content: space-between; */
+//         border: {
+//             style: solid;
+//             width: 1px 0px;
+//             color: $border-color;
+//         }
 
-    }
+//     }
 
-    .props {
-        margin-bottom: 100px;
+//     .props {
+//         margin-bottom: 100px;
 
-        h4 {
-            text-align: center;
+//         h4 {
+//             text-align: center;
 
-        }
-    }
+//         }
+//     }
 
-    p.magnet {
-        overflow: scroll;
-    }
-}
+//     p.magnet {
+//         overflow: scroll;
+//     }
+// }
 
-mat-expansion-panel {
-    max-height: 700px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
+// mat-expansion-panel {
+//     max-height: 700px;
+//     overflow-y: scroll;
+//     overflow-x: hidden;
+// }
 
 mat-accordion {
     //    ::-webkit-scrollbar-track {
@@ -140,15 +141,15 @@ mat-accordion {
     //    }
 }
 
-.trucn {
-    width: 97%;
-}
+// .trucn {
+//     width: 97%;
+// }
 
-mat-list-item {
-    padding-right: 0;
-    padding-left: 0;
+// mat-list-item {
+//     padding-right: 0;
+//     padding-left: 0;
 
-    span {
-        width: 100px;
-    }
-}
+//     span {
+//         width: 100px;
+//     }
+// }
