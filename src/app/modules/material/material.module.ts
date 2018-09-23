@@ -2,7 +2,7 @@ import { MatButtonModule, MatTabsModule, MatCardModule, MatTooltipModule, MatDia
          MatSidenavModule, MatProgressBarModule, MatIconModule, MatSelectModule, MatTableModule,
          MatSlideToggleModule, MatListModule, MatInputModule, MatFormFieldModule, MatSnackBarModule,
          MatDividerModule, MatToolbarModule, MatTreeModule, MatExpansionModule , MatPaginatorModule
-         , MatProgressSpinnerModule, MatBadgeModule,  MAT_SNACK_BAR_DEFAULT_OPTIONS, MatChipsModule, MatChip} from '@angular/material';
+         , MatProgressSpinnerModule, MatBadgeModule,  MAT_SNACK_BAR_DEFAULT_OPTIONS, MatChipsModule} from '@angular/material';
          import { LayoutModule } from '@angular/cdk/layout';
 
 import 'Hammerjs';
@@ -23,7 +23,8 @@ import {NgbTabsetModule, NgbAlertModule , NgbRatingModule} from '@ng-bootstrap/n
     MatSelectModule, MatListModule, NgbRatingModule,
     MatSlideToggleModule, MatInputModule,
     MatDividerModule, MatPaginatorModule,
-    MatExpansionModule , MatProgressSpinnerModule
+    MatExpansionModule , MatProgressSpinnerModule,
+
   ],
   exports: [
     MatButtonModule, MatTableModule,

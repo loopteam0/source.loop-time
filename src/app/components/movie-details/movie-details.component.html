@@ -1,15 +1,15 @@
-<div id="details-page">
-  <div *ngIf="false" class="errorHandler">
-    <h1>
-      An error occured
-    </h1>
-    <button mat-raised-button color="accent" (click)="getmoviedetails()">RETRY</button>
-  </div>
+<div *ngIf="errorState" class="errorHandler">
+  <h1>
+    An error occured
+  </h1>
+  <button mat-raised-button color="accent" (click)="getmoviedetails()">RETRY</button>
+</div>
 
-  <!-- show spinner here -->
-  <app-spinner *ngIf="loading"></app-spinner>
+<!-- show spinner here -->
+<app-spinner *ngIf="loading"></app-spinner>
 
-  <mat-card class="main-card" *ngIf="!loading">
+<div id="details-page" >
+  <mat-card class="main-card" *ngIf="movieDetails">
     <div class="details-container animated fadeInLeft">
 
       <div class="details-image">
@@ -31,7 +31,7 @@
               </span>
             </ng-template>
             <ngb-rating [rate]="movieDetails.rating*5/10" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-
+            <span class="value">{{movieDetails.rating}}</span> <span class="small">/10 RATING</span>
           </div>
 
           <div class="runtime">
@@ -46,8 +46,8 @@
           </mat-chip-list>
 
           <div class="download-button">
-            <button  mat-button>DOWNLOAD</button>
-            <button mat-button>WATCH TRAILER</button>
+            <button (click)="openDialog(movieDetails.torrents)"  mat-raised-button>DOWNLOAD <mat-icon>file_download</mat-icon> </button>
+            <button mat-raised-button (click)="watchTrailer(movieDetails.yt_trailer_code)">WATCH TRAILER <mat-icon>play_arrow</mat-icon> </button>
           </div>
         </div>
 
@@ -64,7 +64,7 @@
           </div>
         </mat-tab>
 
-        <mat-tab label="SCREENSHOTS">
+        <mat-tab label="SCREENSHOTS" *ngIf="movieDetails.medium_screenshot_image1">
           <div *ngIf="movieDetails.medium_screenshot_image1">
             <mat-card class="screenshots-card">
               <div class="screenshots">
@@ -76,8 +76,7 @@
           </div>
         </mat-tab>
 
-
-        <mat-tab label="MEDIA">
+        <mat-tab  label="MEDIA">
           <div class="general container">
 
             <div class="cat-1">
@@ -89,7 +88,7 @@
               <p>
                 <strong>subtitles: </strong>
                 <span>
-                  <a (click)="opensubtitle(movieDetails.imdb_code)">Here</a>
+                  <a (click)="openSubtitle(movieDetails.imdb_code)">Here</a>
                 </span>
               </p>
 
@@ -122,11 +121,11 @@
           </div>
         </mat-tab>
 
-        <mat-tab label="CAST">
-          <div class="container">
+        <mat-tab label="CAST" *ngIf="movieDetails.cast">
+          <div class="container cast">
             <div class="row">
               <div class="col" *ngFor="let item of movieDetails.cast">
-               <div><img [src]="item.url_small_image" alt=""></div>
+               <div class="placeholder"><img [src]="item.url_small_image" alt=""></div>
                 <p>{{item.name}}</p>
                 <p class="small">as</p>
                 <P>{{item.character_name}}</P>
@@ -142,59 +141,3 @@
 
 
 </div>
-
-<!-- <div class="tabs">
-        <h4>Download</h4>
-        <mat-tab-group mat-stretch-tabs>
-          <div *ngFor="let item of movieDetails.torrents">
-            <mat-tab label="{{item.quality}}">
-              <div class="tab-content ">
-                <div class="cat ">
-                  <div class="cat-1 ">
-                    <p>
-                      <strong>provider: </strong>
-                      <span>YTS</span>
-                    </p>
-                    <p>
-                      <strong>filesize: </strong>
-                      <span>{{item.size}}</span>
-                    </p>
-                    <p>
-                      <strong>quality: </strong>
-                      <span>{{item.quality}} </span>
-                    </p>
-                  </div>
-
-                  <div class="cat-2 ">
-                    <p>
-                      <strong>date uploaded: </strong>
-                      <span>{{item.date_uploaded}} </span>
-                    </p>
-                    <p>
-                      <strong>seeds: </strong>
-                      <span>{{item.seeds}}</span>
-                    </p>
-                    <p>
-                      <strong>peers: </strong>
-                      <span>{{item.peers}}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div class="download">
-                  <div class="button">
-                    <a class="animated fadeInUp" mat-fab href="{{item.url}}" (click)="openSnackBar(movieDetails.title_long , item.quality )"
-                    color="primary">
-                      <mat-icon>file_download</mat-icon>
-                    </a>
-                  </div>
-                </div>
-
-              </div>
-            </mat-tab>
-          </div>
-
-
-        </mat-tab-group>
-
-      </div> -->

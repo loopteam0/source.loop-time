@@ -29,34 +29,15 @@
         }
 
     }
-    // .download {
-    //     margin: 10px auto;
-    //     padding: 15px;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: space-around;
-    //     overflow: hidden;
 
-    //     .button {
-    //         a {
-    //             @include mat-elevation(2);
-    //             margin-bottom: 8px;
-    //             &:hover {
-    //                 @include mat-elevation-transition;
-    //                 @include mat-elevation(8);
-    //             }
-    //             &:active {
-    //                 @include mat-elevation(8);
-    //             }
-    //         }
-    //     }
-    // }
 
     .general {
         margin: 16px;
-        padding: 16px;
+        padding: 16px 0;
+        width: 95%;
         display: grid;
         grid-template-columns: 50% 50%;
+        overflow: hidden;
 
         border: {
             style: solid;

@@ -1,0 +1,83 @@
+@import "~@angular/material/theming";
+@import "../../../custom-theme";
+@import "../../scss/variables";
+@import "../../scss/details";
+
+
+    .download {
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        button {
+            @include mat-elevation(2);
+            margin-bottom: 8px;
+            &:hover {
+                @include mat-elevation-transition;
+                @include mat-elevation(8);
+            }
+            &:active {
+                @include mat-elevation(8);
+            }
+        }
+    }
+
+    .general {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        /* justify-content: space-between; */
+        border: {
+            style: solid;
+            width: 1px 0px;
+            color: $border-color;
+        }
+
+    }
+
+
+    h4 {
+        text-align: center;
+
+    }
+
+
+// div.scroll {
+//      ::-webkit-scrollbar-track {
+//          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+//          background-color: #F5F5F5;
+//      }
+
+//      ::-webkit-scrollbar {
+//          width: 10px;
+//          background-color: #F5F5F5;
+//      }
+
+//      ::-webkit-scrollbar-thumb {
+//          background-color: mat-color($primary);
+//          border: 1px solid mat-color($primary);
+//      }
+// }
+
+.trucn {
+    width: 97%;
+}
+
+mat-list-item {
+    padding-right: 0;
+    padding-left: 0;
+
+    span {
+        width: 100px;
+    }
+}
+
+.errorHandler{
+  text-align: center;
+  margin: auto auto;
+
+}
+
+mat-dialog-content{
+  overflow-y: hidden;
+}

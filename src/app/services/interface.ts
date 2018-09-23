@@ -42,4 +42,5 @@ export interface MoviesInt {
     last_episode_to_air: object;
     next_episode_to_air: any;
     networks: Array<any>;
+    background_image_original: any;
 }

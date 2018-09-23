@@ -10,9 +10,10 @@ import { Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 export interface DialogData {
-  animal: string;
+  torrents: object;
   name: string;
 }
+
 
 @Component({
   selector: 'app-movie-details',
@@ -38,6 +39,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   getmoviedetails() {
     // start the loadig spinner
     this.loading = true;
+    this.errorState = false;
     // pass the movie id to the getMoviesDetails function
     this.request.getMovieDetails(this.Id).subscribe(data => {
       this.movieDetails = data;
@@ -62,10 +64,11 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     this.getmoviedetails();
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(downloadDialog, {
-      width: '250px',
-      data: {}
+  openDialog(data): void {
+    const dialogRef = this.dialog.open(MovieDownloadDialogComponent, {
+      data: {
+        torrents: this.movieDetails
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -78,7 +81,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     this.snackBar.open(`Downloading ${title} ${quality}` , 'close');
   }
 
-  opensubtitle(url) {
+  openSubtitle(url) {
     if (this.electron.isElectron()) {
       this.electron.shell.openExternal(
         `www.yifysubtitles.com/movie-imdb/${url}`
@@ -88,9 +91,9 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  openTrailer(code) {
+  watchTrailer(code) {
     let url = `https://www.youtube.com/embed/${code}`;
-          window.open(url);
+    window.open(url);
   }
 
   showError(err){
@@ -107,16 +110,30 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
 @Component({
   selector: 'download-dialog',
-  templateUrl: 'download-dialog.html',
+  templateUrl: './movie-download-dialog.html',
+  styleUrls : ['./movie-download-dialog.scss']
 })
-export class downloadDialog {
+export class MovieDownloadDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<downloadDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    public dialogRef: MatDialogRef<MovieDownloadDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,public snackBar: MatSnackBar,
+   private electron: ElectronService
+    ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  openSnackBar(title: string, quality: string) {
+    this.snackBar.open(`Downloading ${title} ${quality}` , 'close');
+  }
+
+  download(url){
+    this.electron.shell.openItem(url);
+  }
+
+  // retry(){
+  //   this.el.
+  // }
 }

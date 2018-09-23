@@ -4,7 +4,18 @@ import { ParamMap } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 
 import { SearchService } from '../../services/search.service';
-import { tap } from '../../../../node_modules/rxjs/operators';
+import { Inject} from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
+export interface DialogData {
+  episodes : object,
+  lenght: any,
+  loading: any,
+  error: any
+}
+
+//declare the id to be used acrose all components
+let val;
 
 @Component({
   selector: 'app-show-details',
@@ -14,15 +25,15 @@ import { tap } from '../../../../node_modules/rxjs/operators';
 export class ShowDetailsComponent implements OnInit, OnDestroy {
   errorState = false;
   showDetails;
-  episodes ;
   Id;
   imdb_id;
   showDataloading;
-  episodesLoading;
-  length;
 
-  constructor( private request: SearchService, public snackBar: MatSnackBar, private route: ActivatedRoute)
-             {}
+  constructor(
+    private dialog: MatDialog,
+    private request: SearchService,
+    public snackBar: MatSnackBar,
+    private route: ActivatedRoute){}
 
 
   requestShowDetails() {
@@ -41,44 +52,37 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
 
   }
 
-  requestShowEpisodes(size, page) {
-    // start spinner
-    this.episodesLoading = true;
-    // get the list of episodes form eztv
-    this.request.getShowEpisopse(this.Id, size, page)
-    .subscribe( (data) => {
-      this.episodes = data['torrents'];
-      this.length = data['torrents_count'];
-      this.episodesLoading = false;
-    }, err => this.showError(err));
-  }
 
   ngOnInit() {
     this.route.paramMap.subscribe( (params: ParamMap) => {
         const imdb_id = params.get('imdb_id');
        // get imdb_id without tt
         this.Id = imdb_id.substr(2);
+        val = this.Id;
       });
 
       this.requestShowDetails();
-      this.requestShowEpisodes(50, 1);
   }
 
 
-  page(e) {
-    console.log(e);
-    this.episodesLoading = true;
-    // get the list of episodes form eztv
-    this.request.getShowEpisopse(this.Id, e.pageSize, (e.pageIndex + 1))
-      .subscribe((data) => {
-        this.episodes = data['torrents'];
-        this.episodesLoading = false;
-      });
+
+
+  openDialog(data): void {
+    const dialogRef = this.dialog.open(ShowDownloadDialogComponent, {
+     // width: '250px',
+      // data: {
+      //   lenght: this.length
+      // }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
   }
 
   RETRY(){
     this.requestShowDetails();
-    this.requestShowEpisodes(50, 1);
   }
 
   openSnackBar(title: string) {
@@ -91,5 +95,100 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy() {
+   // this.imdb_id.unsubscribe();
   }
+}
+///
+///
+///
+////
+////
+///
+////
+///
+////
+//
+
+@Component({
+  selector: 'show-download-dialog',
+  templateUrl: './shows-download-dialog.html',
+  styleUrls: ['./shows-download-dialog.scss']
+})
+export class ShowDownloadDialogComponent  implements OnInit, OnDestroy{
+  errorState = false;
+  loading;
+  episodes ;
+  Id;
+  length;
+
+  constructor(
+    public dialogRef: MatDialogRef<ShowDownloadDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private snackBar: MatSnackBar,
+    private request: SearchService,
+    ) {}
+
+    ngOnInit(): void {
+      //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+      //Add 'implements OnInit' to the class.
+      this.requestShowEpisodes(50, 1);
+      this.Id = this.data['Id'];
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  openSnackBar(title: string) {
+    this.snackBar.open(`Downloading ${title} ` , 'close');
+  }
+
+  showError(err){
+    this.snackBar.open(err);
+  }
+
+
+  requestShowEpisodes(size, page) {
+    // start spinner
+    this.loading = true;
+    this.errorState = false;
+
+    this.request.getShowEpisopse(val, size, page)
+    .subscribe( (data) => {
+      this.episodes = data['torrents'];
+      this.length = data['torrents_count'];
+   //   val = this.length;
+      this.loading = false;
+    }, err =>{
+       this.showError(err);
+       this.errorState = true;
+      this.loading = false;
+      });
+  }
+
+  retry(){
+    this.requestShowEpisodes(50, 1);
+  }
+
+  page(e) {
+    console.log(e);
+    this.errorState = false;
+    this.loading = true;
+
+    this.request.getShowEpisopse(this.Id , e.pageSize, (e.pageIndex + 1))
+      .subscribe((data) => {
+        this.episodes = data['torrents'];
+        this.loading = false;
+      }, err => {
+        this.showError(err);
+        this.errorState = true;
+        this.loading = false;
+      });
+  }
+
+  ngOnDestroy(){
+   // this.request.getShowEpisopse(0 ,0,0).unsubscribe();
+ //  this.episodes.unsubscribe();
+  }
+
 }

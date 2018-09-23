@@ -5,15 +5,31 @@
 
 $image-width : 14rem;
 $min-image-width: 10rem;
+
+
 #details-page{
     margin: 0;
-    background-color: aqua;
-  //  background-image: '../../assets/large-screenshot3.jpg';
+  // background-color: rgb(66, 65, 65);
+    background-image: url(https://tpc.googlesyndication.com/simgad/17335331763946427382?sqp=4sqPyQQrQikqJwhaEAEdAAC0QiABKAEwCTgDQPCTCUgAUAFYAWBacAJ4AcUBLbKdPg&rs=AOga4qmYVDojGhEV8UMtJL00dSELzyBg1g);
+    position: relative;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     padding: 160px 20px 0px 20px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   //  background-size: cover;
   //  background: fixed;
+}
+
+.main-card{
+  min-height: 550px;
+  margin-bottom: 30px;
 }
 .details-container {
  //   position: relative;
@@ -67,7 +83,7 @@ $min-image-width: 10rem;
       display: inline;
       padding-bottom: 20px;
       margin-left: 5px;
-      position: relative;
+    //  position: relative;
       top: -4px;
 
     }
@@ -89,6 +105,11 @@ $min-image-width: 10rem;
         overflow: hidden;
         color: red;
       }
+
+      .value{
+        font-size: 1.4rem;
+        margin-left: 4px;
+      }
     }
 
     .runtime{
@@ -96,17 +117,27 @@ $min-image-width: 10rem;
 
       p{
         display: inline;
+        margin-left: 3px;
       }
     }
     .download-button{
-      margin-top: 30px;
+      margin-top: 25px;
+
+      button{
+        margin-right: 20px;
+      }
+
+      mat-icon{
+        opacity: 0.7;
+      }
     }
   }
 
   .properties{
-
-    position: relative;
+    padding-top: 0;
+   // position: relative;
     top: -80px;
+    min-height: 230px;
 
     .tab-group{
       padding-top: 8px;
@@ -115,6 +146,7 @@ $min-image-width: 10rem;
     .container{
       margin-top: 10px;
     }
+
 
     .cast{
       .row{
@@ -128,10 +160,18 @@ $min-image-width: 10rem;
 
         p{
           text-align: center;
-          margin-bottom: 5px;
+          margin: 0px;
         }
         p.small{
-          font-size: .8rem;
+          margin: 0;
+          padding: 0;
+        }
+        .placeholder{
+          width: 60px;
+          height: 60px;
+          background-color: #d4d3d3;
+          margin: auto;
+          border-radius: 50%;
         }
       }
     }

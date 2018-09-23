@@ -1,0 +1,58 @@
+
+ <div class="tabs">
+        <h4 mat-dialog-title>Download</h4>
+
+        <mat-dialog-content>
+        <mat-tab-group mat-stretch-tabs>
+          <div *ngFor="let item of data.torrents.torrents">
+            <mat-tab label="{{item.quality}}">
+              <div class="tab-content">
+                <div class="cat ">
+                  <div class="cat-1 ">
+                    <p>
+                      <strong>provider: </strong>
+                      <span>YTS</span>
+                    </p>
+                    <p>
+                      <strong>filesize: </strong>
+                      <span>{{item.size}}</span>
+                    </p>
+                    <p>
+                      <strong>quality: </strong>
+                      <span>{{item.quality}} </span>
+                    </p>
+                  </div>
+
+                  <div class="cat-2 ">
+                    <p>
+                      <strong>date uploaded: </strong>
+                      <span>{{item.date_uploaded}} </span>
+                    </p>
+                    <p>
+                      <strong>seeds: </strong>
+                      <span>{{item.seeds}}</span>
+                    </p>
+                    <p>
+                      <strong>peers: </strong>
+                      <span>{{item.peers}}</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="download">
+                  <div class="button">
+                    <a class="animated fadeInUp" mat-fab [href]="item.url" (click)="openSnackBar(data.torrents.title_long , item.quality )"
+                    color="primary">
+                      <mat-icon>file_download</mat-icon>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            </mat-tab>
+          </div>
+
+
+        </mat-tab-group>
+      </mat-dialog-content>
+  </div>

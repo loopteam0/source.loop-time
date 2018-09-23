@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { map } from "rxjs/operators";
 import { TorrentSearchApiService } from "../../services/torrent-search-api.service";
-import { TorrentSearchApi } from '../../../assets/providers/torrent-search-api';
+import { TorrentSearchApi } from 'torrent-search-api';
 import { MatSnackBar } from '@angular/material';
 import { ElectronService } from "../../services/electron.service";
 
@@ -15,10 +15,11 @@ export class AnimesListComponent implements OnInit {
   results;
   loading;
   searchLoading;
-  TorrentApi;
+  TorrentApi: typeof TorrentSearchApi;
   errorState = false;
 
-  constructor(private Torrent: TorrentSearchApiService, 
+  constructor(
+    //private Torrent: TorrentSearchApiService,
     private snackbar: MatSnackBar,
      private electron: ElectronService) {
 
@@ -32,34 +33,46 @@ export class AnimesListComponent implements OnInit {
     this.showTorrents();
   }
 
-  showTorrents() {
+ async showTorrents() {
     this.loading = true;
-    this.Torrent.getAnimes('anime', 50).subscribe(res => {
-      this.animes = res;
-      this.loading = false;
-    this.errorState = false;
-  },
-    err => {
-      this.loading = false;
-      this.errorState = true;
-    });
+    this.TorrentApi.enableProvider('Rarbg');
+    this.TorrentApi.enableProvider('1337x');
+
+    await TorrentSearchApi.search('deadpool', 'Movies', 10).subscribe(
+      res => console.log(res)
+
+    );
+
   }
 
-  search(title) {
-    this.searchLoading = true;
-    this.Torrent.getAnimes(title, 50).subscribe(res => {
-      this.animes = res;
-      this.loading = false;
-  },
-    err => {
-      this.showError(err);
-      this.loading = false;
-    });
-  }
+  // showTorrents() {
+  //   this.loading = true;
+  //   this.Torrent.getAnimes('anime', 50).subscribe(res => {
+  //     this.animes = res;
+  //     this.loading = false;
+  //   this.errorState = false;
+  // },
+  //   err => {
+  //     this.loading = false;
+  //     this.errorState = true;
+  //   });
+  // }
 
-  download(torrent) {
-    this.Torrent.downloadMagnet(torrent);
-  }
+  // search(title) {
+  //   this.searchLoading = true;
+  //   this.Torrent.getAnimes(title, 50).subscribe(res => {
+  //     this.animes = res;
+  //     this.loading = false;
+  // },
+  //   err => {
+  //     this.showError(err);
+  //     this.loading = false;
+  //   });
+  // }
+
+  // download(torrent) {
+  //   this.Torrent.downloadMagnet(torrent);
+  // }
 
   showError(err){
     this.snackbar.open(err);

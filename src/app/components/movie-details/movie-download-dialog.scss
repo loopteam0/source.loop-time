@@ -1,0 +1,49 @@
+@import "~@angular/material/theming";
+@import "../../scss/variables";
+@import "../../scss/mixins";
+@import "../../scss/details";
+@import "../../../custom-theme.scss ";
+
+
+h4{
+  text-align: center;
+}
+
+strong{
+  text-transform: capitalize;
+}
+
+ .download {
+        margin: 10px auto;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        overflow: hidden;
+
+        .button {
+            a {
+                @include mat-elevation(2);
+                margin-bottom: 8px;
+                &:hover {
+                    @include mat-elevation-transition;
+                    @include mat-elevation(8);
+                }
+                &:active {
+                    @include mat-elevation(8);
+                }
+            }
+        }
+    }
+
+    .tab-content {
+      margin: 5px 16px;
+      padding: 16px;
+
+      .cat {
+          display: grid;
+          grid-template-columns: 50% 50%;
+
+      }
+
+  }

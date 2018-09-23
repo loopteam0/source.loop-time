@@ -4,152 +4,56 @@
 @import "../../scss/details";
 
 
-// .details-container {
-//     max-width: $content-width;
-//     margin: auto;
-//     padding: 20px 50px;
 
-//     border: {
-//         style: solid;
-//         width: 0px 1px;
-//         color: $border-color;
-//     }
+.screenshots {
+  display: flex;
+  flex-direction: row;
 
-//     strong {
-//         text-transform: capitalize;
-//     }
-//     .title {
-//         h3 {
-//             margin: 0;
-//             padding: {
-//                 top: 8px;
-//                 bottom: 8px;
-//             }
-//             border: {
-//                 style: solid;
-//                 width: 0 0 1px 0;
-//                 color: $border-color;
-//             }
-//         }
+  img {
+      width: 50%;
+      height: 140px;
+      &:last-child {
+          margin-left: 5px;
+      }
+  }
+}
+.tab-content {
+  margin: 5px 16px;
+  padding: 16px;
 
-//         p {
-//             border-bottom: 1px solid $border-color;
-//             margin: 0 0 50px 0;
-//             padding: {
-//                 top: 4px;
-//                 bottom: 4px;
-//             }
-//         }
-//     }
+  .cat {
+      display: grid;
+      grid-template-columns: 50% 50%;
 
-//     .details-image {
-//         @include mat-elevation(24);
-//         width: 16rem;
-//         margin: auto;
+  }
 
-//         mat-card {
-//             width: inherit;
-//             margin: 0;
-//             padding: 0;
+}
+.general {
+  margin: 16px;
+  padding: 16px 0;
+  width: 95%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  overflow: hidden;
 
-//             img {
-//                 height: inherit;
-//                 border-radius: inherit;
-//                 width: inherit;
-//             }
-//         }
+  border: {
+      style: solid;
+      width: 0 0 1px 0;
+      color: $border-color;
+  }
+  strong{
+    text-transform: capitalize;
+  }
+  .cat-1 {
+      a {
+          cursor: pointer;
+          color: mat-color($primary);
+          &:hover {
+              color: darken($color: mat-color($primary), $amount: 5%);
+              transition: 0.3s;
+          }
+      }
+  }
 
-//     }
-
-//     .storyline {
-//         margin: 30px auto;
-
-//     }
-
-//     .tab-content {
-//         margin: 16px;
-//         padding: 16px;
-
-//     }
-//     .download {
-//         margin: auto;
-//         margin-bottom: 30px;
-//         display: flex;
-//         align-items: center;
-//         justify-content: space-around;
-
-//         button {
-//             @include mat-elevation(2);
-//             margin-bottom: 8px;
-//             &:hover {
-//                 @include mat-elevation-transition;
-//                 @include mat-elevation(8);
-//             }
-//             &:active {
-//                 @include mat-elevation(8);
-//             }
-//         }
-//     }
-
-//     .general {
-//         @extend .tab-content;
-//         display: grid;
-//         grid-template-columns: 50% 50%;
-//         /* justify-content: space-between; */
-//         border: {
-//             style: solid;
-//             width: 1px 0px;
-//             color: $border-color;
-//         }
-
-//     }
-
-//     .props {
-//         margin-bottom: 100px;
-
-//         h4 {
-//             text-align: center;
-
-//         }
-//     }
-
-//     p.magnet {
-//         overflow: scroll;
-//     }
-// }
-
-// mat-expansion-panel {
-//     max-height: 700px;
-//     overflow-y: scroll;
-//     overflow-x: hidden;
-// }
-
-mat-accordion {
-    //    ::-webkit-scrollbar-track {
-    //        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    //        background-color: #F5F5F5;
-    //    }
-    //
-    //    ::-webkit-scrollbar {
-    //        width: 10px;
-    //        background-color: #F5F5F5;
-    //    }
-    //
-    //    ::-webkit-scrollbar-thumb {
-    //        background-color: mat-color($primary);
-    //        border: 1px solid mat-color($primary);
-    //    }
 }
 
-// .trucn {
-//     width: 97%;
-// }
-
-// mat-list-item {
-//     padding-right: 0;
-//     padding-left: 0;
-
-//     span {
-//         width: 100px;
-//     }
-// }

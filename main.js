@@ -80,37 +80,35 @@ app.on('activate', () => {
 
 // Handle all downloads
 function downloadHandler() {
-    win.webContents.session.on('will-download', (event, item, webContents) => {
-        // Set the save path, making Electron not to prompt a save dialog.
-        let fileName = `[LOOP] ${item.getFilename()}`;
-        const downloadPath = `${homeDir}\\Downloads\\LoopTime\\${fileName}`
-        item.setSavePath(downloadPath)
+win.webContents.session.on('will-download', (event, item, webContents) => {
+  // Set the save path, making Electron not to prompt a save dialog.
+   // Set the save path, making Electron not to prompt a save dialog.
+   let fileName = `[LOOP] ${item.getFilename()}`;
+   const downloadPath = `${homeDir}\\Downloads\\LoopClient\\${fileName}`
+   item.setSavePath(downloadPath)
 
-        // onUpdated check for error
-        item.on('updated', (event, state) => {
-            if (state === 'interrupted') {
-                console.log('Download is interrupted but can be resumed')
-                item.setSavePath(item.getFilename())
-            } else if (state === 'progressing') {
-                if (item.isPaused()) {
-                    console.log('Download is paused')
-                } else {
-                    console.log(`Received bytes: ${item.getReceivedBytes()}`)
-                }
-            }
-        })
+  item.on('updated', (event, state) => {
+    if (state === 'interrupted') {
+      console.log('Download is interrupted but can be resumed')
+    } else if (state === 'progressing') {
+      if (item.isPaused()) {
+        console.log('Download is paused')
+      } else {
+        console.log(`Received bytes: ${item.getReceivedBytes()}`)
+      }
+    }
+  })
+  item.once('done', (event, state) => {
+    if (state === 'completed') {
+      console.log('Download successfully');
+      shell.beep();
+      shell.openExternal(downloadPath);
+    } else {
+      console.log(`Download failed: ${state}`)
+    }
+  })
+})
 
-        // once download completes
-        item.once('done', (event, state) => {
-            if (state === 'completed') {
-                console.log('Download successfully');
-                shell.beep();
-                shell.openExternal(downloadPath)
-            } else {
-                console.log(`Download failed: ${state}`)
-            }
-        })
-    })
 }
 
 

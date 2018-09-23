@@ -1,0 +1,48 @@
+<h4 mat-dialog-title>Download</h4>
+<mat-dialog-content  data-simplebar data-simplebar-auto-hide="false">
+<div class="props">
+  <div class="tabs">
+
+      <div class="scroll" >
+    <div *ngIf="errorState" class="errorHandler">
+        <h1>
+          An error occured
+        </h1>
+        <button mat-raised-button color="accent" (click)="requestShowEpisodes()">RETRY</button>
+   </div>
+
+        <app-spinner *ngIf="loading"></app-spinner>
+
+        <mat-nav-list *ngFor="let episode of episodes">
+
+          <mat-list-item *ngIf="!loading" class="animated bounceInRight">
+
+            <a class="trucn" matTooltip="{{episode.date_released_unix * 1000 | date:'full'}}" matLine href="{{episode.torrent_url}}"
+              (click)="openSnackBar(episode.title)">{{episode.title}}</a>
+            <span>{{episode.size_bytes | convert}}</span>
+
+            <a mat-icon-button href="{{episode.torrent_url}} " (click)="openSnackBar(episode.title)" class="series-link">
+              <mat-icon matTooltip="Seeds: {{episode.seeds}} || Peers: {{episode.peers}}  " color="primary">file_download</mat-icon>
+            </a>
+
+            <mat-divider [inset]="true"></mat-divider>
+
+          </mat-list-item>
+
+        </mat-nav-list>
+
+      </div>
+
+
+    <div class="mb-2"></div>
+    <div *ngIf="true" class="container">
+      <div id="pagination">
+        <mat-paginator [length]="length" [pageSize]="50" [pageSizeOptions]="[100 ,50, 30 ]" (page)="page($event)">
+        </mat-paginator>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</mat-dialog-content>

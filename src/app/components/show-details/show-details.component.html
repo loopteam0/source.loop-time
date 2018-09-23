@@ -1,4 +1,4 @@
-<div id="details-page">
+
     <div *ngIf="errorState" class="errorHandler">
         <h1>
           An error occured
@@ -6,76 +6,122 @@
           <button mat-raised-button color="accent" (click)="RETRY()">RETRY</button>
    </div>
 
-    <!-- show spinner here -->
-    <app-spinner *ngIf="showDataloading"></app-spinner>
+   <app-spinner *ngIf="showDataloading"></app-spinner>
 
-  <mat-card *ngIf="showDetails" class="main-card">
-    <div class="details-container animated fadeInLeft" *ngIf="true">
+   <div id="details-page" *ngIf="!showDataloading" >
+  <mat-card class="main-card" *ngIf="showDetails">
+    <div class="details-container animated fadeInLeft">
 
       <div class="details-image">
-      <mat-card>
-         <img class="card-img-top" src="{{showDetails.images.banner}}" alt="image not found">
-           <!-- <img class="card-img-top" src="../../../assets/large-cover.jpg" alt="image not found"> -->
-      </mat-card>
+        <mat-card>
+          <img class="card-img-top" src="{{showDetails.images.banner}}" alt="image not found">
+        </mat-card>
       </div>
 
       <div class="flex-flow">
+
         <div class="title-head">
-            <h3>{{showDetails.title}}</h3>
+          <h1>{{showDetails.title}}</h1> <span class="year">({{showDetails.year}})</span>
 
-            <mat-chip-list >
-              <mat-chip *ngFor="let item of showDetails.genres">{{item}}</mat-chip>
-            </mat-chip-list>
+          <div class="rating">
+            <ng-template #t let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
 
-            <div>
+              </span>
+            </ng-template>
+            <ngb-rating [rate]="showDetails.rating.percentage/100*5" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+            <span class="value">{{showDetails.rating.percentage}}% </span> <span class="small"> {{showDetails.rating.votes}} VOTES</span>
 
-            </div>
+          </div>
+          <!-- <div>
+              <mat-icon>thumb_up</mat-icon><span class="value"> {{showDetails.rating.votes}}</span><span class="small"> VOTES</span>
+          </div> -->
+          <div class="runtime">
+            <mat-icon>query_builder </mat-icon>
+            <p>{{showDetails.runtime}}min</p>
+            <p>| {{showDetails.status | ucwords}}</p>
+            <p>| {{showDetails.air_day}} on {{showDetails.air_time}}</p>
+          </div>
+
+
+
+          <mat-chip-list>
+            <mat-chip *ngFor="let item of showDetails.genres">{{item}}</mat-chip>
+          </mat-chip-list>
+
+          <div class="download-button">
+            <button (click)="openDialog(showDetails.torrents)" color="default"  mat-raised-button>ALL EPISODES <mat-icon>file_download</mat-icon></button>
+            <!-- <button mat-button>WATCH TRAILER</button> -->
+          </div>
         </div>
 
+      </div>
+    </div>
 
-      <mat-tab-group class="tab-group" >
+    <mat-card class="properties">
 
+      <mat-tab-group mat-stretch-tabs class="tab-group">
         <mat-tab label="INFO">
           <div class="container">
-            <p><strong>Storyline:</strong> {{showDetails.synopsis}} </p>
+            <p class="body">
+              <strong>Storyline:</strong> {{showDetails.synopsis}} </p>
           </div>
         </mat-tab>
 
-        <mat-tab label="MEDIA">
-            <div class="general">
-                <div class="cat-1">
-                    <p><strong>title: </strong> <span>{{showDetails.title}} </span></p>
-                    <p><strong>imdb_id: </strong><span>{{showDetails._id}} </span> </p>
-                    <p><strong>year: </strong> <span>{{showDetails.year}} </span></p>
-                    <p><strong>runtime: </strong> <span>{{showDetails.runtime}}min</span></p>
-                </div>
-                <div class="cat-2">
-                    <p><strong>network: </strong> <span>{{showDetails.network}} </span></p>
-                    <p><strong>rating: </strong> <span>{{showDetails.rating.percentage}}% </span></p>
-                    <p><strong>provider: </strong> <span>EZTV </span></p>
-                    <p><strong>genres: </strong> <span>{{showDetails.genres}} </span></p>
-                </div>
-            </div>
+        <mat-tab label="SCREENSHOTS">
+          <div *ngIf="showDetails.medium_screenshot_image1">
+            <mat-card class="screenshots-card">
+              <div class="screenshots">
+                <img src="{{showDetails.medium_screenshot_image1}}" alt="">
+                <img src="{{showDetails.medium_screenshot_image2}}" alt="">
+                <!-- <img src="{{showDetails.medium_screenshot_image3}}" alt=""> -->
+              </div>
+            </mat-card>
+          </div>
         </mat-tab>
 
-      </mat-tab-group>
-    </div>
+        <mat-tab  label="MEDIA">
+          <div class="general container">
 
-    </div>
+              <div class="cat-1">
+                  <p><strong>network: </strong> <span>{{showDetails.network}} </span></p>
+                  <p><strong>air day: </strong> <span>{{showDetails.air_day}}</span></p>
+                  <p><strong>air time: </strong> <span>{{showDetails.air_time}} </span></p>
+                  <p><strong>status: </strong> <span>{{showDetails.status}} </span></p>
+                </div>
+                <div class="cat-2">
+                  <p><strong>provider: </strong> <span>EZTV </span></p>
+                  <p><strong>Country: </strong> <span>{{showDetails.country}} </span></p>
+                  <p><strong>seasons: </strong> <span>{{showDetails.num_seasons}} </span></p>
+                  <p><strong>last updated: </strong> <span>{{showDetails.last_updated | date:'half'}} </span></p>
+              </div>
+
+          </div>
+        </mat-tab>
+
+        <mat-tab label="CAST" *ngIf="showDetails.cast">
+          <div class="container cast">
+            <div class="row">
+              <div class="col" *ngFor="let item of showDetails.cast">
+               <div><img [src]="item.url_small_image" alt=""></div>
+                <p>{{item.name}}</p>
+                <p class="small">as</p>
+                <P>{{item.character_name}}</P>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+    </mat-card>
+
   </mat-card>
 
 
   </div>
 
-
-
-
-
-<!--
-
-
-
-<div class="details-container animated fadeInLeft" *ngIf="showDetails">
+<!-- <div class="details-container animated fadeInLeft" *ngIf="showDetails">
     <div class="title">
         <h3 class="">{{showDetails.title}}</h3>
         <p class="">Posted on {{showDetails.air_day}} {{showDetails.air_time}}</p>
@@ -87,64 +133,5 @@
         </mat-card>
     </div>
 
-    <div class="props">
-        <mat-card color="primary">
-            <mat-card-content>
-
-                <h4>Media info</h4>
-
-
-                 <div class="tabs">
-                    <h4>Download</h4>
-                    <mat-accordion>
-                        <mat-expansion-panel data-simplebar data-simplebar-auto-hide="false" >
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    All Episodes
-                                </mat-panel-title>
-                                <mat-panel-description>
-                                    All Avaliable TV Series in 720p and 1080p Quality || EZTV only
-                                </mat-panel-description>
-                            </mat-expansion-panel-header>
-
-                            <app-spinner *ngIf="episodesLoading"></app-spinner>
-
-                            <mat-nav-list *ngFor="let episode of episodes">
-
-                                <mat-list-item *ngIf="!episodesLoading" class="animated bounceInRight">
-
-                                    <a class="trucn" matTooltip="{{episode.date_released_unix * 1000 | date:'full'}}" matLine href="{{episode.torrent_url}}" (click)="openSnackBar(episode.title)">{{episode.title}}</a>
-                                    <span>{{episode.size_bytes | convert}}</span>
-
-                                    <a mat-icon-button href="{{episode.torrent_url}} " (click)="openSnackBar(episode.title)" class="series-link">
-                                        <mat-icon matTooltip="Seeds: {{episode.seeds}} || Peers: {{episode.peers}}  " color="primary">file_download</mat-icon>
-                                    </a>
-
-                                    <mat-divider [inset]="true"></mat-divider>
-
-                                </mat-list-item>
-
-                            </mat-nav-list>
-
-                        </mat-expansion-panel>
-                    </mat-accordion>
-                    <div class="mb-2"></div>
-                    <div *ngIf="true" class="container">
-                        <div id="pagination">
-                           <mat-paginator [length]="length"
-                              [pageSize]="50"
-                              [pageSizeOptions]="[100 ,50, 30 ]" (page)="page($event)">
-                            </mat-paginator>
-                        </div>
-                    </div>
-                </div>
-
-            </mat-card-content>
-        </mat-card>
-
-    </div>
-
-
 </div>
-<app-quote></app-quote>
- -->
+  -->
