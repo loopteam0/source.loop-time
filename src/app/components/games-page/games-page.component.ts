@@ -9,30 +9,46 @@ import { MatSnackBar } from '@angular/material';
 })
 export class GamesPageComponent implements OnInit {
   Games;
+  PirateGames;
   loading;
   errorState = false;
   constructor(private Torrent: TorrentSearchApiService, private snackbar: MatSnackBar) {}
 
   ngOnInit() {
     this.showTorrents();
+    this.pirateGet();
   }
 
   showTorrents() {
     this.loading = true;
-    this.Torrent.getGames("2018", 50).subscribe(res => {
+    this.errorState = false;
+    this.Torrent.getGames("2018", 50).then(res => {
       this.Games = res;
       this.loading = false;
     this.errorState = false;
-  },
+  }).catch(
     err => {
       this.loading = false;
       this.errorState = true;
     });
   }
 
-  searchTorrents(title) {
+  pirateGet(){
+    this.Torrent.pirateBayTop(400).then(
+      res =>{
+         console.log(res);
+        this.PirateGames = res;
+        }
+    ).catch(
+      err => {
+        console.log(err)
+      }
+    )
+  }
+
+  search(title) {
     this.loading = true;
-    this.Torrent.getGames(title, 30).subscribe(res => {
+    this.Torrent.getGames(title, 30).then(res => {
       this.Games = res;
       this.loading = false;
   },

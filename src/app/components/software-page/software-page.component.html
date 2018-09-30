@@ -18,17 +18,19 @@
     <div>
 
             <div class="container">
+              <div *ngIf="errorState" class="errorHandler">
+                  <h1>
+                      An error occured
+                  </h1>
+                  <button mat-raised-button color="accent" (click)="showSoftwares()">RETRY</button>
+              </div>
+
+               <app-spinner *ngIf="loading"></app-spinner>
+
                 <div class="wrapper">
+                    <button mat-raised-button class="btn-refresh" *ngIf="Softwares" (click)="showSoftwares()">REFRESH </button>
 
-                   <div *ngIf="errorState" class="errorHandler">
-                       <h1>
-                           An error occured
-                       </h1>
-                       <button mat-raised-button color="accent" (click)="showSoftwares()">RETRY</button>
-                   </div>
-
-                    <app-spinner *ngIf="loading"></app-spinner>
-                    <div *ngIf="softwares" class="mat-elevation-z5">
+                    <div *ngIf="Softwares" class="mat-elevation-z5">
 
                         <table class="table table-borderless table-hover">
 
@@ -44,7 +46,7 @@
                                 </tr>
                             </thead>
 
-                            <tbody *ngFor='let item of softwares | truthify'>
+                            <tbody *ngFor='let item of Softwares | truthify'>
                                 <tr class="animated bounceInUp">
                                     <th scope="row">
                                         <mat-icon>apps</mat-icon>

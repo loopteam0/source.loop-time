@@ -1,15 +1,20 @@
-<div *ngIf="errorState" class="errorHandler">
-  <h1>
-    An error occured
-  </h1>
-  <button mat-raised-button color="accent" (click)="getmoviedetails()">RETRY</button>
-</div>
+<div id="details-page">
+
+ <mat-card  *ngIf="errorState" class="error-card errorHandler">
+   <mat-card-content>
+      <div >
+          <h1>
+            An error occured
+          </h1>
+          <button mat-raised-button color="accent" (click)="getmoviedetails()">RETRY</button>
+        </div>
+   </mat-card-content>
+ </mat-card>
 
 <!-- show spinner here -->
 <app-spinner *ngIf="loading"></app-spinner>
 
-<div id="details-page" >
-  <mat-card class="main-card" *ngIf="movieDetails">
+  <mat-card class="main-card animated fadeInDown" *ngIf="movieDetails">
     <div class="details-container animated fadeInLeft">
 
       <div class="details-image">

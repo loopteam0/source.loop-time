@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material';
 export class SoftwarePageComponent implements OnInit {
 
  // dataSource = new TorrentSource(Torrent);
-  softwares;
+  Softwares;
   loading;
   searching;
   results;
@@ -34,12 +34,12 @@ export class SoftwarePageComponent implements OnInit {
 
   showSoftwares() {
      this.loading = true;
-    this.Torrent.getSoftwares('2018' , 50 ).subscribe(
+    this.Torrent.getSoftwares('2018' , 50 ).then(
       res => {
-        this.softwares = res;
+        this.Softwares = res;
         this.loading = false;
         this.errorState = false;
-    }, 
+    },
       err =>{
         this.showError(err);
         this.loading = false;
@@ -49,16 +49,17 @@ export class SoftwarePageComponent implements OnInit {
   }
 
 
-  searchSoftwares(key) {
-    this.searching = true;
-    this.Torrent.getSoftwares(key , 30).subscribe(
+  search(key) {
+    this.loading = true;
+    this.errorState = false;
+    this.Torrent.getSoftwares(key , 30).then(
       res => {
-        this.results = res;
-        this.searching = false;
-    }, 
+        this.Softwares = res;
+        this.loading = false;
+    },
       err => {
         this.showError(err);
-        this.searching = false;
+        this.loading = false;
     });
 
   }
@@ -87,16 +88,4 @@ export interface torrent {
 }
 
 
-// export class TorrentSource extends DataSource<any> {
 
-//     constructor(private Torrent: TorrentSearchApiService ) {
-//         super();
-//     }
-// title;
-// limit;
-//     connect(): Observable<torrent[]> {
-//       return  this.Torrent.getSoftwares();
-//     }
-
-//     disconnect() {}
-// }

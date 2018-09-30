@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ["./book-page.component.scss"]
 })
 export class BookPageComponent implements OnInit {
-  others;
+  Others;
   loading;
   searchLoading;
   errorState = false;
@@ -20,8 +20,8 @@ export class BookPageComponent implements OnInit {
 
   showTorrents() {
     this.loading = true;
-    this.Torrent.getOthers("books", 50).subscribe(res => {
-      this.others = res;
+    this.Torrent.getOthers("books", 50).then(res => {
+      this.Others = res;
       this.loading = false;
     this.errorState = false;
     }, err => {
@@ -32,8 +32,9 @@ export class BookPageComponent implements OnInit {
 
   search(title) {
     this.loading = true;
-    this.Torrent.getOthers(title, 30).subscribe(res => {
-      this.others = res;
+    this.errorState = false;
+    this.Torrent.getOthers(title, 30).then(res => {
+      this.Others = res;
       this.loading = false;
     }, err => {
     this.showError(err);

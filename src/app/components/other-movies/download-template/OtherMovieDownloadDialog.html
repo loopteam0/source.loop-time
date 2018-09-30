@@ -1,0 +1,40 @@
+
+ <div class="tabs">
+
+     <h4 mat-dialog-title>Download</h4>
+
+
+    <mat-dialog-content data-simplebar data-simplebar-auto-hide="false" >
+
+    <div *ngIf="errorState" class="error-card errorHandler">
+        <h1>
+          An error occured
+        </h1>
+        <button mat-raised-button color="accent" (click)="showMovies()">RETRY</button>
+      </div>
+
+
+         <!-- show spinner here -->
+
+         <div class="spinner-cont">
+           <div class="spinner" *ngIf="loading"></div>
+         </div>
+
+        <div class="tabs">
+            <div class=""  class="files">
+
+                <mat-nav-list *ngFor="let item of movies | truthify">
+                    <mat-list-item class="animated bounceInRight">
+                        <a class="trucn" matTooltip="{{item.provider}} || {{item.time}}" matLine
+                        >{{item.title}}</a>
+                        <span>{{item.size}}</span>
+                        <a mat-icon-button (click)="download(item)" class="series-link">
+                            <mat-icon matTooltip="Seeds: {{item.seeds}} || Peers: {{item.peers}}" color="primary">file_download</mat-icon>
+                        </a>
+                    </mat-list-item>
+                    <mat-divider [inset]="true"></mat-divider>
+                </mat-nav-list>
+            </div>
+        </div>
+  </mat-dialog-content>
+</div>

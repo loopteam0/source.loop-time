@@ -42,6 +42,7 @@ export class MoviesListComponent implements OnInit {
  /** Get Movies List from Yts */
   requestMoviesList(i) {
     this.moviesLoading = true;
+    this.errorState = false;
     this.pagination = false;
     this.request.getMoviesList(i, 50).subscribe(data => {
       this.Movies = data['movies'];

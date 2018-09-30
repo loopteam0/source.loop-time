@@ -28,7 +28,6 @@ import { ServiceInterceptor } from './services/service.interceptor';
 import { SanitizerPipe } from './pipes/sanitizer.pipe';
 import { ConvertPipe } from './pipes/convert.pipe';
 import { OpenExternalPipe } from './pipes/open-external.pipe';
-
 import { SearchService } from './services/search.service';
 import { ElectronService } from './services/electron.service';
 import { DurationPipe } from './pipes/duration.pipe';
@@ -39,7 +38,7 @@ import { FontModule } from './modules/font/font.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FanartTvService } from './services/fanart-tv.service';
 import { MovieDbService } from './services/movie-db.service';
-import { OtherMoviesComponent } from './components/other-movies/other-movies.component';
+import { OtherMoviesComponent, OtherMovieDownloadDialogComponent } from './components/other-movies/other-movies.component';
 import { MusicPageComponent } from './components/music-page/music-page.component';
 import { BookPageComponent } from './components/book-page/book-page.component';
 import { SoftwarePageComponent } from './components/software-page/software-page.component';
@@ -51,12 +50,16 @@ import { SharedModule } from './modules/shared/shared.module';
 import { CoreModule } from './modules/core/core.module';
 import { TorrentModule } from './modules/torrent/torrent.module';
 import { OthersModule } from './modules/others/others.module';
+import { ShowDefaultDialogComponent } from './components/show-details/default-dialog-dialog/shows-download.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     MovieDownloadDialogComponent,
+    OtherMovieDownloadDialogComponent,
     ShowDownloadDialogComponent,
+    ShowDefaultDialogComponent,
     SearchPageComponent,
     NavBarComponent,
     MainPageComponent,
@@ -96,13 +99,13 @@ import { OthersModule } from './modules/others/others.module';
 ,   SharedModule, CoreModule, TorrentModule, OthersModule,
     JsonpModule, NgxPaginationModule,
   ],
-  providers: [ SearchService, MovieDbService , ElectronService , FanartTvService,
+  providers: [ SearchService, MovieDbService , ElectronService , FanartTvService,DatePipe,
     { provide: HTTP_INTERCEPTORS,
       useClass: ServiceInterceptor,
       multi: true}
     ],
   bootstrap: [AppComponent],
-  entryComponents: [MovieDownloadDialogComponent,ShowDownloadDialogComponent]
+  entryComponents: [MovieDownloadDialogComponent,ShowDownloadDialogComponent , ShowDefaultDialogComponent, OtherMovieDownloadDialogComponent]
 })
 export class AppModule {
  }

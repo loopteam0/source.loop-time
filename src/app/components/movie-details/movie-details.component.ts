@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy,Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ParamMap } from '@angular/router';
 
@@ -6,14 +6,18 @@ import { MatSnackBar } from '@angular/material';
 
 import { SearchService } from '../../services/search.service';
 import { ElectronService } from '../../services/electron.service';
-import { Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { FanartTvService } from '../../services/fanart-tv.service';
 
 export interface DialogData {
   torrents: object;
   name: string;
 }
 
+export interface bgImages{
+  id: number;
+  url: string
+}
 
 @Component({
   selector: 'app-movie-details',
@@ -28,7 +32,11 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   parms;
   imdb_id;
   errorState = false;
+  background: Array<object >;
+  banner;
+
   constructor(
+    private fanartApi: FanartTvService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private request: SearchService,
@@ -91,6 +99,20 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  showImage(){
+    this.fanartApi.getMovieImages(this.imdb_id, 'movies').subscribe(
+      res => {
+        this.background = res['moviebackground'];
+        this.banner = res['moviebanner'];
+        console.log(this.background);
+        console.log(this.banner);
+
+      }
+    )
+  }
+
+
+
   watchTrailer(code) {
     let url = `https://www.youtube.com/embed/${code}`;
     window.open(url);
@@ -110,7 +132,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
 @Component({
   selector: 'download-dialog',
-  templateUrl: './movie-download-dialog.html',
+  templateUrl: './download-template/movie-download-dialog.html',
   styleUrls : ['./movie-download-dialog.scss']
 })
 export class MovieDownloadDialogComponent {

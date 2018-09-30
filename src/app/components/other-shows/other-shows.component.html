@@ -1,145 +1,127 @@
 
- <div *ngIf="errorState" class="errorHandler">
-   <h1>
-       An error occured
-   </h1>
-   <button mat-raised-button color="accent" (click)="showDetails()">RETRY</button>
-   </div>
-
-<!-- show spinner here -->
-<app-spinner *ngIf="loading"></app-spinner>
+<div id="details-page" *ngIf="!showDataloading" style="background-image: url(http://www.pixelstalk.net/wp-content/uploads/2016/07/1080p-Movie-Backgrounds-620x349.jpg)" >
 
 
-<div class="details-container animated fadeInLeft" *ngIf="details">
-    <div class="title">
-        <h3 class="">{{details.name}}</h3>
-        <p>Last Air Date on {{details.last_episode_to_air.air_date}}</p>
+  <div *ngIf="errorState" class="errorHandler">
+    <h1>
+        An error occured
+    </h1>
+    <button mat-raised-button color="accent" (click)="showDetails()">RETRY</button>
     </div>
 
+ <!-- show spinner here -->
+ <app-spinner *ngIf="loading"></app-spinner>
+
+<mat-card class="main-card" *ngIf="showDetails">
+  <div class="details-container animated fadeInLeft">
 
     <div class="details-image">
-        <mat-card>
-            <img class="card-img-top" src="{{imageurl}}{{details.poster_path}}" alt="image not found">
-        </mat-card>
-    </div>
-    <div class="storyline">
-        <mat-card>
-            <p class="body">
-                <strong>Storyline:</strong> {{details.overview}} </p>
-        </mat-card>
+      <mat-card>
+        <img class="card-img-top" src="{{showDetails.images.banner}}" alt="image not found">
+      </mat-card>
     </div>
 
-    <div class="props">
-        <mat-card>
-            <mat-card-content>
+    <div class="flex-flow">
 
-                <h4>Media info</h4>
-                <div class="general">
+      <div class="title-head">
+        <h1>{{showDetails.title}}</h1> <span class="year">({{showDetails.year}})</span>
 
-                    <div class="cat-1">
-                        <p>
-                            <strong>title: </strong>
-                            <span>{{details.original_name}} </span>
-                        </p>
+        <div class="rating">
+          <ng-template #t let-fill="fill">
+            <span class="star" [class.full]="fill === 100">
+              <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
 
-                        <p>
-                            <strong>original language: </strong>
-                            <span>{{details.original_language}} </span>
-                        </p>
-                        <p>
-                            <strong>country of origin: </strong>
-                            <span>{{details.origin_country}} </span>
-                        </p>
-                        <p>
-                            <strong>Status: </strong>
-                            <span>{{details.status}} </span>
-                        </p>
-                        <p>
-                            <strong>genres: </strong>
-                            <span *ngFor="let item of details.genres">
-                {{item.name}} </span>
-                        </p>
-                        <p>
-                            <strong>rating: </strong>
-                            <span>{{details.vote_average}} </span>
-                        </p>
-                        <p>
-                            <strong>Vote count: </strong>
-                            <span>{{details.vote_count}} </span>
-                        </p>
+            </span>
+          </ng-template>
+          <ngb-rating [rate]="showDetails.rating.percentage/100*5" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+          <span class="value">{{showDetails.rating.percentage}}% </span> <span class="small"> {{showDetails.rating.votes}} VOTES</span>
 
-                    </div>
-
-
-                    <div class="cat-2">
-                        <p>
-                            <strong>networks: </strong>
-                            <span *ngFor="let item of details.networks">
-                {{item.name}} </span>
-                        </p>
-                        <p>
-                            <strong>First Air date: </strong>
-                            <span>{{details.first_air_date}} </span>
-                        </p>
-                        <p>
-                            <strong>number of seasons: </strong>
-                            <span>{{details.number_of_seasons}} </span>
-                        </p>
-                        <p>
-                            <strong>number of epsides: </strong>
-                            <span>{{details.number_of_episodes}} </span>
-                        </p>
-                        <p>
-                            <strong>popularity: </strong>
-                            <span>{{details.popularity ? details.popularity : 'N/A'}} </span>
-                        </p>
-                        <p>
-                            <strong>next episode: </strong>
-                            <span>{{details.next_episode_to_air == null ? 'N/A' : details.next_episode_to_air.air_date}} </span>
-                        </p>
-                        <p>
-                            <strong>runtime: </strong>
-                            <span>{{details.episode_run_time}} </span>
-                        </p>
-
-
-                    </div>
-                </div>
+        </div>
+        <!-- <div>
+            <mat-icon>thumb_up</mat-icon><span class="value"> {{showDetails.rating.votes}}</span><span class="small"> VOTES</span>
+        </div> -->
+        <div class="runtime">
+          <mat-icon>query_builder </mat-icon>
+          <p>{{showDetails.runtime}}min</p>
+          <p>| {{showDetails.status | ucwords}}</p>
+          <p>| {{showDetails.air_day}} on {{showDetails.air_time}}</p>
+        </div>
 
 
 
-                <div class="tabs">
-                    <div>
-                        <h4>Download</h4>
-                    </div>
+        <mat-chip-list>
+          <mat-chip *ngFor="let item of showDetails.genres">{{item}}</mat-chip>
+        </mat-chip-list>
 
-    <button class="dwlod" mat-raised-button (click)="showEpisode(details.name,(details.number_of_episodes*3))"> {{Loop}} </button>
-<div class="clearfix"></div>
-                    
-                    <div data-simplebar data-simplebar-auto-hide="false" class="files">
-                        <app-spinner *ngIf="episodeloading"></app-spinner>
-                        <mat-nav-list *ngFor="let item of episodes | truthify">
-                            <mat-list-item class="animated bounceInUP">
-                                <a matTooltip="{{item.provider}} || {{item.time}}" matLine >{{item.title}}</a>
-                                <span>{{item.size}}</span>
-                                <a mat-icon-button (click)="download(item)" class="series-link">
-                                    <mat-icon matTooltip="Seeds: {{item.seeds}} || Peers: {{item.peers}}  " color="primary">file_download</mat-icon>
-                                </a>
-                            </mat-list-item>
-                            <mat-divider [inset]="true"></mat-divider>
-                        </mat-nav-list>
-                    </div>
-                </div>
-            </mat-card-content>
-        </mat-card>
-
+        <div class="download-button">
+          <button (click)="openShowsDialog(showDetails)" mat-button mat-raised-button >ALL EPISODES <mat-icon>file_download</mat-icon></button>
+          <button (click)="openDialog(showDetails.torrents)" color="default"  mat-raised-button>ALL EPISODES (EZTV)  <mat-icon>file_download</mat-icon></button>
+        </div>
+      </div>
 
     </div>
+  </div>
+
+  <mat-card class="properties">
+
+    <mat-tab-group mat-stretch-tabs class="tab-group">
+      <mat-tab label="INFO">
+        <div class="container">
+          <p class="body">
+            <strong>Storyline:</strong> {{showDetails.synopsis}} </p>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="SCREENSHOTS">
+        <div *ngIf="showDetails.medium_screenshot_image1">
+          <mat-card class="screenshots-card">
+            <div class="screenshots">
+              <img src="{{showDetails.medium_screenshot_image1}}" alt="">
+              <img src="{{showDetails.medium_screenshot_image2}}" alt="">
+              <!-- <img src="{{showDetails.medium_screenshot_image3}}" alt=""> -->
+            </div>
+          </mat-card>
+        </div>
+      </mat-tab>
+
+      <mat-tab  label="MEDIA">
+        <div class="general container">
+
+            <div class="cat-1">
+                <p><strong>network: </strong> <span>{{showDetails.network}} </span></p>
+                <p><strong>provider: </strong> <span>EZTV </span></p>
+                <p><strong>air day: </strong> <span>{{showDetails.air_day}}</span></p>
+              </div>
+              <div class="cat-2">
+                <p><strong>Country: </strong> <span>{{showDetails.country}} </span></p>
+                <p><strong>seasons: </strong> <span>{{showDetails.num_seasons}} </span></p>
+                <p><strong>last updated: </strong> <span>{{showDetails.last_updated | date:'half'}} </span></p>
+            </div>
+
+        </div>
+      </mat-tab>
+
+      <mat-tab label="CAST" *ngIf="showDetails.cast">
+        <div class="container cast">
+          <div class="row">
+            <div class="col" *ngFor="let item of showDetails.cast">
+             <div><img [src]="item.url_small_image" alt=""></div>
+              <p>{{item.name}}</p>
+              <p class="small">as</p>
+              <P>{{item.character_name}}</P>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+  </mat-card>
+
+</mat-card>
 
 
 </div>
+
+
 <app-quote></app-quote>
-<!-- magnet:?xt=urn:btih:{{item.hash}}&dn=Rampage+%28
-magnet:?xt=urn:btih:{{item.hash}}&dn=Pacific+Rim%3A+Uprising+%28
-magnet:?xt=urn:btih:{{item.hash}}&dn=Pacific+Rim%3A+Uprising+%28
-magnet:?xt=urn:btih:{{item.hash}}&dn=Rampage+%28 -->
+

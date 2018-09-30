@@ -2,7 +2,8 @@ import { Component ,  OnInit, OnDestroy } from '@angular/core';
 import {  ActivatedRoute } from '@angular/router';
 import { ParamMap } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-
+import {  HttpErrorResponse, HttpClient } from '@angular/common/http';
+import { ShowDefaultDialogComponent } from './default-dialog-dialog/shows-download.component';
 import { SearchService } from '../../services/search.service';
 import { Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -64,15 +65,11 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
       this.requestShowDetails();
   }
 
-
-
-
   openDialog(data): void {
     const dialogRef = this.dialog.open(ShowDownloadDialogComponent, {
-     // width: '250px',
-      // data: {
-      //   lenght: this.length
-      // }
+      data:{
+        title: data.title
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -81,7 +78,23 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  openShowsDialog(data, title): void {
+    const dialogRef = this.dialog.open(ShowDefaultDialogComponent , {
+      data: {
+        torrents: data,
+        title: title
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
+  }
+
+
   RETRY(){
+    this.errorState= false;
     this.requestShowDetails();
   }
 
@@ -111,7 +124,7 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
 
 @Component({
   selector: 'show-download-dialog',
-  templateUrl: './shows-download-dialog.html',
+  templateUrl: './EZTV-download-dialog/shows-download-dialog.html',
   styleUrls: ['./shows-download-dialog.scss']
 })
 export class ShowDownloadDialogComponent  implements OnInit, OnDestroy{
@@ -132,7 +145,6 @@ export class ShowDownloadDialogComponent  implements OnInit, OnDestroy{
       //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
       //Add 'implements OnInit' to the class.
       this.requestShowEpisodes(50, 1);
-      this.Id = this.data['Id'];
     }
 
   onNoClick(): void {
@@ -160,6 +172,7 @@ export class ShowDownloadDialogComponent  implements OnInit, OnDestroy{
    //   val = this.length;
       this.loading = false;
     }, err =>{
+      console.log(err);
        this.showError(err);
        this.errorState = true;
       this.loading = false;
@@ -175,11 +188,12 @@ export class ShowDownloadDialogComponent  implements OnInit, OnDestroy{
     this.errorState = false;
     this.loading = true;
 
-    this.request.getShowEpisopse(this.Id , e.pageSize, (e.pageIndex + 1))
+    this.request.getShowEpisopse(val , e.pageSize, (e.pageIndex + 1))
       .subscribe((data) => {
         this.episodes = data['torrents'];
         this.loading = false;
       }, err => {
+
         this.showError(err);
         this.errorState = true;
         this.loading = false;

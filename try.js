@@ -1,18 +1,10 @@
-const TorrentSearchApi = require('torrent-search-api');
+const KatApi = require('kat-api-pt')
 
-TorrentSearchApi.enableProvider('Rarbg');
-// Search '1080' in 'Movies' category and limit to 20 results
-let all;
+const kat = new KatApi({
+  baseUrl :'https://katcr.co/'
+})
 
-async function getTorrents() {     
-return await
-TorrentSearchApi.search('deadpool', 'Movies', 10); 
-
-}
-
-function display(){
- let t = getTorrents();
-
- console.log(t);
-}
-
+kat.search(
+  'adobe',
+  ).then(res => console.log(res))
+  .catch(err => console.error(err));

@@ -14,8 +14,8 @@ import { TorrentSearchApiService } from '../../services/torrent-search-api.servi
 })
 export class MusicPageComponent implements OnInit {
  loading;
- Musics;  
- errorState = false;   
+ Musics;
+ errorState = false;
 
   constructor(
     private Torrent: TorrentSearchApiService,
@@ -32,38 +32,43 @@ export class MusicPageComponent implements OnInit {
 
   showMusics() {
     this.loading = true;
+    this.errorState = false;
     this.Torrent.getMusics('2018', 50)
-      .subscribe(torrents => {     
-        this.Musics = torrents;
+      .then(torrents => {
+          this.Musics = torrents;
+          this.errorState = false;
         this.loading = false;
-      this.errorState = false;
       },
         err => {
       this.errorState = true;
       this.loading = false;
-
+      this.showError(err);
         }
       );
   }
 
-   searchMusic(title){
+   search(title){
        this.loading = true;
+       this.errorState = false;
     this.Torrent.getMusics(title, 30)
-      .subscribe(torrents => {     
+      .then(torrents => {
         this.Musics = torrents;
         this.loading = false;
       }, err => {
+        console.log(err);
       this.showError(err);
       this.loading = false;
       });
    }
-    
+
    download(torrent) {
     this.Torrent.downloadMagnet(torrent);
   }
 
   showError(err){
-    this.snackbar.open(err);
+    this.snackbar.open(err , null , {
+      duration: 3000
+    });
   }
 
 }

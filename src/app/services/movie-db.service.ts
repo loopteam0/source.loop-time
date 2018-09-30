@@ -26,14 +26,14 @@ export class MovieDbService {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       retryWhen(errors => errors.pipe(delay(500)));
-      console.error('An error occurred:', error.error.message);
+      console.error('An error occurred:', error.message);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
       console.error(`Backend returned code ${error.status}, body was: ${error.status}`);
     }
     // return an observable with a user-facing error message
-    return throwError('Something bad happened, check internet connection and retry.');
+    return throwError(`ERROR: ${error.message}`);
   }
 
 
@@ -84,7 +84,7 @@ getAiringToday(type , page): Observable<MoviesInt>  {
       return request;
 }
 
-getNowPlaying( page): Observable<MoviesInt>  {
+getNowPlaying(page): Observable<MoviesInt>  {
   const url = `${this.baseUrl}/movie/now_playing?api_key=${this.apiKey}&page=${page}&region=US`;
   const request = this.httpClient.get<MoviesInt>(url).pipe(
     retry(2), // retry a failed request up to 3 times
@@ -133,6 +133,8 @@ searchKeyword(keyword, type, page): Observable<any> {
 
     return request;
 }
+
+
 SearchAll( keyword, page): Observable<any> {
   const url = `${this.baseUrl}/search/multi?api_key=${this.apiKey}&query=${keyword}&page=${page}&language=en-US`;
   const request = this.httpClient.get(url).pipe(

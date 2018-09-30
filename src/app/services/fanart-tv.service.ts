@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, observable } from 'rxjs';
 import { MoviesInt } from './interface';
 import { catchError, retry, retryWhen, debounceTime, delay, throttle } from 'rxjs/operators';
 import { map, filter } from 'rxjs/operators';
@@ -9,6 +9,10 @@ import { throwError } from 'rxjs/internal/observable/throwError';
 
 
 // import { * } as TraktTv from 'trakt.tv';
+export interface bgImages{
+  id: number;
+  url: string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -39,14 +43,13 @@ export class FanartTvService {
   }
 
   // tslint:disable-next-line:one-line
-  getMovieImages(id , type){
-    // tslint:
-    let url = `${this.baseUrl}/${type}/${id}?api_key=${this.apiKey}`;
+  getMovieImages(id , type):Observable<bgImages[]>{
+    let url = `${this.baseUrl}/${type}/${id}?api_key=${this.apiKey1}`;
 
-   let request = this.http.get(url).pipe(
+   let request = this.http.get<bgImages[]>(url).pipe(
     retry(2),
     catchError(this.handleError)
-   );
+   )
 
    return request;
   }

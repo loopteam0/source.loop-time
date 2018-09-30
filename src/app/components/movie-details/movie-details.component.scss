@@ -4,7 +4,9 @@
 @import "../../scss/details";
 @import "../../../custom-theme.scss ";
 
-
+  p.body{
+    margin-bottom: 0;
+  }
 
     .screenshots {
         display: flex;
@@ -33,17 +35,13 @@
 
     .general {
         margin: 16px;
-        padding: 16px 0;
+        margin-bottom: 0;
+        padding: 16px 0 0 0;
         width: 95%;
         display: grid;
         grid-template-columns: 50% 50%;
         overflow: hidden;
 
-        border: {
-            style: solid;
-            width: 0 0 1px 0;
-            color: $border-color;
-        }
         strong{
           text-transform: capitalize;
         }
@@ -60,6 +58,45 @@
 
     }
 
+    .main-card{
+      height: 550px;
+      max-height: 550px;
+      margin-bottom: 30px;
+    }
+
+    #details-page{
+      padding: 160px 20px 580px 20px;
+  }
 
 
+    .cast{
+      .row{
+        margin-top: 10px;
+
+        img{
+          display: block;
+          margin: auto;
+          border-radius: 50%;
+        }
+
+        p{
+          text-align: center;
+          margin: 0px;
+        }
+        p.small{
+          margin: 0;
+          padding: 0;
+        }
+        .placeholder{
+          width: 60px;
+          height: 60px;
+          background-color: #d4d3d3;
+          margin: auto;
+          border-radius: 50%;
+        }
+      }
+    }
+    .screenshots-card{
+      padding-bottom: 5px;
+    }
 

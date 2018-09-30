@@ -1,8 +1,8 @@
-<mat-sidenav-container [class.darkTheme]="darkTheme">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'push' : 'side'" [opened]="!(isHandset$ | async)">
+<mat-sidenav-container  [class.darkTheme]="darkTheme">
+    <mat-sidenav   #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'push' : 'side'" [opened]="!(isHandset$ | async)">
         <mat-toolbar color="primary">Menu</mat-toolbar>
         <!-- [opened]="!(isHandset$ | async)" -->
-        <mat-nav-list>
+        <mat-nav-list >
             <a mat-list-item [routerLink]="['/trending']" routerLinkActive="active">
                 <mat-icon>new_releases</mat-icon> Trending</a>
                 <mat-divider></mat-divider>
@@ -13,8 +13,8 @@
             <a mat-list-item [routerLink]="['/animes']" routerLinkActive="active" class="indent">
                 <mat-icon>local_movies
                 </mat-icon> Anime</a>
-            <!-- <a mat-list-item [routerLink]="['/search']" routerLinkActive="active">
-                <mat-icon>search</mat-icon> Search</a> -->
+             <a mat-list-item [routerLink]="['/search']" routerLinkActive="active">
+                <mat-icon>search</mat-icon> PirateBay Search</a>
             <mat-divider></mat-divider>
 
             <a mat-list-item [routerLink]="['/games']" routerLinkActive="active" class="">
@@ -35,7 +35,7 @@
 
         </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content [ngStyle]="{'show': (!isHandset$ | async)}" >
+    <mat-sidenav-content  [ngStyle]="{'show': (!isHandset$ | async)}" >
       <div [ngStyle]="{'menu-toggler': (isHandset$ | async)}">
       <button class="menu-toggler" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
@@ -47,7 +47,7 @@
            <mat-slide-toggle (change)="change()" >Switch Theme</mat-slide-toggle>
         </mat-toolbar> -->
         <!-- Add Content Here -->
-        <router-outlet>
+        <router-outlet >
 
         </router-outlet>
 

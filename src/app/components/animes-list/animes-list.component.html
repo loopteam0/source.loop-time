@@ -18,7 +18,7 @@
     <div>
             <div class="container">
 
-                   <div *ngIf="errorState" class="errorHandler">
+                   <div *ngIf="anime" class="errorHandler">
                        <h1>
                            An error occured
                        </h1>
@@ -26,7 +26,10 @@
                    </div>
 
                 <app-spinner *ngIf="loading"></app-spinner>
+
                 <div class="wrapper">
+                  <button mat-raised-button class="btn-refresh" *ngIf="animes" (click)="showTorrents()">REFRESH </button>
+
                     <div class="mat-elevation-z5">
                         <table *ngIf="animes" class="table table-borderless table-hover">
 
@@ -35,8 +38,8 @@
                                     <th scope="col">#</th>
                                     <th class="align" scope="col">Title</th>
                                     <th scope="col">Time</th>
-                                    <th scope="col">size</th>
-                                    <th scope="col">seeds</th>
+                                    <th scope="col">Size</th>
+                                    <th scope="col">Seeders</th>
                                     <th scope="col">Peers</th>
                                     <th scope="col">Download</th>
                                 </tr>

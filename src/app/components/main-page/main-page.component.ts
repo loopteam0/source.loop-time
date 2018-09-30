@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material';
 import { MovieDbService } from '../../services/movie-db.service';
 import { timer } from 'rxjs';
 
@@ -9,48 +9,26 @@ import { timer } from 'rxjs';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent implements OnInit {
-  public Movies;
-  public MoviesNowPlaying;
-  public showsAiringToday;
-  public topRatedShows;
-  public UpcomigMovies;    
+export class MainPageComponent implements OnInit, OnDestroy {
+
+  public upcomingMovies;
   public Animes;
   public Shows;
   public Pages;
+  loading;
 
-  animesLoading;
-    
-  NewMoviesLoading; 
-//  moviesLoading;
-  showsLoading;
-  moviesLoading;
   errorMsg = 'An unknown error occured while requesting';
 
   animePage;
   pgNumber;
   /** PAGINATION */
-  length = 200;
+  length;
   pageSize = 20;
   pageIndex;
   pageSizeOptions = [20];
   imageurl;
-  /*image url example
-  https://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg
-  backdrop otptions
-  "w300",
-  "w780",
-  "w1280",
-  "original"
+  errorState: boolean;
 
-  poster
-  "w92",
-  "w154",
-  "w185",
-  "w342",
-  "w500",
-  "w780",
-  "original"*/
 
   constructor(
     private movieDB: MovieDbService,
@@ -58,140 +36,88 @@ export class MainPageComponent implements OnInit {
     private router: Router,
   ) {
     this.imageurl = 'https://image.tmdb.org/t/p/w500';
-    this.showsLoading = true;
-    this.moviesLoading = true;
   }
 
   time = timer(2000);
   ngOnInit() {
-
- //this.showUpcomingMovies(1);
-      
-    this.showTopRatedList(1);
-
     this.showMoviesNowPlayingList(1);
-
-    this.showAiringTodayList(1);
-
-    this.showTopRatedShowsList(1);
   }
 
-  /** Get Movies List from Yts */
-  showTopRatedList(i) {
-    this.movieDB.getTopRated('movie', i).subscribe(
-      res => {
-        this.Movies = res['results'];
-      }, err => this.showError(err));
-  }
+
   /** Get upcoming Movies List from Yts */
-  showUpcomingMovies(i) {
-    this.movieDB.getUpcoming(i).subscribe(
-      res => {
-        this.UpcomigMovies = res['results'];
-      }, err => { this.showError(err)});
-  }
-
-
   showMoviesNowPlayingList(i) {
+    this.loading = true;
     this.movieDB.getNowPlaying(i).subscribe(
       res => {
-        this.MoviesNowPlaying = res['results'];
-    }, err => this.showError(err));
+        this.upcomingMovies = res['results'];
+        this.length = res['total_results'];
+        this.loading = false;
+        this.errorState = false;
+    }, err =>{
+       this.showError(err);
+       this.loading = false;
+       this.errorState = true;
+      });
   }
 
-
-  showAiringTodayList(i) {
-    this.movieDB.getAiringToday('tv', i).subscribe(
-      res => {
-        this.showsAiringToday = res['results'];
-    }, err => this.showError(err));
-  }
-
-  showTopRatedShowsList(i) {
-    this.movieDB.getTopRated('tv', i).subscribe(
-      res => {
-        this.topRatedShows = res['results'];
-    }, err => this.showError(err));
-  }
-
-
-  opensnackbar(index, cat) {
-    this.snackBar.open(`${cat}: Page ${index} is loading please Wait . . . `);
-  }
-
-
-  errorSnack() {
-    this.snackBar.open(`An unknown error occured`);
-  }
-  
-  showError(data) {
-  const errorSnackRef =  this.snackBar.open(data, 'retry', {
-      duration: 50000,
+  showError(err) {
+  const errorSnackRef =  this.snackBar.open(err, 'retry', {
+      duration: 10000,
     });
-
     errorSnackRef.onAction().subscribe(
       res => {
-        this.showTopRatedList(1);
-
         this.showMoviesNowPlayingList(1);
 
-        this.showAiringTodayList(1);
-
-        this.showTopRatedShowsList(1);
-      }); 
-  
+      });
   }
 
+  search(keyword){
+    this.loading = true;
+    this.errorState = false;
 
-  // paginations with angular material
+    this.movieDB.searchKeyword(keyword,'movie',1).subscribe(
+      res => {
+        this.upcomingMovies = res;
+        this.loading = false;
+        this.errorState = false;
+      },err =>{
+        this.loading = false;
+        this.errorState = false;
+        this.showError(err);
+      }
+    )
+  }
 
   Page(e, cat) {
-    switch (cat) {
-      case 'Upcoming Movies':
-        this.opensnackbar((e.pageIndex + 1), cat);
-         this.showUpcomingMovies((e.pageIndex + 1));
+    this.loading = true;
+    this.errorState = false;
+    this.movieDB.getNowPlaying(e.pageIndex+1).subscribe(
+      res => {
+        this.errorState = false;
+        this.loading = false;
+        this.upcomingMovies = res['results'];
+    }, err =>{
+      this.loading = false;
+      this.errorState = true;
+       this.showError(err);
 
-        break;
-        
-        case 'Most Rated Movies':
-        this.opensnackbar((e.pageIndex + 1), cat);
-        this.showTopRatedList((e.pageIndex + 1));
-
-        break;
-
-      case 'New Movies':
-        this.opensnackbar((e.pageIndex + 1), cat);
-        this.showMoviesNowPlayingList((e.pageIndex + 1));
-
-        break;
-
-      case 'Tv Shows Airing today':
-        this.showAiringTodayList((e.pageIndex + 1));
-        this.opensnackbar((e.pageIndex + 1), cat);
-
-        break;
-
-      case 'Top Rated Shows':
-        this.showTopRatedShowsList((e.pageIndex + 1));
-        this.opensnackbar((e.pageIndex + 1), cat);
-
-        break;
-      default:
-        this.errorSnack();
-    }
+      });
   }
 
 
   onSelectMovie(movie) {
     this.router.navigate(['/trending/movies/', movie.id]);
-
-  }
-  onSelectShow(show) {
-    this.router.navigate(['/trending/shows/', show.id]);
   }
 
+  opensnackbar(index, cat) {
+    this.snackBar.open(`${cat}: Page ${index} is loading please Wait . . . `);
+  }
 
-  navigateTop() {
-    window.scrollTo(0, 0);
+  errorSnack() {
+    this.snackBar.open(`An unknown error occured`);
+  }
+
+  ngOnDestroy(){
+
   }
 }

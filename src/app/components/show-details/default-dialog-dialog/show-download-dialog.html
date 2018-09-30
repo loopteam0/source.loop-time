@@ -1,0 +1,46 @@
+<h4 mat-dialog-title>{{data.title}}</h4>
+
+<div class="clearfix"></div>
+<div class=" clearfix left">
+  <span>240p</span>
+  <span>480p</span>
+  <span>720p</span>
+</div>
+<div class="clearfix"></div>
+
+<mat-dialog-content data-simplebar data-simplebar-auto-hide="false">
+
+
+      <div class="scroll">
+
+        <div *ngIf="!data.torrents" class="errorHandler">
+          <h1>
+            An error occured
+          </h1>
+          <button mat-raised-button color="accent" (click)="retry()">RETRY</button>
+        </div>
+        <app-spinner *ngIf="!data.torrents"></app-spinner>
+
+
+        <mat-nav-list >
+
+          <mat-list-item  *ngFor="let episode of data.torrents|orderBy:['-season','-episode']" class="width animated bounceInRight">
+
+            <h3 class="trucn" matTooltip="{{episode.overview}}" matLine >{{episode.title}}</h3>
+
+            <p class="trucn" matLine>Season:
+              {{episode.season}} Episode: {{episode.episode}}</p>
+
+            <a mat-icon-button *ngFor="let item of episode.torrents| values" (click)="download(item.url,episode.title)"
+              class="series-link">
+              <mat-icon matTooltip="Seeds: {{item.seeds}} || Peers: {{item.peers}}  " color="primary">file_download</mat-icon>
+            </a>
+            <mat-divider></mat-divider>
+
+          </mat-list-item>
+
+        </mat-nav-list>
+
+      </div>
+
+</mat-dialog-content>

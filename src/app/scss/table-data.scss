@@ -27,6 +27,17 @@ h4.lead {
 .wrapper {
     width: 100%;
     margin-bottom: 3rem;
+    margin-top: 1rem;
+
+    .btn-refresh{
+      float: right;
+      margin-bottom: 5px;
+
+    &::after{
+      clear: both;
+      display: block;
+    }
+    }
 }
 
 .container-fluid {
@@ -36,7 +47,7 @@ h4.lead {
 table {
     margin-bottom: 0;
     padding-bottom: 0;
-    
+
     mat-icon{
         color: inherit;
         opacity: 0.7;

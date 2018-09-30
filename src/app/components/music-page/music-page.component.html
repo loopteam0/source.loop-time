@@ -18,17 +18,18 @@
     <div>
 
             <div class="container">
+              <div *ngIf="errorState" class="errorHandler">
+                  <h1>An error occured</h1>
+                  <button mat-raised-button color="accent" (click)="showMusics()">RETRY</button>
+              </div>
+
+              <app-spinner *ngIf="loading"></app-spinner>
+
                 <div class="wrapper">
-
-                <div *ngIf="errorState" class="errorHandler">
-                    <h1>An error occured</h1>
-                    <button mat-raised-button color="accent" (click)="showMusics()">RETRY</button>
-                </div>
-
-                <app-spinner *ngIf="loading"></app-spinner>
+                    <button mat-raised-button class="btn-refresh" *ngIf="Musics" (click)="showMusics()">REFRESH </button>
 
                     <div class="mat-elevation-z5">
-                        <table *ngIf="musics" class="table table-borderless table-hover">
+                        <table *ngIf="Musics" class="table table-borderless table-hover">
 
                             <thead>
                                 <tr>

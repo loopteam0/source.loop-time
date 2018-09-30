@@ -1,122 +1,160 @@
-<div *ngIf="errorState" class="errorHandler">
-   <h1>
-       An error occured
-   </h1>
-   <button mat-raised-button color="accent" (click)="showDetails()">RETRY</button>
-   </div>
-<!-- show spinner here -->
-<app-spinner *ngIf="loading"></app-spinner>
 
+<div id="details-page" >
 
-<div  class="details-container animated fadeInLeft" *ngIf="details">
-    <div class="title">
-        <h3 class="">{{details.title}}</h3>
-        <p>Released on {{details.release_date}}</p>
-    </div>
+  <mat-card  *ngIf="errorState" class="error-card errorHandler">
+    <mat-card-content>
+       <div >
+           <h1>
+             An error occured
+           </h1>
+           <button mat-raised-button color="accent" (click)="getmoviedetails()">RETRY</button>
+         </div>
+    </mat-card-content>
+  </mat-card>
 
+ <!-- show spinner here -->
+ <app-spinner *ngIf="loading"></app-spinner>
 
-    <div class="details-image">
-        <mat-card>
-            <img class="card-img-top" src="{{imageurl}}{{details.poster_path}}" alt="image not found">
+   <mat-card class="main-card" *ngIf="movieDetails">
+     <div class="details-container animated fadeInLeft">
 
-        </mat-card>
-    </div>
+       <div class="details-image">
+         <mat-card>
+           <img class="card-img-top" src="{{imageurl}}{{movieDetails.poster_path}}" alt="image not found">
+         </mat-card>
+       </div>
 
-    <div class="storyline">
-        <mat-card>
-            <p class="body">
-                <strong>Storyline:</strong> {{details.overview}} </p>
-        </mat-card>
-    </div>
+       <div class="flex-flow">
 
-    <div class="props">
-        <mat-card>
-            <mat-card-content>
+         <div class="title-head">
+           <h1>{{movieDetails.title}}</h1> <span class="year">({{movieDetails.release_date | date:"yyyy"}})</span>
 
-                <h4>Media info</h4>
-                <div class="general">
+           <div class="rating">
+             <ng-template #t let-fill="fill">
+               <span class="star" [class.full]="fill === 100">
+                 <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
 
-                    <div class="cat-1">
-                        <p>
-                            <strong>title: </strong>
-                            <span>{{details.original_title}} </span>
-                        </p>
-                        <p>
-                            <strong>year: </strong>
-                            <span>{{details.release_date}} </span>
-                        </p>
-                        <p>
-                            <strong>Language: </strong>
-                            <span>{{details.original_language}} </span>
-                        </p>
-                        <p>
-                            <strong>subtitles: </strong>
-                            <span>
-                <a (click)="opensubtitle(details.imdb_id)">Here</a>
-              </span>
-                        </p>
-                        <p>
-                            <strong>genres: </strong>
-                            <span>{{details.genres.name}} </span>
-                        </p>
-                    </div>
+               </span>
+             </ng-template>
+             <ngb-rating [rate]="movieDetails.vote_average/2" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+             <span class="value">{{movieDetails.vote_average}}</span>
+             <span class="small">/10 RATING</span>
+             <span class="value">{{movieDetails.vote_count}}</span>
+            <span class="small">VOTES</span>
+           </div>
 
-
-                    <div class="cat-2">
-                        <p>
-                            <strong>imdb_id: </strong>
-                            <span>{{details.imdb_id}} </span>
-                        </p>
-                        <p>
-                            <strong>runtime: </strong>
-                            <span>{{details.runtime | duration}} </span>
-                        </p>
-                        <p>
-                            <strong>rating: </strong>
-                            <span>{{details.vote_average}} </span>
-                        </p>
-                        <p>
-                            <strong>MPAA rating: </strong>
-                            <span>{{details.mpa_rating ? details.mpa_rating : 'N/A'}} </span>
-                        </p>
-                               
-
-                     </div>
-                </div>
+           <div class="runtime">
+             <mat-icon>query_builder</mat-icon>
+             <p>{{movieDetails.runtime |duration}}</p>
+           </div>
 
 
 
-                <div class="tabs">
-                    <div class="">
-                        <h4>Download</h4>
-                    </div>
-                    <button class="dwlod" mat-raised-button (click)="showMovies(details.title)"> {{Loop}} </button>
-                    <div class="clearfix"></div>
-                    <div class="" data-simplebar data-simplebar-auto-hide="false"  class="files">
-                        <app-spinner *ngIf="Moviesloading"></app-spinner>
-                        <mat-nav-list *ngFor="let item of movies | truthify">
-                            <mat-list-item class="animated bounceInRight">
-                                <a class="trucn" matTooltip="{{item.provider}} || {{item.time}}" matLine 
-                                >{{item.title}}</a>
-                                <span>{{item.size}}</span>
-                                <a mat-icon-button (click)="download(item)" class="series-link">
-                                    <mat-icon matTooltip="Seeds: {{item.seeds}} || Peers: {{item.peers}}" color="primary">file_download</mat-icon>
-                                </a>
-                            </mat-list-item>
-                            <mat-divider [inset]="true"></mat-divider>
-                        </mat-nav-list>
-                    </div>
-                </div>
-            </mat-card-content>
-        </mat-card>
+           <mat-chip-list>
+             <mat-chip *ngFor="let item of movieDetails.genres">{{item.name}}</mat-chip>
+           </mat-chip-list>
+
+           <div class="download-button">
+             <button (click)="openDialog(movieDetails.title,movieDetails.release_date )"  mat-raised-button>DOWNLOAD <mat-icon>file_download</mat-icon> </button>
+           </div>
+         </div>
+
+       </div>
+     </div>
+
+     <mat-card class="properties">
+
+       <mat-tab-group mat-stretch-tabs class="tab-group">
+         <mat-tab label="INFO">
+           <div class="container">
+             <p class="body">
+               <strong>Storyline:</strong> {{movieDetails.overview}} </p>
+           </div>
+         </mat-tab>
+
+         <mat-tab label="SCREENSHOTS" *ngIf="movieDetails.medium_screenshot_image1">
+           <div *ngIf="movieDetails.medium_screenshot_image1">
+             <mat-card class="screenshots-card">
+               <div class="screenshots">
+                 <img src="{{movieDetails.medium_screenshot_image1}}" alt="">
+                 <img src="{{movieDetails.medium_screenshot_image2}}" alt="">
+                 <!-- <img src="{{movieDetails.medium_screenshot_image3}}" alt=""> -->
+               </div>
+             </mat-card>
+           </div>
+         </mat-tab>
+
+         <mat-tab  label="MEDIA">
+           <div class="general container">
+
+             <div class="cat-1">
+               <p>
+                   <strong>Website: </strong>
+                   <span><a href="{{movieDetails.homepage}}">{{movieDetails.homepage}}</a> </span>
+                 </p>
+
+               <p>
+                 <strong>Language: </strong>
+                 <span>{{movieDetails.original_language}} </span>
+               </p>
+               <p>
+                 <strong>Subtitles: </strong>
+                 <span>
+                   <a (click)="openSubtitle(movieDetails.imdb_id)">Here</a>
+                 </span>
+               </p>
+
+               <p>
+                   <strong>Released: </strong>
+                   <span>{{movieDetails.release_date}} </span>
+                 </p>
 
 
-    </div>
+             </div>
+
+             <div class="cat-2">
 
 
-</div>
-<app-quote></app-quote>
-<!-- magnet:?xt=urn:btih:{{item.hash}}&dn=Rampage+%28
-magnet:?xt=urn:btih:{{item.hash}}&dn=Pacific+Rim%3A+Uprising+%28
-magnet:?xt=urn:btih:{{item.hash}}&dn=Pacific+Rim%3A+Uprising+%28
-magnet:?xt=urn:btih:{{item.hash}}&dn=Rampage+%28 -->
+               <p>
+                 <strong>Status: </strong>
+                 <span>{{movieDetails.status}} </span>
+               </p>
+
+               <p>
+                 <strong>Adult: </strong>
+                 <span>{{movieDetails.adult}} </span>
+               </p>
+               <p>
+                 <strong>budget: </strong>
+                 <span>{{movieDetails.budget| currency}} </span>
+               </p>
+
+               <p>
+                 <strong>Revenue: </strong>
+                 <span>{{movieDetails.revenue |currency}} </span>
+               </p>
+             </div>
+
+           </div>
+         </mat-tab>
+
+         <mat-tab label="Companies" *ngIf="movieDetails.production_companies">
+           <div class="container cast">
+             <div class="row">
+               <div class="col" *ngFor="let item of movieDetails.production_companies">
+                <div class="placeholder"><img src="{{imageurl}}{{item.logo_path}}" alt="Log Not Found"></div>
+                 <p>{{item.name}}</p>
+                 <P>{{item.origin_country}}</P>
+               </div>
+             </div>
+           </div>
+         </mat-tab>
+       </mat-tab-group>
+
+     </mat-card>
+
+   </mat-card>
+
+
+ </div>
+

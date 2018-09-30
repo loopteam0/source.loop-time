@@ -28,9 +28,11 @@
   <app-spinner *ngIf='loading'></app-spinner>
   <div class="container">
     <div class="wrapper">
+        <button mat-raised-button class="btn-refresh" *ngIf="Others" (click)="showTorrents()">REFRESH </button>
+
       <div class="mat-elevation-z8">
 
-        <table *ngIf="others" class="table table-borderless table-hover">
+        <table *ngIf="Others" class="table table-borderless table-hover">
 
           <thead>
             <tr>
@@ -44,7 +46,7 @@
             </tr>
           </thead>
 
-          <tbody *ngFor='let item of others | truthify'>
+          <tbody *ngFor='let item of Others | truthify'>
             <tr class="animated bounceInUp">
               <th scope="row">
                 <mat-icon>library_books</mat-icon>

@@ -30,7 +30,7 @@ const routes: Routes = [
   {path: 'animes', component: AnimesListComponent},
   {path: 'movies/:id/:imdb_id', component: MovieDetailsComponent },
   {path: 'shows/:imdb_id', component: ShowDetailsComponent },
-//  {path: 'trending/movies/:id', component: OtherMoviesComponent},
+  {path: 'trending/movies/:id', component: OtherMoviesComponent},
   {path: 'trending/shows/:id', component: OtherShowsComponent},
   {path: 'books', component: BookPageComponent},
   {path: 'games', component: GamesPageComponent},

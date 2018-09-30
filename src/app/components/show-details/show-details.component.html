@@ -1,14 +1,19 @@
+<div id="details-page">
 
-    <div *ngIf="errorState" class="errorHandler">
-        <h1>
-          An error occured
-        </h1>
-          <button mat-raised-button color="accent" (click)="RETRY()">RETRY</button>
-   </div>
+    <mat-card *ngIf="errorState"class="errorHandler error-card">
+      <mat-card-content>
+          <div  >
+              <h1>
+                An error occured
+              </h1>
+              <button mat-raised-button color="accent" (click)="RETRY()">RETRY</button>
+            </div>
+      </mat-card-content>
+    </mat-card>
+
 
    <app-spinner *ngIf="showDataloading"></app-spinner>
 
-   <div id="details-page" *ngIf="!showDataloading" >
   <mat-card class="main-card" *ngIf="showDetails">
     <div class="details-container animated fadeInLeft">
 
@@ -51,8 +56,8 @@
           </mat-chip-list>
 
           <div class="download-button">
-            <button (click)="openDialog(showDetails.torrents)" color="default"  mat-raised-button>ALL EPISODES <mat-icon>file_download</mat-icon></button>
-            <!-- <button mat-button>WATCH TRAILER</button> -->
+            <button (click)="openShowsDialog(showDetails.episodes, showDetails.title)" mat-button mat-raised-button >ALL EPISODES <mat-icon>file_download</mat-icon></button>
+            <button (click)="openDialog(showDetails)" color="default"  mat-raised-button>ALL EPISODES (EZTV)  <mat-icon>file_download</mat-icon></button>
           </div>
         </div>
 
@@ -70,15 +75,12 @@
         </mat-tab>
 
         <mat-tab label="SCREENSHOTS">
-          <div *ngIf="showDetails.medium_screenshot_image1">
-            <mat-card class="screenshots-card">
-              <div class="screenshots">
-                <img src="{{showDetails.medium_screenshot_image1}}" alt="">
-                <img src="{{showDetails.medium_screenshot_image2}}" alt="">
-                <!-- <img src="{{showDetails.medium_screenshot_image3}}" alt=""> -->
-              </div>
-            </mat-card>
+          <div class="report_problem alert alert-warning">
+            <h4>
+            <mat-icon>report_problem</mat-icon>  No Screenshots Found
+            </h4>
           </div>
+
         </mat-tab>
 
         <mat-tab  label="MEDIA">
@@ -86,15 +88,13 @@
 
               <div class="cat-1">
                   <p><strong>network: </strong> <span>{{showDetails.network}} </span></p>
+                  <p><strong>provider: </strong> <span>EZTV </span></p>
                   <p><strong>air day: </strong> <span>{{showDetails.air_day}}</span></p>
-                  <p><strong>air time: </strong> <span>{{showDetails.air_time}} </span></p>
-                  <p><strong>status: </strong> <span>{{showDetails.status}} </span></p>
                 </div>
                 <div class="cat-2">
-                  <p><strong>provider: </strong> <span>EZTV </span></p>
                   <p><strong>Country: </strong> <span>{{showDetails.country}} </span></p>
                   <p><strong>seasons: </strong> <span>{{showDetails.num_seasons}} </span></p>
-                  <p><strong>last updated: </strong> <span>{{showDetails.last_updated | date:'half'}} </span></p>
+                  <p><strong>last updated: </strong> <span>{{showDetails.last_updated | date:'medium'}} </span></p>
               </div>
 
           </div>
@@ -121,17 +121,5 @@
 
   </div>
 
-<!-- <div class="details-container animated fadeInLeft" *ngIf="showDetails">
-    <div class="title">
-        <h3 class="">{{showDetails.title}}</h3>
-        <p class="">Posted on {{showDetails.air_day}} {{showDetails.air_time}}</p>
-    </div>
 
-    <div class="storyline">
-        <mat-card>
 
-        </mat-card>
-    </div>
-
-</div>
-  -->

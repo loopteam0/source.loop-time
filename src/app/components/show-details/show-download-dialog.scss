@@ -1,0 +1,37 @@
+@import "~@angular/material/theming";
+@import "../../../custom-theme";
+@import "../../scss/variables";
+
+
+
+    h4 {
+        text-align: center;
+
+    }
+    .left{
+      float: right;
+
+      span{
+        margin: 3px 4px
+
+      }
+
+    }
+
+.trucn {
+    width: 97%;
+}
+
+.errorHandler{
+  text-align: center;
+  margin: auto auto;
+
+}
+
+mat-list-item ,.width{
+  min-width: 50vw !important;
+}
+
+
+
+

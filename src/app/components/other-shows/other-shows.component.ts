@@ -21,14 +21,14 @@ export class OtherShowsComponent implements OnInit {
   errorState = false;
   Loop = 'Loop for Available Episodes';
   episodes;
-    
+
   constructor(
     private Torrent: TorrentSearchApiService,
     private route: ActivatedRoute,
     private movieDB: MovieDbService,
     private snackbar: MatSnackBar
   ) {
-    
+
     this.imageurl = 'https://image.tmdb.org/t/p/w500';
   }
 
@@ -52,33 +52,34 @@ export class OtherShowsComponent implements OnInit {
     },err => {
     this.errorState = true;
     this.loading = false;
+    this.showError(err);
     });
   }
 
-    
-  showEpisode(keyword, limit) {
-    let val = keyword;
-    let newKeyword = val.replace(/:|-/g, ' ');
 
-      this.Loop = 'Looping ...';
-    this.episodeloading = true;
-    this.Torrent.getMovies(`${newKeyword} HDTV`, limit).subscribe(data => {
-      this.episodes = data;
-      this.episodeloading = false;
-      this.Loop = 'Loop Again';
-  }, err => { 
-    this.showError();
-    this.episodeloading = false;
-    this.Loop = 'loop Again';
-  });
-  }
-    
+  // showEpisode(keyword, limit) {
+  //   let val = keyword;
+  //   let newKeyword = val.replace(/:|-/g, ' ');
+
+  //     this.Loop = 'Looping ...';
+  //   this.episodeloading = true;
+  //   this.Torrent.getMovies(`${newKeyword} HDTV`, limit).the(data => {
+  //     this.episodes = data;
+  //     this.episodeloading = false;
+  //     this.Loop = 'Loop Again';
+  // }, err => {
+  //   this.showError();
+  //   this.episodeloading = false;
+  //   this.Loop = 'loop Again';
+  // });
+  // }
+
    download(torrent) {
     this.Torrent.downloadMagnet(torrent);
-  }  
+  }
 
-  showError(){
-    this.snackbar.open('An error error occured while Looping, Please loop Again', null ,{
+  showError(err){
+    this.snackbar.open(err, null ,{
       duration: 5000
     } )
   }

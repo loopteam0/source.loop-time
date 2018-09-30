@@ -2,8 +2,8 @@
 @import "../../scss/mixins";
 @import "~@angular/material/theming";
 @import "../../../custom-theme.scss";
+@import "../../scss/searchbar.scss";
 
-.main-grid {
     // width: 100vw - 3.7vw;
     .container-fluid {
         margin: 0;
@@ -14,9 +14,10 @@
         margin: auto;
         margin-bottom: 100px;
     }
-    .main-tab-container {
+    .cont {
         padding: 0px 20px;
         padding-top: 30px;
+        margin-top: 20px;
         padding-right: 0;
         margin-right: 0;
         height: 25.5rem;
@@ -34,24 +35,25 @@
         // scroll bar
         &::-webkit-scrollbar{
             width: 2px !important;
-}
-        
-         
+          }
+
+
          &::-webkit-scrollbar-thumb{
             border-radius: 5px;
             background: mat-color($primary);
-        }
- 
+          }
+
         &:hover{
-           overflow-x: scroll; 
+           overflow-x: scroll;
            transition: 3s ease-out;
         }
-    
-       
 
-        app-spinner {
+
+
+        .spinner {
             margin: auto;
         }
+
         .card-container {
             p {
                 box-sizing: border-box;
@@ -101,5 +103,34 @@
     }
 
 
-}
-    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      margin: 100px auto;
+      background-color: #333;
+
+      border-radius: 100%;
+      -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+      animation: sk-scaleout 1.0s infinite ease-in-out;
+    }
+
+    @-webkit-keyframes sk-scaleout {
+      0% { -webkit-transform: scale(0) }
+      100% {
+        -webkit-transform: scale(1.0);
+        opacity: 0;
+      }
+    }
+
+    @keyframes sk-scaleout {
+      0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      } 100% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+        opacity: 0;
+      }
+    }
+
+

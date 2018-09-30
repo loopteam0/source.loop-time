@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
-import { TorrentSearchApi } from '../../assets/providers/torrent-search-api';
+import { TorrentSearch } from '../../assets/providers/torrent-search-api';
 import { ElectronService } from './electron.service';
+import { PirateBay  } from 'thepiratebay';
 import {
   catchError,
   retry,
@@ -18,12 +19,16 @@ import { HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class TorrentSearchApiService {
-  torrentApi: typeof TorrentSearchApi;
-  torrentSearch;
+  torrentApi: typeof TorrentSearch;
+  torrentSearch:  typeof TorrentSearch;
+  PirateBay: typeof PirateBay ;
 
   constructor(private electron: ElectronService) {
     if (this.electron.isElectron()) {
       this.torrentApi = window.require('torrent-search-api');
+      this.torrentSearch = window.require('torrent-search-api');
+      this.PirateBay = window.require('thepiratebay');
+
     } else{
     console.log('Not an electron app');
     }
@@ -47,132 +52,114 @@ export class TorrentSearchApiService {
   }
 
 
-  getMusics(title, limit): Observable<any> {
-    this.torrentSearch = new this.torrentApi();
+ async getAnimes(title, limit) {
     this.torrentSearch.enableProvider('1337x');
-    this.torrentSearch.enableProvider('ThePirateBay');
-      
-    const loop = from(
-      this.torrentSearch.search(['ThePirateBay', '1337x'],
-         title, 'Music', limit)).pipe(
-         retry(2), // retry a failed request up to 3 times
-         catchError(this.handleError) // then handle the error
-      );
-    return loop;
+    this.torrentSearch.enableProvider('Rarbg');
+    let torrents = await this.torrentSearch.search( title, 'Anime', limit);
+
+    return torrents;
   }
-  //
+
+ async  getGames(title, limit) {
+    this.torrentSearch.enableProvider('1337x');
+    this.torrentSearch.enableProvider('Rarbg');
+    let torrents = await  this.torrentSearch.search(['1337x','Rarbg'], title,'Games',limit);
+
+    return torrents;
+  } //
+
+ async getSoftwares(title, limit) {
+    this.torrentSearch.enableProvider('1337x');
+    this.torrentSearch.enableProvider('Rarbg');
+
+    const torrents = await this.torrentSearch.search(['Rarbg', '1337x'],title,'Applications',limit);
+
+    return torrents;
+  }
+
+ async getMusics(title, limit){
+    this.torrentSearch.enableProvider('1337x');
+    this.torrentSearch.enableProvider('Rarbg');
+
+    const torrents = await this.torrentSearch.search(['Rarbg', '1337x'], title, 'Music', limit);
+
+    return torrents;
+  }
+
+
+ async pirateBaySearch( keyword , cat){
+    const searchResults = await this.PirateBay.search( keyword , {
+      category: cat,
+      orderBy: 'seeds',
+      sortBy: 'desc'
+    })
+    return searchResults;
+  }
+
+  async  getOthers(title, limit) {
+    this.torrentSearch.enableProvider('1337x');
+    this.torrentSearch.enableProvider('Rarbg');
+    console.log(this.torrentSearch.getActiveProviders());
+
+    const torrents = await this.torrentSearch.search(['Rarbg', '1337x'], title, 'Other', limit);
+
+    return torrents;
+  }
+
+ async pirateBayTop(cat){
+  const searchResults = await this.PirateBay.topTorrents(cat);
+
+  return searchResults;
+ }
+
+
+
+
   // 'ThePirateBay', '1337x',
-  getSoftwares(title, limit) {
-    this.torrentSearch = new this.torrentApi();
+//
+  //
+
+  //
+
+  //
+ async getTVShows(title, limit) {
     this.torrentSearch.enableProvider('1337x');
-    this.torrentSearch.enableProvider('ThePirateBay');
+    this.torrentSearch.enableProvider('Rarbg');
 
     console.log(this.torrentSearch.getActiveProviders());
 
-    const loop = from(
-      this.torrentSearch.search(['ThePirateBay', '1337x'],
-        title,'Applications',limit)).pipe(
-        retry(2), // retry a failed request up to 3 times
-        catchError(this.handleError) // then handle the error
-    );
-    return loop;
-  }
-  //
-  //
-  getAnimes(title, limit) {
-    this.torrentSearch = new this.torrentApi();
-    this.torrentSearch.enableProvider('1337x');
-    console.log(this.torrentSearch.getActiveProviders());
+    const torrents = await this.torrentSearch.search(['1337x', 'Rarbg'], title, 'TV', limit);
 
-    const loop = from(
-      this.torrentSearch.search(['1337x'], title, 'Anime', limit)
-      ).pipe(
-        retry(2), // retry a failed request up to 3 times
-        catchError(this.handleError) // then handle the error
-      );
-    return loop;
-  }
-  //
-  //
-  getOthers(title, limit) {
-    this.torrentSearch = new this.torrentApi();
-    this.torrentSearch.enableProvider('1337x');
-    this.torrentSearch.enableProvider('ThePirateBay');
-    console.log(this.torrentSearch.getActiveProviders());
-
-    const loop = from(
-      this.torrentSearch.search(['ThePirateBay', '1337x'],
-      title, 'Other', limit)).pipe(
-        retry(2), // retry a failed request up to 3 times
-        catchError(this.handleError) // then handle the error
-      );
-
-    return loop;
-  } //
-  //
-  getGames(title, limit) {
-    this.torrentSearch = new this.torrentApi();
-    this.torrentSearch.enableProvider('1337x');
-    this.torrentSearch.enableProvider('ThePirateBay');
-
-    console.log(this.torrentSearch.getActiveProviders());
-
-    const loop = from(
-      this.torrentSearch.search(['ThePirateBay', '1337x'],
-       title,'Games',limit)).pipe(
-        retry(2), // retry a failed request up to 3 times
-        catchError(this.handleError) // then handle the error
-      );
-    return loop;
-  } //
-  //
-
-  //
-  getTVShows(title, limit) {
-    this.torrentSearch = new this.torrentApi();
-    this.torrentSearch.enableProvider('1337x');
-    this.torrentSearch.enableProvider('ThePirateBay');
-
-    console.log(this.torrentSearch.getActiveProviders());
-
-    const loop = from(
-      this.torrentSearch.search(['1337x', 'ThePirateBay'], title, 'TV', limit)
-    );
-    return loop;
+    return torrents;
   }
 
-  getMovies(title, limit) {
-    this.torrentSearch = new this.torrentApi();
-    this.torrentSearch.enableProvider('ThePirateBay');
+ async getMovies(title, limit) {
     this.torrentSearch.enableProvider('1337x');
-    
+    this.torrentSearch.enableProvider('Rarbg');
+
     console.log(this.torrentSearch.getActiveProviders());
 
-    const loop = from(
-      this.torrentSearch.search(['ThePirateBay', '1337x'],
-        title, 'Movies', limit )).pipe(
-        retry(2), // retry a failed request up to 3 times
-        catchError(this.handleError) // then handle the error
-      );
+    const torrents = await this.torrentSearch.search(['Rarbg', '1337x'], title, 'Movies', limit );
 
-    return loop;
+    return torrents;
   }
 
-  downloadTorrent(torrent) {
-    return this.torrentSearch.downloadTorrent(
+ async downloadTorrent(torrent) {
+    return await this.torrentSearch.downloadTorrent(
       torrent,
       'C:\\Users\\shadow\\Downloads\\Compressed'
     );
   }
 
-  downloadMagnet(torrent) {
-    this.torrentSearch
+ async downloadMagnet(torrent) {
+   await this.torrentSearch
       .getMagnet(torrent)
       .then(magnet => {
-        this.electron.shell.openExternal(magnet);
+     this.electron.shell.openExternal(magnet);
       })
       .catch(err => {
         console.log(err);
+        return err;
       });
   }
 
