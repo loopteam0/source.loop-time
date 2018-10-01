@@ -15,8 +15,8 @@ $min-image-width: 10rem;
 #details-page{
     margin: 0;
   // background-color: rgb(66, 65, 65);
-       background-image: url(http://www.pixelstalk.net/wp-content/uploads/2016/07/1080p-Movie-Backgrounds-620x349.jpg);
-    // background-image: url(https://www.pixelstalk.net/wp-content/uploads/2016/07/1080p-Movie-Backgrounds-620x349.jpg);
+     background-image: url(http://www.pixelstalk.net/wp-content/uploads/2016/07/1080p-Movie-Backgrounds-620x349.jpg);
+   //  background-image: url("./../../assets/default.png");
     position: relative;
     top: 0;
     bottom: 0;
@@ -29,6 +29,7 @@ $min-image-width: 10rem;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+
   //  background-size: cover;
   //  background: fixed;
 
@@ -38,8 +39,9 @@ $min-image-width: 10rem;
     height: 100%;
     top: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.541);
+    background-color: rgba(0, 0, 0, 0);
     position: absolute;
+    filter: blur(8px);
   }
 }
 

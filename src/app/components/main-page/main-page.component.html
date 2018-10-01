@@ -20,15 +20,17 @@
 
   <div class="main-tab-container">
 
+
+
+    <div class="cont" >
+    <div class="spinner" *ngIf="loading"></div>
+
     <div *ngIf="errorState" class="errorHandler">
       <h1>
         An error occured
       </h1>
-      <button mat-raised-button color="accent" (click)="showMoviesNowPlayingList(1)">RETRY</button>
+      <button mat-raised-button color="accent" (click)="retry()">RETRY</button>
     </div>
-
-    <div class="cont" >
-    <div class="spinner" *ngIf="loading"></div>
 
       <div class="card-container"  *ngFor="let item of upcomingMovies">
         <mat-card *ngIf="!loading" (click)="onSelectMovie(item)" class="animated bounceInRight">
@@ -42,7 +44,7 @@
 
   <div class="container">
     <div id="pagination">
-      <mat-paginator [length]="254" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event , 'New Movies')">
+      <mat-paginator [length]="lenght" showFirstLastButtons [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event , 'New Movies')">
       </mat-paginator>
     </div>
   </div>

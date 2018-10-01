@@ -21,8 +21,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   animePage;
   pgNumber;
+  i;
   /** PAGINATION */
-  length;
+  lenght;
   pageSize = 20;
   pageIndex;
   pageSizeOptions = [20];
@@ -47,10 +48,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
   /** Get upcoming Movies List from Yts */
   showMoviesNowPlayingList(i) {
     this.loading = true;
+    this.errorState = false;
     this.movieDB.getNowPlaying(i).subscribe(
       res => {
         this.upcomingMovies = res['results'];
-        this.length = res['total_results'];
+        this.lenght = res['total_results'];
         this.loading = false;
         this.errorState = false;
     }, err =>{
@@ -58,6 +60,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
        this.loading = false;
        this.errorState = true;
       });
+  }
+
+  retry(){
+    this.showMoviesNowPlayingList(this.i)
+    console.log(this.i);
   }
 
   showError(err) {
@@ -91,6 +98,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   Page(e, cat) {
     this.loading = true;
     this.errorState = false;
+    this.i = (e.pageIndex+1);
     this.movieDB.getNowPlaying(e.pageIndex+1).subscribe(
       res => {
         this.errorState = false;

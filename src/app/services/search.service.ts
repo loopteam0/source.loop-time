@@ -49,16 +49,14 @@ export class SearchService {
       // A client-side or network error occurred. Handle it accordingly.
         retryWhen( errors => errors.pipe(delay(500)));
       console.error('An error occurred:', error.message);
-    } else if(error.type == 3){
-      return throwError(`net: :ERR_INTERNET_DISCONNECTED`)
     }
     else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
       console.error(`Backend returned code ${error.status}, body was: ${error.status}`);
-      return throwError(`ERROR: ${error.headers.getAll} || ${error.type} || ${error.url}`);
     }
     // return an observable with a user-facing error message
+    return throwError(error);
   }
 
 

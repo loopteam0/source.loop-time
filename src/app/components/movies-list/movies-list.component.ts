@@ -68,7 +68,7 @@ export class MoviesListComponent implements OnInit {
        this.moviesLoading = false;
        this.Movies = data['movies'];
       }, err => {
-        this.showError(`Unknown Error Occured while searching Try Searching Again`);
+        this.showError(err);
         this.moviesLoading = false;
         this.pagination = true;
       });
@@ -96,14 +96,14 @@ export class MoviesListComponent implements OnInit {
 
   }
 
-  showImage(id){
-    this.fanartApi.getMovieImages(id, 'movies').subscribe(
-      res => {
-        this.background = res['moviebackground'];
-        this.banner = res['moviebanner'];
-      }
-    )
-  }
+  // showImage(id){
+  //   this.fanartApi.getMovieImages(id, 'movies').subscribe(
+  //     res => {
+  //       this.background = res['moviebackground'];
+  //       this.banner = res['moviebanner'];
+  //     }
+  //   )
+  // }
 
   RETRY(){
     this.errorState = false;
@@ -117,9 +117,7 @@ export class MoviesListComponent implements OnInit {
   opensnackbar(index, cat) {
     this.snackBar.open(`${cat}: Page ${index} is loading please Wait . . . `);
   }
-  opensnack(cat) {
-    this.snackBar.open(`Page 0 doesn't exist for ${cat}`);
-  }
+
 
   showError(err){
     this.snackBar.open(err , '' , {

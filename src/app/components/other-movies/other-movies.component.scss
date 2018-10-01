@@ -57,8 +57,7 @@
 }
 
 .main-card{
-height: 550px;
-max-height: 550px;
+max-height: 600px;
 margin-bottom: 30px;
 }
 
@@ -74,7 +73,7 @@ mat-tab-group{
       img{
         display: block;
         margin: 10px auto 20px auto;
-       max-width: 150px;
+       max-width: 100px;
 
       }
 
@@ -86,6 +85,10 @@ mat-tab-group{
   }
 }
 
+.website{
+  width: 80%;
+  text-overflow: clip;
+}
 // .simplebar-track.horizontal {
 //     visibility: hidden !important;
 //     display: none !important;

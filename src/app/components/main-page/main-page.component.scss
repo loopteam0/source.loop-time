@@ -114,6 +114,11 @@
       animation: sk-scaleout 1.0s infinite ease-in-out;
     }
 
+
+    .errorHandler{
+      margin: auto;
+    }
+
     @-webkit-keyframes sk-scaleout {
       0% { -webkit-transform: scale(0) }
       100% {
