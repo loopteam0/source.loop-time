@@ -32,9 +32,9 @@ mdScreen;
 
   showLink() {
     if (this.electron.isElectron()) {
-      this.electron.shell.openExternal('https://bit.ly/2Jz7ncC');
+      this.electron.shell.openExternal('https://loopteam0.github.io');
     } else {
-      window.open('https://bit.ly/2Jz7ncC');
+      window.open('https://loopteam0.github.io');
     }
   }
     change() {

@@ -68,7 +68,7 @@ export class SearchService {
       return  this.http.get(url)
       .pipe(
         map(res => res.json().data),
-        retry(2), // retry a failed request up to 3 times
+        retry(6), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       );
   }
@@ -80,7 +80,7 @@ export class SearchService {
     return  this.http.get(url)
     .pipe(
       map(res => res.json().data.movie),
-      retry(2), // retry a failed request up to 3 times
+      retry(6), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
 
@@ -90,7 +90,7 @@ export class SearchService {
     return  this.http.get(url)
     .pipe(
       map(res => res.json().data),
-      retry(2), // retry a failed request up to 3 times
+      retry(6), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
 
@@ -102,7 +102,7 @@ export class SearchService {
     .pipe(
       map(res => res.json().data),
       catchError(this.handleError), // then handle the error
-       retry(2) // retry a failed request up to 3 times
+       retry(6) // retry a failed request up to 3 times
     );
     }
 
@@ -114,7 +114,7 @@ export class SearchService {
   return  this.http.get(url)
   .pipe(
     map(res => res.json()),
-    retry(2), // retry a failed request up to 3 times
+    retry(6), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
   );
 
@@ -125,7 +125,7 @@ export class SearchService {
     return  this.http.get(url)
     .pipe(
       map(res => res.json()),
-       retry(2), // retry a failed request up to 3 times
+       retry(6), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
 
@@ -136,7 +136,7 @@ export class SearchService {
       return  this.http.get(url)
       .pipe(
           map(res => res.json()),
-         retry(2), // retry a failed request up to 3 times
+         retry(6), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       );
 
@@ -147,7 +147,7 @@ export class SearchService {
     return  this.http.get(url)
     .pipe(
       map(res => res.json()),
-      retry(2), // retry a failed request up to 3 times
+      retry(6), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
 
@@ -170,7 +170,7 @@ getAnimesList(animePage): Observable<MoviesInt> {
     return  this.http.get(url)
     .pipe(
        map(res => res.json()),
-       retry(2), // retry a failed request up to 3 times
+       retry(6), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
 
@@ -181,7 +181,7 @@ getAnimesList(animePage): Observable<MoviesInt> {
     return  this.http.get(url)
     .pipe(
       map(res => res.json()),
-      retry(2), // retry a failed request up to 3 times
+      retry(6), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
 

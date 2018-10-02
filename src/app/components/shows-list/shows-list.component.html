@@ -45,12 +45,17 @@
 
     </div>
 
+    <div class="home">
+      <button mat-raised-button color="primary" *ngIf="home" (click)="Retry()" class="home animated fadeInUp">HOME <mat-icon>home</mat-icon></button>
+    </div>
+
     <div class="container" *ngIf="pagination">
         <div id="pagination">
             <mat-paginator showFirstLastButtons [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event)">
             </mat-paginator>
         </div>
     </div>
-
+    <div class="margier"></div>
 
 </div>
+<app-quote *ngIf="errorState"></app-quote>

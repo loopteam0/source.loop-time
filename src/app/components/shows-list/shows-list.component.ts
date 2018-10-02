@@ -16,7 +16,7 @@ export class ShowsListComponent implements OnInit {
   pagination: boolean = true;
   errorState;
   retryIndex = 1;
-
+  home = false;
   showsLoading;
 
   /** PAGINATION */
@@ -30,7 +30,7 @@ export class ShowsListComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router
   ) {
-   
+
   }
 
 
@@ -56,25 +56,27 @@ export class ShowsListComponent implements OnInit {
 
   }
 
-  
-  search(keyword) {
-    
-    this.showsLoading = true;
 
+  search(keyword) {
+    this.showsLoading = true;
+    this.errorState = false;
+    this.home = true;
+    this.pagination = false;
     this.request.getShowsByKeyword(keyword).subscribe(
       data =>{
          this.Shows = data
          this.showsLoading = false;
-         this.pagination = false; 
+
         }, err => {
-          this.showError(`Unknown Error Occured while searching Try Again`);
+          this.showError(err);
           this.showsLoading = false;
-          this.pagination = true;
+
         }
     )
   }
 
   Retry() {
+    this.home = false;
     this.errorState = false;
     this.requestShowList(this.retryIndex);
   }
@@ -88,7 +90,7 @@ export class ShowsListComponent implements OnInit {
       this.Shows = data;
       this.showsLoading = false;
      this.errorState = false;
-   }, err => { 
+   }, err => {
      this.showError(err);
      this.showsLoading = false;
      this.errorState = true;

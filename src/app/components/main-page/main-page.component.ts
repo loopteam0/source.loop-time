@@ -69,7 +69,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   showError(err) {
   const errorSnackRef =  this.snackBar.open(err, 'retry', {
-      duration: 10000,
+      duration: 5000,
     });
     errorSnackRef.onAction().subscribe(
       res => {

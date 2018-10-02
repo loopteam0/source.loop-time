@@ -41,6 +41,7 @@ export class MovieDbService {
 getDetails(id , type): Observable<MoviesInt> {
    const url = `${this.baseUrl}/${type}/${id}?api_key=${this.apiKey}`;
       const request = this.httpClient.get<MoviesInt>(url);
+      retry(10) // retry a failed request up to 3 times
 
    return request;
   }
@@ -49,7 +50,7 @@ getDetails(id , type): Observable<MoviesInt> {
 getLatest(type , page): Observable<any> {
   const url = `${this.baseUrl}/${type}/latest?api_key=${this.apiKey}&page=${page}&language=en-US`;
   const request = this.httpClient.get(url).pipe(
-    retry(2), // retry a failed request up to 3 times
+    retry(6), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
   );
 
@@ -59,7 +60,7 @@ getLatest(type , page): Observable<any> {
 getOnAir(type , page): Observable<MoviesInt>  {
   const url = `${this.baseUrl}/${type}/on_the_air?api_key=${this.apiKey}&page=${page}&language=en-US`;
   const request = this.httpClient.get<MoviesInt>(url).pipe(
-    retry(2), // retry a failed request up to 3 times
+    retry(6), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
   );
 
@@ -68,7 +69,7 @@ getOnAir(type , page): Observable<MoviesInt>  {
 getUpcoming( page): Observable<MoviesInt>  {
   const url = `${this.baseUrl}/movie/upcoming?api_key=${this.apiKey}&page=${page}&language=en-US`;
   const request = this.httpClient.get<MoviesInt>(url).pipe(
-    retry(2), // retry a failed request up to 3 times
+    retry(6), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
   );
 
@@ -77,7 +78,7 @@ getUpcoming( page): Observable<MoviesInt>  {
 getAiringToday(type , page): Observable<MoviesInt>  {
   const url = `${this.baseUrl}/${type}/airing_today?api_key=${this.apiKey}&page=${page}&language=en-US`;
   const request = this.httpClient.get<MoviesInt>(url).pipe(
-    retry(2), // retry a failed request up to 3 times
+    retry(6), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
   );
 
@@ -87,7 +88,7 @@ getAiringToday(type , page): Observable<MoviesInt>  {
 getNowPlaying(page): Observable<MoviesInt>  {
   const url = `${this.baseUrl}/movie/now_playing?api_key=${this.apiKey}&page=${page}&region=US`;
   const request = this.httpClient.get<MoviesInt>(url).pipe(
-    retry(2), // retry a failed request up to 3 times
+    retry(6), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
   );
 
@@ -97,7 +98,7 @@ getNowPlaying(page): Observable<MoviesInt>  {
 getPopular(type , page): Observable<any> {
   const url = `${this.baseUrl}/${type}/popular?api_key=${this.apiKey}&page=${page}&language=en-US`;
   const request = this.httpClient.get(url).pipe(
-    retry(2), // retry a failed request up to 3 times
+    retry(6), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
   );
 
@@ -107,7 +108,7 @@ getPopular(type , page): Observable<any> {
 getTopRated(type , page): Observable<MoviesInt>  {
   const url = `${this.baseUrl}/${type}/top_rated?api_key=${this.apiKey}&page=${page}&adult=false&region=US`;
   const request = this.httpClient.get<MoviesInt>(url).pipe(
-    retry(2), // retry a failed request up to 3 times
+    retry(6), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
   );
 
@@ -116,7 +117,7 @@ getTopRated(type , page): Observable<MoviesInt>  {
 getSimilar(type , page): Observable<any> {
   const url = `${this.baseUrl}/${type}/similar?api_key=${this.apiKey}&page=${page}&adult=false&language=en-US`;
   const request = this.httpClient.get(url).pipe(
-    retry(2), // retry a failed request up to 3 times
+    retry(6), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
   );
 
@@ -127,7 +128,7 @@ searchKeyword(keyword, type, page): Observable<any> {
   const url = `${this.baseUrl}/search/${type}?api_key=${this.apiKey}&query=${keyword}&page=${page}&adult=false&language=en-US`;
     const request =  this.httpClient.get(url).pipe(
       map(res => res['results']),
-    retry(2), // retry a failed request up to 3 times
+    retry(6), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
       );
 
@@ -138,7 +139,7 @@ searchKeyword(keyword, type, page): Observable<any> {
 SearchAll( keyword, page): Observable<any> {
   const url = `${this.baseUrl}/search/multi?api_key=${this.apiKey}&query=${keyword}&page=${page}&language=en-US`;
   const request = this.httpClient.get(url).pipe(
-    retry(2), // retry a failed request up to 3 times
+    retry(6), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
   );
 
@@ -148,7 +149,7 @@ SearchAll( keyword, page): Observable<any> {
 find(id ): Observable<any> {
   const url = `${this.baseUrl}/find/${id}?api_key=${this.apiKey}&external_source=imdb_id&adult=false&language=en-US`;
   const request = this.httpClient.get(url).pipe(
-    retry(2), // retry a failed request up to 3 times
+    retry(6), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
   );
 

@@ -21,11 +21,11 @@ export class MoviesListComponent implements OnInit {
   pagination: boolean = true;
   length;
   pageSize = 50;
-  pageIndex;
+  pageIndex = 1;
   pageSizeOptions = [50, 30, 10];
   background;
   banner;
-
+  home = false;
 
 
   constructor(
@@ -41,6 +41,7 @@ export class MoviesListComponent implements OnInit {
   }
  /** Get Movies List from Yts */
   requestMoviesList(i) {
+    this.home = false;
     this.moviesLoading = true;
     this.errorState = false;
     this.pagination = false;
@@ -62,15 +63,18 @@ export class MoviesListComponent implements OnInit {
 
   search(keyword) {
     this.moviesLoading = true;
-    this.pagination = false;
+      this.errorState = false;
+      this.home = true;
+      this.pagination = false;
     this.request.getMoviesByKeyword(keyword).subscribe(
      data => {
        this.moviesLoading = false;
        this.Movies = data['movies'];
+       this.length = data['movie_count'];
+
       }, err => {
         this.showError(err);
         this.moviesLoading = false;
-        this.pagination = true;
       });
 
   }
@@ -85,6 +89,7 @@ export class MoviesListComponent implements OnInit {
         .subscribe(
           data => {
            this.Movies = data['movies'];
+           this.length = data['movie_count'];
            this.moviesLoading = false;
             this.errorState = false;
         }, err => {
@@ -106,6 +111,7 @@ export class MoviesListComponent implements OnInit {
   // }
 
   RETRY(){
+    this.home = false;
     this.errorState = false;
     this.requestMoviesList(this.retryIndex);
   }

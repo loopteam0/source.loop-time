@@ -32,6 +32,9 @@ export class AboutPageComponent implements OnInit {
   }
 
   showMsg() {
-    this.updateMsg = 'You will be notified when updates are available';
+    this.updateMsg = 'Visit our website to download updates';
+
+    this.openlink('https://loopteam0.github.io/#download');
   }
+
 }

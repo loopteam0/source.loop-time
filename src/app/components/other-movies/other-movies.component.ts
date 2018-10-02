@@ -55,6 +55,7 @@ export class OtherMoviesComponent implements OnInit {
 
   showDetails() {
     this.loading = true;
+    this.errorState = false;
     this.movieDB.getDetails(this.Id, "movie").subscribe(res => {
       this.movieDetails = res;
       this.loading = false;

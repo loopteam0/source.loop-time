@@ -47,7 +47,7 @@ export class FanartTvService {
     let url = `${this.baseUrl}/${type}/${id}?api_key=${this.apiKey1}`;
 
    let request = this.http.get<bgImages[]>(url).pipe(
-    retry(2),
+    retry(6),
     catchError(this.handleError)
    )
 

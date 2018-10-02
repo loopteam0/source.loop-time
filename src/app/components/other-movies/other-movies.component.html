@@ -7,7 +7,7 @@
            <h1>
              An error occured
            </h1>
-           <button mat-raised-button color="accent" (click)="getmoviedetails()">RETRY</button>
+           <button mat-raised-button color="accent" (click)="showDetails()">RETRY</button>
          </div>
     </mat-card-content>
   </mat-card>
@@ -15,7 +15,7 @@
  <!-- show spinner here -->
  <app-spinner *ngIf="loading"></app-spinner>
 
-   <mat-card class="main-card" *ngIf="movieDetails">
+   <mat-card class="main-card animated fadeInDown" *ngIf="movieDetails">
      <div class="details-container animated fadeInLeft">
 
        <div class="details-image">
@@ -88,9 +88,9 @@
            <div class="general container">
 
              <div class="cat-1">
-               <p class="website">
+               <p >
                    <strong>Website: </strong>
-                   <span ><a href="{{movieDetails.homepage}}">{{movieDetails.homepage}}</a> </span>
+                   <span ><a href="{{movieDetails.homepage}} ">{{movieDetails.homepage | shorten: 25: '...'}}</a> </span>
                  </p>
 
                <p>
