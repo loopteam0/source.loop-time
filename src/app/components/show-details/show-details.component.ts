@@ -125,7 +125,7 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
 @Component({
   selector: 'show-download-dialog',
   templateUrl: './EZTV-download-dialog/shows-download-dialog.html',
-  styleUrls: ['./shows-download-dialog.scss']
+  styleUrls: ['./shows-download-dialog.scss', './shows-download-dialog.scss']
 })
 export class ShowDownloadDialogComponent  implements OnInit, OnDestroy{
   errorState = false;

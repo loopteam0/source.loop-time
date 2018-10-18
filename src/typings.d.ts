@@ -5,6 +5,7 @@ interface NodeModule {
 }
 
 declare var window: Window;
+//declare var global: any;
 interface Window {
   process: any;
   require: any;

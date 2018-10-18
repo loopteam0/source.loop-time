@@ -1,6 +1,6 @@
 {
   "name": "loop",
-  "version": "0.0.4",
+  "version": "0.6.1",
   "main": "main.js",
   "scripts": {
     "ng": "ng",
@@ -40,6 +40,7 @@
     "firebase": "^5.5.0",
     "hammerjs": "^2.0.8",
     "kat-api-pt": "^4.0.0",
+    "mdbootstrap": "^4.5.12",
     "ngx-pagination": "^3.1.1",
     "ngx-pipes": "^2.3.5",
     "rxjs": "^6.0.0",
@@ -60,7 +61,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.2.1",
-    "electron": "^2.0.10",
+    "electron": "^3.0.4",
     "electron-packager": "^12.1.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",

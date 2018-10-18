@@ -81,13 +81,16 @@ h4.lead {
     animation-fill-mode: both;
     -webkit-animation-name: fadeInDown;
     animation-name: fadeInDown;
-    opacity: .7;
+    
     h1{
 
       text-transform: uppercase;
       font-family: monospace;
     }
 
+}
+mat-card.errorHandler{
+    background-color: rgba(255,255,255,.3) !important;
 }
 
 .mat-dialog-container{
