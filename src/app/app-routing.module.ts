@@ -6,7 +6,6 @@ import { MovieDetailsComponent } from './components/movie-details/movie-details.
 import { SearchPageComponent } from './components/search-page/search-page.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { ShowDetailsComponent } from './components/show-details/show-details.component';
-import { AnimeDetailsComponent } from './components/anime-details/anime-details.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AnimesListComponent } from './components/animes-list/animes-list.component';
 import { ShowsListComponent } from './components/shows-list/shows-list.component';
@@ -16,7 +15,6 @@ import { GamesPageComponent } from './components/games-page/games-page.component
 import { BookPageComponent } from './components/book-page/book-page.component';
 import { MusicPageComponent } from './components/music-page/music-page.component';
 import { SoftwarePageComponent } from './components/software-page/software-page.component';
-import { OtherShowsComponent } from './components/other-shows/other-shows.component';
 
 
 /// import { DownloadPageComponent } from './components/download-page/download-page.component';
@@ -31,7 +29,6 @@ const routes: Routes = [
   {path: 'movies/:id/:imdb_id', component: MovieDetailsComponent },
   {path: 'shows/:imdb_id', component: ShowDetailsComponent },
   {path: 'trending/movies/:id', component: OtherMoviesComponent},
-  {path: 'trending/shows/:id', component: OtherShowsComponent},
   {path: 'books', component: BookPageComponent},
   {path: 'games', component: GamesPageComponent},
   {path: 'musics', component: MusicPageComponent},

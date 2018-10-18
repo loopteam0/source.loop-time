@@ -21,7 +21,6 @@ import { ShowDetailsComponent } from './components/show-details/show-details.com
 import { ShowDownloadDialogComponent } from './components/show-details/show-details.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
-import { AnimeDetailsComponent } from './components/anime-details/anime-details.component';
 import { QuoteComponent } from './components/quote/quote.component';
 
 import { ServiceInterceptor } from './services/service.interceptor';
@@ -43,8 +42,6 @@ import { MusicPageComponent } from './components/music-page/music-page.component
 import { BookPageComponent } from './components/book-page/book-page.component';
 import { SoftwarePageComponent } from './components/software-page/software-page.component';
 import { GamesPageComponent } from './components/games-page/games-page.component';
-import { OtherShowsComponent } from './components/other-shows/other-shows.component';
-import { OtherSearchComponent } from './components/other-search/other-search.component';
 import { UndefinedPipe } from './pipes/undefined.pipe';
 import { SharedModule } from './modules/shared/shared.module';
 import { CoreModule } from './modules/core/core.module';
@@ -68,7 +65,6 @@ import { DatePipe } from '@angular/common';
     AboutPageComponent,
     ShowDetailsComponent,
     SpinnerComponent,
-    AnimeDetailsComponent,
     SanitizerPipe,
     PageNotFoundComponent,
     ConvertPipe,
@@ -83,8 +79,6 @@ import { DatePipe } from '@angular/common';
     BookPageComponent,
     SoftwarePageComponent,
     GamesPageComponent,
-    OtherShowsComponent,
-    OtherSearchComponent,
     UndefinedPipe,
 
   ],
