@@ -32,7 +32,7 @@ function createWindow() {
         show: false,
         minWidth: 960,
         darkTheme: false,
-        icon: path.join(__dirname, '/src/icon.ico'),
+        icon: path.join(__dirname, '/src/assets/icon.ico'),
         webPreferences: {
             nodeIntegration: true,
             webSecurity: false,
@@ -47,15 +47,42 @@ function createWindow() {
     //     slashes: true
     // }));
 
-
     win.loadURL(`http://localhost:4200`)
     //// uncomment below to open the DevTools.
     // win.webContents.openDevTools()
-
     // Event when the window is closed.
     win.on('closed', () => {
         win = null
     })
+
+    win.once('ready-to-show', () => {
+        win.show()
+    });
+}
+
+
+function createSPlashScreen() {
+    // Create the browser window.
+    win = new BrowserWindow({
+        width: 400,
+        height: 300,
+        show: false,
+        minWidth: 960,
+        darkTheme: false,
+        icon: path.join(__dirname, '/src/assets/icon.ico'),
+        webPreferences: {
+            nodeIntegration: true,
+            webSecurity: false,
+            scrollBounce: true,
+            overlayFullscreenVideo: false
+        }
+    })
+
+         win.loadURL(url.format({
+        pathname: path.join(__dirname, '/dist/ngapp3/index.html'),
+        protocol: 'file',
+        slashes: true
+    }));
 
     win.once('ready-to-show', () => {
         win.show()

@@ -60,6 +60,15 @@ export class TorrentSearchApiService {
     return torrents;
   }
 
+
+ async getAll(title, limit) {
+    this.torrentSearch.enableProvider('1337x');
+    this.torrentSearch.enableProvider('Rarbg');
+    let torrents = await this.torrentSearch.search( title, 'TV', limit);
+
+    return torrents;
+  }
+
  async  getGames(title, limit) {
     this.torrentSearch.enableProvider('1337x');
     this.torrentSearch.enableProvider('Rarbg');
@@ -111,8 +120,6 @@ export class TorrentSearchApiService {
 
   return searchResults;
  }
-
-
 
 
   // 'ThePirateBay', '1337x',

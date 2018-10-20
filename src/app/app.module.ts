@@ -18,7 +18,6 @@ import { SearchPageComponent } from './components/search-page/search-page.compon
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { AboutPageComponent } from './components/about-page/about-page.component';
 import { ShowDetailsComponent } from './components/show-details/show-details.component';
-import { ShowDownloadDialogComponent } from './components/show-details/show-details.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { QuoteComponent } from './components/quote/quote.component';
@@ -47,7 +46,7 @@ import { SharedModule } from './modules/shared/shared.module';
 import { CoreModule } from './modules/core/core.module';
 import { TorrentModule } from './modules/torrent/torrent.module';
 import { OthersModule } from './modules/others/others.module';
-import { ShowDefaultDialogComponent } from './components/show-details/default-dialog-dialog/shows-download.component';
+import { ShowDownloadDialogComponent } from './components/show-details/default-dialog-dialog/shows-download.component';
 import { DatePipe } from '@angular/common';
 
 @NgModule({
@@ -56,7 +55,6 @@ import { DatePipe } from '@angular/common';
     MovieDownloadDialogComponent,
     OtherMovieDownloadDialogComponent,
     ShowDownloadDialogComponent,
-    ShowDefaultDialogComponent,
     SearchPageComponent,
     NavBarComponent,
     MainPageComponent,
@@ -99,7 +97,7 @@ import { DatePipe } from '@angular/common';
       multi: true}
     ],
   bootstrap: [AppComponent],
-  entryComponents: [MovieDownloadDialogComponent,ShowDownloadDialogComponent , ShowDefaultDialogComponent, OtherMovieDownloadDialogComponent]
+  entryComponents: [MovieDownloadDialogComponent , ShowDownloadDialogComponent, OtherMovieDownloadDialogComponent]
 })
 export class AppModule {
  }

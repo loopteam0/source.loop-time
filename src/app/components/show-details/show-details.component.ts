@@ -3,7 +3,7 @@ import {  ActivatedRoute } from '@angular/router';
 import { ParamMap } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import {  HttpErrorResponse, HttpClient } from '@angular/common/http';
-import { ShowDefaultDialogComponent } from './default-dialog-dialog/shows-download.component';
+import { ShowDownloadDialogComponent } from './default-dialog-dialog/shows-download.component';
 import { SearchService } from '../../services/search.service';
 import { Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -47,6 +47,7 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
         this.showDataloading = false;
        this.errorState = false;
      }, err => {
+       this.showError(err);
        this.errorState = true;
        this.showDataloading = false;
      });
@@ -65,25 +66,19 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
       this.requestShowDetails();
   }
 
-  openDialog(data): void {
-    const dialogRef = this.dialog.open(ShowDownloadDialogComponent, {
-      data:{
-        title: data.title
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
-    });
-  }
-
-  openShowsDialog(data, title): void {
-    const dialogRef = this.dialog.open(ShowDefaultDialogComponent , {
+  openShowsDialog(data, title,seasons): void {
+    const dialogRef = this.dialog.open(ShowDownloadDialogComponent , {
       data: {
         torrents: data,
-        title: title
-      }
+        title: title,
+        imdbCode: this.Id,
+        seasons: seasons
+      },
+       minHeight: '80vh',
+       maxWidth: '65vw',
+       minWidth: '65vw',
+       autoFocus: false,
+       panelClass: 'shows-download-dialog'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -111,98 +106,4 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
    // this.imdb_id.unsubscribe();
   }
 }
-///
-///
-///
-////
-////
-///
-////
-///
-////
-//
 
-@Component({
-  selector: 'show-download-dialog',
-  templateUrl: './EZTV-download-dialog/shows-download-dialog.html',
-  styleUrls: ['./shows-download-dialog.scss', './shows-download-dialog.scss']
-})
-export class ShowDownloadDialogComponent  implements OnInit, OnDestroy{
-  errorState = false;
-  loading;
-  episodes ;
-  Id;
-  length;
-
-  constructor(
-    public dialogRef: MatDialogRef<ShowDownloadDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private snackBar: MatSnackBar,
-    private request: SearchService,
-    ) {}
-
-    ngOnInit(): void {
-      //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-      //Add 'implements OnInit' to the class.
-      this.requestShowEpisodes(50, 1);
-    }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  openSnackBar(title: string) {
-    this.snackBar.open(`Downloading ${title} ` , 'close');
-  }
-
-  showError(err){
-    this.snackBar.open(err);
-  }
-
-
-  requestShowEpisodes(size, page) {
-    // start spinner
-    this.loading = true;
-    this.errorState = false;
-
-    this.request.getShowEpisopse(val, size, page)
-    .subscribe( (data) => {
-      this.episodes = data['torrents'];
-      this.length = data['torrents_count'];
-   //   val = this.length;
-      this.loading = false;
-    }, err =>{
-      console.log(err);
-       this.showError(err);
-       this.errorState = true;
-      this.loading = false;
-      });
-  }
-
-  retry(){
-    this.requestShowEpisodes(50, 1);
-  }
-
-  page(e) {
-    console.log(e);
-    this.errorState = false;
-    this.loading = true;
-
-    this.request.getShowEpisopse(val , e.pageSize, (e.pageIndex + 1))
-      .subscribe((data) => {
-        this.episodes = data['torrents'];
-        this.loading = false;
-      }, err => {
-
-        this.showError(err);
-        this.errorState = true;
-        this.loading = false;
-      });
-  }
-
-  ngOnDestroy(){
-   // this.request.getShowEpisopse(0 ,0,0).unsubscribe();
- //  this.episodes.unsubscribe();
-  }
-
-}

@@ -1,17 +1,18 @@
 <h4 mat-dialog-title>{{data.title}}</h4>
 
-<div class="clearfix"></div>
-<div class=" clearfix left">
-  <span>240p</span>
-  <span>480p</span>
-  <span>720p</span>
-</div>
-<div class="clearfix"></div>
 
-<mat-dialog-content>
+<mat-tab-group>
+  <mat-tab label='ALL EPISODES'>
+      <div class="clearfix"></div>
+      <div class=" clearfix left">
+        <span>480p</span>
+        <span>720p</span>
+        <span>1080p</span>
+      </div>
+      <div class="clearfix"></div>
+      
+    <mat-dialog-content id="bar" >
 
-  <mat-tab-group>
-    <mat-tab label='Alt'>
       <div class="scroll">
 
         <div *ngIf="!data.torrents" class="errorHandler">
@@ -43,58 +44,98 @@
         </mat-nav-list>
 
       </div>
+    </mat-dialog-content>
+  </mat-tab>
 
+  <mat-tab label='EPISODES FROM EZTV'>
+      <mat-dialog-content>
+        <div class="props">
+          <div class="tabs">
+  
+  
+            <div *ngIf="errorState" class="errorHandler">
+              <h1>
+                An error occured
+              </h1>
+              <button mat-raised-button color="accent" (click)="retry()">RETRY</button>
+            </div>
+  
+            <div class="spinner" id="spinner" *ngIf="loading"></div>
+  
+            <mat-nav-list *ngFor="let episode of episodes">
+  
+              <mat-list-item *ngIf="!loading" class=" animated bounceInRight">
+  
+                <a class="trucn" matTooltip="{{episode.date_released_unix * 1000 | date:'full'}}" matLine href="{{episode.torrent_url}}"
+                  (click)="openSnackBar(episode.title)">{{episode.title}}</a>
+                <span>{{episode.size_bytes | convert}}</span>
+  
+                <a mat-icon-button href="{{episode.torrent_url}} " (click)="openSnackBar(episode.title)" class="series-link">
+                  <mat-icon matTooltip="Seeds: {{episode.seeds}} || Peers: {{episode.peers}}  " color="primary">file_download</mat-icon>
+                </a>
+  
+                <mat-divider [inset]="true"></mat-divider>
+  
+              </mat-list-item>
+  
+            </mat-nav-list>
+  
+  
+  
+  
+            <div class="mb-2"></div>
+            <div *ngIf="true" class="container">
+              <div id="pagination">
+                <mat-paginator [length]="length" [pageSize]="50" [pageSizeOptions]="[100 ,50, 30 ]" (page)="page($event)">
+                </mat-paginator>
+              </div>
+            </div>
+  
+          </div>
+  
+        </div>
+      </mat-dialog-content>
     </mat-tab>
 
-    <mat-tab label='EZTV'>
+  <mat-tab label='COMPLETE EPISODES'>
+    <mat-dialog-content class="scroll-bar">
       <div class="props">
         <div class="tabs">
-      
-      
-              <div *ngIf="errorState" class="errorHandler">
-                  <h1>
-                    An error occured
-                  </h1>
-                  <button mat-raised-button color="accent" (click)="retry()">RETRY</button>
-               </div>
-      
-              <div class="spinner" *ngIf="loading"></div>
-      
-      
-              <mat-nav-list *ngFor="let episode of episodes">
-      
-              <mat-list-item *ngIf="!loading" class=" animated bounceInRight">
-      
-                  <a class="trucn" matTooltip="{{episode.date_released_unix * 1000 | date:'full'}}" matLine href="{{episode.torrent_url}}"
-                    (click)="openSnackBar(episode.title)">{{episode.title}}</a>
-                  <span>{{episode.size_bytes | convert}}</span>
-      
-                  <a mat-icon-button href="{{episode.torrent_url}} " (click)="openSnackBar(episode.title)" class="series-link">
-                    <mat-icon matTooltip="Seeds: {{episode.seeds}} || Peers: {{episode.peers}}  " color="primary">file_download</mat-icon>
-                  </a>
-      
-                  <mat-divider [inset]="true"></mat-divider>
-      
-                </mat-list-item>
-      
-              </mat-nav-list>
-      
-      
-      
-      
-          <div class="mb-2"></div>
-          <div *ngIf="true" class="container">
-            <div id="pagination">
-              <mat-paginator [length]="length" [pageSize]="50" [pageSizeOptions]="[100 ,50, 30 ]" (page)="page($event)">
-              </mat-paginator>
-            </div>
+
+
+          <div *ngIf="loadingError" class="errorHandler">
+            <h1>
+              An error occured
+            </h1>
+            <button mat-raised-button color="accent" (click)="showCompleteEpisodes()">RETRY</button>
           </div>
-      
+
+          <div class="spinner" id="spinner" *ngIf="loadingShows"></div>
+
+
+          <mat-nav-list *ngIf="!loading">
+
+            <mat-list-item  *ngFor="let item of completeEpisodes" class=" animated bounceInRight">
+
+              <a class="trucn" matTooltip="{{item.provider}}" matLine 
+                (click)="openSnackBar(episode.title)">{{item.title}}</a>
+              <span>{{item.size}}</span>
+
+              <a mat-icon-button (click)="downloadTorrent(item)" class="series-link">
+                <mat-icon matTooltip="Seeds: {{item.seeds}} || Peers: {{item.peers}}  " color="primary">file_download</mat-icon>
+              </a>
+
+              <mat-divider [inset]="true"></mat-divider>
+
+            </mat-list-item>
+
+          </mat-nav-list>
+          <div class="mb-2"></div>
+
         </div>
-      
+
       </div>
-    </mat-tab>
-  </mat-tab-group>
+    </mat-dialog-content>
+  </mat-tab>
 
-
-</mat-dialog-content>
+</mat-tab-group>

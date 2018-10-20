@@ -1,10 +1,13 @@
-const KatApi = require('kat-api-pt')
+const TorrentSearchApi = require('torrent-search-api');
+ 
 
-const kat = new KatApi({
-  baseUrl :'https://katcr.co/'
-})
 
-kat.search(
-  'adobe',
-  ).then(res => console.log(res))
-  .catch(err => console.error(err));
+ async function getAll() {
+ TorrentSearchApi.enableProvider('1337x');
+ 
+  let torrents = await TorrentSearchApi.search( 'the flash complete', 'All', 20);
+
+ console.log(torrents);
+ 
+}
+getAll();
