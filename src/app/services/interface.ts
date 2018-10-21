@@ -7,9 +7,10 @@ export interface MoviesInt {
     seed: number;
     peer: number;
     filesize: string;
+    movie:any;
     genres: Array<string>;
     provider: string;
-    data: Object;
+    data: any;
     type: String;
     id: number;
     url: string;

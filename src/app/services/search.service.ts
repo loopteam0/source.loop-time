@@ -32,7 +32,7 @@ export class SearchService {
   loading;
 
 
-  constructor(  private http: Http  , private httpClient: HttpClient, private jsonp: Jsonp) { }
+  constructor(  private http: HttpClient, private jsonp: Jsonp) { }
 
 
 
@@ -63,11 +63,11 @@ export class SearchService {
 /******** ******************/
   // ** String (title, year, rating, peers, seeds, download_count, like_count, date_added) */
 
-   getMoviesList(pageNumber, pageSize): Observable<MoviesInt> {
+   getMoviesList(pageNumber, pageSize): Observable<MoviesInt[]> {
      const url =  `${this.yts_url}list_movies.json?limit=${pageSize}&page=${pageNumber}`;
-      return  this.http.get(url)
+      return  this.http.get<MoviesInt[]>(url)
       .pipe(
-        map(res => res.json().data),
+        map(res => res['data']),
         retry(6), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       );
@@ -75,11 +75,11 @@ export class SearchService {
 
 
   /** GET DETAILS OF A MOVIE  */
-  getMovieDetails(id): Observable<MoviesInt[]> {
+  getMovieDetails(id): Observable<MoviesInt> {
      const url = `${this.yts_url}movie_details.json?movie_id=${id}&with_images=true&with_cast=true`;
-    return  this.http.get(url)
+    return  this.http.get<MoviesInt>(url)
     .pipe(
-      map(res => res.json().data.movie),
+      map(res => res['data']),
       retry(6), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
@@ -89,7 +89,7 @@ export class SearchService {
      const url = `${this.yts_url}movie_suggestions.json?movie_id=${id}`;
     return  this.http.get(url)
     .pipe(
-      map(res => res.json().data),
+      map(res => res['data']),
       retry(6), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
@@ -100,7 +100,7 @@ export class SearchService {
      const url = `${this.yts_url}list_movies.json?query_term=${keyword}&sort_by=download_count&limit=50`;
     return  this.http.get(url)
     .pipe(
-      map(res => res.json().data),
+      map(res => res['data']),
       catchError(this.handleError), // then handle the error
        retry(6) // retry a failed request up to 3 times
     );
@@ -109,22 +109,20 @@ export class SearchService {
 
 /* Possible values:  name , rating , released , trending , updated , year  */
 /*** GET TV SHOWS */
-  getShowsList(showPage): Observable<MoviesInt> {
+  getShowsList(showPage): Observable<MoviesInt[]> {
     const url = `${this.base_url}/shows/${showPage}?sort=trending&order=-1&genre=all`;
-  return  this.http.get(url)
+  return  this.http.get<MoviesInt[]>(url)
   .pipe(
-    map(res => res.json()),
     retry(6), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
   );
 
   }
 
-  getShowDetails(imdb_id): Observable<any> {
+  getShowDetails(imdb_id): Observable<MoviesInt> {
     const url = `${this.base_url}/show/tt${imdb_id}`;
-    return  this.http.get(url)
+    return  this.http.get<MoviesInt>(url)
     .pipe(
-      map(res => res.json()),
        retry(6), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
@@ -133,20 +131,18 @@ export class SearchService {
 
   getShowEpisopse(imdb_id , size, page): Observable<MoviesInt[]> {
       const url = `${this.eztv_url}${imdb_id}&limit=${size}&page=${page}`;
-      return  this.http.get(url)
+      return  this.http.get<MoviesInt[]>(url)
       .pipe(
-          map(res => res.json()),
          retry(6), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       );
 
   }
 
-  getShowsByKeyword(keyword): Observable< MoviesInt[] > {
+  getShowsByKeyword(keyword): Observable<MoviesInt[]> {
     const url = `${this.base_url}/shows/1?sort=year&order=-1&genre=all&keywords=${keyword}`;
-    return  this.http.get(url)
+    return  this.http.get<MoviesInt[]>(url)
     .pipe(
-      map(res => res.json()),
       retry(6), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
@@ -154,22 +150,20 @@ export class SearchService {
     }
 
  /** GET ANIMATIONS */
-getAnimesList(animePage): Observable<MoviesInt> {
+getAnimesList(animePage): Observable<MoviesInt[]> {
   const url = `${this.base_url}/animes/${animePage}?sort=trending&order=-1&genre=all`;
-  return  this.http.get(url)
+  return  this.http.get<MoviesInt[]>(url)
   .pipe(
-    map(res => res.json()),
     // retry(3), // retry a failed request up to 3 times
     catchError(this.handleError) // then handle the error
   );
 
   }
 
-  getAnimeDetails(imdb_id): Observable<MoviesInt[]> {
+  getAnimeDetails(imdb_id): Observable<MoviesInt> {
     const url = `${this.base_url}/anime/${imdb_id}`;
-    return  this.http.get(url)
+    return  this.http.get<MoviesInt>(url)
     .pipe(
-       map(res => res.json()),
        retry(6), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
@@ -178,9 +172,8 @@ getAnimesList(animePage): Observable<MoviesInt> {
 
   getAnimesByKeyword(keyword): Observable< MoviesInt[] > {
     const url = `${this.base_url}/animes/1?sort=year&order=-1&genre=all&keywords=${keyword}`;
-    return  this.http.get(url)
+    return  this.http.get<MoviesInt[]>(url)
     .pipe(
-      map(res => res.json()),
       retry(6), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
@@ -189,10 +182,9 @@ getAnimesList(animePage): Observable<MoviesInt> {
 
   getQuotes(): Observable<MoviesInt> {
     const url = `http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1`;
-    return this.http.get(url).pipe(
+    return this.http.get<MoviesInt>(url).pipe(
         throttle(() => interval(500)),
       debounceTime(500),
-      map(res => res.json()),
       retry(10)
     );
   }

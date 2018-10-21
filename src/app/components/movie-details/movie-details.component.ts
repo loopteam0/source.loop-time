@@ -50,10 +50,11 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     this.errorState = false;
     // pass the movie id to the getMoviesDetails function
     this.request.getMovieDetails(this.Id).subscribe(data => {
-      this.movieDetails = data;
+      this.movieDetails = data['movie'];
       this.loading = false;
     this.errorState = false;
   }, err => {
+      this.showError(err);
       this.errorState = true;
       this.loading = false;
   });
