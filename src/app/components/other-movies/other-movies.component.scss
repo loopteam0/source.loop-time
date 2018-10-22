@@ -62,7 +62,7 @@ margin-bottom: 30px;
 }
 
 #details-page{
-padding: 160px 20px 630px 20px;
+padding: 130px 20px 600px 20px;
 }
 
 mat-tab-group{
@@ -82,6 +82,9 @@ mat-tab-group{
         margin: 0px;
       }
     }
+  }
+  .placeholder{
+    max-height: 110px;
   }
 }
 

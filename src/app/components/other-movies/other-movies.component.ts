@@ -30,6 +30,8 @@ export class OtherMoviesComponent implements OnInit {
   try = 'the meg: retrun - home';
 
   constructor(
+    public dialogRef: MatDialogRef<OtherMoviesComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
     private torrent: TorrentSearchApiService,
     private route: ActivatedRoute,
@@ -44,12 +46,13 @@ export class OtherMoviesComponent implements OnInit {
 
   ngOnInit() {
     // this the id of the movie form the route
-    this.parms = this.route.paramMap.subscribe((params: ParamMap) => {
-      const id = params.get("id");
-      this.Id = id;
-      console.log(this.Id);
-    });
-
+    // this.parms = this.route.paramMap.subscribe((params: ParamMap) => {
+    //   const id = params.get("id");
+    //   this.Id = id;
+    //   console.log(this.Id);
+    // });
+    
+    this.Id = this.data['id'];
     this.showDetails();
   }
 
@@ -85,7 +88,9 @@ export class OtherMoviesComponent implements OnInit {
       data: {
         title: title,
         date: date
-      }
+      } ,
+      restoreFocus: false,
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {

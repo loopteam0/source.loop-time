@@ -33,10 +33,10 @@
     </div>
 
       <div class="card-container"  *ngFor="let item of upcomingMovies">
-        <mat-card *ngIf="!loading" (click)="onSelectMovie(item)" class="animated bounceInRight">
-          <img (click)="onSelectMovie(item)" mat-card-image src="{{imageurl}}{{item.poster_path}}" alt="{{ item.title }} ">
+        <mat-card *ngIf="!loading" (click)="openDialog(item.id)" class="animated bounceInRight">
+          <img  mat-card-image src="{{imageurl}}{{item.poster_path}}" alt="{{ item.title }} ">
         </mat-card>
-        <p *ngIf="!loading" (click)="onSelectMovie(item)" class="animated fadeInDown ">
+        <p *ngIf="!loading" (click)="openDialog(item.id)" class="animated fadeInDown ">
           {{item.title}}</p>
         </div>
       </div>

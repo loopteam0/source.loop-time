@@ -97,7 +97,7 @@ import { DatePipe } from '@angular/common';
       multi: true}
     ],
   bootstrap: [AppComponent],
-  entryComponents: [MovieDownloadDialogComponent , ShowDownloadDialogComponent, OtherMovieDownloadDialogComponent]
+  entryComponents: [MovieDownloadDialogComponent,ShowDetailsComponent, OtherMoviesComponent, MovieDetailsComponent , ShowDownloadDialogComponent, OtherMovieDownloadDialogComponent]
 })
 export class AppModule {
  }

@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material';
+import { MatSnackBar, MatSnackBarRef, MatDialog } from '@angular/material';
 import { MovieDbService } from '../../services/movie-db.service';
 import { timer } from 'rxjs';
+import { OtherMoviesComponent } from '../other-movies/other-movies.component';
 
 @Component({
   selector: 'app-main-page',
@@ -32,6 +33,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
 
   constructor(
+    private dialog: MatDialog,
     private movieDB: MovieDbService,
     private snackBar: MatSnackBar,
     private router: Router,
@@ -39,7 +41,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.imageurl = 'https://image.tmdb.org/t/p/w500';
   }
 
-  time = timer(2000);
+  
   ngOnInit() {
     this.showMoviesNowPlayingList(1);
   }
@@ -65,6 +67,28 @@ export class MainPageComponent implements OnInit, OnDestroy {
   retry(){
     this.showMoviesNowPlayingList(this.i)
     console.log(this.i);
+  }
+
+
+  openDialog(data): void {
+    const dialogRef = this.dialog.open(OtherMoviesComponent, {
+      data: {
+        id: data
+      },
+      height: '95vh',
+      width: '90vw',
+      panelClass: 'Download-dialog',
+      restoreFocus: false,
+      autoFocus: false,
+      id: 'Download-dialog'
+      // maxWidth: '90vw',
+      // maxHeight: '95vh',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
   }
 
   showError(err) {
@@ -113,9 +137,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
 
-  onSelectMovie(movie) {
-    this.router.navigate(['/trending/movies/', movie.id]);
-  }
+  // onSelectMovie(movie) {
+  //   this.router.navigate(['/trending/movies/', movie.id]);
+  // }
 
   opensnackbar(index, cat) {
     this.snackBar.open(`${cat}: Page ${index} is loading please Wait . . . `);

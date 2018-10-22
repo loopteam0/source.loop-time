@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { SearchService } from '../../services/search.service';
+import { ShowDetailsComponent } from '../show-details/show-details.component';
+
 
 
 @Component({
@@ -26,6 +28,7 @@ export class ShowsListComponent implements OnInit {
   pageSizeOptions = [50, 30, 10];
 
   constructor(
+    private dialog: MatDialog,
     private request: SearchService,
     private snackBar: MatSnackBar,
     private router: Router
@@ -54,6 +57,27 @@ export class ShowsListComponent implements OnInit {
 
   });
 
+  }
+
+  openDialog(data): void {
+    const dialogRef = this.dialog.open(ShowDetailsComponent, {
+      data: {
+        id: data
+      },
+      height: '95vh',
+      width: '90vw',
+      panelClass: 'Download-dialog',
+      restoreFocus: false,
+      autoFocus: false,
+      id: 'Download-dialog'
+      // maxWidth: '90vw',
+      // maxHeight: '95vh',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
   }
 
 
@@ -109,9 +133,9 @@ export class ShowsListComponent implements OnInit {
     this.snackBar.open(`Page 0 doesn't exist`);
   }
 
-  onSelectShow(show) {
-    this.router.navigate(['/shows', show.imdb_id]);
-  }
+  // onSelectShow(show) {
+  //   this.router.navigate(['/shows', show.imdb_id]);
+  // }
 
  navigateTop() {
     window.scrollTo(0, 0);

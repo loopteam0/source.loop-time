@@ -1,7 +1,7 @@
 <div class="custom-container">
   <div class="title head">
     <div class="nun">
-      <h4 class="lead ">
+      <h4 class="lead">
         HD Movies
       </h4>
     </div>
@@ -32,10 +32,10 @@
 
       <div class="card-container" *ngFor="let item of Movies ">
         <div *ngIf="!moviesLoading">
-          <mat-card (click)="onSelectMovie(item)" class="animated bounceInUp">
-            <img (click)="onSelectMovie(item)" mat-card-image src="{{item.large_cover_image}}" class="card-image" alt="">
+          <mat-card (click)="openDialog(item.id)" class="animated bounceInUp">
+            <img  mat-card-image src="{{item.large_cover_image}}" class="card-image" alt="">
           </mat-card>
-          <p (click)="onSelectMovie(item)" class="animated fadeInDown">
+          <p (click)="openDialog(item.id)" class="animated fadeInDown">
             {{item.title}}</p>
         </div>
       </div>

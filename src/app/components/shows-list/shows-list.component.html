@@ -34,8 +34,8 @@
         <div class="card-container " *ngFor="let show of Shows ">
 
             <div *ngIf="!showsLoading">
-            <mat-card (click)="onSelectShow(show)" class=" animated bounceInUp">
-                <img (click)="onSelectShow(show)" mat-card-image class="card-image" src="{{show.images.poster}}" alt="{{show.title}} ">
+            <mat-card (click)="openDialog(show.imdb_id)" class=" animated bounceInUp">
+                <img  mat-card-image class="card-image" src="{{show.images.poster}}" alt="{{show.title}} ">
             </mat-card>
             <p (click)="onSelectShow(show)" class="animated fadeInDown ">
           {{ show.title}}</p>

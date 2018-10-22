@@ -36,6 +36,8 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   banner;
 
   constructor(
+    public dialogRef: MatDialogRef<MovieDetailsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private fanartApi: FanartTvService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
@@ -63,12 +65,14 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // this the id of the movie form the route
-    this.parms = this.route.paramMap.subscribe((params: ParamMap) => {
-      const imdb_id = params.get('imdb_id');
-      const id = params.get('id');
-      this.Id = id;
-      this.imdb_id = imdb_id;
-    });
+    // this.parms = this.route.paramMap.subscribe((params: ParamMap) => {
+    //   const imdb_id = params.get('imdb_id');
+    //   const id = params.get('id');
+    //   this.Id = id;
+    //   this.imdb_id = imdb_id;
+    // });
+    this.Id = this.data['id'];
+    this.imdb_id = this.data['id'];
 
     this.getmoviedetails();
   }
@@ -84,6 +88,15 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
       console.log('The dialog was closed');
       // this.animal = result;
     });
+  }
+
+  closeMe(){
+    this.dialogRef.close();
+  }
+
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
   openSnackBar(title: string, quality: string) {
@@ -124,7 +137,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.parms.unsubscribe();
+  //  this.parms.unsubscribe();
   }
 
 

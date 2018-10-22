@@ -1,5 +1,6 @@
-<div id="details-page">
+<button mat-icon-button class="btn-close" color='warn' (click)="closeMe()"><mat-icon>close</mat-icon></button>
 
+<div id="details-page">
  <mat-card  *ngIf="errorState" class="error-card errorHandler">
    <mat-card-content>
       <div >
@@ -133,7 +134,7 @@
                <div class="placeholder"><img [src]="item.url_small_image" alt=""></div>
                 <p>{{item.name}}</p>
                 <p class="small">as</p>
-                <P>{{item.character_name}}</P>
+                <P class="cast-sub-text">{{item.character_name}}</P>
               </div>
             </div>
           </div>

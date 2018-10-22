@@ -16,7 +16,7 @@ export interface DialogData {
 }
 
 //declare the id to be used acrose all components
-let val;
+//let val;
 
 @Component({
   selector: 'app-show-details',
@@ -31,6 +31,8 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
   showDataloading;
 
   constructor(
+    public dialogRef: MatDialogRef<ShowDetailsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private dialog: MatDialog,
     private request: SearchService,
     public snackBar: MatSnackBar,
@@ -56,13 +58,14 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.route.paramMap.subscribe( (params: ParamMap) => {
-        const imdb_id = params.get('imdb_id');
-       // get imdb_id without tt
-        this.Id = imdb_id.substr(2);
-        val = this.Id;
-      });
-
+    // this.route.paramMap.subscribe( (params: ParamMap) => {
+    //     const imdb_id = params.get('imdb_id');
+    //    // get imdb_id without tt
+    //     this.Id = imdb_id.substr(2);
+        
+    //   });
+      
+      this.Id = this.data['id'].substr(2);
       this.requestShowDetails();
   }
 

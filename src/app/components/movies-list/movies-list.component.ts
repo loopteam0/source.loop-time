@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { SearchService } from '../../services/search.service';
 import { tap } from 'rxjs/operators';
 import { FanartTvService } from '../../services/fanart-tv.service';
+import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 
 @Component({
   selector: 'app-movies-list',
@@ -16,7 +17,7 @@ export class MoviesListComponent implements OnInit {
   public Pages;
   errorState = false;
   moviesLoading;
-  retryIndex = 1;
+  retryIndex;
   // tslint:disable-next-line:no-inferrable-types
   pagination: boolean = true;
   length;
@@ -29,6 +30,7 @@ export class MoviesListComponent implements OnInit {
 
 
   constructor(
+    public dialog: MatDialog,
     private el: ElementRef,
     private request: SearchService,
     private snackBar: MatSnackBar,
@@ -76,7 +78,6 @@ export class MoviesListComponent implements OnInit {
         this.showError(err);
         this.moviesLoading = false;
       });
-
   }
 
   paginate(e , cat ) {
@@ -101,14 +102,26 @@ export class MoviesListComponent implements OnInit {
 
   }
 
-  // showImage(id){
-  //   this.fanartApi.getMovieImages(id, 'movies').subscribe(
-  //     res => {
-  //       this.background = res['moviebackground'];
-  //       this.banner = res['moviebanner'];
-  //     }
-  //   )
-  // }
+  openDialog(data): void {
+    const dialogRef = this.dialog.open(MovieDetailsComponent, {
+      data: {
+        id: data
+      },
+      height: '95vh',
+     // maxHeight: '95vh',
+      width: '90vw',
+     // maxWidth: '90vw',
+      panelClass: 'Download-dialog',
+      restoreFocus: false,
+      autoFocus: false,
+      id: 'Download-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
+  }
 
   RETRY(){
     this.home = false;
