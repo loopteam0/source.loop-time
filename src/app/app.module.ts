@@ -48,6 +48,12 @@ import { TorrentModule } from './modules/torrent/torrent.module';
 import { OthersModule } from './modules/others/others.module';
 import { ShowDownloadDialogComponent } from './components/show-details/default-dialog-dialog/shows-download.component';
 import { DatePipe } from '@angular/common';
+import { BackgroundDirective } from './directives/background.directive';
+import { FavoritesComponent } from './components/favorites/favorites.component';
+import { UiServiceService } from './services/ui-service.service';
+import { FavoritesService } from './services/favorites.service';
+import { ElectronStorageService } from './services/electron-storage.service';
+
 
 @NgModule({
   declarations: [
@@ -78,6 +84,9 @@ import { DatePipe } from '@angular/common';
     SoftwarePageComponent,
     GamesPageComponent,
     UndefinedPipe,
+    BackgroundDirective,
+    FavoritesComponent,
+  
 
   ],
   imports: [
@@ -91,7 +100,8 @@ import { DatePipe } from '@angular/common';
 ,   SharedModule, CoreModule, TorrentModule, OthersModule,
     JsonpModule, NgxPaginationModule,
   ],
-  providers: [ SearchService, MovieDbService , ElectronService , FanartTvService,DatePipe,
+  providers: [ SearchService, MovieDbService , ElectronService,FavoritesService,ElectronStorageService
+     , FanartTvService,DatePipe, UiServiceService,
     { provide: HTTP_INTERCEPTORS,
       useClass: ServiceInterceptor,
       multi: true}

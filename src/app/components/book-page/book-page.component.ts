@@ -11,6 +11,7 @@ export class BookPageComponent implements OnInit {
   Others;
   loading;
   searchLoading;
+  searched;
   errorState = false;
   constructor(private Torrent: TorrentSearchApiService, private snackbar: MatSnackBar) {}
 
@@ -19,6 +20,7 @@ export class BookPageComponent implements OnInit {
   }
 
   showTorrents() {
+    this.searched = false;
     this.loading = true;
     this.Torrent.getOthers("books", 50).then(res => {
       this.Others = res;
@@ -31,11 +33,17 @@ export class BookPageComponent implements OnInit {
   }
 
   search(title) {
+    this.searched = true;
     this.loading = true;
     this.errorState = false;
     this.Torrent.getOthers(title, 30).then(res => {
       this.Others = res;
       this.loading = false;
+      if (this.Others.length == 0) {  
+        this.showError(`${this.Others.length} Not Found`);
+      }else {
+        this.showError(`${this.Others.length} Results Found`);
+      }
     }, err => {
     this.showError(err);
     this.loading = false;

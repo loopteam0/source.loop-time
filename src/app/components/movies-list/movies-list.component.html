@@ -41,8 +41,9 @@
       </div>
 
     </div>
-    <div class="home">
-      <button mat-raised-button color="primary" *ngIf="home" (click)="RETRY()" class="home animated fadeInUp">HOME <mat-icon>home</mat-icon></button>
+    
+    <div *ngIf="home" class="home">
+      <button mat-raised-button color="primary"  (click)="RETRY()" class="home animated fadeInUp">HOME <mat-icon>home</mat-icon></button>
     </div>
 
 
@@ -53,6 +54,7 @@
         </mat-paginator>
       </div>
     </div>
+    
       <div class="margier"></div>
   </div>
 </div>

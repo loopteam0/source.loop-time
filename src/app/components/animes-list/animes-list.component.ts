@@ -17,15 +17,12 @@ export class AnimesListComponent implements OnInit {
   results;
   loading;
   searchLoading;
+  searched = false;
   errorState = false;
 
   constructor(
     private Torrent: TorrentSearchApiService,
-    private snackbar: MatSnackBar) {
-
-
-
-     }
+    private snackbar: MatSnackBar) {}
 
   ngOnInit() {
    this.showTorrents();
@@ -34,6 +31,7 @@ export class AnimesListComponent implements OnInit {
 
 
   showTorrents() {
+    this.searched = false;
     this.loading = true;
     this.errorState = false;
     this.Torrent.getAnimes('1080', 50).then(torrents => {
@@ -43,17 +41,25 @@ export class AnimesListComponent implements OnInit {
 
   },
     err => {
+      this.showError(err);
       this.loading = false;
       this.errorState = true;
     });
   }
 
   search(title) {
+    
+    this.searched = true;
     this.loading = true;
     this.errorState = false;
     this.Torrent.getAnimes(title, 50).then(res => {
       this.animes = res;
       this.loading = false;
+      if (this.animes.length == 0) {  
+        this.showError(`${this.animes.length} Not Found`);
+      }else {
+        this.showError(`${this.animes.length} Results Found`);
+      }
   },
     err => {
       this.showError(err);

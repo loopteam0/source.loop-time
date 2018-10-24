@@ -4,6 +4,7 @@ import { MatSnackBar, MatSnackBarRef, MatDialog } from '@angular/material';
 import { MovieDbService } from '../../services/movie-db.service';
 import { timer } from 'rxjs';
 import { OtherMoviesComponent } from '../other-movies/other-movies.component';
+import { UiServiceService } from 'src/app/services/ui-service.service';
 
 @Component({
   selector: 'app-main-page',
@@ -17,12 +18,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
   public Shows;
   public Pages;
   loading;
-
   errorMsg = 'An unknown error occured while requesting';
-
   animePage;
   pgNumber;
   i;
+  home;
   /** PAGINATION */
   lenght;
   pageSize = 20;
@@ -33,6 +33,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
 
   constructor(
+    public UI: UiServiceService,
     private dialog: MatDialog,
     private movieDB: MovieDbService,
     private snackBar: MatSnackBar,
@@ -49,6 +50,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   /** Get upcoming Movies List from Yts */
   showMoviesNowPlayingList(i) {
+    this.home = false;
     this.loading = true;
     this.errorState = false;
     this.movieDB.getNowPlaying(i).subscribe(
@@ -65,30 +67,19 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   retry(){
+    this.home = false;
     this.showMoviesNowPlayingList(this.i)
     console.log(this.i);
   }
 
 
   openDialog(data): void {
-    const dialogRef = this.dialog.open(OtherMoviesComponent, {
-      data: {
-        id: data
-      },
-      height: '95vh',
-      width: '90vw',
-      panelClass: 'Download-dialog',
-      restoreFocus: false,
-      autoFocus: false,
-      id: 'Download-dialog'
-      // maxWidth: '90vw',
-      // maxHeight: '95vh',
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
-    });
+    const info:object = {
+      id: data
+    }
+    this.UI.openDialog(info ,OtherMoviesComponent ,'Download-dialog')
+
   }
 
   showError(err) {
@@ -105,12 +96,17 @@ export class MainPageComponent implements OnInit, OnDestroy {
   search(keyword){
     this.loading = true;
     this.errorState = false;
-
+    this.home = true;
     this.movieDB.searchKeyword(keyword,'movie',1).subscribe(
       res => {
         this.upcomingMovies = res;
         this.loading = false;
         this.errorState = false;
+        if (this.upcomingMovies.length == 0) {
+          this.showError(`${keyword} Not Found`)
+        } else {
+          this.showError(`${this.upcomingMovies.length} Items Found`)
+        }
       },err =>{
         this.loading = false;
         this.errorState = false;
@@ -148,6 +144,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
   errorSnack() {
     this.snackBar.open(`An unknown error occured`);
   }
+
+
+
 
   ngOnDestroy(){
 

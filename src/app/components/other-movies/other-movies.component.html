@@ -1,5 +1,7 @@
 
-<div id="details-page" >
+<div id="details-page" appBackground >
+
+  <button id="btn-close" (click)="closeDialog()" mat-icon-button><mat-icon color='warn'>close</mat-icon></button>
 
   <mat-card  *ngIf="errorState" class="error-card errorHandler">
     <mat-card-content>
@@ -93,10 +95,7 @@
                    <span ><a href="{{movieDetails.homepage}} ">{{movieDetails.homepage | shorten: 25: '...'}}</a> </span>
                  </p>
 
-               <p>
-                 <strong>Language: </strong>
-                 <span>{{movieDetails.original_language}} </span>
-               </p>
+            
                <p>
                  <strong>Subtitles: </strong>
                  <span>
@@ -125,14 +124,9 @@
                  <span>{{movieDetails.adult}} </span>
                </p>
                <p>
-                 <strong>budget: </strong>
-                 <span>{{movieDetails.budget| currency}} </span>
-               </p>
-
-               <p>
-                 <strong>Revenue: </strong>
-                 <span>{{movieDetails.revenue |currency}} </span>
-               </p>
+                <strong>Language: </strong>
+                <span>{{movieDetails.original_language}} </span>
+              </p>
              </div>
 
            </div>
@@ -141,11 +135,9 @@
          <mat-tab label="COMPANIES" *ngIf="movieDetails.production_companies">
            <div class="container cast">
              <div class="row">
-               <div class="col" *ngFor="let item of movieDetails.production_companies">
-                <div class="placeholder"><img src="{{imageurl}}{{item.logo_path}}" alt="Log Not Found"></div>
-                 <p>{{item.name}}</p>
-                 <P>{{item.origin_country}}</P>
-               </div>
+              
+                
+                
              </div>
            </div>
          </mat-tab>

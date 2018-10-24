@@ -37,6 +37,7 @@
     "angularfire2": "^5.0.1",
     "bootstrap": "^4.1.2",
     "core-js": "^2.5.4",
+    "electron-store": "^2.0.0",
     "firebase": "^5.5.0",
     "hammerjs": "^2.0.8",
     "kat-api-pt": "^4.0.0",

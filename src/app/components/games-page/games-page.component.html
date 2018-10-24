@@ -17,7 +17,7 @@
 
 <div>
 
-  <div class="container">
+  <div class="dft-container">
 
     <div *ngIf="errorState" class="errorHandler">
       <h1>
@@ -27,11 +27,12 @@
     </div>
 
     <app-spinner *ngIf='loading'></app-spinner>
-
-    <div class="container">
+    <div *ngIf="searched" class="btn-container">
+        <button mat-raised-button class="btn-refresh"  (click)="showTorrents()"> HOME </button>
+      </div>
+    <div class="">
 
       <div class="wrapper">
-        <button mat-raised-button class="btn-refresh" *ngIf="Games" (click)="showTorrents()">REFRESH </button>
 
         <div class="mat-elevation-z8">
 

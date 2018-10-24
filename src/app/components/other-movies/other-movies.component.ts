@@ -7,6 +7,7 @@ import { TorrentSearchApiService } from "../../services/torrent-search-api.servi
 import { ElectronService } from "../../services/electron.service";
 import { MatSnackBar } from '@angular/material';
 import { DatePipe } from "@angular/common";
+import { UiServiceService } from "src/app/services/ui-service.service";
 
 let MovieTitle;
 let movieYear;
@@ -30,6 +31,7 @@ export class OtherMoviesComponent implements OnInit {
   try = 'the meg: retrun - home';
 
   constructor(
+    public UI: UiServiceService,
     public dialogRef: MatDialogRef<OtherMoviesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
@@ -45,13 +47,6 @@ export class OtherMoviesComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this the id of the movie form the route
-    // this.parms = this.route.paramMap.subscribe((params: ParamMap) => {
-    //   const id = params.get("id");
-    //   this.Id = id;
-    //   console.log(this.Id);
-    // });
-    
     this.Id = this.data['id'];
     this.showDetails();
   }
@@ -84,22 +79,19 @@ export class OtherMoviesComponent implements OnInit {
 
 
   openDialog(title, date): void {
-    const dialogRef = this.dialog.open(OtherMovieDownloadDialogComponent, {
-      data: {
-        title: title,
-        date: date
-      } ,
-      restoreFocus: false,
-      autoFocus: false,
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
-    });
+    const info:object ={
+      title: title,
+      date: date
+    }
+
+    this.UI.openDialog(info,OtherMovieDownloadDialogComponent, 'other-download-dialog' )
+   
   }
 
-
+  closeDialog(){
+    this.dialogRef.close();
+  }
 
 
   download(torrent) {

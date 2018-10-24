@@ -5,6 +5,7 @@ import { SearchService } from '../../services/search.service';
 import { tap } from 'rxjs/operators';
 import { FanartTvService } from '../../services/fanart-tv.service';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
+import { UiServiceService } from 'src/app/services/ui-service.service';
 
 @Component({
   selector: 'app-movies-list',
@@ -30,8 +31,7 @@ export class MoviesListComponent implements OnInit {
 
 
   constructor(
-    public dialog: MatDialog,
-    private el: ElementRef,
+    public UI: UiServiceService,
     private request: SearchService,
     private snackBar: MatSnackBar,
     private router: Router,
@@ -74,6 +74,11 @@ export class MoviesListComponent implements OnInit {
        this.Movies = data['movies'];
        this.length = data['movie_count'];
 
+       if (this.length == 0) {  
+         this.showError(`${keyword} Not Found`);
+       }else {
+         this.showError(`${this.length} Results Found`);
+       }
       }, err => {
         this.showError(err);
         this.moviesLoading = false;
@@ -103,24 +108,11 @@ export class MoviesListComponent implements OnInit {
   }
 
   openDialog(data): void {
-    const dialogRef = this.dialog.open(MovieDetailsComponent, {
-      data: {
-        id: data
-      },
-      height: '95vh',
-     // maxHeight: '95vh',
-      width: '90vw',
-     // maxWidth: '90vw',
-      panelClass: 'Download-dialog',
-      restoreFocus: false,
-      autoFocus: false,
-      id: 'Download-dialog'
-    });
+    const info:object = {
+      id: data
+    }
+    this.UI.openDialog(info , MovieDetailsComponent, 'Download-dialog');
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
-    });
   }
 
   RETRY(){

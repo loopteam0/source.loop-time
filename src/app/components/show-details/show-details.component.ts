@@ -7,6 +7,7 @@ import { ShowDownloadDialogComponent } from './default-dialog-dialog/shows-downl
 import { SearchService } from '../../services/search.service';
 import { Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { UiServiceService } from 'src/app/services/ui-service.service';
 
 export interface DialogData {
   episodes : object,
@@ -31,6 +32,7 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
   showDataloading;
 
   constructor(
+    public UI: UiServiceService,
     public dialogRef: MatDialogRef<ShowDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private dialog: MatDialog,
@@ -58,38 +60,26 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    // this.route.paramMap.subscribe( (params: ParamMap) => {
-    //     const imdb_id = params.get('imdb_id');
-    //    // get imdb_id without tt
-    //     this.Id = imdb_id.substr(2);
-        
-    //   });
-      
       this.Id = this.data['id'].substr(2);
       this.requestShowDetails();
   }
 
   openShowsDialog(data, title,seasons): void {
-    const dialogRef = this.dialog.open(ShowDownloadDialogComponent , {
-      data: {
-        torrents: data,
-        title: title,
-        imdbCode: this.Id,
-        seasons: seasons
-      },
-       minHeight: '80vh',
-       maxWidth: '65vw',
-       minWidth: '65vw',
-       autoFocus: false,
-       panelClass: 'shows-download-dialog'
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
-    });
+   const info:Object = {
+      torrents: data,
+      title: title,
+      imdbCode: this.Id,
+      seasons: seasons
+    }
+    this.UI.openDialog(
+      info ,ShowDownloadDialogComponent ,'shows-download-dialog'
+      )
   }
 
+  closeDialog(){
+    this.dialogRef.close()
+  }
 
   RETRY(){
     this.errorState= false;

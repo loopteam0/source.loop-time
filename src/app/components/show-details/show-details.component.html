@@ -1,5 +1,5 @@
 <div id="details-page">
-
+  <button id="btn-close" mat-icon-button   (click)="closeDialog()"><mat-icon color="warn">close</mat-icon></button>
     <mat-card *ngIf="errorState"class="errorHandler error-card">
       <mat-card-content>
           <div  >
@@ -69,7 +69,7 @@
         <mat-tab label="INFO">
           <div class="container">
             <p class="body">
-              <strong>Storyline:</strong> {{showDetails.synopsis}} </p>
+              <strong>Storyline:</strong> {{showDetails.synopsis| shorten: 430: [' ...']}} </p>
           </div>
         </mat-tab>
 

@@ -8,6 +8,7 @@ import { SearchService } from '../../services/search.service';
 import { ElectronService } from '../../services/electron.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { FanartTvService } from '../../services/fanart-tv.service';
+import { UiServiceService } from 'src/app/services/ui-service.service';
 
 export interface DialogData {
   torrents: object;
@@ -36,6 +37,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   banner;
 
   constructor(
+    public UI: UiServiceService,
     public dialogRef: MatDialogRef<MovieDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private fanartApi: FanartTvService,
@@ -64,13 +66,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this the id of the movie form the route
-    // this.parms = this.route.paramMap.subscribe((params: ParamMap) => {
-    //   const imdb_id = params.get('imdb_id');
-    //   const id = params.get('id');
-    //   this.Id = id;
-    //   this.imdb_id = imdb_id;
-    // });
+    
     this.Id = this.data['id'];
     this.imdb_id = this.data['id'];
 
@@ -78,16 +74,21 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   }
 
   openDialog(data): void {
-    const dialogRef = this.dialog.open(MovieDownloadDialogComponent, {
-      data: {
-        torrents: this.movieDetails
-      }
-    });
+    const info:object = {
+      torrents: this.movieDetails
+    }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
-    });
+    this.UI.openDialog(info,MovieDownloadDialogComponent, 'movie-download-dialog' , 'auto' , 'auto' )
+
+    // const dialogRef = this.dialog.open(MovieDownloadDialogComponent, {
+    //   data: {
+    //   }
+    // });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed');
+    //   // this.animal = result;
+    // });
   }
 
   closeMe(){

@@ -3,7 +3,13 @@
 @import "../../../custom-theme.scss ";
 @import "../../assets/material.min.scss";
 
-
+.dft-container{
+    width: 90%;
+    margin: {
+        left: auto;
+        right: auto;
+    }
+}
 table {
     width: 100%;
 
@@ -30,22 +36,19 @@ h4.lead {
     width: 100%;
     margin-bottom: 3rem;
     margin-top: 1rem;
-
-    .btn-refresh{
-      float: right;
-      margin-bottom: 5px;
-
-    &::after{
-      clear: both;
-      display: block;
-    }
-    }
 }
 
 .container-fluid {
     padding-top: 1rem;
 }
-
+.btn-container{
+    width: 100%;
+    .btn-refresh{
+        width: 120px;
+        margin: auto;
+        display: flex;
+    }
+}
 table {
     margin-bottom: 0;
     padding-bottom: 0;
@@ -94,3 +97,14 @@ button mat-icon{
         opacity: 1;
     }
 }
+
+.radio-buttons{
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+
+    mat-radio-button{
+        margin-right: 20px;
+    }
+}
+

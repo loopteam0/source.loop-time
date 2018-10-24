@@ -15,6 +15,7 @@ import { GamesPageComponent } from './components/games-page/games-page.component
 import { BookPageComponent } from './components/book-page/book-page.component';
 import { MusicPageComponent } from './components/music-page/music-page.component';
 import { SoftwarePageComponent } from './components/software-page/software-page.component';
+import { FavoritesComponent } from './components/favorites/favorites.component';
 
 
 /// import { DownloadPageComponent } from './components/download-page/download-page.component';
@@ -26,18 +27,14 @@ const routes: Routes = [
   {path: 'movies', component: MoviesListComponent},
   {path: 'shows', component: ShowsListComponent},
   {path: 'animes', component: AnimesListComponent},
-  // {path: 'movies/:id/:imdb_id', component: MovieDetailsComponent },
-  // {path: 'shows/:imdb_id', component: ShowDetailsComponent },
-  // {path: 'trending/movies/:id', component: OtherMoviesComponent},
   {path: 'books', component: BookPageComponent},
   {path: 'games', component: GamesPageComponent},
   {path: 'musics', component: MusicPageComponent},
   {path: 'softwares', component: SoftwarePageComponent},
   {path: 'search', component: SearchPageComponent},
+  {path: 'favorites', component: FavoritesComponent},
   {path: 'about', component: AboutPageComponent},
   {path: '**' , component: PageNotFoundComponent }
-  // {path: 'settings', component: SettingsPageComponent},
-  /// {path: 'downloads', component: DownloadPageComponent},
 
 ];
 

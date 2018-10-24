@@ -1,68 +1,77 @@
 <div class="custom-container">
-    <div class="title head">
-        <div class="nun">
-          <h4 class="lead">
-            MUSICS
-        </h4>
-        </div>
-        <div class="spacer"></div>
-        <mat-form-field>
-          <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
-          <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
-      </mat-form-field>
+  <div class="title head">
+    <div class="nun">
+      <h4 class="lead">
+        MUSICS
+      </h4>
     </div>
+    <div class="spacer"></div>
+    <mat-form-field>
+      <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
+      <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
+    </mat-form-field>
   </div>
-  <mat-divider>
-  </mat-divider>
+</div>
+<mat-divider>
+</mat-divider>
 
-    <div>
+<div>
 
-            <div class="container">
-              <div *ngIf="errorState" class="errorHandler">
-                  <h1>An error occured</h1>
-                  <button mat-raised-button color="accent" (click)="showMusics()">RETRY</button>
-              </div>
+  <div class="dft-container">
 
-              <app-spinner *ngIf="loading"></app-spinner>
+    <div *ngIf="errorState" class="errorHandler">
+      <h1>An error occured</h1>
+      <button mat-raised-button color="accent" (click)="showMusics()">RETRY</button>
+    </div>
 
-                <div class="wrapper">
-                    <button mat-raised-button class="btn-refresh" *ngIf="Musics" (click)="showMusics()">REFRESH </button>
+    <app-spinner *ngIf="loading"></app-spinner>
 
-                    <div class="mat-elevation-z5">
-                        <table *ngIf="Musics" class="table table-borderless table-hover">
+    <div *ngIf="searched" class="btn-container">
 
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th class="align" scope="col">Title</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">size</th>
-                                    <th scope="col">seeds</th>
-                                    <th scope="col">Peers</th>
-                                    <th scope="col">Download</th>
-                                </tr>
-                            </thead>
+      <button mat-raised-button class="btn-refresh" (click)="showMusics()">
+        HOME
+      </button>
 
-                            <tbody *ngFor='let item of Musics | truthify'>
-                                <tr class="animated bounceInUp">
-                                    <th scope="row">
-                                        <mat-icon>library_music</mat-icon>
-                                    </th>
-                                    <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align">{{item.title}}</td>
-                                    <td>{{item.time}}</td>
-                                    <td>{{item.size}}</td>
-                                    <td>{{item.seeds}}</td>
-                                    <td>{{item.peers}}</td>
-                                    <td><button (click)="download(item)"  color="primary" mat-icon-button>
-                                        <mat-icon>file_download</mat-icon></button></td>
+    </div>
 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+    <div class="wrapper">
 
-            </div>
+      <div class="mat-elevation-z3">
+        <table *ngIf="Musics" class="table table-borderless table-hover">
+
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th class="align" scope="col">Title</th>
+              <th scope="col">Time</th>
+              <th scope="col">size</th>
+              <th scope="col">seeds</th>
+              <th scope="col">Peers</th>
+              <th scope="col">Download</th>
+            </tr>
+          </thead>
+
+          <tbody *ngFor='let item of Musics | truthify'>
+            <tr class="animated bounceInUp">
+              <th scope="row">
+                <mat-icon>library_music</mat-icon>
+              </th>
+              <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align">{{item.title}}</td>
+              <td>{{item.time}}</td>
+              <td>{{item.size}}</td>
+              <td>{{item.seeds}}</td>
+              <td>{{item.peers}}</td>
+              <td><button (click)="download(item)" color="primary" mat-icon-button>
+                  <mat-icon>file_download</mat-icon>
+                </button></td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
 
 </div>
 <app-quote></app-quote>

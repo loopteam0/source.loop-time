@@ -1,0 +1,103 @@
+<div class="custom-container">
+    <div class="title head">
+      <div class="nun">
+        <h4 class="lead">
+          Favorites
+        </h4>
+      </div>
+      <div class="spacer"></div>
+      <mat-form-field>
+        <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
+        <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-divider>
+  </mat-divider>
+  <div>
+  
+    <div class=" full-screen">
+<div class="custom-container">
+  <h3 class="lead">Movies</h3>
+
+</div>
+
+      <div *ngIf="errorState" class="errorHandler">
+        <h1>
+          An error occured
+        </h1>
+        <button mat-raised-button color="accent" (click)="RETRY()">RETRY</button>
+      </div>
+  
+      <app-spinner *ngIf="moviesLoading"></app-spinner>
+  
+      <div class="main-tab-container" id="top">
+  
+  
+        <div class="card-container" *ngFor="let item of Movies ">
+          <div *ngIf="!moviesLoading">
+            <mat-card (click)="openDialog(item.id)" class="animated bounceInUp">
+              <img  mat-card-image src="{{item.large_cover_image}}" class="card-image" alt="">
+            </mat-card>
+            <p (click)="openDialog(item.id)" class="animated fadeInDown">
+              {{item.title}}</p>
+          </div>
+        </div>
+  
+      </div>
+
+      <div class="custom-container">
+        <h3 class="lead">TV Shows</h3>
+
+      </div>
+
+      <div *ngIf="errorState" class="errorHandler">
+        <h1>
+          An error occured
+        </h1>
+        <button mat-raised-button color="accent" (click)="RETRY()">RETRY</button>
+      </div>
+  
+      <app-spinner *ngIf="moviesLoading"></app-spinner>
+  
+      <div class="main-tab-container" id="top">
+  
+  
+        <div class="card-container" *ngFor="let item of Movies ">
+          <div *ngIf="!moviesLoading">
+            <mat-card (click)="openDialog(item.id)" class="animated bounceInUp">
+              <img  mat-card-image src="{{item.large_cover_image}}" class="card-image" alt="">
+            </mat-card>
+            <p (click)="openDialog(item.id)" class="animated fadeInDown">
+              {{item.title}}</p>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+          <!-- <div class="home">
+            <button mat-raised-button color="primary" *ngIf="home" (click)="RETRY()" class="home animated fadeInUp">HOME <mat-icon>home</mat-icon></button>
+          </div>
+      
+      
+          <div class="container" *ngIf="pagination">
+            <div id="pagination">
+              <mat-paginator showFirstLastButtons [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex"
+                [pageSizeOptions]="pageSizeOptions" (page)="paginate($event , 'Movies')">
+              </mat-paginator>
+            </div>
+          </div> 
+            <div class="margier"></div> -->
+  

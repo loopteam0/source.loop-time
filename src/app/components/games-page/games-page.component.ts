@@ -11,6 +11,7 @@ export class GamesPageComponent implements OnInit {
   Games;
   PirateGames;
   loading;
+  searched;
   errorState = false;
   constructor(private Torrent: TorrentSearchApiService, private snackbar: MatSnackBar) {}
 
@@ -20,6 +21,7 @@ export class GamesPageComponent implements OnInit {
   }
 
   showTorrents() {
+    this.searched = false;
     this.loading = true;
     this.errorState = false;
     this.Torrent.getGames("2018", 50).then(res => {
@@ -47,10 +49,16 @@ export class GamesPageComponent implements OnInit {
   }
 
   search(title) {
+    this.searched = true;
     this.loading = true;
     this.Torrent.getGames(title, 30).then(res => {
       this.Games = res;
       this.loading = false;
+      if (this.Games.length == 0) {  
+        this.showError(`${this.Games.length} Not Found`);
+      }else {
+        this.showError(`${this.Games.length} Results Found`);
+      }
   },
     err => {
     this.showError(err);

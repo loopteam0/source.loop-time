@@ -1,10 +1,11 @@
 
  <div class="tabs">
-
+     
+    <button (click)="dialogRef.close()" class="btn-close" mat-icon-button><mat-icon>close</mat-icon></button>
      <h4 mat-dialog-title>Download</h4>
 
 
-    <mat-dialog-content data-simplebar data-simplebar-auto-hide="false" >
+    <mat-dialog-content>
 
     <div *ngIf="errorState" class="error-card errorHandler">
         <h1>
@@ -16,8 +17,8 @@
 
          <!-- show spinner here -->
 
-         <div class="spinner-cont">
-           <div class="spinner" *ngIf="loading"></div>
+         <div *ngIf="loading" class="spinner-cont">
+           <div class="spinner" ></div>
          </div>
 
         <div class="tabs">

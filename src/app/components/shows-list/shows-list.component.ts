@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { SearchService } from '../../services/search.service';
 import { ShowDetailsComponent } from '../show-details/show-details.component';
+import { UiServiceService } from 'src/app/services/ui-service.service';
+import { ElectronStorageService } from 'src/app/services/electron-storage.service';
 
 
 
@@ -13,7 +15,7 @@ import { ShowDetailsComponent } from '../show-details/show-details.component';
 })
 export class ShowsListComponent implements OnInit {
 
-  public Shows;
+  public Shows: Array<any>;
   public Pages;
   pagination: boolean = true;
   errorState;
@@ -28,7 +30,8 @@ export class ShowsListComponent implements OnInit {
   pageSizeOptions = [50, 30, 10];
 
   constructor(
-    private dialog: MatDialog,
+    public Storage: ElectronStorageService,
+    private  UI: UiServiceService,
     private request: SearchService,
     private snackBar: MatSnackBar,
     private router: Router
@@ -38,6 +41,7 @@ export class ShowsListComponent implements OnInit {
 
 
   ngOnInit() {
+
     this.requestShowList(1);
 
   }
@@ -60,24 +64,19 @@ export class ShowsListComponent implements OnInit {
   }
 
   openDialog(data): void {
-    const dialogRef = this.dialog.open(ShowDetailsComponent, {
-      data: {
-        id: data
-      },
-      height: '95vh',
-      width: '90vw',
-      panelClass: 'Download-dialog',
-      restoreFocus: false,
-      autoFocus: false,
-      id: 'Download-dialog'
-      // maxWidth: '90vw',
-      // maxHeight: '95vh',
-    });
+     const info: object = {
+      id: data
+    }
+    this.UI.openDialog(info,ShowDetailsComponent, 'Download-dialog');
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
-    });
+  store(item){
+    this.Storage.storeItem(item.title, item);
+  }
+
+  get(item){
+  let i =  this.Storage.getItem(item.title);
+  console.log(i);
   }
 
 
@@ -91,6 +90,11 @@ export class ShowsListComponent implements OnInit {
          this.Shows = data
          this.showsLoading = false;
 
+         if (this.Shows.length == 0) {
+           this.showError(`${keyword} Not Found`);         
+         }else {
+           this.showError(`${this.Shows.length} Results Found`)
+         }
         }, err => {
           this.showError(err);
           this.showsLoading = false;

@@ -6,10 +6,10 @@
 $image-width : 14rem;
 $min-image-width: 10rem;
 
-.btn-close{
-  position: fixed;
-  right: 5px;
-  top: 5px;
+#btn-close{
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 .error-card{
   width: 450px;
@@ -33,6 +33,7 @@ $min-image-width: 10rem;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    border-radius: 5px;
     
     //  background-size: cover;
     //  background: fixed;
@@ -46,6 +47,7 @@ $min-image-width: 10rem;
       right: 0;
       background-color: rgba(0, 0, 0, 0.555);
       position: absolute;
+      border-radius: 5px;
       // filter: blur(30px);
   }
 }

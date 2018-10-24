@@ -15,22 +15,27 @@
 
 <mat-divider>
 </mat-divider>
-  <div>
+<div>
 
+  <div class="dft-container">
 
-  <div *ngIf="errorState" class="errorHandler">
-    <h1>
-      An error occured
-    </h1>
-    <button mat-raised-button color="accent" (click)="showTorrents()">RETRY</button>
-  </div>
+    <div *ngIf="errorState" class="errorHandler">
+      <h1>
+        An error occured
+      </h1>
+      <button mat-raised-button color="accent" (click)="showTorrents()">RETRY</button>
+    </div>
 
-  <app-spinner *ngIf='loading'></app-spinner>
-  <div class="container">
+    <app-spinner *ngIf='loading'></app-spinner>
+
+    <div *ngIf="searched" class="btn-container">
+      <button mat-raised-button class="btn-refresh" (click)="showTorrents()">
+        HOME
+      </button>
+    </div>
     <div class="wrapper">
-        <button mat-raised-button class="btn-refresh" *ngIf="Others" (click)="showTorrents()">REFRESH </button>
 
-      <div class="mat-elevation-z8">
+      <div class="mat-elevation-z3">
 
         <table *ngIf="Others" class="table table-borderless table-hover">
 

@@ -1,6 +1,6 @@
-<button mat-icon-button class="btn-close" color='warn' (click)="closeMe()"><mat-icon>close</mat-icon></button>
 
 <div id="details-page">
+  <button mat-icon-button id="btn-close" (click)="closeMe()"  color='warn'><mat-icon>close</mat-icon></button>
  <mat-card  *ngIf="errorState" class="error-card errorHandler">
    <mat-card-content>
       <div >
@@ -66,7 +66,7 @@
         <mat-tab label="INFO">
           <div class="container">
             <p class="body">
-              <strong>Storyline:</strong> {{movieDetails.description_intro}} </p>
+              <strong>Storyline:</strong> {{movieDetails.description_intro | shorten: 430: ' ...'}} </p>
           </div>
         </mat-tab>
 

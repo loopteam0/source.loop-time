@@ -1,72 +1,78 @@
 <div class="custom-container">
-    <div class="title head">
-        <div class="nun">
-          <h4 class="lead">
-            Animes
-        </h4>
-        </div>
-        <div class="spacer"></div>
-        <mat-form-field>
-          <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
-          <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
-      </mat-form-field>
+  <div class="title head">
+    <div class="nun">
+      <h4 class="lead">
+        Animes
+      </h4>
     </div>
+    <div class="spacer"></div>
+    <mat-form-field>
+      <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
+      <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
+    </mat-form-field>
   </div>
-  <mat-divider>
-  </mat-divider>
+</div>
 
-    <div>
-            <div class="container">
+<mat-divider>
+</mat-divider>
 
-                   <div *ngIf="anime" class="errorHandler">
-                       <h1>
-                           An error occured
-                       </h1>
-                       <button mat-raised-button color="accent" (click)="showTorrents()">RETRY</button>
-                   </div>
+<div>
+  <div class="dft-container">
 
-                <app-spinner *ngIf="loading"></app-spinner>
+    <div *ngIf="anime" class="errorHandler">
+      <h1>
+        An error occured
+      </h1>
+      <button mat-raised-button color="accent" (click)="showTorrents()">RETRY</button>
+    </div>
 
-                <div class="wrapper">
-                  <button mat-raised-button class="btn-refresh" *ngIf="animes" (click)="showTorrents()">REFRESH </button>
+    <app-spinner *ngIf="loading"></app-spinner>
 
-                    <div class="mat-elevation-z5">
-                        <table *ngIf="animes" class="table table-borderless table-hover">
+    <div *ngIf="searched" class="btn-container">
+      <button mat-raised-button class="btn-refresh"  (click)="showTorrents()"> HOME </button>
+    </div>
 
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th class="align" scope="col">Title</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Size</th>
-                                    <th scope="col">Seeders</th>
-                                    <th scope="col">Peers</th>
-                                    <th scope="col">Download</th>
-                                </tr>
-                            </thead>
+    <div class="wrapper">
 
-                            <tbody *ngFor='let item of animes | truthify'>
-                                <tr class="animated bounceInUp">
-                                    <th scope="row">
-                                        <mat-icon>library_music</mat-icon>
-                                    </th>
-                                    <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align">{{item.title}}</td>
-                                    <td>{{item.time}}</td>
-                                    <td>{{item.size}}</td>
-                                    <td>{{item.seeds}}</td>
-                                    <td>{{item.peers}}</td>
-                                    <td><button (click)="download(item)" color="primary" mat-icon-button>
-                                        <mat-icon>file_download</mat-icon></button></td>
+      <div class="mat-elevation-z3">
 
-                                </tr>
-                            </tbody>
-                        </table>
+        <table *ngIf="animes" class="table table-borderless table-hover">
+
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th class="align" scope="col">Title</th>
+              <th scope="col">Time</th>
+              <th scope="col">Size</th>
+              <th scope="col">Seeders</th>
+              <th scope="col">Peers</th>
+              <th scope="col">Download</th>
+            </tr>
+          </thead>
+
+          <tbody *ngFor='let item of animes | truthify'>
+            <tr class="animated bounceInUp">
+              <th scope="row">
+                <mat-icon>library_music</mat-icon>
+              </th>
+              <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align">{{item.title}}</td>
+              <td>{{item.time}}</td>
+              <td>{{item.size}}</td>
+              <td>{{item.seeds}}</td>
+              <td>{{item.peers}}</td>
+              <td><button (click)="download(item)" color="primary" mat-icon-button>
+                  <mat-icon>file_download</mat-icon>
+                </button></td>
+
+            </tr>
+          </tbody>
+        </table>
 
 
-                    </div>
-                </div>
+      </div>
+    </div>
 
-            </div>
+  </div>
 
 
 </div>

@@ -9,9 +9,10 @@
     }
     .left{
       float: right;
+      margin-right: 35px;
 
       span{
-        margin: 3px 4px
+        margin: 3px 10px;
 
       }
 
@@ -53,32 +54,19 @@ mat-list-item {
     span {
         width: 100px;
     }
+
+    a.series-link{
+        margin: 2px 8px;
+    }
 }
 
 .errorHandler{
   margin-top: 50px !important;  
   text-align: center;
-  margin: auto auto;
+  margin: 30px auto;
 
 }
 
 
-mat-dialog-content {
-    ::-webkit-scrollbar {
-        width: 10px;
-        height: 10px
-      }
-      
-      ::-webkit-scrollbar-thumb {
-        height: 6px;
-        border: 2px solid transparent;
-        background-clip: padding-box;
-        --webkit-border-radius: 7px;
-        background-color: hsla(0, 0%, 100%, .4)
-      }
-      
-      ::-webkit-scrollbar-corner {
-        background-color: transparent
-      }
-}
+
 

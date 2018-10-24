@@ -42,11 +42,15 @@
       </div>
   </div>
 
-  <div class="container">
+  <div *ngIf="!home" class="container">
     <div id="pagination">
       <mat-paginator [length]="lenght" showFirstLastButtons [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event , 'New Movies')">
       </mat-paginator>
     </div>
+  </div>
+
+  <div *ngIf="home" class="home">
+    <button mat-raised-button color="primary"  (click)="retry()" class="home animated fadeInUp">HOME <mat-icon>home</mat-icon></button>
   </div>
 
   <div class="clearfix"></div>
