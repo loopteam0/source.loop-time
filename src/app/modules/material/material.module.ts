@@ -8,7 +8,7 @@ import { MatButtonModule, MatTabsModule, MatCardModule, MatTooltipModule, MatDia
 import 'Hammerjs';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NgbTabsetModule, NgbAlertModule , NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import {NgbTabsetModule, NgbAlertModule , NgbRatingModule} from '@ng-bootstrap/n
     MatButtonModule, MatDialogModule, MatRadioModule,
     MatTabsModule, MatSnackBarModule, MatChipsModule,
     MatCardModule, MatFormFieldModule,
-    MatTooltipModule, NgbTabsetModule, NgbAlertModule,
+    MatTooltipModule,
     MatProgressBarModule, LayoutModule,
     MatIconModule, MatBadgeModule, MatTreeModule,
     MatSidenavModule, MatToolbarModule,
@@ -29,9 +29,9 @@ import {NgbTabsetModule, NgbAlertModule , NgbRatingModule} from '@ng-bootstrap/n
   exports: [
     MatButtonModule, MatTableModule,
     MatTabsModule, MatDialogModule,
-    MatCardModule, MatTreeModule, NgbTabsetModule, NgbAlertModule,
+    MatCardModule, MatTreeModule,
     MatTooltipModule, MatSnackBarModule,
-    MatProgressBarModule, MatFormFieldModule,MatRadioModule, 
+    MatProgressBarModule, MatFormFieldModule,MatRadioModule,
     MatIconModule, MatInputModule, NgbRatingModule,
     MatSidenavModule, MatToolbarModule, MatChipsModule,
     MatSelectModule, MatListModule, LayoutModule,

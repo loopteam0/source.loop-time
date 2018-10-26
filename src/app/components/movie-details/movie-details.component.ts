@@ -11,7 +11,8 @@ import { FanartTvService } from '../../services/fanart-tv.service';
 import { UiServiceService } from 'src/app/services/ui-service.service';
 
 export interface DialogData {
-  torrents: object;
+  torrents: Array<any>;
+  title_long: string;
   name: string;
 }
 
@@ -39,7 +40,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   constructor(
     public UI: UiServiceService,
     public dialogRef: MatDialogRef<MovieDetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private fanartApi: FanartTvService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
@@ -66,7 +67,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    
+
     this.Id = this.data['id'];
     this.imdb_id = this.data['id'];
 
@@ -75,20 +76,13 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
   openDialog(data): void {
     const info:object = {
+      title: this.movieDetails.title_long,
+      files: this.movieDetails.torrents,
       torrents: this.movieDetails
     }
 
     this.UI.openDialog(info,MovieDownloadDialogComponent, 'movie-download-dialog' , 'auto' , 'auto' )
 
-    // const dialogRef = this.dialog.open(MovieDownloadDialogComponent, {
-    //   data: {
-    //   }
-    // });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   // this.animal = result;
-    // });
   }
 
   closeMe(){
@@ -101,7 +95,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   }
 
   openSnackBar(title: string, quality: string) {
-    this.snackBar.open(`Downloading ${title} ${quality}` , 'close');
+    this.snackBar.open(`Downloading ${title} ${quality}`);
   }
 
   openSubtitle(url) {
@@ -144,6 +138,25 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
 }
 
+// /
+// /
+// /
+// /
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 @Component({
   selector: 'download-dialog',
@@ -154,7 +167,7 @@ export class MovieDownloadDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<MovieDownloadDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,public snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any,public snackBar: MatSnackBar,
    private electron: ElectronService
     ) {}
 

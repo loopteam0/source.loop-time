@@ -10,17 +10,17 @@ export class ElectronStorageService implements OnInit {
   public storage: typeof ElectronStore;
   public store: any;
 
-  constructor( private electron: ElectronService              
+  constructor( private electron: ElectronService
       ) {
-        
+
         if( this.electron.isElectron){
           this.storage = window.require('electron-store');
           this.store = new this.storage();
         } else{
-          this.storage = window.require('electron-store'); 
+          this.storage = window.require('electron-store');
         }
       }
-      
+
       ngOnInit(){
 
       }
@@ -28,13 +28,13 @@ export class ElectronStorageService implements OnInit {
      storeItem(title, data: object){
        this.store.set(title , data);
        console.log(title,[ data]);
-       
-      }  
+
+      }
 
      getItem(title){
        this.store.get(title);
        console.log(this.store.get(title));
-       
+
      }
 
      deleteItem(){
