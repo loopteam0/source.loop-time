@@ -86,7 +86,7 @@ h4.lead {
   animation-name: fadeInDown;
 
   h1 {
-
+    font-size: 3rem;
     text-transform: uppercase;
     font-family: monospace;
   }
@@ -103,22 +103,6 @@ mat-card.errorHandler {
 
 .margier {
   margin: 50px;
-}
-
-
-
-@-webkit-keyframes fadeInDown {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-
-  to {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
 }
 
 
@@ -182,7 +166,7 @@ mat-card.errorHandler {
     }
   }
   }
- 
+
   .other-download-dialog{
     mat-dialog-content {
       max-height: 77vh;
@@ -198,7 +182,7 @@ mat-card.errorHandler {
       overflow-x: hidden;
       border-radius: 10px;
       background-color: inherit;
-      
+
       &::-webkit-scrollbar{
         width: 5px;
         background-color: rgba(255, 255, 255, 0);
@@ -230,9 +214,9 @@ mat-card.errorHandler {
   .custom-container{
     width: 90%;
     margin-left:auto;
-    margin-right: auto; 
+    margin-right: auto;
   }
-  
+
   .movie-download-dialog{
     .mat-dialog-container{
       overflow: hidden;
@@ -244,7 +228,17 @@ mat-card.errorHandler {
       }
     }
 
-  }  
+  }
+
+  .btn-close, #btn-close{
+    mat-icon{
+      color:  mat-color($primary);
+      &:hover {
+        color: darken($color: mat-color($accent), $amount: 0%);
+        transition: 0.3s;
+    }
+    }
+  }
 
 
 @-webkit-keyframes sk-scaleout {
@@ -284,3 +278,19 @@ mat-card.errorHandler {
     transform: translate3d(0, 0, 0);
   }
 }
+
+
+@-webkit-keyframes fadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+

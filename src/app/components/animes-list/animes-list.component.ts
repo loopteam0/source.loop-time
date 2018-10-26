@@ -34,7 +34,7 @@ export class AnimesListComponent implements OnInit {
     this.searched = false;
     this.loading = true;
     this.errorState = false;
-    this.Torrent.getAnimes('1080', 50).then(torrents => {
+    this.Torrent.getTorrents('1080','Anime', 100).then(torrents => {
         this.animes = torrents;
         this.errorState = false;
         this.loading = false;
@@ -47,19 +47,15 @@ export class AnimesListComponent implements OnInit {
     });
   }
 
-  search(title) {
-    
+  search(key) {
+
     this.searched = true;
     this.loading = true;
     this.errorState = false;
-    this.Torrent.getAnimes(title, 50).then(res => {
+    this.Torrent.getTorrents(key,'Anime', 50).then(res => {
       this.animes = res;
       this.loading = false;
-      if (this.animes.length == 0) {  
-        this.showError(`${this.animes.length} Not Found`);
-      }else {
-        this.showError(`${this.animes.length} Results Found`);
-      }
+      this.showError(`${this.animes.length} Results Found For ${key}`);
   },
     err => {
       this.showError(err);
@@ -71,7 +67,9 @@ export class AnimesListComponent implements OnInit {
     this.Torrent.downloadMagnet(torrent);
   }
 
-  showError(err){
-    this.snackbar.open(err);
+  showError(err, duration= 5000){
+    this.snackbar.open(err, null , {
+      duration: duration
+    })
   }
 }

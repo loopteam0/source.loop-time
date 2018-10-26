@@ -8,14 +8,14 @@ export class UiServiceService {
 
   constructor(private dialog: MatDialog, snackbar: MatSnackBar) { }
 
-  openDialog(data:object , component, Class:string = null, H ='95vh', W = '90vw' ) {
+  openDialog(data:object , component, Class:string = null, H ='95vh', W = '90vw',close = false ) {
 
     const dialogRef = this.dialog.open(component, {
       data: data ,
       height: H,
       width: W ,
       panelClass: Class,
-     // panelClass: '',
+      disableClose: close,
       restoreFocus: false,
       autoFocus: false,
     });

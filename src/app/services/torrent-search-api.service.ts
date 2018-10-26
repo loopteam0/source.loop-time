@@ -48,55 +48,32 @@ export class TorrentSearchApiService {
       );
     }
     // return an observable with a user-facing error message
-    return throwError('Something bad happened, Check internet connection and retry.');
+    return throwError(error);
   }
 
 
- async getAnimes(title, limit) {
+
+ async getTorrents(title, cat, limit) {
+
+  try {
     this.torrentSearch.enableProvider('1337x');
-    this.torrentSearch.enableProvider('Rarbg');
-    let torrents = await this.torrentSearch.search( title, 'Anime', limit);
+    let torrents = await this.torrentSearch.search( title, cat , limit);
 
     return torrents;
+    } catch (error) {
+        throwError(error);
+
+      }
   }
 
+  async pirateBayTop(cat){
+    const searchResults = await this.PirateBay.topTorrents(cat);
 
- async getAll(title, limit) {
-    this.torrentSearch.enableProvider('1337x');
-    this.torrentSearch.enableProvider('Rarbg');
-    let torrents = await this.torrentSearch.search( title, 'TV', limit);
-
-    return torrents;
-  }
-
- async  getGames(title, limit) {
-    this.torrentSearch.enableProvider('1337x');
-    this.torrentSearch.enableProvider('Rarbg');
-    let torrents = await  this.torrentSearch.search(['1337x','Rarbg'], title,'Games',limit);
-
-    return torrents;
-  } //
-
- async getSoftwares(title, limit) {
-    this.torrentSearch.enableProvider('1337x');
-    this.torrentSearch.enableProvider('Rarbg');
-
-    const torrents = await this.torrentSearch.search(['Rarbg', '1337x'],title,'Applications',limit);
-
-    return torrents;
-  }
-
- async getMusics(title, limit){
-    this.torrentSearch.enableProvider('1337x');
-    this.torrentSearch.enableProvider('Rarbg');
-
-    const torrents = await this.torrentSearch.search(['Rarbg', '1337x'], title, 'Music', limit);
-
-    return torrents;
-  }
+    return searchResults;
+   }
 
 
- async pirateBaySearch( keyword , cat){
+   async pirateBaySearch( keyword , cat){
     const searchResults = await this.PirateBay.search( keyword , {
       category: cat,
       orderBy: 'seeds',
@@ -105,51 +82,6 @@ export class TorrentSearchApiService {
     return searchResults;
   }
 
-  async  getOthers(title, limit) {
-    this.torrentSearch.enableProvider('1337x');
-    this.torrentSearch.enableProvider('Rarbg');
-    console.log(this.torrentSearch.getActiveProviders());
-
-    const torrents = await this.torrentSearch.search(['Rarbg', '1337x'], title, 'Other', limit);
-
-    return torrents;
-  }
-
- async pirateBayTop(cat){
-  const searchResults = await this.PirateBay.topTorrents(cat);
-
-  return searchResults;
- }
-
-
-  // 'ThePirateBay', '1337x',
-//
-  //
-
-  //
-
-  //
- async getTVShows(title, limit) {
-    this.torrentSearch.enableProvider('1337x');
-    this.torrentSearch.enableProvider('Rarbg');
-
-    console.log(this.torrentSearch.getActiveProviders());
-
-    const torrents = await this.torrentSearch.search(['1337x', 'Rarbg'], title, 'TV', limit);
-
-    return torrents;
-  }
-
- async getMovies(title, limit) {
-    this.torrentSearch.enableProvider('1337x');
-    this.torrentSearch.enableProvider('Rarbg');
-
-    console.log(this.torrentSearch.getActiveProviders());
-
-    const torrents = await this.torrentSearch.search(['Rarbg', '1337x'], title, 'Movies', limit );
-
-    return torrents;
-  }
 
  async downloadTorrent(torrent) {
     return await this.torrentSearch.downloadTorrent(

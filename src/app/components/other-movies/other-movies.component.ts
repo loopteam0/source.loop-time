@@ -86,7 +86,7 @@ export class OtherMoviesComponent implements OnInit {
     }
 
     this.UI.openDialog(info,OtherMovieDownloadDialogComponent, 'other-download-dialog' )
-   
+
   }
 
   closeDialog(){
@@ -123,15 +123,18 @@ export class OtherMoviesComponent implements OnInit {
   styleUrls : ['./OtherMovieDownloadDialog.scss']
 })
 export class OtherMovieDownloadDialogComponent implements OnInit {
+
   loading: boolean;
   movies: any;
   errorState: boolean;
   keyword = `${MovieTitle} ${movieYear}`;
+
+
   constructor(
     public dialogRef: MatDialogRef<OtherMovieDownloadDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,public snackBar: MatSnackBar,
-   private electron: ElectronService,
-   private torrent: TorrentSearchApiService
+    private electron: ElectronService,
+    private torrent: TorrentSearchApiService
     ) {}
 
   onNoClick(): void {
@@ -154,9 +157,8 @@ export class OtherMovieDownloadDialogComponent implements OnInit {
     this.loading = true;
     this.errorState = false;
 
-    this.torrent.getMovies(newKeyword, 15).then(data => {
+    this.torrent.getTorrents(newKeyword, 'Movies', 20).then(data => {
       this.movies = data;
-      console.log(this.movies);
       this.loading = false;
     },err => {
       this.loading = false;

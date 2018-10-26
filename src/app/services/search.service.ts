@@ -17,9 +17,9 @@ export class SearchService {
 
   /// show
   eztv_url = 'https://eztv.ag/api/get-torrents?imdb_id=';
-  base_url = 'https://tv-v2.api-fetch.website'; 
+  base_url = 'https://tv-v2.api-fetch.website';
 
-  
+
 /*
   tvmaze_url = 'https://api.tvmaze.com/';
   tv_ur = 'http://api.tvmaze.com/search/shows?q=';
@@ -56,7 +56,7 @@ export class SearchService {
       console.error(`Backend returned code ${error.status}, body was: ${error.status}`);
     }
     // return an observable with a user-facing error message
-    return throwError(error);
+    return throwError(error.statusText);
   }
 
 

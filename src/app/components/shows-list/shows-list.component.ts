@@ -41,9 +41,7 @@ export class ShowsListComponent implements OnInit {
 
 
   ngOnInit() {
-
     this.requestShowList(1);
-
   }
 
   requestShowList(i) {
@@ -91,7 +89,7 @@ export class ShowsListComponent implements OnInit {
          this.showsLoading = false;
 
          if (this.Shows.length == 0) {
-           this.showError(`${keyword} Not Found`);         
+           this.showError(`${keyword} Not Found`);
          }else {
            this.showError(`${this.Shows.length} Results Found`)
          }

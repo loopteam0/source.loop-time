@@ -34,11 +34,11 @@ OnDestroy {
 
     setTimeout(() => {
       this.requestShowEpisodes(50, 1);
-    }, 1000); 
+    }, 1000);
 
     setTimeout(() => {
       this.showCompleteEpisodes(this.data.seasons);
-    }, 3000); 
+    }, 3000);
 
   }
 
@@ -54,11 +54,13 @@ OnDestroy {
     this.request.getShowEpisopse(this.data.imdbCode, size, page) .subscribe((data)=> {
       this.episodes=data['torrents'];
       this.length=data['torrents_count'];
+      if(this.length==0){
+        this.showError( `Nothing Found From EZTV` ,9000)
+      }
       //   val = this.length;
       this.loading=false;
     }
     , err=> {
-      console.log(err);
       this.showError(err);
       this.errorState=true;
       this.loading=false;
@@ -68,9 +70,8 @@ OnDestroy {
    showCompleteEpisodes(seasons=this.data.seasons) {
     this.loadingShows = true;
     this.loadingError = false;
-    this.torrent.getAll(`${this.data.title} complete`, seasons*4)
+    this.torrent.getTorrents(`${this.data.title} complete`, 'TV', seasons*4)
     .then(res=> {
-      console.log(res);
        this.completeEpisodes = res;
        this.loadingError = false;
        this.loadingShows = false;
@@ -112,8 +113,10 @@ OnDestroy {
     );
   }
 
-  showError(err) {
-    this.snackBar.open(err);
+  showError(err, duration = 6000) {
+    this.snackBar.open(err, null , {
+      duration: duration
+    });
   }
 
   openSnackBar(title: string) {

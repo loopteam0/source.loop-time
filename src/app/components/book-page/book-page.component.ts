@@ -12,6 +12,7 @@ export class BookPageComponent implements OnInit {
   loading;
   searchLoading;
   searched;
+ // provider = '1337x';
   errorState = false;
   constructor(private Torrent: TorrentSearchApiService, private snackbar: MatSnackBar) {}
 
@@ -22,7 +23,7 @@ export class BookPageComponent implements OnInit {
   showTorrents() {
     this.searched = false;
     this.loading = true;
-    this.Torrent.getOthers("books", 50).then(res => {
+    this.Torrent.getTorrents("books", 'Other',100).then(res => {
       this.Others = res;
       this.loading = false;
     this.errorState = false;
@@ -32,18 +33,14 @@ export class BookPageComponent implements OnInit {
     });
   }
 
-  search(title) {
+  search(key) {
     this.searched = true;
     this.loading = true;
     this.errorState = false;
-    this.Torrent.getOthers(title, 30).then(res => {
+    this.Torrent.getTorrents(key, 'Other' , 50).then(res => {
       this.Others = res;
       this.loading = false;
-      if (this.Others.length == 0) {  
-        this.showError(`${this.Others.length} Not Found`);
-      }else {
-        this.showError(`${this.Others.length} Results Found`);
-      }
+      this.showError(`${this.Others.length} Results Found On ${key}`);
     }, err => {
     this.showError(err);
     this.loading = false;

@@ -5,10 +5,10 @@
 //Define the default theme (same as the example above).
 $border-color: #e3e3e3;
 $tab-color: #dee2e6;
-$primary: mat-palette($mat-cyan, 700);
-$accent: mat-palette($mat-pink, A400);
-$light-theme: mat-light-theme($primary, $accent);
-
+$primary: mat-palette($mat-cyan, 700 ,800);
+$accent: mat-palette($mat-pink, A400, A200,A100);
+$warn: mat-palette($mat-red);
+$light-theme: mat-light-theme($primary, $accent,$warn);
 // Include the default theme styles.
 @include angular-material-theme($light-theme);
 

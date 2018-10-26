@@ -23,7 +23,7 @@ export class MoviesListComponent implements OnInit {
   pagination: boolean = true;
   length;
   pageSize = 50;
-  pageIndex = 1;
+  pageIndex;
   pageSizeOptions = [50, 30, 10];
   background;
   banner;
@@ -74,7 +74,7 @@ export class MoviesListComponent implements OnInit {
        this.Movies = data['movies'];
        this.length = data['movie_count'];
 
-       if (this.length == 0) {  
+       if (this.length == 0) {
          this.showError(`${keyword} Not Found`);
        }else {
          this.showError(`${this.length} Results Found`);

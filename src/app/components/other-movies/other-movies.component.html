@@ -1,7 +1,7 @@
 
-<div id="details-page" appBackground >
+<div id="details-page" >
 
-  <button id="btn-close" (click)="closeDialog()" mat-icon-button><mat-icon color='warn'>close</mat-icon></button>
+  <button id="btn-close" (click)="closeDialog()" mat-icon-button><mat-icon >close</mat-icon></button>
 
   <mat-card  *ngIf="errorState" class="error-card errorHandler">
     <mat-card-content>
@@ -95,11 +95,11 @@
                    <span ><a href="{{movieDetails.homepage}} ">{{movieDetails.homepage | shorten: 25: '...'}}</a> </span>
                  </p>
 
-            
+
                <p>
                  <strong>Subtitles: </strong>
                  <span>
-                   <a (click)="openSubtitle(movieDetails.imdb_id)">Here</a>
+                   <a (click)="opensubtitle(movieDetails.imdb_id)">Here</a>
                  </span>
                </p>
 
@@ -135,9 +135,9 @@
          <mat-tab label="COMPANIES" *ngIf="movieDetails.production_companies">
            <div class="container cast">
              <div class="row">
-              
-                
-                
+
+
+
              </div>
            </div>
          </mat-tab>

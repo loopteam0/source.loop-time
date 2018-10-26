@@ -17,7 +17,7 @@ export class MusicPageComponent implements OnInit {
  Musics;
  searched;
  errorState = false;
-
+ provider = '1337x';
   constructor(
     private Torrent: TorrentSearchApiService,
     private snackbar: MatSnackBar ) {}
@@ -35,7 +35,7 @@ export class MusicPageComponent implements OnInit {
     this.searched = false;
     this.loading = true;
     this.errorState = false;
-    this.Torrent.getMusics('2018', 50)
+    this.Torrent.getTorrents('2018', 'Music', 100)
       .then(torrents => {
           this.Musics = torrents;
           this.errorState = false;
@@ -49,19 +49,15 @@ export class MusicPageComponent implements OnInit {
       );
   }
 
-   search(title){
+   search(key){
      this.searched = true;
        this.loading = true;
        this.errorState = false;
-    this.Torrent.getMusics(title, 30)
+    this.Torrent.getTorrents(key, 'Music', 50)
       .then(torrents => {
         this.Musics = torrents;
         this.loading = false;
-        if (this.Musics.length == 0) {  
-          this.showError(`${this.Musics.length} Not Found`);
-        }else {
-          this.showError(`${this.Musics.length} Results Found`);
-        }
+        this.showError(`${this.Musics.length} Results Found On ${key}`);
       }, err => {
       this.showError(err);
       this.loading = false;

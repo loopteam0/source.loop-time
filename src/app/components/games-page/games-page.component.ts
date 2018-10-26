@@ -12,19 +12,19 @@ export class GamesPageComponent implements OnInit {
   PirateGames;
   loading;
   searched;
+  provider = '1337x';
   errorState = false;
   constructor(private Torrent: TorrentSearchApiService, private snackbar: MatSnackBar) {}
 
   ngOnInit() {
-    this.showTorrents();
-    this.pirateGet();
+    this.show1337xTorrents();
   }
 
-  showTorrents() {
+  show1337xTorrents() {
     this.searched = false;
     this.loading = true;
     this.errorState = false;
-    this.Torrent.getGames("2018", 50).then(res => {
+    this.Torrent.getTorrents("2018",'Games', 100).then(res => {
       this.Games = res;
       this.loading = false;
     this.errorState = false;
@@ -35,36 +35,75 @@ export class GamesPageComponent implements OnInit {
     });
   }
 
-  pirateGet(){
-    this.Torrent.pirateBayTop(400).then(
-      res =>{
-         console.log(res);
-        this.PirateGames = res;
-        }
-    ).catch(
-      err => {
-        console.log(err)
-      }
-    )
-  }
+  // showPirateTorrents() {
+  //   this.searched = false;
+  //   this.loading = true;
+  //   this.errorState = false;
+  //   this.Torrent.pirateBayTop(400).then(res => {
+  //     this.Games = res;
+  //     this.loading = false;
+  //   this.errorState = false;
+  // }).catch(
+  //   err => {
+  //     this.loading = false;
+  //     this.errorState = true;
+  //   });
+  // }
 
-  search(title) {
+  // onChange(e){
+  //   if (e =='1337x') {
+  //     this.show1337xTorrents();
+  //   } else if(e == 'pirateBay'){
+  //     this.showPirateTorrents();
+  //   }else{
+  //     this.show1337xTorrents();
+  //   }
+  //   console.log(e);
+  // }
+
+
+  // search( keyword,e){
+  //   if (e =='1337x') {
+  //     this.search1337x(keyword) ;
+  //   } else if(e == 'pirateBay'){
+  //     this.searchPirate(keyword);
+  //   }else{
+  //     this.show1337xTorrents();
+  //   }
+  // }
+
+
+  search(key) {
     this.searched = true;
     this.loading = true;
-    this.Torrent.getGames(title, 30).then(res => {
+    this.Torrent.getTorrents(key,'Games', 50).then(res => {
       this.Games = res;
       this.loading = false;
-      if (this.Games.length == 0) {  
-        this.showError(`${this.Games.length} Not Found`);
-      }else {
-        this.showError(`${this.Games.length} Results Found`);
-      }
+      this.showError(`${this.Games.length} Results Found On ${key}`);
   },
     err => {
     this.showError(err);
       this.loading = false;
     });
   }
+
+  // searchPirate(title) {
+  //   this.searched = true;
+  //   this.loading = true;
+  //   this.Torrent.pirateBaySearch(title, 400).then(res => {
+  //     this.Games = res;
+  //     this.loading = false;
+  //     if (this.Games.length == 0) {
+  //       this.showError(`${this.Games.length} Not Found`);
+  //     }else {
+  //       this.showError(`${this.Games.length} Results Found`);
+  //     }
+  // },
+  //   err => {
+  //   this.showError(err);
+  //     this.loading = false;
+  //   });
+  // }
 
   download(torrent) {
     this.Torrent.downloadMagnet(torrent);

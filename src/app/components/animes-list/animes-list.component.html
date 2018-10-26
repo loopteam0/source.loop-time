@@ -19,7 +19,7 @@
 <div>
   <div class="dft-container">
 
-    <div *ngIf="anime" class="errorHandler">
+    <div *ngIf="errorState" class="errorHandler">
       <h1>
         An error occured
       </h1>
@@ -34,7 +34,7 @@
 
     <div class="wrapper">
 
-      <div class="mat-elevation-z3">
+      <div class="mat-elevation-z2">
 
         <table *ngIf="animes" class="table table-borderless table-hover">
 
@@ -51,11 +51,12 @@
           </thead>
 
           <tbody *ngFor='let item of animes | truthify'>
-            <tr class="animated bounceInUp">
+            <tr class="dft-container animated bounceInUp">
               <th scope="row">
                 <mat-icon>library_music</mat-icon>
               </th>
-              <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align">{{item.title}}</td>
+              <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align">
+                <p class="table-title">{{item.title}}</p></td>
               <td>{{item.time}}</td>
               <td>{{item.size}}</td>
               <td>{{item.seeds}}</td>

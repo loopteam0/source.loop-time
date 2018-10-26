@@ -20,6 +20,7 @@ export class SoftwarePageComponent implements OnInit {
   results;
   errorState = false;
   searched: boolean;
+  provider = '1337x';
   constructor(private Torrent: TorrentSearchApiService, private snackbar: MatSnackBar) { }
 
 
@@ -36,7 +37,7 @@ export class SoftwarePageComponent implements OnInit {
   showSoftwares() {
     this.searched = false;
      this.loading = true;
-    this.Torrent.getSoftwares('2018' , 50 ).then(
+    this.Torrent.getTorrents('2018' ,'Applications', 100 ).then(
       res => {
         this.Softwares = res;
         this.loading = false;
@@ -55,15 +56,12 @@ export class SoftwarePageComponent implements OnInit {
     this.searched = true;
     this.loading = true;
     this.errorState = false;
-    this.Torrent.getSoftwares(key , 30).then(
+    this.Torrent.getTorrents(key ,'Applications', 50).then(
       res => {
         this.Softwares = res;
         this.loading = false;
-        if (this.Softwares.length == 0) {  
-          this.showError(`${this.Softwares.length} Not Found`);
-        }else {
-          this.showError(`${this.Softwares.length} Results Found`);
-        }
+        this.showError(`${this.Softwares.length} Results Found On ${key}`);
+
     },
       err => {
         this.showError(err);

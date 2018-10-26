@@ -22,7 +22,7 @@
         <h1>
           An error occured
         </h1>
-        <button mat-raised-button color="accent" (click)="errorState()">RETRY</button>
+        <button mat-raised-button color="accent" (click)=" Retry()">RETRY</button>
       </div>
 
     <app-spinner *ngIf="showsLoading"></app-spinner>
@@ -37,7 +37,7 @@
             <mat-card (click)="openDialog(show.imdb_id)" class=" animated bounceInUp">
                 <img  mat-card-image class="card-image" src="{{show.images.poster}}" alt="{{show.title}} ">
             </mat-card>
-            <p (click)="onSelectShow(show)" class="animated fadeInDown ">
+            <p (click)="openDialog(show.imdb_id)" class="animated fadeInDown ">
           {{ show.title}}</p>
            <!-- <mat-icon (click)="store(show)">favorite</mat-icon>
           <button (click)='get(show)'>Get</button> -->

@@ -1,5 +1,5 @@
 <div id="details-page">
-  <button id="btn-close" mat-icon-button   (click)="closeDialog()"><mat-icon color="warn">close</mat-icon></button>
+  <button id="btn-close" mat-icon-button   (click)="closeDialog()"><mat-icon >close</mat-icon></button>
     <mat-card *ngIf="errorState"class="errorHandler error-card">
       <mat-card-content>
           <div  >
@@ -52,7 +52,9 @@
 
 
           <mat-chip-list>
-            <mat-chip *ngFor="let item of showDetails.genres">{{item}}</mat-chip>
+            <mat-chip *ngFor="let item of showDetails.genres; let i=index">
+               {{item}}
+             </mat-chip>
           </mat-chip-list>
 
           <div class="download-button">

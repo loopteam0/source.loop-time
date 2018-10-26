@@ -34,18 +34,18 @@ $min-image-width: 10rem;
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 5px;
-    
+
     //  background-size: cover;
     //  background: fixed;
-    
+
     &::before{
       content: '';
       width: 100%;
-      background: inherit;
+    //  background: inherit;
       height: 100%;
       top: 0;
       right: 0;
-      background-color: rgba(0, 0, 0, 0.555);
+      background-color: rgba(0, 0, 0, 0.655);
       position: absolute;
       border-radius: 5px;
       // filter: blur(30px);

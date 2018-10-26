@@ -1,7 +1,7 @@
 
 @import "~@angular/material/theming";
 @import "../../../custom-theme.scss ";
-@import "../../assets/material.min.scss";
+
 
 .dft-container{
     width: 90%;
@@ -33,7 +33,6 @@ h4.lead {
 }
 
 .wrapper {
-    width: 100%;
     margin-bottom: 3rem;
     margin-top: 1rem;
 }
@@ -43,12 +42,20 @@ h4.lead {
 }
 .btn-container{
     width: 100%;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+
     .btn-refresh{
-        width: 120px;
         margin: auto;
         display: flex;
     }
 }
+
+
 table {
     margin-bottom: 0;
     padding-bottom: 0;
@@ -85,8 +92,11 @@ app-spinner {
     margin: auto;
 }
 
+.mat-elevation-z2,
+.mat-elevation-z3,
+.mat-elevation-z4,
 .mat-elevation-z5 {
-    border-radius: 3px;
+    border-radius: 6px;
 }
 
 button mat-icon{
@@ -98,13 +108,32 @@ button mat-icon{
     }
 }
 
-.radio-buttons{
-    justify-content: flex-end;
-    display: flex;
-    align-items: center;
-
-    mat-radio-button{
-        margin-right: 20px;
-    }
+.table-title{
+  width: 300px;
+  margin-bottom: 3px;
 }
 
+// .radio-buttons{
+//     justify-content: flex-end;
+//     display: flex;
+//     align-items: center;
+
+//     mat-radio-button{
+//         margin-right: 20px;
+//     }
+// }
+
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
