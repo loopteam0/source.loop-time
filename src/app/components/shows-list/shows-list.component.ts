@@ -30,7 +30,6 @@ export class ShowsListComponent implements OnInit {
   pageSizeOptions = [50, 30, 10];
 
   constructor(
-    public Storage: ElectronStorageService,
     private  UI: UiServiceService,
     private request: SearchService,
     private snackBar: MatSnackBar,
@@ -66,15 +65,6 @@ export class ShowsListComponent implements OnInit {
       id: data
     }
     this.UI.openDialog(info,ShowDetailsComponent, 'Download-dialog');
-  }
-
-  store(item){
-    this.Storage.storeItem(item.title, item);
-  }
-
-  get(item){
-  let i =  this.Storage.getItem(item.title);
-  console.log(i);
   }
 
 

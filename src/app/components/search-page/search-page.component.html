@@ -1,8 +1,8 @@
-<div class='searchPage'>
+<!-- <div class='searchPage'>
 
     <div class='toolbar'>
         <mat-card class='flex-container animated bounceInDown'>
-            <!-- [formControl]="searchField" -->
+
             <mat-form-field>
                 <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
                 <mat-icon [ngClass]="{'bounce' : !input.value}" class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
@@ -14,7 +14,7 @@
     <ngb-tabset class="animated fadeInUp" destroyOnHide="false" justify="center">
         <ngb-tab *ngIf="moviesResults || input.value">
             <ng-template ngbTabTitle>
-                <!-- <mat-icon >high_quality</mat-icon> -->
+
                 <span class="tab-head">Movies</span>
                 <span>{{moviesReturned}}</span>
             </ng-template>
@@ -52,7 +52,7 @@
 
         <ngb-tab *ngIf="showsResults || input.value">
             <ng-template ngbTabTitle>
-                <!-- <mat-icon class="example-tab-icon">live_tv</mat-icon> -->
+
                 <span class="tab-head">TV shows</span>
             </ng-template>
 
@@ -82,4 +82,4 @@
 </div>
 <div>
 
-</div>
+</div> -->
