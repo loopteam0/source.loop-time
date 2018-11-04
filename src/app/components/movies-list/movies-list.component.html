@@ -7,7 +7,7 @@
     </div>
     <div class="spacer"></div>
     <mat-form-field>
-      <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
+      <input #input cancel (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
       <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
     </mat-form-field>
   </div>
@@ -41,7 +41,7 @@
       </div>
 
     </div>
-    
+
     <div *ngIf="home" class="home">
       <button mat-raised-button color="primary"  (click)="RETRY()" class="home animated fadeInUp">HOME <mat-icon>home</mat-icon></button>
     </div>
@@ -54,7 +54,7 @@
         </mat-paginator>
       </div>
     </div>
-    
+
       <div class="margier"></div>
   </div>
 </div>

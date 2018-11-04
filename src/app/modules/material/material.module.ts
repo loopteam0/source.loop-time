@@ -9,10 +9,11 @@ import 'Hammerjs';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 @NgModule({
   imports: [
-    CommonModule, MatTableModule,
+    CommonModule, MatTableModule, TextFieldModule,
     MatButtonModule, MatDialogModule, MatRadioModule,
     MatTabsModule, MatSnackBarModule, MatChipsModule,
     MatCardModule, MatFormFieldModule,
@@ -29,7 +30,7 @@ import { NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
   exports: [
     MatButtonModule, MatTableModule,
     MatTabsModule, MatDialogModule,
-    MatCardModule, MatTreeModule,
+    MatCardModule, MatTreeModule,TextFieldModule,
     MatTooltipModule, MatSnackBarModule,
     MatProgressBarModule, MatFormFieldModule,MatRadioModule,
     MatIconModule, MatInputModule, NgbRatingModule,

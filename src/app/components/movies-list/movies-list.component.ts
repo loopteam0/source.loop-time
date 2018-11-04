@@ -28,7 +28,7 @@ export class MoviesListComponent implements OnInit {
   background;
   banner;
   home = false;
-
+  searchLt:any;
 
   constructor(
     public UI: UiServiceService,
