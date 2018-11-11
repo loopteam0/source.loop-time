@@ -6,13 +6,21 @@ This is an open source project for browsing for torrent Movies, Softwares, Tv Sh
 
 ## How to Use
 Download and Install the binaries from our [Home Page](https://loopteam0.github.io).
+
 Install a torrent client.
+
 Enjoy 👌 !!
 
+### OR
+
 Clone this repo by running git clone `https://github.com/loopteam0/Loop-Client.git` in the console.
+
 Change directry the folder `cd Loop-Client`.
+
 Run `npm i` to install all dependencies.
+
 Run `npm run app` to run application.
+
 Enjoy 👌 !!
  
 
