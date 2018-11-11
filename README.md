@@ -32,6 +32,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 ## Build
 
 Run `npm run loop:bulid` to build the project. The build artifacts will be stored in the `dist/` directory.
+
 Run `npm run loop:pack` to package project for your current OS.
 
 ## Running unit tests
