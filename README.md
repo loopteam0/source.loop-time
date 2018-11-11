@@ -13,7 +13,7 @@ Enjoy 👌 !!
 
 ### OR
 
-Clone this repo by running git clone `https://github.com/loopteam0/Loop-Client.git` in the console.
+Clone this repo by running `git clone https://github.com/loopteam0/Loop-Client.git` in the console.
 
 Change directry the folder `cd Loop-Client`.
 
