@@ -62,6 +62,7 @@ mat-nav-list {
 
 mat-sidenav-content, .mat-drawer-inner-container {
     height: 100vh;
+    margin-right: 3px;
 
     &::-webkit-scrollbar{
       width: 6px;

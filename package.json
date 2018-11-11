@@ -10,8 +10,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron": "electron .",
-    "electron:build": "ng build --prod && electron .",
-    "electron:package": "electron-packager ./dist/ngapp3 LoopTime --platform=win32 --arch=ia32 --icon=./src/icon.ico  --asar --overwrite"
+    "loop": "electron .",
+    "loop:build": "ng build --prod && electron .",
+    "loop:pack": "electron-packager ./dist/ngapp3 LoopTime  --icon=./src/icon.ico  --asar --overwrite"
   },
   "repository": "https://github.com/loopteam0/loop-Time",
   "private": true,
