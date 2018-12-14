@@ -81,7 +81,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
       torrents: this.movieDetails
     }
 
-    this.UI.openDialog(info,MovieDownloadDialogComponent, 'movie-download-dialog' , 'auto' , 'auto' )
+    this.UI.openDialog(info,MovieDownloadDialogComponent, 'movie-download-dialog' , 'auto' , 'auto', false )
 
   }
 

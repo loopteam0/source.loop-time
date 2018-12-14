@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClientJsonpModule , HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgxPaginationModule} from 'ngx-pagination';
 import { MaterialModule } from './modules/material/material.module';
 import { JsonpModule, HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -98,7 +97,7 @@ import { ElectronStorageService } from './services/electron-storage.service';
     MaterialModule, ReactiveFormsModule,
     HttpClientModule, FontModule, FontAwesomeModule
 ,   SharedModule, CoreModule, TorrentModule, OthersModule,
-    JsonpModule, NgxPaginationModule,
+    JsonpModule
   ],
   providers: [ SearchService, MovieDbService , ElectronService,FavoritesService,ElectronStorageService
      , FanartTvService,DatePipe, UiServiceService,

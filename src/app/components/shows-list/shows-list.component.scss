@@ -27,40 +27,52 @@
     align-content: space-around;
 
     .card-container {
-
-        p {
-            box-sizing: border-box;
-            text-align: center;
-            margin-top: 8px;
-            width: $card-width;
-            padding: 0 10px;
-            &:hover {
-                color: mat-color($accent);
-                cursor: pointer;
-                transition: .3s ease-out;
-            }
+        div{
+            margin: 0;
+            padding: 0;
         }
 
-    }
     mat-card {
         @include mat-elevation-transition;
         width: $card-width;
         height: $card-height;
+        position: relative;
         cursor: pointer;
-        margin: 5px 10px;
+        overflow: hidden;
 
         &:hover {
             @include mat-elevation-transition;
-            @include mat-elevation(20);
+             @include mat-elevation(20);
             transition: .3s ease;
-
         }
 
-        img {
+        div.img-box, .img-box img{
+            margin: inherit;
+            width: inherit;
             height: inherit;
             border-radius: inherit;
-            width: inherit;
+            margin-left: -16px; 
         }
+    }
+
+    div.content{
+        bottom: 0;
+        position: absolute;
+        box-sizing: border-box;
+        text-align: center;
+        color: white;
+         margin-left: -16px; 
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+
+        &:hover {
+            color: mat-color($accent);
+            cursor: pointer;
+            transition: .3s ease-out;
+        }
+    }
+
+
     }
 }
 

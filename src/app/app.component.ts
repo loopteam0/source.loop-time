@@ -1,8 +1,5 @@
 import { Component , OnInit } from '@angular/core';
-import { SearchService } from './services/search.service';
-import { ElectronService } from './services/electron.service';
-import { map } from 'rxjs/operators';
-import { TorrentSearchApiService } from './services/torrent-search-api.service';
+import { UiServiceService } from './services/ui-service.service';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +8,21 @@ import { TorrentSearchApiService } from './services/torrent-search-api.service';
 })
 export class AppComponent implements OnInit {
   torrentSearch;
-  Torrent;
-	try = 'Anon: 2017 - new ' ;
-  constructor( private torrent:TorrentSearchApiService ) {
+  IsWindowOnline = navigator.onLine;
 
-
-  }
+  constructor(private UI: UiServiceService ) {}
 
 ngOnInit() {
- 
-}
+  
+    window.addEventListener('online', () => 
+    this.UI.openSnackBar(` ✅ You are back online `, 5000)
+    );
+       
+    window.addEventListener('offline', () => {
+      this.UI.openSnackBar(`❌ It seems you are offline; check your internet connection ` , null);    
+    });
+
+  }
+  
+
 }

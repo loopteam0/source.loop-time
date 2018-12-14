@@ -31,6 +31,26 @@
 
 
 
+        <div class="card-container" >
+
+        <div >
+            <mat-card (click)="openDialog(show.imdb_id)" class=" animated bounceInUp">
+              <div class="img-box">
+                <img  mat-card-image class="card-image" src="../../../assets/large-cover.jpg" alt="{{show.title}} ">
+              </div>
+                
+                <div class="content">
+                  <p  class="animated fadeInDown ">
+                Lorem ipsum dolor sit amet.</p>
+                </div>
+            </mat-card>
+
+          
+        </div>
+
+        </div>
+<!-- 
+
         <div class="card-container " *ngFor="let show of Shows ">
 
             <div *ngIf="!showsLoading">
@@ -39,11 +59,10 @@
             </mat-card>
             <p (click)="openDialog(show.imdb_id)" class="animated fadeInDown ">
           {{ show.title}}</p>
-           <!-- <mat-icon (click)="store(show)">favorite</mat-icon>
-          <button (click)='get(show)'>Get</button> -->
+          
         </div>
 
-        </div>
+        </div> -->
 
     </div>
 
