@@ -6,6 +6,7 @@
       </h4>
     </div>
     <div class="spacer"></div>
+
     <mat-form-field>
       <input #input cancel (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
       <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>

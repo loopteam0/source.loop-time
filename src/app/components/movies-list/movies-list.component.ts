@@ -19,8 +19,8 @@ export class MoviesListComponent implements OnInit {
   errorState = false;
   moviesLoading;
   retryIndex;
-  // tslint:disable-next-line:no-inferrable-types
   pagination: boolean = true;
+  selectedValue: string;
   length;
   pageSize = 50;
   pageIndex;
@@ -29,6 +29,7 @@ export class MoviesListComponent implements OnInit {
   banner;
   home = false;
   searchLt:any;
+  generes: Array<object> = [{name:'Cartoons', value: 'Cartoons'},{name: 'Action', value: 'Action'}, {name:'War', value:'War'}];
 
   constructor(
     public UI: UiServiceService,

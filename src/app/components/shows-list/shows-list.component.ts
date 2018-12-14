@@ -5,6 +5,7 @@ import { SearchService } from '../../services/search.service';
 import { ShowDetailsComponent } from '../show-details/show-details.component';
 import { UiServiceService } from 'src/app/services/ui-service.service';
 import { ElectronStorageService } from 'src/app/services/electron-storage.service';
+import { Subscription } from 'rxjs';
 
 
 
@@ -17,6 +18,7 @@ export class ShowsListComponent implements OnInit {
 
   public Shows: Array<any>;
   public Pages;
+  subscribe: Subscription;
   pagination: boolean = true;
   errorState;
   retryIndex = 1;
@@ -41,6 +43,7 @@ export class ShowsListComponent implements OnInit {
 
   ngOnInit() {
     this.requestShowList(1);
+    this.UI.notify('title', 'body')
   }
 
   requestShowList(i) {

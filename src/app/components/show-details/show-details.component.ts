@@ -1,13 +1,12 @@
 import { Component ,  OnInit, OnDestroy } from '@angular/core';
 import {  ActivatedRoute } from '@angular/router';
-import { ParamMap } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import {  HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { ShowDownloadDialogComponent } from './default-dialog-dialog/shows-download.component';
 import { SearchService } from '../../services/search.service';
 import { Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { UiServiceService } from 'src/app/services/ui-service.service';
+import { Subscription } from 'rxjs';
 
 export interface DialogData {
   episodes : object,
@@ -27,31 +26,30 @@ export interface DialogData {
 export class ShowDetailsComponent implements OnInit, OnDestroy {
   errorState = false;
   showDetails;
+  subscribe: Subscription;
   Id;
-  imdb_id;
   showDataloading;
 
   constructor(
     public UI: UiServiceService,
     public dialogRef: MatDialogRef<ShowDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private dialog: MatDialog,
     private request: SearchService,
     public snackBar: MatSnackBar,
-    private route: ActivatedRoute){}
+    ){}
 
 
   requestShowDetails() {
     // start spinner
     this.showDataloading = true;
      /// get the details of the show from popCorn api
-     this.request.getShowDetails(this.Id)
+     this.subscribe = this.request.getShowDetails(this.Id)
        .subscribe( data => {
         this.showDetails = data;
         this.showDataloading = false;
        this.errorState = false;
      }, err => {
-       this.showError(err);
+       this.openSnackBar(err);
        this.errorState = true;
        this.showDataloading = false;
      });
@@ -72,9 +70,7 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
       imdbCode: this.Id,
       seasons: seasons
     }
-    this.UI.openDialog(
-      info ,ShowDownloadDialogComponent ,'shows-download-dialog'
-      )
+    this.UI.openDialog(info ,ShowDownloadDialogComponent ,'shows-download-dialog' )
   }
 
   closeDialog(){
@@ -87,16 +83,11 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
   }
 
   openSnackBar(title: string) {
-    this.snackBar.open(`Downloading ${title} ` , 'close');
+    this.UI.openSnackBar(`Downloading ${title} `);
   }
-
-  showError(err){
-    this.snackBar.open(err);
-  }
-
 
   ngOnDestroy() {
-   // this.imdb_id.unsubscribe();
+   this.subscribe.unsubscribe();
   }
 }
 
