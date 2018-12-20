@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { SearchService } from '../../services/search.service';
@@ -6,18 +6,20 @@ import { tap } from 'rxjs/operators';
 import { FanartTvService } from '../../services/fanart-tv.service';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 import { UiServiceService } from 'src/app/services/ui-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-movies-list',
   templateUrl: './movies-list.component.html',
   styleUrls: ['./movies-list.component.scss']
 })
-export class MoviesListComponent implements OnInit {
+export class MoviesListComponent implements OnInit, OnDestroy {
 
   public Movies;
   public Pages;
   errorState = false;
   moviesLoading;
+  subscribe: Subscription;
   retryIndex;
   pagination: boolean = true;
   selectedValue: string;
@@ -48,7 +50,7 @@ export class MoviesListComponent implements OnInit {
     this.moviesLoading = true;
     this.errorState = false;
     this.pagination = false;
-    this.request.getMoviesList(i, 50).subscribe(data => {
+    this.subscribe = this.request.getMoviesList(i, 50).subscribe(data => {
       this.Movies = data['movies'];
       this.length = data['movie_count'];
       this.moviesLoading = false;
@@ -64,12 +66,12 @@ export class MoviesListComponent implements OnInit {
 
   }
 
-  search(keyword) {
+  search(keyword: string) {
     this.moviesLoading = true;
       this.errorState = false;
       this.home = true;
       this.pagination = false;
-    this.request.getMoviesByKeyword(keyword).subscribe(
+    this.subscribe = this.request.getMoviesByKeyword(keyword).subscribe(
      data => {
        this.moviesLoading = false;
        this.Movies = data['movies'];
@@ -92,7 +94,7 @@ export class MoviesListComponent implements OnInit {
       this.pagination = true;
       this.errorState = false;
       this.opensnackbar((e.pageIndex + 1), cat);
-      this.request.getMoviesList((e.pageIndex + 1), e.pageSize)
+    this.subscribe = this.request.getMoviesList((e.pageIndex + 1), e.pageSize)
         .subscribe(
           data => {
            this.Movies = data['movies'];
@@ -127,17 +129,17 @@ export class MoviesListComponent implements OnInit {
   }
 
   opensnackbar(index, cat) {
-    this.snackBar.open(`${cat}: Page ${index} is loading please Wait . . . `);
+    this.UI.openSnackBar(`${cat}: Page ${index} is loading please Wait . . . `);
   }
 
 
-  showError(err){
-    this.snackBar.open(err , '' , {
-      duration: 5000
-    });
+  showError(msg){
+    this.UI.openSnackBar(msg)
   }
 
-  navigateTop() {
-   window.scrollTo(0,0)
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subscribe.unsubscribe();
   }
 }

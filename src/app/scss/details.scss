@@ -3,7 +3,7 @@
 @import "../../../custom-theme.scss ";
 @import "./mixins.scss";
 
-$image-width : 14rem;
+//$image-width : 14rem;
 $min-image-width: 10rem;
 
 #btn-close{
@@ -19,8 +19,6 @@ $min-image-width: 10rem;
 
 #details-page{
     margin: 0;
-  // background-color: rgb(66, 65, 65);
-   //  background-image: url("./../../assets/default.png");
     position: relative;
     top: 0;
     bottom: 0;
@@ -35,13 +33,9 @@ $min-image-width: 10rem;
     background-size: cover;
     border-radius: 5px;
 
-    //  background-size: cover;
-    //  background: fixed;
-
     &::before{
       content: '';
       width: 100%;
-    //  background: inherit;
       height: 100%;
       top: 0;
       right: 0;
@@ -53,21 +47,19 @@ $min-image-width: 10rem;
 }
 
 .details-container {
-  //   position: relative;
     display: flex;
     flex-direction: row;
     flex-basis: auto auto;
     flex-wrap: initial;
-   // width: 100%;
 
     .details-image {
-        width: $image-width;
-       // max-width: $min-image-width;
+       // width: $image-width;
         mat-card {
             @include mat-elevation(8);
             position: relative;
             top: -100px;
-            width: inherit;
+            width: 225px;
+            height: 335px;
             padding: 0;
 
             img {
@@ -104,7 +96,6 @@ $min-image-width: 10rem;
       display: inline;
       padding-bottom: 20px;
       margin-left: 5px;
-    //  position: relative;
       top: -4px;
 
     }
@@ -157,7 +148,6 @@ $min-image-width: 10rem;
 
   .properties{
     padding-top: 0;
-   // position: relative;
     top: -80px;
     min-height: 230px;
 

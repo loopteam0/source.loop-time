@@ -9,7 +9,7 @@
 
         <div class="spacer"></div>
         <mat-form-field>
-          <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
+          <input #input matInput placeholder='Enter a Keyword' type='text'>
           <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
       </mat-form-field>
     </div>
@@ -30,23 +30,6 @@
 
     <div class="main-tab-container">
 
-        <!-- <div class="card-container" >
-         <div >
-            <mat-card (click)="openDialog(show.imdb_id)" class=" animated bounceInUp">
-                
-                <div class="img-box">
-                  <img  mat-card-image class="card-image" src="../../../assets/large-cover.jpg" alt="{{show.title}} ">
-                </div>
-                <div class="icon">
-                    <mat-icon>favorite</mat-icon>
-                </div>
-                <div class="content">
-                  <p class="animated fadeInDown ">Lorem, ipsum dolor.</p>
-                </div>
-              </mat-card>
-         </div>
-        </div> -->
-
 
         <div class="card-container" *ngFor="let show of Shows ">
          <div *ngIf="!showsLoading">
@@ -55,35 +38,15 @@
                     <img  mat-card-image class="card-image" src="{{show.images.poster}}" alt="{{show.title}} ">
                   </div>
                 <div class="icon">
-                    <mat-icon>favorite</mat-icon>
+                    <mat-icon (click)="favorite(show.imdb_id)">favorite</mat-icon>
                 </div>
                 <div class="content">
                   <p class="animated fadeInDown ">{{show.title}}</p>
+                  <p class="animated fadeInDown ">{{show.year}}</p>
                 </div>
               </mat-card>
          </div>
         </div>
-
-
-
-
-    
-
-
-
-<!-- 
-        <div class="card-container " *ngFor="let show of Shows ">
-
-            <div *ngIf="!showsLoading">
-            <mat-card (click)="openDialog(show.imdb_id)" class=" animated bounceInUp">
-                <img  mat-card-image class="card-image" src="{{show.images.poster}}" alt="{{show.title}} ">
-            </mat-card>
-            <p (click)="openDialog(show.imdb_id)" class="animated fadeInDown ">
-          {{ show.title}}</p>
-          
-        </div>
-
-        </div>  -->
 
     </div>
 

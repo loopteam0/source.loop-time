@@ -31,8 +31,6 @@ import { DurationPipe } from './pipes/duration.pipe';
 import { MoviesListComponent } from './components/movies-list/movies-list.component';
 import { ShowsListComponent } from './components/shows-list/shows-list.component';
 import { AnimesListComponent } from './components/animes-list/animes-list.component';
-import { FontModule } from './modules/font/font.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FanartTvService } from './services/fanart-tv.service';
 import { MovieDbService } from './services/movie-db.service';
 import { OtherMoviesComponent, OtherMovieDownloadDialogComponent } from './components/other-movies/other-movies.component';
@@ -95,8 +93,7 @@ import { ElectronStorageService } from './services/electron-storage.service';
     BrowserAnimationsModule, HttpClientJsonpModule,
     FormsModule, HttpModule,
     MaterialModule, ReactiveFormsModule,
-    HttpClientModule, FontModule, FontAwesomeModule
-,   SharedModule, CoreModule, TorrentModule, OthersModule,
+    HttpClientModule, SharedModule, CoreModule, TorrentModule, OthersModule,
     JsonpModule
   ],
   providers: [ SearchService, MovieDbService , ElectronService,FavoritesService,ElectronStorageService

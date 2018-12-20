@@ -1,0 +1,99 @@
+@import "~@angular/material/theming";
+@import "../../custom-theme";
+@import "../../assets/animate";
+@import "./variables.scss";
+
+
+
+.main-tab-container {
+    margin-top: 1rem;
+    padding: 0;
+    padding-right: 0;
+    margin-right: 0; // flex setting and override
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-around;
+
+    .card-container {
+    //  margin: 0 15px 15px 0;
+
+    mat-card {
+        @include mat-elevation-transition;
+        width: $card-width;
+        height: $card-height;
+        position: relative;
+        background: #000;
+        cursor: pointer;
+        overflow: hidden;
+        margin: 10px 10px;
+
+        &:hover {
+            @include mat-elevation-transition;
+            @include mat-elevation(8);
+            transform: translateY(10px);
+            transition: .3s ease;
+
+            div.content {
+                background-color: #000000a8;
+                transition: all 0.3s ease-in-out;
+                bottom: 0px;
+            }
+
+            div.icon{
+                transition: all 0.3s ease-in-out;
+                top: 5px;
+                right: 5px;
+            }
+
+            div.img-box{
+                opacity: 0.5;
+                transition: opacity 0.2s ease-in-out;
+            }
+        }
+      
+        div.img-box, .img-box img{
+            width: inherit;
+            height: inherit;
+            border-radius: inherit;
+        }
+    }
+
+    div.content{
+        bottom: 0;
+        width: 100%;
+        position: absolute;
+        box-sizing: border-box;
+        text-align: center;
+        color: white;
+        margin-left: -16px; 
+        padding: 10px 8px 0 8px;
+        bottom: -50%;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+
+    }
+
+    
+    div.icon{
+        position: absolute;
+        box-sizing: border-box;
+        text-align: center;
+        margin-left: -16px; 
+        top: -50%;
+        right: 5px;
+
+        mat-icon{
+            color: red;
+            opacity: 0.5;
+
+            &:hover{
+                opacity: 1;
+                transition: 0.3s ease-in-out;
+            }
+        }
+    }
+
+    }
+}

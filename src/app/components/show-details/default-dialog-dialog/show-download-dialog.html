@@ -7,12 +7,12 @@
     <mat-tab-group>
       <mat-tab label='ALL EPISODES'>
           <div class="clearfix"></div>
-          <div class=" clearfix left">
+          <!-- <div class=" clearfix left">
             <span>240p</span>
             <span>480p</span>
             <span>720p</span>
             <span>1080p</span>
-          </div>
+          </div> -->
           <div class="clearfix"></div>
 
         <mat-dialog-content id="bar" >
@@ -30,17 +30,31 @@
 
             <mat-nav-list>
 
-              <mat-list-item *ngFor="let episode of data.torrents|orderBy:['-season','-episode']" class="width animated bounceInRight">
+              <mat-list-item *ngFor="let item of data.torrents|orderBy:['-season','-episode']" class="width animated bounceInRight">
 
-                <h3 class="trucn" matTooltip="{{episode.overview}}" matLine>{{episode.title}}</h3>
+                <h3 class="trucn" matTooltip="{{item.overview}}" matLine>{{item.title}}</h3>
 
                 <p class="trucn fade" matLine>Season:
-                  {{episode.season}} Episode: {{episode.episode}}</p>
+                  {{item.season}} Episode: {{item.episode}}</p>
 
-                <a mat-icon-button *ngFor="let item of episode.torrents| values" (click)="download(item.url,episode.title)"
-                  class="series-link">
-                  <mat-icon matTooltip="Seeds: {{item.seeds}} || Peers: {{item.peers}}  " color="primary">file_download</mat-icon>
+                  <!-- download buttons for each video quality-->
+                  <!-- case 0 -->
+                <a class="series-link">
+                  <mat-icon [ngClass]="{'hide': !item.torrents['0']}" matTooltip="240p" (click)="download(item.torrents['0'].url, item.title, '240p')" color="primary">file_download</mat-icon>
                 </a>
+                <!-- case 480p -->
+                <a class="series-link">
+                  <mat-icon [ngClass]="{'hide': !item.torrents['480p']}" matTooltip="480p" (click)="download(item.torrents['480p'].url, item.title, '480p')" color="primary">file_download</mat-icon>
+                </a>
+                <!-- case 720p -->
+                <a class="series-link">
+                  <mat-icon [ngClass]="{'hide': !item.torrents['720p']}" matTooltip="720p" (click)="download(item.torrents['720p'].url, item.title, '720p')" color="primary">file_download</mat-icon>
+                </a>
+                <!-- case 1080p -->
+                <span  class="series-link">
+                  <mat-icon [ngClass]="{'hide': !item.torrents['1080p']}" matTooltip="1080p" (click)="download(item.torrents['1080p'].url, item.title, '1080p')" color="primary">file_download</mat-icon>
+                </span>
+
                 <mat-divider></mat-divider>
 
               </mat-list-item>

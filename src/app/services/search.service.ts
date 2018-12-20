@@ -139,8 +139,8 @@ export class SearchService {
 
   }
 
-  getShowsByKeyword(keyword): Observable<MoviesInt[]> {
-    const url = `${this.base_url}/shows/1?sort=year&order=-1&genre=all&keywords=${keyword}`;
+  getShowsByKeyword(keyword:string): Observable<MoviesInt[]> {
+    const url = `${this.base_url}/shows/1?sort=trending&order=-1&genre=all&keywords=${keyword}`;
     return  this.http.get<MoviesInt[]>(url)
     .pipe(
       retry(6), // retry a failed request up to 3 times

@@ -43,7 +43,7 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
     // start spinner
     this.showDataloading = true;
      /// get the details of the show from popCorn api
-     this.subscribe = this.request.getShowDetails(this.Id)
+     this.request.getShowDetails(this.Id)
        .subscribe( data => {
         this.showDetails = data;
         this.showDataloading = false;
@@ -62,7 +62,7 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
       this.requestShowDetails();
   }
 
-  openShowsDialog(data, title,seasons): void {
+  openShowsDialog(data: any, title: any,seasons: any): void {
 
    const info:Object = {
       torrents: data,
@@ -87,7 +87,7 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-   this.subscribe.unsubscribe();
+  //  this.subscribe.unsubscribe();
   }
 }
 

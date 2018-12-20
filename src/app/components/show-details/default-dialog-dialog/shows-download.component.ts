@@ -5,6 +5,7 @@ import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 import {ElectronService} from '../../../services/electron.service';
 import { SearchService } from 'src/app/services/search.service';
 import { TorrentSearchApiService } from 'src/app/services/torrent-search-api.service';
+import { UiServiceService } from 'src/app/services/ui-service.service';
 
 @Component( {
   selector: 'show-dload-dialog',
@@ -26,20 +27,18 @@ OnDestroy {
   constructor(public dialogRef: MatDialogRef<ShowDownloadDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     private snackBar: MatSnackBar,
+    private UI: UiServiceService,
     private electron: ElectronService,
     private request: SearchService,
     private torrent: TorrentSearchApiService) {}
 
   ngOnInit(): void {
 
-    setTimeout(() => {
       this.requestShowEpisodes(50, 1);
-    }, 1000);
 
-    setTimeout(() => {
       this.showCompleteEpisodes(this.data.seasons);
-    }, 3000);
 
+      
   }
 
   onNoClick(): void {
@@ -83,7 +82,7 @@ OnDestroy {
   }
 
 
-  page(e) {
+  page(e:any) {
     this.errorState=false;
     this.loading=true;
     this.request.getShowEpisopse(this.data.imdbCode, e.pageSize, (e.pageIndex + 1)) .subscribe((data)=> {
@@ -100,9 +99,9 @@ OnDestroy {
 
 
 
-  download(url, snkMsg) {
+  download(url:any, snkMsg:string, quality?:string) {
     this.electron.shell.openExternal(url);
-    this.openSnackBar(snkMsg);
+    this.openSnackBar(`${snkMsg} ${quality}`);
   }
 
   downloadTorrent(item){
@@ -119,8 +118,8 @@ OnDestroy {
     });
   }
 
-  openSnackBar(title: string) {
-    this.snackBar.open(`Downloading ${title}`, 'close');
+  openSnackBar(msg: string) {
+    this.UI.openSnackBar(`Downloading ${msg}`);
   }
 
 

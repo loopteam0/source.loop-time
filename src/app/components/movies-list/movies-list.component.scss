@@ -1,8 +1,9 @@
+@import "~@angular/material/theming";
+@import "../../../custom-theme.scss "; // width: 100vw - 3.7vw;
 @import "../../scss/variables";
 @import "../../scss/mixins";
 @import "../../scss/searchbar";
-@import "~@angular/material/theming";
-@import "../../../custom-theme.scss "; // width: 100vw - 3.7vw;
+@import "../../scss/_media-list.scss";
 
 .container-fluid {
     padding-right: 0;
@@ -16,7 +17,7 @@
     margin-bottom: 100px;
 }
 
-
+/* 
 .main-tab-container {
     margin-top: 1rem;
     padding: 0;
@@ -66,7 +67,7 @@
         }
     }
 
-}
+} */
 .errorHandler{
   margin: 150px auto;
 }

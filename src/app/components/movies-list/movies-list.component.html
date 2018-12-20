@@ -13,8 +13,8 @@
     </mat-form-field>
   </div>
 </div>
-<mat-divider>
-</mat-divider>
+<mat-divider></mat-divider>
+
 <div>
 
   <div class=" full-screen">
@@ -28,20 +28,27 @@
 
     <app-spinner *ngIf="moviesLoading"></app-spinner>
 
+    
     <div class="main-tab-container" id="top">
 
 
       <div class="card-container" *ngFor="let item of Movies ">
-        <div *ngIf="!moviesLoading">
-          <mat-card (click)="openDialog(item.id)" class="animated bounceInUp">
-            <img  mat-card-image src="{{item.large_cover_image}}" class="card-image" alt="">
-          </mat-card>
-          <p (click)="openDialog(item.id)" class="animated fadeInDown">
-            {{item.title}}</p>
-        </div>
+       <div *ngIf="!moviesLoading">
+          <mat-card (click)="openDialog(item.id)" class=" animated bounceInUp">
+              <div class="img-box">
+                <img  mat-card-image src="{{item.large_cover_image}}" class="card-image" alt="">
+              </div>
+              <div class="icon">
+                  <mat-icon>favorite</mat-icon>
+              </div>
+              <div class="content">
+                <p class="animated fadeInDown ">{{item.title}}</p>
+              </div>
+            </mat-card>
+       </div>
       </div>
 
-    </div>
+  </div>
 
     <div *ngIf="home" class="home">
       <button mat-raised-button color="primary"  (click)="RETRY()" class="home animated fadeInUp">HOME <mat-icon>home</mat-icon></button>

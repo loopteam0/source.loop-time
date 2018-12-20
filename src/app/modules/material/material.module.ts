@@ -8,7 +8,7 @@ import { MatButtonModule, MatTabsModule, MatCardModule, MatTooltipModule, MatDia
 import 'Hammerjs';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
+ import { NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
 import { TextFieldModule } from '@angular/cdk/text-field';
 
 @NgModule({
@@ -21,7 +21,8 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatProgressBarModule, LayoutModule,
     MatIconModule, MatBadgeModule, MatTreeModule,
     MatSidenavModule, MatToolbarModule,
-    MatSelectModule, MatListModule, NgbRatingModule,
+    MatSelectModule, MatListModule,
+    NgbRatingModule,
     MatSlideToggleModule, MatInputModule,
     MatDividerModule, MatPaginatorModule,
     MatExpansionModule , MatProgressSpinnerModule,
@@ -33,7 +34,8 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatCardModule, MatTreeModule,TextFieldModule,
     MatTooltipModule, MatSnackBarModule,
     MatProgressBarModule, MatFormFieldModule,MatRadioModule,
-    MatIconModule, MatInputModule, NgbRatingModule,
+    MatIconModule, MatInputModule,
+    NgbRatingModule,
     MatSidenavModule, MatToolbarModule, MatChipsModule,
     MatSelectModule, MatListModule, LayoutModule,
     MatSlideToggleModule, MatBadgeModule,

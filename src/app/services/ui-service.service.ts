@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
-import { ElectronService } from './electron.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +9,9 @@ export class UiServiceService {
 
   instantSearch:boolean = true;
 
-  constructor(public dialog: MatDialog,public snackbar: MatSnackBar, private electron: ElectronService) { }
+  constructor(public dialog: MatDialog,public snackbar: MatSnackBar) { }
 
-  openDialog(data:object , component, Class:string = null, H ='95vh', W = '90vw',close = true ) {
+  openDialog(data:object , component:any, Class:string = null, H ='95vh', W = '90vw', close:boolean = true ) {
 
     const dialogRef = this.dialog.open(component, {
       data: data ,
@@ -29,7 +29,7 @@ export class UiServiceService {
     });
   }
 
-  openSnackBar(data, duration = 5000, action = null) {
+  openSnackBar(data:string , duration: number = 5000, action = null) {
     this.snackbar.open(data , action , {
       duration : duration,
       panelClass: 'snackbar'
@@ -37,25 +37,25 @@ export class UiServiceService {
   }
 
   notify( title?:string, body?:string) {
-   let notification = new Notification( title ,{
-     body: body
-    })
+  //  let notification = new Notification( title ,{
+  //    body: body
+  //   })
 
-    notification.onclick = () => {
-      console.log('clicked');
-    }
+  //   notification.onclick = () => {
+  //     console.log('clicked');
+  //   }
   }
 
-  newWindow(url:string, title:string=undefined, height:number=320, width:number=700){
-    window.open(url, title, `width=${width},height=${height}` );
+  newWindow(url:string){
+ //   window.open(url);
   }
 
-  openLink(url){
-    if (this.electron.isElectron()) {
-      this.electron.shell.openExternal(url);
-    } else {
-      window.open(url);
-    }
+  openLink(url:string){
+    // if (this.electron.isElectron()) {
+    //   this.electron.shell.openExternal(url);
+    // } else {
+    //   window.open(url);
+    // }
   }
 
 

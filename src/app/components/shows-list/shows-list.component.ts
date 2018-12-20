@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { SearchService } from '../../services/search.service';
 import { ShowDetailsComponent } from '../show-details/show-details.component';
 import { UiServiceService } from 'src/app/services/ui-service.service';
-import { ElectronStorageService } from 'src/app/services/electron-storage.service';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
+import { map, debounceTime, tap, switchMap, distinctUntilChanged } from 'rxjs/operators';
 
 
 
@@ -14,16 +14,17 @@ import { Subscription } from 'rxjs';
   templateUrl: './shows-list.component.html',
   styleUrls: ['./shows-list.component.scss']
 })
-export class ShowsListComponent implements OnInit {
+export class ShowsListComponent implements OnInit, AfterViewInit {
 
   public Shows: Array<any>;
-  public Pages;
+  public Pages: any;
   subscribe: Subscription;
   pagination: boolean = true;
-  errorState;
+  errorState: boolean;
   retryIndex = 1;
   home = false;
-  showsLoading;
+  showsLoading: boolean;
+  @ViewChild('input') searchInput:ElementRef;
 
   /** PAGINATION */
   length = 2504;
@@ -35,7 +36,6 @@ export class ShowsListComponent implements OnInit {
     private  UI: UiServiceService,
     private request: SearchService,
     private snackBar: MatSnackBar,
-    private router: Router
   ) {
 
   }
@@ -45,6 +45,31 @@ export class ShowsListComponent implements OnInit {
     this.requestShowList(1);
     this.UI.notify('title', 'body')
   }
+
+  ngAfterViewInit(){
+    this.subscribe = fromEvent(this.searchInput.nativeElement, 'keyup')
+    .pipe(
+      debounceTime(1000),
+      map((event:Event) => (<HTMLInputElement>event.target).value),
+      distinctUntilChanged(),
+      tap(()=>{
+        this.showsLoading = true;
+        this.errorState = false;
+        this.home = true;
+        this.pagination = false;
+      }),
+      switchMap(value => this.request.getShowsByKeyword(value))
+    ).subscribe( data => {
+        this.Shows = data
+        this.showsLoading = false;
+      }
+    ), err => {
+      this.showError(err);
+      this.showsLoading = false;
+    }
+
+  }
+
 
   requestShowList(i) {
     this.showsLoading = true;
@@ -69,7 +94,6 @@ export class ShowsListComponent implements OnInit {
     }
     this.UI.openDialog(info,ShowDetailsComponent, 'Download-dialog');
   }
-
 
   search(keyword) {
     this.showsLoading = true;
@@ -128,6 +152,9 @@ export class ShowsListComponent implements OnInit {
     this.snackBar.open(`Page 0 doesn't exist`);
   }
 
+  favorite(id){
+    console.log(id);
+  } 
   // onSelectShow(show) {
   //   this.router.navigate(['/shows', show.imdb_id]);
   // }

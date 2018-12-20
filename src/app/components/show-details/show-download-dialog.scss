@@ -48,20 +48,51 @@
         text-align: center;
     }
 
+    mat-nav-list{
+        margin-bottom: 5px;
+    }
+
 mat-list-item {
     padding-right: 0;
     padding-left: 0;
-    span {
-        width: 100px;
+
+    &:hover{
+        background: none !important;
+        @include mat-elevation(2);
+        @include mat-elevation-transition;
+        cursor: default;
+        
     }
 
-    a.series-link{
+    mat-icon{
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        
+        &.hide{
+            visibility: hidden;
+        }
+        
+        &:hover{
+            border-radius: 50%;
+            background-color: #eee;
+            transition: 0.3s ease-out;
+        }
+    }
+
+    .series-link{
+        width: 40px !important;
+        max-width: 40px !important;
+        height: 40px;
         margin: 2px 8px;
+        cursor: default;
     }
 }
 
 .errorHandler{
-  margin-top: 50px !important;
   text-align: center;
   margin: 30px auto;
 

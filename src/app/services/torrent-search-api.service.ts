@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
-import { TorrentSearch } from '../../assets/providers/torrent-search-api';
+import { TorrentSearchApi } from 'torrent-search-api';
 import { ElectronService } from './electron.service';
 import { PirateBay  } from 'thepiratebay';
 import {
@@ -19,13 +19,11 @@ import { HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class TorrentSearchApiService {
-  torrentApi: typeof TorrentSearch;
-  torrentSearch:  typeof TorrentSearch;
+  torrentSearch:  typeof TorrentSearchApi;
   PirateBay: typeof PirateBay ;
 
   constructor(private electron: ElectronService) {
     if (this.electron.isElectron()) {
-      this.torrentApi = window.require('torrent-search-api');
       this.torrentSearch = window.require('torrent-search-api');
       this.PirateBay = window.require('thepiratebay');
 
@@ -90,6 +88,7 @@ export class TorrentSearchApiService {
     );
   }
 
+  /* download torrent */
  async downloadMagnet(torrent) {
    await this.torrentSearch
       .getMagnet(torrent)
