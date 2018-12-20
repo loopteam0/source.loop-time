@@ -17,7 +17,13 @@
     "loop:build": "ng build --prod && electron .",
     "loop:pack": "electron-packager ./dist/app Loop-Client --icon=./dist/app/assets/icons/icon.win.ico  --asar --overwrite"
   },
-  "repository": "https://github.com/loopteam0/loop-client",
+  "build":{
+    "appId": "com.loop.loop-client"
+  },
+  "repository": {
+    "url":"https://github.com/loopteam0/loop-client"
+  
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^7.1.4",
@@ -32,6 +38,7 @@
     "@angular/platform-browser": "^7.1.4",
     "@angular/platform-browser-dynamic": "^7.1.4",
     "@angular/router": "^7.1.4",
+    "@ng-bootstrap/ng-bootstrap":"^4.0.1",
     "angularfire2": "^5.0.1",
     "bootstrap": "^4.1.2",
     "core-js": "^2.5.4",

@@ -45,13 +45,13 @@ function createWindow() {
 
   win = new BrowserWindow(windowOptions)
 
-  win.loadURL(url.format({
-    pathname: path.join(rootPath, '/index.html'),
-    protocol: 'file',
-    slashes: true
-  }));
+  // win.loadURL(url.format({
+  //   pathname: path.join(rootPath, '/index.html'),
+  //   protocol: 'file',
+  //   slashes: true
+  // }));
 
-  //win.loadURL(`http://localhost:4200`);
+  win.loadURL(`http://localhost:4200`);
 
   // Event when the window is closed.
   win.on('closed', () => {
