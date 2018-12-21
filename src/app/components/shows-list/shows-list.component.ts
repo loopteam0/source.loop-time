@@ -49,7 +49,7 @@ export class ShowsListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(){
     this.subscribe = fromEvent(this.searchInput.nativeElement, 'keyup')
     .pipe(
-      debounceTime(1000),
+      debounceTime(2000),
       map((event:Event) => (<HTMLInputElement>event.target).value),
       distinctUntilChanged(),
       tap(()=>{
@@ -84,6 +84,11 @@ export class ShowsListComponent implements OnInit, AfterViewInit {
     this.errorState = true;
     this.showsLoading = false;
 
+    if (this.Shows.length == 0) {
+      this.showError(`Nothing Found`);
+    }else {
+      this.showError(`${this.Shows.length} Results Found`)
+    }
   });
 
   }

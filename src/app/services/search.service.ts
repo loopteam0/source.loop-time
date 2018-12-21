@@ -87,7 +87,7 @@ export class SearchService {
 
   getSimilarMovies(id): Observable<MoviesInt[]> {
      const url = `${this.yts_url}movie_suggestions.json?movie_id=${id}`;
-    return  this.http.get(url)
+    return  this.http.get<MoviesInt[]>(url)
       .pipe(
         map(res => res['data']),
         retry(6), // retry a failed request up to 3 times
@@ -98,7 +98,7 @@ export class SearchService {
 
   getMoviesByKeyword(keyword, genre='', sort_by='download_count', limit=50): Observable<MoviesInt[]> {
      const url = `${this.yts_url}list_movies.json?query_term=${keyword}&sort_by=${sort_by}&limit=${limit}`;
-    return  this.http.get(url)
+    return  this.http.get<MoviesInt[]>(url)
       .pipe(
         map(res => res['data']),
         catchError(this.handleError), // then handle the error
@@ -142,10 +142,10 @@ export class SearchService {
   getShowsByKeyword(keyword:string): Observable<MoviesInt[]> {
     const url = `${this.base_url}/shows/1?sort=trending&order=-1&genre=all&keywords=${keyword}`;
     return  this.http.get<MoviesInt[]>(url)
-    .pipe(
-      retry(6), // retry a failed request up to 3 times
-      catchError(this.handleError) // then handle the error
-    );
+      .pipe(
+        retry(6), // retry a failed request up to 3 times
+        catchError(this.handleError) // then handle the error
+      );
 
     }
 

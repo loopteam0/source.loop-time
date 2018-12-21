@@ -1,10 +1,6 @@
 //@ts-check
 const electron = require('electron');
 const path = require('path');
-const url = require('url');
-const fs = require('fs');
-const os = require('os');
-
 
 const ipc = electron.ipcMain;
 const shell = electron.shell;
@@ -14,7 +10,7 @@ const MenuItem = electron.MenuItem;
 const app = electron.app;
 const shortcut = electron.globalShortcut;
 const downloadDir = `${app.getPath('downloads')}\\LoopClient\\`;
-const rootPath = path.join(__dirname, 'dist', 'ngapp3')
+const rootPath = path.join(__dirname, 'dist', 'app')
 let win;
 
 // check for update at lunch time

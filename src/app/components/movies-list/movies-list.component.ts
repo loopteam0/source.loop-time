@@ -1,19 +1,19 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { SearchService } from '../../services/search.service';
-import { tap } from 'rxjs/operators';
 import { FanartTvService } from '../../services/fanart-tv.service';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 import { UiServiceService } from 'src/app/services/ui-service.service';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
+import { map, debounceTime, tap, switchMap, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-movies-list',
   templateUrl: './movies-list.component.html',
   styleUrls: ['./movies-list.component.scss']
 })
-export class MoviesListComponent implements OnInit, OnDestroy {
+export class MoviesListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public Movies;
   public Pages;
@@ -31,7 +31,7 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   banner;
   home = false;
   searchLt:any;
-  generes: Array<object> = [{name:'Cartoons', value: 'Cartoons'},{name: 'Action', value: 'Action'}, {name:'War', value:'War'}];
+  @ViewChild('input') searchInput:ElementRef;
 
   constructor(
     public UI: UiServiceService,
@@ -44,6 +44,40 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.requestMoviesList(1);
   }
+
+  ngAfterViewInit(){
+
+    this.subscribe = fromEvent(this.searchInput.nativeElement, 'keyup')
+    .pipe(
+      debounceTime(2000),
+      map((event:Event) => (<HTMLInputElement>event.target).value),
+      distinctUntilChanged(),
+      tap(()=>{
+        this.moviesLoading = true;
+        this.errorState = false;
+        this.home = true;
+        this.pagination = false;
+      }),
+      switchMap((value) =>
+          this.request.getMoviesByKeyword(value)
+        )).subscribe( data => {
+          this.moviesLoading = false;
+          this.Movies = data['movies'];
+          this.length = data['movie_count'];
+   
+          if (this.length == 0) {
+            this.showError(` Nothing Found`);
+          }else {
+            this.showError(`${this.length} Results Found`);
+          }
+         }, (err: any) => {
+           this.showError(err);
+           this.moviesLoading = false;
+        })
+
+  }
+
+
  /** Get Movies List from Yts */
   requestMoviesList(i) {
     this.home = false;
@@ -66,7 +100,11 @@ export class MoviesListComponent implements OnInit, OnDestroy {
 
   }
 
-  search(keyword: string) {
+
+
+
+  /* search(keyword) {
+    console.log(keyword);
     this.moviesLoading = true;
       this.errorState = false;
       this.home = true;
@@ -78,7 +116,7 @@ export class MoviesListComponent implements OnInit, OnDestroy {
        this.length = data['movie_count'];
 
        if (this.length == 0) {
-         this.showError(`${keyword} Not Found`);
+         this.showError(`Nothing Found`);
        }else {
          this.showError(`${this.length} Results Found`);
        }
@@ -86,7 +124,7 @@ export class MoviesListComponent implements OnInit, OnDestroy {
         this.showError(err);
         this.moviesLoading = false;
       });
-  }
+  } */
 
   paginate(e , cat ) {
     this.retryIndex = (e.pageIndex + 1);
@@ -129,7 +167,7 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   }
 
   opensnackbar(index, cat) {
-    this.UI.openSnackBar(`${cat}: Page ${index} is loading please Wait . . . `);
+    this.UI.openSnackBar(`${index} loading`);
   }
 
 

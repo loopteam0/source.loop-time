@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { ParamMap } from "@angular/router";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { MovieDbService } from "../../services/movie-db.service";
 import { TorrentSearchApiService } from "../../services/torrent-search-api.service";

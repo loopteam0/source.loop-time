@@ -8,8 +8,10 @@
     <div class="spacer"></div>
 
     <mat-form-field>
-      <input #input cancel (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
-      <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
+      <input #input cancel matInput placeholder='Enter a Keyword' type='text'>
+      <mat-icon class="animated infinite delay-4s" *ngIf="!input.value" matSuffix (click)="search(input)">search </mat-icon>
+      <mat-icon class="animated infinite delay-4s" *ngIf="input.value" matSuffix (click)="input.value=''">close </mat-icon>
+
     </mat-form-field>
   </div>
 </div>

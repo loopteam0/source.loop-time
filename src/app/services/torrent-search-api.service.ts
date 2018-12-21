@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
-import { TorrentSearchApi } from 'torrent-search-api';
+import { TorrentSearch } from 'torrent-search-api';
 import { ElectronService } from './electron.service';
 import { PirateBay  } from 'thepiratebay';
 import {
@@ -19,7 +18,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class TorrentSearchApiService {
-  torrentSearch:  typeof TorrentSearchApi;
+  torrentSearch:  typeof TorrentSearch;
   PirateBay: typeof PirateBay ;
 
   constructor(private electron: ElectronService) {

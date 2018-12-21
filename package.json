@@ -1,5 +1,5 @@
 {
-  "name": "Loop-Client",
+  "name": "LoopClient",
   "version": "0.8.0",
   "productName": "Loop Client",
   "main": "main.js",
@@ -17,12 +17,11 @@
     "loop:build": "ng build --prod && electron .",
     "loop:pack": "electron-packager ./dist/app Loop-Client --icon=./dist/app/assets/icons/icon.win.ico  --asar --overwrite"
   },
-  "build":{
+  "build": {
     "appId": "com.loop.loop-client"
   },
   "repository": {
-    "url":"https://github.com/loopteam0/loop-client"
-  
+    "url": "https://github.com/loopteam0/loop-client"
   },
   "private": true,
   "dependencies": {
@@ -38,7 +37,7 @@
     "@angular/platform-browser": "^7.1.4",
     "@angular/platform-browser-dynamic": "^7.1.4",
     "@angular/router": "^7.1.4",
-    "@ng-bootstrap/ng-bootstrap":"^4.0.1",
+    "@ng-bootstrap/ng-bootstrap": "^4.0.1",
     "angularfire2": "^5.0.1",
     "bootstrap": "^4.1.2",
     "core-js": "^2.5.4",
@@ -49,7 +48,7 @@
     "rxjs": "^6.3.3",
     "simplebar": "^3.0.0-beta.3",
     "thepiratebay": "^1.4.7",
-    "torrent-search-api": "^2.0.3",
+    "torrent-search-api": "^2.0.4",
     "update-electron-app": "^1.3.0",
     "webtorrent": "^0.102.4",
     "zone.js": "^0.8.26"

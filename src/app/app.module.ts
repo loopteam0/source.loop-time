@@ -50,6 +50,7 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
 import { UiServiceService } from './services/ui-service.service';
 import { FavoritesService } from './services/favorites.service';
 import { ElectronStorageService } from './services/electron-storage.service';
+import { TorrentSearchApiService } from './services/torrent-search-api.service';
 
 
 @NgModule({
@@ -97,7 +98,7 @@ import { ElectronStorageService } from './services/electron-storage.service';
     JsonpModule
   ],
   providers: [ SearchService, MovieDbService , ElectronService,FavoritesService,ElectronStorageService
-     , FanartTvService,DatePipe, UiServiceService,
+     , FanartTvService,DatePipe, UiServiceService, TorrentSearchApiService,
     { provide: HTTP_INTERCEPTORS,
       useClass: ServiceInterceptor,
       multi: true}
