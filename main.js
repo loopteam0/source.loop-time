@@ -1,6 +1,7 @@
 //@ts-check
 const electron = require('electron');
 const path = require('path');
+const url  = require('url');
 
 const ipc = electron.ipcMain;
 const shell = electron.shell;
@@ -10,7 +11,7 @@ const MenuItem = electron.MenuItem;
 const app = electron.app;
 const shortcut = electron.globalShortcut;
 const downloadDir = `${app.getPath('downloads')}\\LoopClient\\`;
-const rootPath = path.join(__dirname, 'dist', 'app')
+const rootPath = path.join(__dirname, 'dist', 'app');
 let win;
 
 // check for update at lunch time
@@ -47,7 +48,7 @@ function createWindow() {
   //   slashes: true
   // }));
 
-  win.loadURL(`http://localhost:4200`);
+ win.loadURL(`http://localhost:4200`);
 
   // Event when the window is closed.
   win.on('closed', () => {
@@ -181,9 +182,3 @@ app.on('ready', () => {
   downloadHandler();
 })
 
-// update app handler
-try {
-    require('update-electron-app')
-} catch (err) {
-    console.log(err)
-}

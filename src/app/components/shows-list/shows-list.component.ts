@@ -1,11 +1,11 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild, OnDestroy,AfterViewInit, ElementRef } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { SearchService } from '../../services/search.service';
 import { ShowDetailsComponent } from '../show-details/show-details.component';
 import { UiServiceService } from 'src/app/services/ui-service.service';
-import { Subscription, fromEvent } from 'rxjs';
-import { map, debounceTime, tap, switchMap, distinctUntilChanged } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { NgModel } from '@angular/forms';
 
 
 
@@ -14,17 +14,20 @@ import { map, debounceTime, tap, switchMap, distinctUntilChanged } from 'rxjs/op
   templateUrl: './shows-list.component.html',
   styleUrls: ['./shows-list.component.scss']
 })
-export class ShowsListComponent implements OnInit, AfterViewInit {
+export class ShowsListComponent implements OnInit, OnDestroy,AfterViewInit {
 
   public Shows: Array<any>;
   public Pages: any;
-  subscribe: Subscription;
   pagination: boolean = true;
   errorState: boolean;
   retryIndex = 1;
   home = false;
   showsLoading: boolean;
-  @ViewChild('input') searchInput:ElementRef;
+
+  subscribe: Subscription;
+  typeAhead: Subscription;
+
+  @ViewChild('input') searchInput:NgModel;
 
   /** PAGINATION */
   length = 2504;
@@ -43,11 +46,22 @@ export class ShowsListComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.requestShowList(1);
-    this.UI.notify('title', 'body')
   }
 
-  ngAfterViewInit(){
-    this.subscribe = fromEvent(this.searchInput.nativeElement, 'keyup')
+
+   ngAfterViewInit(){
+
+    this.typeAhead = this.searchInput.valueChanges.pipe(
+      debounceTime(1000),
+      distinctUntilChanged()
+    ).subscribe( val => {
+      this.search(val);        
+    }, (err) => {
+      this.openSnackbar('Somthing Bad Happend, Try Again')      
+    })
+
+   /*   
+   fromEvent(this.searchInput.nativeElement, 'keyup')
     .pipe(
       debounceTime(2000),
       map((event:Event) => (<HTMLInputElement>event.target).value),
@@ -63,32 +77,22 @@ export class ShowsListComponent implements OnInit, AfterViewInit {
         this.Shows = data
         this.showsLoading = false;
       }
-    ), err => {
-      this.showError(err);
-      this.showsLoading = false;
-    }
+    ) */
 
-  }
-
+   }
 
   requestShowList(i) {
     this.showsLoading = true;
     this.pagination = false;
-    this.request.getShowsList(i).subscribe(data => {
+    this.subscribe = this.request.getShowsList(i).subscribe(data => {
       this.Shows = data;
       this.showsLoading = false;
       this.pagination = true;
     this.errorState = false;
   }, err =>{
-    this.showError(err);
+    this.openSnackbar(err);
     this.errorState = true;
     this.showsLoading = false;
-
-    if (this.Shows.length == 0) {
-      this.showError(`Nothing Found`);
-    }else {
-      this.showError(`${this.Shows.length} Results Found`)
-    }
   });
 
   }
@@ -100,25 +104,26 @@ export class ShowsListComponent implements OnInit, AfterViewInit {
     this.UI.openDialog(info,ShowDetailsComponent, 'Download-dialog');
   }
 
-  search(keyword) {
+  search(keyword:string) {
     this.showsLoading = true;
     this.errorState = false;
     this.home = true;
     this.pagination = false;
-    this.request.getShowsByKeyword(keyword).subscribe(
-      data =>{
+
+    this.subscribe =  this.request.getShowsByKeyword(keyword).subscribe(
+      data => {
          this.Shows = data
          this.showsLoading = false;
 
          if (this.Shows.length == 0) {
-           this.showError(`${keyword} Not Found`);
+           this.openSnackbar(`${keyword} Not Found`);
          }else {
-           this.showError(`${this.Shows.length} Results Found`)
+           this.openSnackbar(`${this.Shows.length} Results Found`)
          }
         }, err => {
-          this.showError(err);
+          this.openSnackbar(err);
           this.showsLoading = false;
-
+          this.errorState = false;
         }
     )
   }
@@ -130,42 +135,36 @@ export class ShowsListComponent implements OnInit, AfterViewInit {
   }
 
   Page(e) {
-    this.retryIndex = (e.pageIndex + 1);
+      this.retryIndex = (e.pageIndex + 1);
       this.showsLoading = true;
       this.errorState = false;
-      this.opensnackbar((e.pageIndex + 1));;
-     this.request.getShowsList((e.pageIndex + 1)).subscribe(data => {
+      this.openSnackbar(`Page ${e.pageIndex + 1} is Loading`);
+
+    this.subscribe = this.request.getShowsList((e.pageIndex + 1)).subscribe(data => {
       this.Shows = data;
       this.showsLoading = false;
-     this.errorState = false;
+      this.errorState = false;
    }, err => {
-     this.showError(err);
+     this.openSnackbar(err);
      this.showsLoading = false;
      this.errorState = true;
    });
 
   }
 
-  showError(err){
-    this.snackBar.open(err);
-  }
 
-  opensnackbar(index) {
-    this.snackBar.open(`Shows: Page ${index} is loading please Wait . . . `);
+  openSnackbar(msg:any) {
+    this.UI.openSnackBar(msg)
   }
-  opensnack() {
-    this.snackBar.open(`Page 0 doesn't exist`);
-  }
+  
 
   favorite(id){
     console.log(id);
   } 
-  // onSelectShow(show) {
-  //   this.router.navigate(['/shows', show.imdb_id]);
-  // }
-
- navigateTop() {
-    window.scrollTo(0, 0);
+ 
+  ngOnDestroy(): void {
+    this.subscribe.unsubscribe();
+    this.typeAhead.unsubscribe();  
   }
 }
 

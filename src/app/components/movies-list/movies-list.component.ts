@@ -1,80 +1,68 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
 import { SearchService } from '../../services/search.service';
 import { FanartTvService } from '../../services/fanart-tv.service';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 import { UiServiceService } from 'src/app/services/ui-service.service';
-import { Subscription, fromEvent } from 'rxjs';
-import { map, debounceTime, tap, switchMap, distinctUntilChanged } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-movies-list',
   templateUrl: './movies-list.component.html',
   styleUrls: ['./movies-list.component.scss']
 })
-export class MoviesListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MoviesListComponent implements OnInit, OnDestroy,AfterViewInit {
 
   public Movies;
   public Pages;
   errorState = false;
   moviesLoading;
-  subscribe: Subscription;
-  retryIndex;
-  pagination: boolean = true;
   selectedValue: string;
-  length;
-  pageSize = 50;
-  pageIndex;
-  pageSizeOptions = [50, 30, 10];
   background;
   banner;
   home = false;
   searchLt:any;
-  @ViewChild('input') searchInput:ElementRef;
+  
+  subscribe: Subscription;
+  typeAhead: Subscription;
+  @ViewChild('input') searchInput:NgModel;
+  
+  // pagination
+  length;
+  pageSize = 50;
+  pageIndex;
+  pageSizeOptions = [50, 30, 10];
+  retryIndex;
+  pagination: boolean = true;
+
 
   constructor(
     public UI: UiServiceService,
     private request: SearchService,
-    private snackBar: MatSnackBar,
     private router: Router,
     private fanartApi: FanartTvService
   ) {}
 
   ngOnInit() {
     this.requestMoviesList(1);
+
+    this.typeAhead = this.searchInput.valueChanges.pipe(
+      debounceTime(1000),
+      distinctUntilChanged()
+    ).subscribe( val => {
+      console.log('hi from viewInit');
+        this.search(val);  
+              
+    }, (err) => {
+      this.openSnackbar(err + 'Somthing Bad Happend, Try Again')      
+    })
   }
 
+
   ngAfterViewInit(){
-
-    this.subscribe = fromEvent(this.searchInput.nativeElement, 'keyup')
-    .pipe(
-      debounceTime(2000),
-      map((event:Event) => (<HTMLInputElement>event.target).value),
-      distinctUntilChanged(),
-      tap(()=>{
-        this.moviesLoading = true;
-        this.errorState = false;
-        this.home = true;
-        this.pagination = false;
-      }),
-      switchMap((value) =>
-          this.request.getMoviesByKeyword(value)
-        )).subscribe( data => {
-          this.moviesLoading = false;
-          this.Movies = data['movies'];
-          this.length = data['movie_count'];
    
-          if (this.length == 0) {
-            this.showError(` Nothing Found`);
-          }else {
-            this.showError(`${this.length} Results Found`);
-          }
-         }, (err: any) => {
-           this.showError(err);
-           this.moviesLoading = false;
-        })
-
   }
 
 
@@ -91,7 +79,7 @@ export class MoviesListComponent implements OnInit, OnDestroy, AfterViewInit {
       this.errorState = false;
       this.pagination = true;
   }, err => {
-      this.showError(err);
+      this.openSnackbar(err);
       this.errorState = true;
       this.moviesLoading = false;
       this.pagination = false;
@@ -103,7 +91,7 @@ export class MoviesListComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
 
-  /* search(keyword) {
+   search(keyword:string) {
     console.log(keyword);
     this.moviesLoading = true;
       this.errorState = false;
@@ -116,22 +104,23 @@ export class MoviesListComponent implements OnInit, OnDestroy, AfterViewInit {
        this.length = data['movie_count'];
 
        if (this.length == 0) {
-         this.showError(`Nothing Found`);
+         this.openSnackbar(`Nothing Found`);
        }else {
-         this.showError(`${this.length} Results Found`);
+         this.openSnackbar(`${this.length} Results Found`);
        }
       }, err => {
-        this.showError(err);
+        this.openSnackbar(err);
         this.moviesLoading = false;
       });
-  } */
+  } 
 
-  paginate(e , cat ) {
+  paginate(e:any) {
     this.retryIndex = (e.pageIndex + 1);
       this.moviesLoading = true;
       this.pagination = true;
       this.errorState = false;
-      this.opensnackbar((e.pageIndex + 1), cat);
+      this.openSnackbar(`Page ${e.pageIndex + 1} Is Loading`);
+
     this.subscribe = this.request.getMoviesList((e.pageIndex + 1), e.pageSize)
         .subscribe(
           data => {
@@ -140,7 +129,7 @@ export class MoviesListComponent implements OnInit, OnDestroy, AfterViewInit {
            this.moviesLoading = false;
             this.errorState = false;
         }, err => {
-          this.showError(err);
+          this.openSnackbar(err);
           this.errorState = true;
           this.moviesLoading = false;
 
@@ -162,22 +151,13 @@ export class MoviesListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.requestMoviesList(this.retryIndex);
   }
 
-  onSelectMovie(item) {
-    this.router.navigate(['/movies', item.id, item.imdb_code]);
-  }
 
-  opensnackbar(index, cat) {
-    this.UI.openSnackBar(`${index} loading`);
-  }
-
-
-  showError(msg){
-    this.UI.openSnackBar(msg)
+  openSnackbar(msg) {
+    this.UI.openSnackBar(msg);
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
+    this.typeAhead.unsubscribe();
     this.subscribe.unsubscribe();
   }
 }

@@ -1,17 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TorrentSearch } from 'torrent-search-api';
 import { ElectronService } from './electron.service';
-import { PirateBay  } from 'thepiratebay';
-import {
-  catchError,
-  retry,
-  retryWhen,
-  debounceTime,
-  delay,
-  throttle
-} from 'rxjs/operators';
-import { map, startWith, switchMap } from 'rxjs/operators';
-import { throwError } from 'rxjs/internal/observable/throwError';
+import { retryWhen,  delay} from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
@@ -19,15 +10,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class TorrentSearchApiService {
   torrentSearch:  typeof TorrentSearch;
-  PirateBay: typeof PirateBay ;
 
   constructor(private electron: ElectronService) {
     if (this.electron.isElectron()) {
       this.torrentSearch = window.require('torrent-search-api');
-      this.PirateBay = window.require('thepiratebay');
 
     } else{
-    console.log('Not an electron app');
+      console.log('Not an electron app');
     }
   }
 
@@ -63,21 +52,21 @@ export class TorrentSearchApiService {
       }
   }
 
-  async pirateBayTop(cat){
-    const searchResults = await this.PirateBay.topTorrents(cat);
+  // async pirateBayTop(cat){
+  //   const searchResults = await this.PirateBay.topTorrents(cat);
 
-    return searchResults;
-   }
+  //   return searchResults;
+  //  }
 
 
-   async pirateBaySearch( keyword , cat){
-    const searchResults = await this.PirateBay.search( keyword , {
-      category: cat,
-      orderBy: 'seeds',
-      sortBy: 'desc'
-    })
-    return searchResults;
-  }
+  //  async pirateBaySearch( keyword , cat){
+  //   const searchResults = await this.PirateBay.search( keyword , {
+  //     category: cat,
+  //     orderBy: 'seeds',
+  //     sortBy: 'desc'
+  //   })
+  //   return searchResults;
+  // }
 
 
  async downloadTorrent(torrent) {

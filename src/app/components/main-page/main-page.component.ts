@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarRef, MatDialog } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { MovieDbService } from '../../services/movie-db.service';
-import { timer } from 'rxjs';
 import { OtherMoviesComponent } from '../other-movies/other-movies.component';
 import { UiServiceService } from 'src/app/services/ui-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -34,10 +33,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   constructor(
     public UI: UiServiceService,
-    private dialog: MatDialog,
     private movieDB: MovieDbService,
     private snackBar: MatSnackBar,
-    private router: Router,
   ) {
     this.imageurl = 'https://image.tmdb.org/t/p/w500';
   }
@@ -69,12 +66,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
   retry(){
     this.home = false;
     this.showMoviesNowPlayingList(this.i)
-    console.log(this.i);
   }
 
 
   openDialog(data): void {
-
     const info:object = {
       id: data
     }

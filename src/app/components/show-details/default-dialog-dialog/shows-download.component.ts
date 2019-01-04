@@ -1,7 +1,7 @@
 import {Inject} from '@angular/core';
 import {Component,OnInit,OnDestroy} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
-import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 import {ElectronService} from '../../../services/electron.service';
 import { SearchService } from 'src/app/services/search.service';
 import { TorrentSearchApiService } from 'src/app/services/torrent-search-api.service';
@@ -11,10 +11,8 @@ import { UiServiceService } from 'src/app/services/ui-service.service';
   selector: 'show-dload-dialog',
     templateUrl: './show-download-dialog.html',
     styleUrls: ['./../show-download-dialog.scss']
-}
-
-) export class ShowDownloadDialogComponent implements OnInit,
-OnDestroy {
+}) 
+export class ShowDownloadDialogComponent implements OnInit, OnDestroy {
   errorState: boolean=false;
   loadingShows:boolean = true;
   loadingError:boolean = false;
@@ -32,13 +30,11 @@ OnDestroy {
     private request: SearchService,
     private torrent: TorrentSearchApiService) {}
 
-  ngOnInit(): void {
-
+  ngOnInit() {
       this.requestShowEpisodes(50, 1);
 
       this.showCompleteEpisodes(this.data.seasons);
-
-      
+    
   }
 
   onNoClick(): void {
@@ -56,10 +52,9 @@ OnDestroy {
       if(this.length==0){
         this.showError( `Nothing Found From EZTV` ,9000)
       }
-      //   val = this.length;
+
       this.loading=false;
-    }
-    , err=> {
+    } , err=> {
       this.showError(err);
       this.errorState=true;
       this.loading=false;

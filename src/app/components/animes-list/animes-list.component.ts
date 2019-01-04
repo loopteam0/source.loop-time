@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { map } from "rxjs/operators";
 import { TorrentSearchApiService } from "../../services/torrent-search-api.service";
-import { ThePirateBay } from 'thepiratebay';
- import { TorrentSearchApi } from 'torrent-search-api';
+import { TorrentSearchApi } from 'torrent-search-api';
 //import { TorrentSearchApi } from '../../services/torrent-search-api';
 import { MatSnackBar } from '@angular/material';
 import { ElectronService } from "../../services/electron.service";

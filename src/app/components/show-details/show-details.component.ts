@@ -1,10 +1,9 @@
 import { Component ,  OnInit, OnDestroy } from '@angular/core';
-import {  ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { ShowDownloadDialogComponent } from './default-dialog-dialog/shows-download.component';
 import { SearchService } from '../../services/search.service';
 import { Inject} from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { UiServiceService } from 'src/app/services/ui-service.service';
 import { Subscription } from 'rxjs';
 
@@ -35,7 +34,7 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<ShowDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private request: SearchService,
-    public snackBar: MatSnackBar,
+    public snackBar: MatSnackBar
     ){}
 
 
@@ -43,7 +42,7 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
     // start spinner
     this.showDataloading = true;
      /// get the details of the show from popCorn api
-     this.request.getShowDetails(this.Id)
+     this.subscribe = this.request.getShowDetails(this.Id)
        .subscribe( data => {
         this.showDetails = data;
         this.showDataloading = false;
@@ -87,7 +86,7 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-  //  this.subscribe.unsubscribe();
+   this.subscribe.unsubscribe();
   }
 }
 

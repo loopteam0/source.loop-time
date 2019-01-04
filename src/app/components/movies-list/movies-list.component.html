@@ -8,7 +8,7 @@
     <div class="spacer"></div>
 
     <mat-form-field>
-      <input #input cancel matInput placeholder='Enter a Keyword' type='text'>
+      <input #input='ngModel' [(ngModel)]="searchTerm" matInput placeholder='Enter a Keyword' type='text'>
       <mat-icon class="animated infinite delay-4s" *ngIf="!input.value" matSuffix (click)="search(input)">search </mat-icon>
       <mat-icon class="animated infinite delay-4s" *ngIf="input.value" matSuffix (click)="input.value=''">close </mat-icon>
 
@@ -60,7 +60,7 @@
     <div class="container" *ngIf="pagination">
       <div id="pagination">
         <mat-paginator showFirstLastButtons [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex"
-          [pageSizeOptions]="pageSizeOptions" (page)="paginate($event , 'Movies')">
+          [pageSizeOptions]="pageSizeOptions" (page)="paginate($event)">
         </mat-paginator>
       </div>
     </div>
