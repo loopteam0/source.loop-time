@@ -37,7 +37,7 @@
           <img  mat-card-image src="{{imageurl}}{{item.poster_path}}" alt="{{ item.title }} ">
         </mat-card>
         <p *ngIf="!loading" (click)="openDialog(item.id)" class="animated fadeInDown ">
-          {{item.title}}</p>
+          {{item.title|scan:'&'}}</p>
         </div>
       </div>
   </div>

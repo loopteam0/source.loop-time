@@ -1,16 +1,10 @@
-import { SearchService } from '../../services/search.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { tap, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
-import { catchError } from 'rxjs/operators';
+ import { UiServiceService } from 'src/app/services/ui-service.service';
+import { TorrentSearchApiService } from 'src/app/services/torrent-search-api.service';
 
 export interface Category {
   name: string;
-  value: string;
+  value: number;
 }
 
 @Component({
@@ -20,83 +14,61 @@ export interface Category {
 })
 export class SearchPageComponent implements OnInit {
 
-  moviesResults: Observable<Array<any>> ;
-  showsResults: Observable<Array<any>> ;
-  animesResults: Observable<Array<any>> ;
-  loadingAnimes = false;
-  loadingMovies = false;
-  loadingShows = false;
-  error = true;
-  hint: string;
-  Keyword;
-  showspinner = false;
-  loading;
-  test;
-  searchField: FormControl;
-  isHidden;
-  showsReturned;
-  moviesReturned;
-  constructor(private request: SearchService, private snackBar: MatSnackBar,
-    private router: Router) {
-      this.isHidden = true;
-     }
+  Results: Array<any>;
+  loading: boolean;
+  searched: boolean;
+  errorState: boolean;
+  message: string;
 
-  search(keyword) {
-    this.beginSearchSnackBar(keyword);
-    this.loadingAnimes = true;
-    this.loadingMovies = true;
-    this.loadingShows = true;
+  //////search config
+  limit: number = 20;
+  category: Category[] = [
+    {
+      name: '10',
+      value: 10
+    },{
+      name: '20',
+      value: 20
+    },{
+      name: '50',
+      value: 50
+    },{
+      name: '100',
+      value: 100
+    }
+  ];
 
-    this.moviesResults = this.request.getMoviesByKeyword(keyword).pipe(
-      tap(() => {
-      this.loadingMovies = false;
-      this.openSnackBar('Movies' , keyword);
-      this.isHidden = false;
-    })
-      );
+  constructor(
+    private UI: UiServiceService,
+     private Torrent: TorrentSearchApiService
+    ) {}
 
-    this.showsResults = this.request.getShowsByKeyword(keyword).pipe(   
-      tap(() => {
-        this.loadingShows = false;
-        this.openSnackBar('Shows', keyword);
-      }));
+    ngOnInit(){
+      let msg = `Showing Top ${this.limit} Torrents of the Day`;
+      this.search('' , 'Top100', msg);
+    }
+
+  search(keyword: string, category: string= 'All' , message = `Showing Top ${this.limit} Results on {${keyword}}` ) {
+    this.searched = false;
+    this.loading = true;
+    this.Torrent.getTorrents( keyword, category , this.limit).then(res => {
+      this.Results = res;
+      this.loading = false;
+      this.errorState = false;
+      this.UI.openSnackBar(`${this.Results.length || 0 } Items Found`, 3000);
+      this.message = message;
+    }, err => {
+    this.errorState = true;
+    this.loading = false;
+    this.UI.openSnackBar(`${err} Try Again`, 3000);
+    this.message = '';
+    });
   }
 
 
-  ngOnInit() {}
-
-  beginSearchSnackBar(keyword) {
-    this.snackBar.open(`Searching Database for "${keyword}" . . . `, 'close');
+  download(url){
+    this.Torrent.downloadMagnet(url)
   }
 
-  openSnackBar(category, keyword) {
-    this.snackBar.open(`${category}: "${keyword}" search completed . . . ` , 'successfully');
-
-  }
-
-  erroSearchSnackBar(keyword) {
-    this.snackBar.open(`"${keyword}" search completed . . . completed with an ` , 'error');
-  }
-
-  showError(err){
-    this.snackBar.open(err);
-  }
-
-
-  onSelectMovie(item) {
-    this.router.navigate(['/movies', item.id]);
-  }
-
-  onSelectShow(show) {
-    this.router.navigate(['/shows', show.imdb_id]);
-  }
-
-goToOtherPage() {
-  this.router.navigate(['/trending']);
-}
-
-hideAlert() {
-  this.isHidden = true;
-}
 
 }

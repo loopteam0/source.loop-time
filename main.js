@@ -2,24 +2,25 @@
 const electron = require('electron');
 const path = require('path');
 const url  = require('url');
+const splashscreen = require("@trodi/electron-splashscreen");
 
-const ipc = electron.ipcMain;
+
+//const ipc = electron.ipcMain;
 const shell = electron.shell;
-const BrowserWindow = electron.BrowserWindow;
+//const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
 const MenuItem = electron.MenuItem;
 const app = electron.app;
 const shortcut = electron.globalShortcut;
 const downloadDir = `${app.getPath('downloads')}\\LoopClient\\`;
 const rootPath = path.join(__dirname, 'dist', 'app');
-let win;
+let splash;
 
 // check for update at lunch time
 
 
 function createWindow() {
-  // Create the browser window.
-
+  // Browser window options
   const windowOptions = {
     width: 1024,
     height: 650,
@@ -38,25 +39,40 @@ function createWindow() {
     windowOptions.icon = path.join(rootPath, '/assets/icons/icon.png')
   }  else if (process.platform === 'darwin') {
     windowOptions.icon = path.join(rootPath, '/assets/icons/icon.png')
-  } 
+  }
 
-  win = new BrowserWindow(windowOptions)
 
-  // win.loadURL(url.format({
-  //   pathname: path.join(rootPath, '/index.html'),
-  //   protocol: 'file',
-  //   slashes: true
-  // }));
-
- win.loadURL(`http://localhost:4200`);
-
-  // Event when the window is closed.
-  win.on('closed', () => {
-    win = null
+  splash = splashscreen.initSplashScreen({
+    windowOpts: windowOptions,
+    templateUrl: path.join(rootPath, '/assets/splash/splash.gif'),
+    delay: 0,
+    minVisible: 1500,
+    splashScreenOpts: {
+      width: 250,
+      height: 200,
+      transparent: false,
+      icon: path.join(rootPath, '/assets/icons/icon.png'),
+      backgroundColor: '#ffffff00',
+      title: 'Loop Client Loading'
+    }
   })
 
-  win.once('ready-to-show', () => {
-    win.show()
+  splash.loadURL(url.format({
+    pathname: path.join(rootPath, '/index.html'),
+    protocol: 'file',
+    slashes: true
+  }));
+
+ //splash.loadURL(`http://localhost:4200`);
+
+  // Event when the window is closed.
+  splash.on('closed', () => {
+    splash = null
+  })
+
+  // When browser window is finished loading
+  splash.once('ready-to-show', () => {
+    splash.show()
   });
 
 }
@@ -71,7 +87,7 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   // macOS specific close process
-  if (win === null) {
+  if (splash === null) {
     createWindow()
   }
 })
@@ -81,9 +97,9 @@ app.on('will-quit', () => {
   shortcut.unregisterAll()
 })
 
-// Handle all downloads
+//Handle all downloads
 function downloadHandler() {
-  win.webContents.session.on('will-download', (event, item, webContents) => {
+  splash.webContents.session.on('will-download', (event, item, webContents) => {
     // Set the save path, making Electron not to prompt a save dialog.
 
     let fileName = `[LOOP] ${item.getFilename()}`;
@@ -134,7 +150,7 @@ app.on('ready', () => {
 
   // register shortcuts
   shortcut.register('CommandOrControl+Shift+T', () => {
-    win.webContents.openDevTools();
+    splash.webContents.openDevTools();
   })
   shortcut.register('CommandOrControl+D', () => {
     openDownloadPath();
@@ -173,9 +189,9 @@ app.on('ready', () => {
     label: 'Exit',
     role: 'close'
   }))
-  win.webContents.on('context-menu', function (e, params) {
+  splash.webContents.on('context-menu', function (e, params) {
     // @ts-ignore
-    menu.popup(win, params.x, params.y)
+    menu.popup(splash, params.x, params.y)
   })
 
   // handle downloads

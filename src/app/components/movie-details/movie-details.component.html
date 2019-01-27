@@ -27,7 +27,8 @@
       <div class="flex-flow">
 
         <div class="title-head">
-          <h1>{{movieDetails.title_english}}</h1> <span class="year">({{movieDetails.year}})</span>
+          <h1>{{movieDetails.title_english|scan:'&'}}</h1>
+          <!-- <span class="year">({{movieDetails.year}})</span> -->
 
           <div class="rating">
             <ng-template #t let-fill="fill">
@@ -99,7 +100,7 @@
               </p>
 
               <p>
-                  <strong>released: </strong>
+                  <strong>Uploaded: </strong>
                   <span>{{movieDetails.date_uploaded}} </span>
                 </p>
 

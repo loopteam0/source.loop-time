@@ -26,7 +26,7 @@
       <div class="flex-flow">
 
         <div class="title-head">
-          <h1>{{showDetails.title}}</h1> <span class="year">({{showDetails.year}})</span>
+          <h1>{{showDetails.title|scan:'&'}}</h1> <span class="year">({{showDetails.year}})</span>
 
           <div class="rating">
             <ng-template #t let-fill="fill">

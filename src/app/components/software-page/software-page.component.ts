@@ -37,7 +37,7 @@ export class SoftwarePageComponent implements OnInit {
   showSoftwares() {
     this.searched = false;
      this.loading = true;
-    this.Torrent.getTorrents('2018' ,'Applications', 100 ).then(
+    this.Torrent.getTorrents('' ,'PopularApps', 100 ).then(
       res => {
         this.Softwares = res;
         this.loading = false;

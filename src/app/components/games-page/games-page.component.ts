@@ -24,7 +24,7 @@ export class GamesPageComponent implements OnInit {
     this.searched = false;
     this.loading = true;
     this.errorState = false;
-    this.Torrent.getTorrents("2018",'Games', 100).then(res => {
+    this.Torrent.getTorrents('','PopularGames', 100).then(res => {
       this.Games = res;
       this.loading = false;
     this.errorState = false;

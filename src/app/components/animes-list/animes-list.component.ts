@@ -1,10 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { map } from "rxjs/operators";
 import { TorrentSearchApiService } from "../../services/torrent-search-api.service";
-import { TorrentSearchApi } from 'torrent-search-api';
-//import { TorrentSearchApi } from '../../services/torrent-search-api';
 import { MatSnackBar } from '@angular/material';
-import { ElectronService } from "../../services/electron.service";
 
 @Component({
   selector: "app-animes-list",
@@ -12,10 +8,9 @@ import { ElectronService } from "../../services/electron.service";
   styleUrls: ["./animes-list.component.scss"]
 })
 export class AnimesListComponent implements OnInit {
-  animes;
-  results;
-  loading;
-  searchLoading;
+  animes: any;
+  results: any;
+  loading: boolean;
   searched = false;
   errorState = false;
 
@@ -25,7 +20,6 @@ export class AnimesListComponent implements OnInit {
 
   ngOnInit() {
    this.showTorrents();
-
   }
 
 
@@ -33,28 +27,27 @@ export class AnimesListComponent implements OnInit {
     this.searched = false;
     this.loading = true;
     this.errorState = false;
-    this.Torrent.getTorrents('1080','Anime', 100).then(torrents => {
+    this.Torrent.getTorrents('','PopularAnime', 100).then(torrents => {
         this.animes = torrents;
         this.errorState = false;
         this.loading = false;
-
-  },
-    err => {
-      this.showError(err);
-      this.loading = false;
-      this.errorState = true;
-    });
+      },
+        err => {
+          this.showError(err);
+          this.loading = false;
+          this.errorState = true;
+        });
   }
 
-  search(key) {
+  search(query:String) {
 
     this.searched = true;
     this.loading = true;
     this.errorState = false;
-    this.Torrent.getTorrents(key,'Anime', 50).then(res => {
+    this.Torrent.getTorrents(query,'Anime', 50).then(res => {
       this.animes = res;
       this.loading = false;
-      this.showError(`${this.animes.length} Results Found For ${key}`);
+      this.showError(`${this.animes.length} Results Found For ${query}`);
   },
     err => {
       this.showError(err);

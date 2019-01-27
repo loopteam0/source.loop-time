@@ -80,9 +80,9 @@
 
                 <div class="spinner" id="spinner" *ngIf="loading"></div>
 
-                <mat-nav-list *ngFor="let episode of episodes">
+                <mat-nav-list *ngIf="!loading">
 
-                  <mat-list-item *ngIf="!loading" class=" animated bounceInRight">
+                  <mat-list-item *ngFor="let episode of episodes"  class=" animated bounceInRight">
 
                     <a class="trucn" matTooltip="{{episode.date_released_unix * 1000 | date:'full'}}" matLine href="{{episode.torrent_url}}"
                       (click)="openSnackBar(episode.title)">{{episode.title}}</a>
@@ -136,7 +136,7 @@
                 <mat-list-item  *ngFor="let item of completeEpisodes" class=" animated bounceInRight">
 
                   <a class="trucn" matTooltip="{{item.provider}}" matLine
-                    (click)="openSnackBar(item.title)">{{item.title}}</a>
+                    (click)="openSnackBar(item.title)">{{item.title|scan:'&'}}</a>
                   <span>{{item.size}}</span>
 
                   <a mat-icon-button (click)="downloadTorrent(item)" class="series-link">

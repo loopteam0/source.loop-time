@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ipcRenderer, shell,  webFrame, remote, BrowserWindow } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
+import * as TorrentSearch  from 'torrent-search-api';
 
 @Injectable()
 export class ElectronService {
@@ -13,7 +14,7 @@ export class ElectronService {
   fs: typeof fs;
   shell: typeof shell;
   BrowserWindow: typeof BrowserWindow;
-
+  TorrentSearch: typeof TorrentSearch;
    constructor() {
      // Conditional imports
      if (this.isElectron()) {
@@ -22,9 +23,9 @@ export class ElectronService {
       this.remote = window.require('electron').remote;
       this.shell = window.require('electron').shell;
       this.BrowserWindow = window.require('electron').BrowserWindow;
-
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
+      this.TorrentSearch = window.require('torrent-search-api')
     }
   }
 

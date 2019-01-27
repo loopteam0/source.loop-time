@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../../services/search.service';
-import { interval, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-quote',
@@ -10,7 +9,6 @@ import { interval, Observable } from 'rxjs';
 export class QuoteComponent implements OnInit {
 
   quotes;
-  loading;
 
 
   constructor( private request: SearchService) {

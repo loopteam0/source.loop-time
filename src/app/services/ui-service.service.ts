@@ -10,7 +10,12 @@ export class UiServiceService {
 
   instantSearch:boolean = true;
 
-  constructor(public dialog: MatDialog,public snackbar: MatSnackBar,private electron:ElectronService) { }
+  constructor(public dialog: MatDialog,
+    public snackbar: MatSnackBar,
+    private electron:ElectronService
+
+    )
+     { }
 
   openDialog(data:object , component:any, Class:string = null, H ='95vh', W = '90vw', close? ) {
 

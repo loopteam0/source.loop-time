@@ -61,7 +61,7 @@ mat-list-item {
         @include mat-elevation(2);
         @include mat-elevation-transition;
         cursor: default;
-        
+
     }
 
     mat-icon{
@@ -71,15 +71,15 @@ mat-list-item {
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        
+
         &.hide{
             visibility: hidden;
         }
-        
+
         &:hover{
             border-radius: 50%;
             background-color: #eee;
-            transition: 0.3s ease-out;
+            transition: 0.2s ease-out;
         }
     }
 

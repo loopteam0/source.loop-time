@@ -81,8 +81,8 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
     this.requestShowDetails();
   }
 
-  openSnackBar(title: string) {
-    this.UI.openSnackBar(`Downloading ${title} `);
+  openSnackBar(msg: string) {
+    this.UI.openSnackBar(` ${msg} `);
   }
 
   ngOnDestroy() {

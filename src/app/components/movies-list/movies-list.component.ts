@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchService } from '../../services/search.service';
 import { FanartTvService } from '../../services/fanart-tv.service';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 import { UiServiceService } from 'src/app/services/ui-service.service';
-import { Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subscription, fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { NgModel } from '@angular/forms';
 
 @Component({
@@ -15,26 +15,25 @@ import { NgModel } from '@angular/forms';
 })
 export class MoviesListComponent implements OnInit, OnDestroy,AfterViewInit {
 
-  public Movies;
-  public Pages;
+  public Movies: any;
+  public Pages: any;
   errorState = false;
-  moviesLoading;
+  moviesLoading: boolean;
   selectedValue: string;
-  background;
-  banner;
+  background: any;
+  banner: any;
   home = false;
   searchLt:any;
-  
+
   subscribe: Subscription;
-  typeAhead: Subscription;
-  @ViewChild('input') searchInput:NgModel;
-  
+  @ViewChild('input') searchInput:ElementRef;
+
   // pagination
-  length;
+  length: number;
   pageSize = 50;
-  pageIndex;
+  pageIndex: any;
   pageSizeOptions = [50, 30, 10];
-  retryIndex;
+  retryIndex: number;
   pagination: boolean = true;
 
 
@@ -46,28 +45,29 @@ export class MoviesListComponent implements OnInit, OnDestroy,AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.requestMoviesList(1);
-
-    this.typeAhead = this.searchInput.valueChanges.pipe(
-      debounceTime(1000),
-      distinctUntilChanged()
-    ).subscribe( val => {
-      console.log('hi from viewInit');
-        this.search(val);  
-              
-    }, (err) => {
-      this.openSnackbar(err + 'Somthing Bad Happend, Try Again')      
-    })
+    this.requestMoviesList(1)
   }
 
 
   ngAfterViewInit(){
-   
+
+    fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
+      debounceTime(2000),
+      distinctUntilChanged(),
+      map((event:Event) => (<HTMLInputElement>event.target).value)
+    ).subscribe((val:string) => {
+        if (val.trim().length === 0 || !val ) {
+          // do nothing
+        } else {
+          this.search(val)
+        }
+    })
+
   }
 
 
  /** Get Movies List from Yts */
-  requestMoviesList(i) {
+  requestMoviesList(i: number) {
     this.home = false;
     this.moviesLoading = true;
     this.errorState = false;
@@ -92,7 +92,6 @@ export class MoviesListComponent implements OnInit, OnDestroy,AfterViewInit {
 
 
    search(keyword:string) {
-    console.log(keyword);
     this.moviesLoading = true;
       this.errorState = false;
       this.home = true;
@@ -112,7 +111,7 @@ export class MoviesListComponent implements OnInit, OnDestroy,AfterViewInit {
         this.openSnackbar(err);
         this.moviesLoading = false;
       });
-  } 
+  }
 
   paginate(e:any) {
     this.retryIndex = (e.pageIndex + 1);
@@ -137,7 +136,7 @@ export class MoviesListComponent implements OnInit, OnDestroy,AfterViewInit {
 
   }
 
-  openDialog(data): void {
+  openDialog(data: any): void {
     const info:object = {
       id: data
     }
@@ -152,12 +151,11 @@ export class MoviesListComponent implements OnInit, OnDestroy,AfterViewInit {
   }
 
 
-  openSnackbar(msg) {
+  openSnackbar(msg: string) {
     this.UI.openSnackBar(msg);
   }
 
   ngOnDestroy(): void {
-    this.typeAhead.unsubscribe();
     this.subscribe.unsubscribe();
   }
 }

@@ -11,7 +11,7 @@ import { UiServiceService } from 'src/app/services/ui-service.service';
   selector: 'show-dload-dialog',
     templateUrl: './show-download-dialog.html',
     styleUrls: ['./../show-download-dialog.scss']
-}) 
+})
 export class ShowDownloadDialogComponent implements OnInit, OnDestroy {
   errorState: boolean=false;
   loadingShows:boolean = true;
@@ -34,7 +34,7 @@ export class ShowDownloadDialogComponent implements OnInit, OnDestroy {
       this.requestShowEpisodes(50, 1);
 
       this.showCompleteEpisodes(this.data.seasons);
-    
+
   }
 
   onNoClick(): void {

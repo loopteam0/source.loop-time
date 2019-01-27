@@ -29,7 +29,7 @@
        <div class="flex-flow">
 
          <div class="title-head">
-           <h1>{{movieDetails.title}}</h1> <span class="year">({{movieDetails.release_date | date:"yyyy"}})</span>
+           <h1>{{movieDetails.title|scan:'&'}}</h1> <span class="year">({{movieDetails.release_date | date:"yyyy"}})</span>
 
            <div class="rating">
              <ng-template #t let-fill="fill">

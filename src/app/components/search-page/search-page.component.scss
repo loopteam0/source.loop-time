@@ -2,87 +2,39 @@
 @import "../../scss/mixins";
 @import "~@angular/material/theming";
 @import "../../../custom-theme.scss";
+@import "../../scss/table-data";
 
 
 .searchPage {
     .flex-container {
         display: flex;
         justify-content: center;
+
     }
     .toolbar {
         margin-bottom: 30px;
         mat-icon {
             &:hover {
                 cursor: pointer;
+                color:  mat-color($primary);
             }
         }
 
         mat-card {
             padding: 8px;
             width: 90%;
-            margin: 1rem auto
+            margin: 1rem auto;
         }
 
         mat-form-field {
             padding: 1.25em 1.25em 1em 1.25em;
-            width: 18rem;
+            width: 15rem;
+        }
+
+        mat-form-field.select{
+          width: 7rem;
         }
     }
-    .results-field {
-        .card-container {
-            p {
-                box-sizing: border-box;
-                text-align: center;
-                margin-top: 8px;
-                width: $card-width;
-                padding: 0 10px;
-                &:hover {
-                    color: mat-color($accent);
-                    cursor: pointer;
-                    transition: .75s ease;
-                }
-            }
-        }
-        mat-card {
-            @include mat-elevation-transition;
-            width: $card-width;
-            height: $card-height;
-            cursor: pointer;
-            margin: 5px 10px;
-            &:hover {
-                @include mat-elevation-transition;
-                @include mat-elevation(20);
-                transition: 0.5s ease;
-            }
-            img {
-                height: inherit;
-                border-radius: inherit;
-                width: inherit;
-                border: 0.5px solid transparent;
-            }
-        }
-    } // flez setting and override
-    .main-tab-container {
-        margin-top: 30px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-content: space-around;
-    }
+
 }
 
-ng-template {
-    span {
-        -webkit-font-smoothing: antialiased;
-        font-size: 1.2rem;
-        letter-spacing: .04125em;
-    }
-    /*  */
-}
-
-.alert.alert-warning {
-    max-width: 50rem;
-    text-align: center;
-    margin: 1rem auto;
-}

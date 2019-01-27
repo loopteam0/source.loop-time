@@ -35,7 +35,7 @@ export class MusicPageComponent implements OnInit {
     this.searched = false;
     this.loading = true;
     this.errorState = false;
-    this.Torrent.getTorrents('2018', 'Music', 100)
+    this.Torrent.getTorrents('', 'PopularMusics', 100)
       .then(torrents => {
           this.Musics = torrents;
           this.errorState = false;

@@ -27,7 +27,7 @@
                 <mat-nav-list >
                     <mat-list-item *ngFor="let item of movies | truthify" class="animated bounceInRight">
                         <a class="trucn" matTooltip="{{item.provider}} || {{item.time}}" matLine
-                        >{{item.title}}</a>
+                        >{{item.title|scan:'&'}}</a>
                         <span>{{item.size}}</span>
                         <a mat-icon-button (click)="download(item)" class="series-link">
                             <mat-icon matTooltip="Seeds: {{item.seeds}} || Peers: {{item.peers}}" color="primary">file_download</mat-icon>

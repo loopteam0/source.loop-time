@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { MovieDbService } from '../../services/movie-db.service';
 import { OtherMoviesComponent } from '../other-movies/other-movies.component';
 import { UiServiceService } from 'src/app/services/ui-service.service';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
+import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main-page',
@@ -12,23 +13,20 @@ import { Subscription } from 'rxjs';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
-  public upcomingMovies;
-  public Animes;
-  public Shows;
-  public Pages;
-  loading;
+  public upcomingMovies: any[];
+  loading: boolean;
   errorMsg = 'An unknown error occured while requesting';
-  animePage;
-  pgNumber;
-  i;
-  home;
+  i: any;
+  home: boolean;
+  subscription: Subscription;
   /** PAGINATION */
-  lenght;
+  lenght: any;
   pageSize = 20;
-  pageIndex;
+  pageIndex: any;
   pageSizeOptions = [20];
-  imageurl;
+  imageurl: string;
   errorState: boolean;
+  @ViewChild('input') searchInput:ElementRef;
 
 
   constructor(
@@ -39,18 +37,33 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.imageurl = 'https://image.tmdb.org/t/p/w500';
   }
 
-  
+
   ngOnInit() {
     this.showMoviesNowPlayingList(1);
   }
 
+  ngAfterViewInit(){
+
+    fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
+      debounceTime(2000),
+      map((event:Event) => (<HTMLInputElement>event.target).value),
+      distinctUntilChanged()
+    ).subscribe((val:string) => {
+        if (val.trim().length === 0 || !val ) {
+          // do nothing
+        } else {
+          this.search(val)
+        }
+    })
+
+  }
 
   /** Get upcoming Movies List from Yts */
-  showMoviesNowPlayingList(i) {
+  showMoviesNowPlayingList(i: number) {
     this.home = false;
     this.loading = true;
     this.errorState = false;
-    this.movieDB.getNowPlaying(i).subscribe(
+    this.subscription = this.movieDB.getNowPlaying(i).subscribe(
       res => {
         this.upcomingMovies = res['results'];
         this.lenght = res['total_results'];
@@ -69,7 +82,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
 
-  openDialog(data): void {
+  openDialog(data: any): void {
     const info:object = {
       id: data
     }
@@ -77,7 +90,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   }
 
-  showError(err) {
+  showError(err: string) {
   const errorSnackRef =  this.snackBar.open(err, 'retry', {
       duration: 5000,
     });
@@ -88,11 +101,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  search(keyword){
+  search(keyword: string){
     this.loading = true;
     this.errorState = false;
     this.home = true;
-    this.movieDB.searchKeyword(keyword,'movie',1).subscribe(
+    this.subscription = this.movieDB.searchKeyword(keyword,'movie',1).subscribe(
       res => {
         this.upcomingMovies = res;
         this.loading = false;
@@ -110,11 +123,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
     )
   }
 
-  Page(e, cat) {
+  Page(e: { pageIndex: number; }, cat: any) {
     this.loading = true;
     this.errorState = false;
     this.i = (e.pageIndex+1);
-    this.movieDB.getNowPlaying(e.pageIndex+1).subscribe(
+    this.subscription = this.movieDB.getNowPlaying(e.pageIndex+1).subscribe(
       res => {
         this.errorState = false;
         this.loading = false;
@@ -127,23 +140,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
       });
   }
 
-
-  // onSelectMovie(movie) {
-  //   this.router.navigate(['/trending/movies/', movie.id]);
-  // }
-
-  opensnackbar(index, cat) {
-    this.snackBar.open(`${cat}: Page ${index} is loading please Wait . . . `);
-  }
-
-  errorSnack() {
-    this.snackBar.open(`An unknown error occured`);
-  }
-
-
-
-
   ngOnDestroy(){
-
+    this.subscription.unsubscribe();
   }
 }

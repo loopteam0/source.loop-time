@@ -23,7 +23,7 @@ export class BookPageComponent implements OnInit {
   showTorrents() {
     this.searched = false;
     this.loading = true;
-    this.Torrent.getTorrents("books", 'Other',100).then(res => {
+    this.Torrent.getTorrents('', 'PopularOther', 100).then(res => {
       this.Others = res;
       this.loading = false;
     this.errorState = false;

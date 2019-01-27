@@ -51,6 +51,7 @@ import { UiServiceService } from './services/ui-service.service';
 import { FavoritesService } from './services/favorites.service';
 import { ElectronStorageService } from './services/electron-storage.service';
 import { TorrentSearchApiService } from './services/torrent-search-api.service';
+import { ScanPipe } from './pipes/scan.pipe';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { TorrentSearchApiService } from './services/torrent-search-api.service';
     UndefinedPipe,
     BackgroundDirective,
     FavoritesComponent,
-  
+    ScanPipe,
+
 
   ],
   imports: [
@@ -104,7 +106,9 @@ import { TorrentSearchApiService } from './services/torrent-search-api.service';
       multi: true}
     ],
   bootstrap: [AppComponent],
-  entryComponents: [MovieDownloadDialogComponent,ShowDetailsComponent, OtherMoviesComponent, MovieDetailsComponent , ShowDownloadDialogComponent, OtherMovieDownloadDialogComponent]
+  entryComponents: [MovieDownloadDialogComponent,ShowDetailsComponent,
+    OtherMoviesComponent, MovieDetailsComponent , ShowDownloadDialogComponent,
+     OtherMovieDownloadDialogComponent]
 })
 export class AppModule {
  }
