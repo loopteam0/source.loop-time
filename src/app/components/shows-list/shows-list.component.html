@@ -1,4 +1,4 @@
-<div class="custom-container">
+<div id="top" class="custom-container">
 
   <div class="title head">
     <div class="nun">
@@ -10,7 +10,7 @@
     <div class="spacer"></div>
     <mat-form-field>
       <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
-      <mat-icon class="animated infinite delay-4s" *ngIf="!input.value" matSuffix (click)="search(input)">search
+      <mat-icon class="animated infinite delay-4s" *ngIf="!input.value" matSuffix (click)="search(input.value)">search
       </mat-icon>
       <mat-icon class="animated infinite delay-4s" *ngIf="input.value" matSuffix (click)="input.value=''">close
       </mat-icon>
@@ -40,14 +40,15 @@
       <div *ngIf="!showsLoading">
         <mat-card (click)="openDialog(show.imdb_id)" class=" animated bounceInUp">
           <div class="img-box">
-            <img mat-card-image class="card-image" onerror="this.src='../../../assets/themoviedb.svg'" src="{{show.images.poster}}" alt="{{show.title}} ">
+            <img mat-card-image onerror="this.src='./assets/placeholder.shows.png'" class="card-image" src="{{show.images.poster}}" alt="{{show.title}} ">
           </div>
           <div class="icon">
-            <span>{{show.rating.percentage/10       }}</span>
+              <a  mat-mini-fab>{{show.rating.percentage/10}}</a>
+            <!-- <span>{{show.rating.percentage/10}}</span> -->
           </div>
           <div class="content">
-            <p class="animated fadeInDown ">{{show.title|scan:'&'}}</p>
-            <p class="animated fadeInDown ">{{show.year}}</p>
+            <p class="title">{{show.title|scan:'&'}}</p>
+            <p class="year">{{show.year}}</p>
           </div>
         </mat-card>
       </div>
@@ -55,18 +56,20 @@
 
   </div>
 
+
   <div class="home">
     <button mat-raised-button color="primary" *ngIf="home" (click)="Retry()" class="home animated fadeInUp">HOME
       <mat-icon>home</mat-icon></button>
   </div>
 
-  <div class="container" *ngIf="pagination">
-    <div id="pagination">
-      <mat-paginator showFirstLastButtons [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event)">
-      </mat-paginator>
+    <div class="container" *ngIf="pagination">
+      <div id="pagination">
+        <mat-paginator showFirstLastButtons [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event)">
+        </mat-paginator>
+      </div>
     </div>
-  </div>
-  <div class="margier"></div>
 
-</div>
+    <div class="margier"></div>
+
+  </div>
 <app-quote *ngIf="errorState"></app-quote>

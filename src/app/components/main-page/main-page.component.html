@@ -34,7 +34,7 @@
 
       <div class="card-container"  *ngFor="let item of upcomingMovies">
         <mat-card *ngIf="!loading" (click)="openDialog(item.id)" class="animated bounceInRight">
-          <img  mat-card-image src="{{imageurl}}{{item.poster_path}}" alt="{{ item.title }} ">
+          <img  mat-card-image onerror="this.src='./assets/placeholder.movie.png'" src="{{imageurl}}{{item.poster_path}}" alt="{{ item.title }} ">
         </mat-card>
         <p *ngIf="!loading" (click)="openDialog(item.id)" class="animated fadeInDown ">
           {{item.title|scan:'&'}}</p>

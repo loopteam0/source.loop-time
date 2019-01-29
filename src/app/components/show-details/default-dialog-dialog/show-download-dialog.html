@@ -104,7 +104,7 @@
                 <div class="mb-2"></div>
                 <div *ngIf="true" class="container">
                   <div id="pagination">
-                    <mat-paginator [length]="length" [pageSize]="50" [pageSizeOptions]="[100 ,50, 30 ]" (page)="page($event)">
+                    <mat-paginator showFirstLastButtons [length]="length" [pageSize]="50" [pageSizeOptions]="[100 ,50, 30 ]" (page)="page($event)">
                     </mat-paginator>
                   </div>
                 </div>
@@ -122,7 +122,7 @@
 
             <div *ngIf="loadingError" class="errorHandler">
               <h1>
-                An error occured
+                Error Or Nothing Found
               </h1>
               <button mat-raised-button color="accent" (click)="showCompleteEpisodes()">RETRY</button>
             </div>

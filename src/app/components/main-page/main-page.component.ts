@@ -78,7 +78,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   retry(){
     this.home = false;
-    this.showMoviesNowPlayingList(this.i)
+    this.showMoviesNowPlayingList(this.i ? 1 : this.i)
   }
 
 

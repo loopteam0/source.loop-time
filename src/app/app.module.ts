@@ -53,7 +53,6 @@ import { ElectronStorageService } from './services/electron-storage.service';
 import { TorrentSearchApiService } from './services/torrent-search-api.service';
 import { ScanPipe } from './pipes/scan.pipe';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +84,8 @@ import { ScanPipe } from './pipes/scan.pipe';
     UndefinedPipe,
     BackgroundDirective,
     FavoritesComponent,
-    ScanPipe,
+    ScanPipe
+
 
 
   ],
@@ -96,7 +96,8 @@ import { ScanPipe } from './pipes/scan.pipe';
     BrowserAnimationsModule, HttpClientJsonpModule,
     FormsModule, HttpModule,
     MaterialModule, ReactiveFormsModule,
-    HttpClientModule, SharedModule, CoreModule, TorrentModule, OthersModule,
+    HttpClientModule, SharedModule, CoreModule,
+     TorrentModule, OthersModule,
     JsonpModule
   ],
   providers: [ SearchService, MovieDbService , ElectronService,FavoritesService,ElectronStorageService

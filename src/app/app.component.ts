@@ -4,6 +4,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,12 +18,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
 ngOnInit() {
 
+
+
     window.addEventListener('online', () =>
     this.UI.openSnackBar(` ✅ You are back online `, 5000)
     );
 
     window.addEventListener('offline', () => {
-      this.UI.openSnackBar(`❌ It seems you are offline; check your internet connection ` , null);
+      this.UI.openSnackBar(`❌ It seems you are offline; check your internet connection and Retry` , null);
     });
 
 
@@ -31,7 +34,6 @@ ngOnInit() {
     ).subscribe(() => window.scrollTo( 0, 0))
 
   }
-
 
  ngOnDestroy(){
    this.subscription.unsubscribe()

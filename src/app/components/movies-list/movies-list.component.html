@@ -38,14 +38,14 @@
        <div *ngIf="!moviesLoading">
           <mat-card (click)="openDialog(item.id)" class=" animated bounceInUp">
               <div class="img-box">
-                <img  mat-card-image  src="{{item.large_cover_image}}" class="card-image" alt="">
+                <img  mat-card-image onerror="this.src='./assets/placeholder.movie.png'"  src="{{item.large_cover_image}}" class="card-image" alt="">
               </div>
               <div class="icon">
-                  <span>{{item.rating}}</span>
+                  <a  mat-mini-fab>{{item.rating}}</a>
               </div>
               <div class="content">
-                <p class=" title ">{{item.title|scan:'&'}}</p>
-                <p class=" year ">{{item.year}}</p>
+                <p class="title">{{item.title|scan:'&'}}</p>
+                <p class="year">{{item.year}}</p>
               </div>
             </mat-card>
        </div>

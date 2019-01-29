@@ -6,6 +6,7 @@ import {ElectronService} from '../../../services/electron.service';
 import { SearchService } from 'src/app/services/search.service';
 import { TorrentSearchApiService } from 'src/app/services/torrent-search-api.service';
 import { UiServiceService } from 'src/app/services/ui-service.service';
+import { Subscription } from 'rxjs';
 
 @Component( {
   selector: 'show-dload-dialog',
@@ -20,6 +21,7 @@ export class ShowDownloadDialogComponent implements OnInit, OnDestroy {
   episodes;
   Id;
   length;
+  subscription: Subscription;
   completeEpisodes: any;
 
   constructor(public dialogRef: MatDialogRef<ShowDownloadDialogComponent>,
@@ -45,14 +47,12 @@ export class ShowDownloadDialogComponent implements OnInit, OnDestroy {
     // start spinner
     this.loading=true;
     this.errorState=false;
-
-    this.request.getShowEpisopse(this.data.imdbCode, size, page) .subscribe((data)=> {
+    this.subscription = this.request.getShowEpisopse(this.data.imdbCode, size, page) .subscribe((data)=> {
       this.episodes=data['torrents'];
       this.length=data['torrents_count'];
-      if(this.length==0){
-        this.showError( `Nothing Found From EZTV` ,9000)
+      if(this.length == 0){
+        this.showError( `Nothing Found From EZTV` ,5000);
       }
-
       this.loading=false;
     } , err=> {
       this.showError(err);
@@ -64,9 +64,13 @@ export class ShowDownloadDialogComponent implements OnInit, OnDestroy {
    showCompleteEpisodes(seasons=this.data.seasons) {
     this.loadingShows = true;
     this.loadingError = false;
-    this.torrent.getTorrents(`${this.data.title} complete`, 'TV', seasons*4)
+   this.torrent.getTorrents(`${this.data.title} complete`, 'TV', seasons*4)
     .then(res=> {
        this.completeEpisodes = res;
+       if(this.length == 0 || undefined){
+        this.showError( `Error Or Nothing Found From 1337x` ,5000);
+        this.loadingError = true;
+      }
        this.loadingError = false;
        this.loadingShows = false;
     }).catch( err => {
@@ -80,7 +84,7 @@ export class ShowDownloadDialogComponent implements OnInit, OnDestroy {
   page(e:any) {
     this.errorState=false;
     this.loading=true;
-    this.request.getShowEpisopse(this.data.imdbCode, e.pageSize, (e.pageIndex + 1)) .subscribe((data)=> {
+    this.subscription = this.request.getShowEpisopse(this.data.imdbCode, e.pageSize, (e.pageIndex + 1)) .subscribe((data)=> {
       this.episodes=data['torrents'];
       this.loading=false;
     }
@@ -125,6 +129,7 @@ export class ShowDownloadDialogComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // this.request.getShowEpisopse(0 ,0,0).unsubscribe();
     //  this.episodes.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
 }

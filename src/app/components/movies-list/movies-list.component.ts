@@ -58,6 +58,8 @@ export class MoviesListComponent implements OnInit, OnDestroy,AfterViewInit {
     ).subscribe((val:string) => {
         if (val.trim().length === 0 || !val ) {
           // do nothing
+        }else if(val.length === 0){
+          this.requestMoviesList(1);
         } else {
           this.search(val)
         }
@@ -105,7 +107,7 @@ export class MoviesListComponent implements OnInit, OnDestroy,AfterViewInit {
        if (this.length == 0) {
          this.openSnackbar(`Nothing Found`);
        }else {
-         this.openSnackbar(`${this.length} Results Found`);
+         this.openSnackbar(`${this.length} Result(s) Found`);
        }
       }, err => {
         this.openSnackbar(err);
@@ -145,9 +147,12 @@ export class MoviesListComponent implements OnInit, OnDestroy,AfterViewInit {
   }
 
   RETRY(){
+    if(this.retryIndex === undefined){
+      this.retryIndex = 1
+    }
     this.home = false;
     this.errorState = false;
-    this.requestMoviesList(this.retryIndex);
+    this.requestMoviesList(this.retryIndex ? 1 : this.retryIndex);
   }
 
 

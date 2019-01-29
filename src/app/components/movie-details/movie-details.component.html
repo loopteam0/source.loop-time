@@ -20,7 +20,7 @@
 
       <div class="details-image">
         <mat-card>
-          <img class="card-img-top" src="{{movieDetails.large_cover_image}}" alt="image not found">
+          <img class="card-img-top" onerror="this.src='./assets/placeholder.movie.png'" src="{{movieDetails.large_cover_image}}" alt="image not found">
         </mat-card>
       </div>
 
@@ -28,7 +28,7 @@
 
         <div class="title-head">
           <h1>{{movieDetails.title_english|scan:'&'}}</h1>
-          <!-- <span class="year">({{movieDetails.year}})</span> -->
+          <span class="year">({{movieDetails.year}})</span>
 
           <div class="rating">
             <ng-template #t let-fill="fill">

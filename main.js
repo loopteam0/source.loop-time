@@ -3,7 +3,7 @@ const electron = require('electron');
 const path = require('path');
 const url  = require('url');
 const splashscreen = require("@trodi/electron-splashscreen");
-
+const {autoUpdater} = require('electron-updater');
 
 //const ipc = electron.ipcMain;
 const shell = electron.shell;
@@ -13,11 +13,21 @@ const MenuItem = electron.MenuItem;
 const app = electron.app;
 const shortcut = electron.globalShortcut;
 const downloadDir = `${app.getPath('downloads')}\\LoopClient\\`;
-const rootPath = path.join(__dirname, 'dist', 'app');
+const rootPath = path.join(__dirname,'dist', 'app');
 let splash;
 
 // check for update at lunch time
+function checkForUpdates(){
+  autoUpdater.checkForUpdatesAndNotify();
+}
 
+function check(){
+  autoUpdater.checkForUpdates().then(
+    res => console.log(res)
+  ).catch(
+    err => console.log(err)
+  )
+}
 
 function createWindow() {
   // Browser window options
@@ -48,12 +58,18 @@ function createWindow() {
     delay: 0,
     minVisible: 1500,
     splashScreenOpts: {
-      width: 250,
-      height: 200,
-      transparent: false,
+      width: 300,
+      height: 225,
+      transparent: true,
       icon: path.join(rootPath, '/assets/icons/icon.png'),
-      backgroundColor: '#ffffff00',
-      title: 'Loop Client Loading'
+      backgroundColor: '#ffffff',
+      title: 'Loop Client Loading',
+      zoomToPageWidth: false,
+      movable: false,
+      skipTaskbar: false,
+      focusable: false,
+      acceptFirstMouse : false
+
     }
   })
 
@@ -80,6 +96,7 @@ function createWindow() {
 
 app.on('window-all-closed', () => {
   // On macOS specific close process
+  app.quit();
   if (process.platform !== 'darwin') {
     app.quit()
   }
@@ -196,5 +213,9 @@ app.on('ready', () => {
 
   // handle downloads
   downloadHandler();
+  checkForUpdates();
+
+
 })
+
 

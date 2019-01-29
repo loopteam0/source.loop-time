@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy,AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy,AfterViewInit, ElementRef, Input } from '@angular/core';
 import { MatSnackBar, MatInput } from '@angular/material';
 import { SearchService } from '../../services/search.service';
 import { ShowDetailsComponent } from '../show-details/show-details.component';
@@ -46,7 +46,10 @@ export class ShowsListComponent implements OnInit, OnDestroy,AfterViewInit {
 
   ngOnInit() {
     this.requestShowList(1);
+
   }
+
+
 
    ngAfterViewInit(){
 
@@ -56,7 +59,9 @@ export class ShowsListComponent implements OnInit, OnDestroy,AfterViewInit {
         distinctUntilChanged()
       ).subscribe((val:string) => {
           if (val.trim().length === 0 || !val ) {
-            // do nothing
+            this.openSnackbar(`Can't Search of Empty String` , 2000);
+          } else if(val.length === 0){
+            this.requestShowList(1);
           } else {
             this.search(val)
           }
@@ -101,7 +106,7 @@ export class ShowsListComponent implements OnInit, OnDestroy,AfterViewInit {
          if (this.Shows.length == 0) {
            this.openSnackbar(`${keyword} Not Found`);
          }else {
-           this.openSnackbar(`${this.Shows.length} Results Found`)
+           this.openSnackbar(`${this.Shows.length} Result(s) Found`)
          }
         }, err => {
           this.openSnackbar(err);
@@ -114,7 +119,7 @@ export class ShowsListComponent implements OnInit, OnDestroy,AfterViewInit {
   Retry() {
     this.home = false;
     this.errorState = false;
-    this.requestShowList(this.retryIndex);
+    this.requestShowList(this.retryIndex ? 1 : this.retryIndex);
   }
 
   Page(e) {
@@ -136,8 +141,8 @@ export class ShowsListComponent implements OnInit, OnDestroy,AfterViewInit {
   }
 
 
-  openSnackbar(msg:any) {
-    this.UI.openSnackBar(msg)
+  openSnackbar(msg:any, duration?:number) {
+    this.UI.openSnackBar(msg , duration)
   }
 
 

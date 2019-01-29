@@ -21,12 +21,17 @@ export class SearchPageComponent implements OnInit {
   message: string;
 
   //////search config
-  limit: number = 20;
+  limit: number = 10;
   category: Category[] = [
+    {
+      name: '5',
+      value: 5
+    },
     {
       name: '10',
       value: 10
-    },{
+    },
+    {
       name: '20',
       value: 20
     },{

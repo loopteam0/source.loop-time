@@ -19,7 +19,7 @@
 
       <div class="details-image">
         <mat-card>
-          <img class="card-img-top" src="{{showDetails.images.banner}}" alt="image not found">
+          <img class="card-img-top" onerror="this.src='./assets/placeholder.show.png'" src="{{showDetails.images.banner}}" alt="image not found">
         </mat-card>
       </div>
 
