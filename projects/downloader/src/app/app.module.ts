@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DownloadServiceService } from './services/download-service.service';
 import { MaterialModule } from './modules/material/material.module';
+import {ElectronService } from './services/electron/electron.service';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { MaterialModule } from './modules/material/material.module';
     MaterialModule,
     BrowserAnimationsModule
   ],
-  providers: [DownloadServiceService],
+  providers: [DownloadServiceService, ElectronService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
