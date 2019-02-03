@@ -1,25 +1,28 @@
 <div id="details-page">
-  <button id="btn-close" mat-icon-button   (click)="closeDialog()"><mat-icon >close</mat-icon></button>
-    <mat-card *ngIf="errorState"class="errorHandler error-card">
-      <mat-card-content>
-          <div  >
-              <h1>
-                An error occured
-              </h1>
-              <button mat-raised-button color="accent" (click)="RETRY()">RETRY</button>
-            </div>
-      </mat-card-content>
-    </mat-card>
+  <button id="btn-close" mat-icon-button (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-card *ngIf="errorState" class="errorHandler error-card">
+    <mat-card-content>
+      <div>
+        <h1>
+          An error occured
+        </h1>
+        <button mat-raised-button color="accent" (click)="RETRY()">RETRY</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
 
 
-   <app-spinner *ngIf="showDataloading"></app-spinner>
-
+  <app-spinner *ngIf="showDataloading"></app-spinner>
+<!--
   <mat-card class="main-card animated fadeInDown" *ngIf="showDetails">
     <div class="details-container animated fadeInLeft">
 
       <div class="details-image">
         <mat-card>
-          <img class="card-img-top" onerror="this.src='./assets/placeholder.show.png'" src="{{showDetails.images.banner}}" alt="image not found">
+          <img class="card-img-top" onerror="this.src='./assets/placeholder.show.png'" src="{{showDetails.images.banner}}"
+            alt="image not found">
         </mat-card>
       </div>
 
@@ -36,12 +39,12 @@
               </span>
             </ng-template>
             <ngb-rating [rate]="showDetails.rating.percentage/100*5" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-            <span class="value">{{showDetails.rating.percentage}}% </span> <span class="small"> {{showDetails.rating.votes}} VOTES</span>
+            <span class="value">{{showDetails.rating.percentage}}% </span> <span class="small">
+              {{showDetails.rating.votes}} VOTES</span>
 
           </div>
-          <!-- <div>
-              <mat-icon>thumb_up</mat-icon><span class="value"> {{showDetails.rating.votes}}</span><span class="small"> VOTES</span>
-          </div> -->
+
+
           <div class="runtime">
             <mat-icon>query_builder </mat-icon>
             <p>{{showDetails.runtime}}min</p>
@@ -53,12 +56,13 @@
 
           <mat-chip-list>
             <mat-chip *ngFor="let item of showDetails.genres; let i=index">
-               {{item}}
-             </mat-chip>
+              {{item}}
+            </mat-chip>
           </mat-chip-list>
 
           <div class="download-button">
-            <button (click)="openShowsDialog(showDetails.episodes, showDetails.title,showDetails.num_seasons)" mat-button mat-raised-button >ALL EPISODES <mat-icon>file_download</mat-icon></button>
+            <button (click)="openShowsDialog(showDetails.episodes, showDetails.title,showDetails.num_seasons)"
+              mat-button mat-raised-button>ALL EPISODES <mat-icon>file_download</mat-icon></button>
           </div>
         </div>
 
@@ -78,25 +82,25 @@
         <mat-tab label="SCREENSHOTS">
           <div class="report_problem alert alert-warning">
             <h4>
-            <mat-icon>report_problem</mat-icon>  No Screenshots Found
+              <mat-icon>report_problem</mat-icon> No Screenshots Found
             </h4>
           </div>
 
         </mat-tab>
 
-        <mat-tab  label="MEDIA">
+        <mat-tab label="MEDIA">
           <div class="general container">
 
-              <div class="cat-1">
-                  <p><strong>network: </strong> <span>{{showDetails.network}} </span></p>
-                  <p><strong>provider: </strong> <span>EZTV </span></p>
-                  <p><strong>air day: </strong> <span>{{showDetails.air_day}}</span></p>
-                </div>
-                <div class="cat-2">
-                  <p><strong>Country: </strong> <span>{{showDetails.country}} </span></p>
-                  <p><strong>seasons: </strong> <span>{{showDetails.num_seasons}} </span></p>
-                  <p><strong>last updated: </strong> <span>{{showDetails.last_updated | date:'medium'}} </span></p>
-              </div>
+            <div class="cat-1">
+              <p><strong>network: </strong> <span>{{showDetails.network}} </span></p>
+              <p><strong>provider: </strong> <span>EZTV </span></p>
+              <p><strong>air day: </strong> <span>{{showDetails.air_day}}</span></p>
+            </div>
+            <div class="cat-2">
+              <p><strong>Country: </strong> <span>{{showDetails.country}} </span></p>
+              <p><strong>seasons: </strong> <span>{{showDetails.num_seasons}} </span></p>
+              <p><strong>last updated: </strong> <span>{{showDetails.last_updated | date:'medium'}} </span></p>
+            </div>
 
           </div>
         </mat-tab>
@@ -105,7 +109,7 @@
           <div class="container cast">
             <div class="row">
               <div class="col" *ngFor="let item of showDetails.cast">
-               <div><img [src]="item.url_small_image" alt=""></div>
+                <div><img [src]="item.url_small_image" alt=""></div>
                 <p>{{item.name}}</p>
                 <p class="small">as</p>
                 <P>{{item.character_name}}</P>
@@ -117,10 +121,103 @@
 
     </mat-card>
 
-  </mat-card>
+  </mat-card> -->
 
-
+  <div class="cover">
+    <img [src]="setBackground(showDetails.images.fanart)" alt="">
   </div>
+  <div class="container">
+    <div class="details row">
+      <div class="image col-4">
+        <img class="card-img-top" onerror="this.src='./assets/placeholder.show.png'" src="{{showDetails.images.banner}}"
+          alt="image not found">
+      </div>
+      <div class="content col">
+        <div>
+          <h1>{{showDetails.title|scan:'&'}}</h1> <span class="year">({{showDetails.year}})</span>
+          <div class="rating">
+            <ng-template #t let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
 
+              </span>
+            </ng-template>
+            <ngb-rating [rate]="showDetails.rating.percentage/100*5" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+            <span class="number">{{showDetails.rating.percentage}}% </span> <span class="small">
+              {{showDetails.rating.votes}} VOTES</span>
 
+          </div>
 
+          <div class="genere">
+            <mat-chip-list>
+              <mat-chip *ngFor="let item of showDetails.genres; let i=index">
+                {{item}}
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+          <div>
+            <span>{{showDetails.runtime}}min</span>
+            <span>| {{showDetails.status | ucwords}}</span>
+            <span>| {{showDetails.air_day}} at {{showDetails.air_time}}</span>
+          </div>
+          <div>
+              <button (click)="openShowsDialog(showDetails.episodes, showDetails.title,showDetails.num_seasons)"
+              mat-button mat-raised-button>ALL EPISODES <mat-icon>file_download</mat-icon></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      <mat-card class="properties">
+
+          <mat-tab-group mat-stretch-tabs class="tab-group">
+            <mat-tab label="INFO">
+              <div class="container">
+                <p class="body">
+                  <strong>Storyline:</strong> {{showDetails.synopsis| shorten: 430: [' ...']}} </p>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="SCREENSHOTS">
+              <div class="report_problem alert alert-warning">
+                <h4>
+                  <mat-icon>report_problem</mat-icon> No Screenshots Found
+                </h4>
+              </div>
+
+            </mat-tab>
+
+            <mat-tab label="MEDIA">
+              <div class="general container">
+
+                <div class="cat-1">
+                  <p><strong>network: </strong> <span>{{showDetails.network}} </span></p>
+                  <p><strong>provider: </strong> <span>EZTV </span></p>
+                  <p><strong>air day: </strong> <span>{{showDetails.air_day}}</span></p>
+                </div>
+                <div class="cat-2">
+                  <p><strong>Country: </strong> <span>{{showDetails.country}} </span></p>
+                  <p><strong>seasons: </strong> <span>{{showDetails.num_seasons}} </span></p>
+                  <p><strong>last updated: </strong> <span>{{showDetails.last_updated | date:'medium'}} </span></p>
+                </div>
+
+              </div>
+            </mat-tab>
+
+            <mat-tab label="CAST" *ngIf="showDetails.cast">
+              <div class="container cast">
+                <div class="row">
+                  <div class="col" *ngFor="let item of showDetails.cast">
+                    <div><img [src]="item.url_small_image" alt=""></div>
+                    <p>{{item.name}}</p>
+                    <p class="small">as</p>
+                    <P>{{item.character_name}}</P>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+
+        </mat-card>
+
+</div>

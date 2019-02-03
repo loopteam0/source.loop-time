@@ -18,7 +18,15 @@ let splash;
 
 // check for update at lunch time
 function checkForUpdates(){
-  autoUpdater.checkForUpdatesAndNotify();
+
+  try {
+    autoUpdater.logger = require("electron-log")
+    autoUpdater.checkForUpdatesAndNotify();
+  } catch (error) {
+
+  }
+
+
 }
 
 function check(){
@@ -58,8 +66,8 @@ function createWindow() {
     delay: 0,
     minVisible: 1500,
     splashScreenOpts: {
-      width: 300,
-      height: 225,
+      width: 500,
+      height: 375,
       transparent: true,
       icon: path.join(rootPath, '/assets/icons/icon.png'),
       backgroundColor: '#ffffff',
@@ -214,7 +222,7 @@ app.on('ready', () => {
   // handle downloads
   downloadHandler();
   checkForUpdates();
-
+ // check();
 
 })
 

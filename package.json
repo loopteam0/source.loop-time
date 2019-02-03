@@ -20,11 +20,11 @@
     "electron-toolkit": "electron ./node_modules/electron-toolkit",
     "loop:build": "ng build --prod && electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder --platform all --arch x64 ia32",
+    "dist": "electron-builder --platform=all --x64 --ia32",
     "dist:win": "electron-builder --win",
-    "dist:lin": "electron-builder --linux",
+    "dist:lin": "electron-builder --linux --x64 --ia32",
     "dist:mac": "electron-builder --mac",
-    "publish": "build --lin --win -p always"
+    "publish": "electron-builder -p always"
   },
   "build": {
     "appId": "com.electron.Loop_Client",
@@ -37,7 +37,10 @@
       {
         "provider": "github",
         "owner": "loopteam0",
-        "repo": "loop-client"
+        "repo": "loop-client",
+        "token": "da0a41dffff1a2ecb5a6e1cff63ed50658c9345f",
+        "private": false
+
       }
     ],
     "directories": {
@@ -49,15 +52,7 @@
         {
           "target": "nsis",
           "arch": [
-            "x64",
-            "ia32"
-          ]
-        },
-        {
-          "target": "appx",
-          "arch": [
-            "x64",
-            "ia32"
+            "x64"
           ]
         }
       ],
@@ -130,7 +125,6 @@
     "torrent-search-api": "^2.0.4"
   },
   "devDependencies": {
-    "@angular/animations": "^7.1.4",
     "@angular/cdk": "^7.2.0",
     "@angular/common": "^7.1.4",
     "@angular/compiler": "^7.1.4",
@@ -144,7 +138,6 @@
     "@ng-bootstrap/ng-bootstrap": "^4.0.1",
     "bootstrap": "^4.1.2",
     "core-js": "^2.5.4",
-    "hammerjs": "^2.0.8",
     "ngx-pipes": "^2.3.5",
     "perfect-scrollbar": "^1.4.0",
     "rxjs": "^6.3.3",

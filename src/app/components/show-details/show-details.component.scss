@@ -1,19 +1,18 @@
 @import "~@angular/material/theming";
 @import "../../../custom-theme";
 @import "../../scss/variables";
-@import "../../scss/details";
 
-.main-card{
-  height: 530px;
-  max-height: 550px;
- // margin-bottom: 30px;
-}
-#details-page{
-  background-image: url('https://www.hbo.com/content/dam/hbodata/series/game-of-thrones/episodes/1/game-of-thrones-1-1920x1080.jpg/_jcr_content/renditions/cq5dam.web.1200.675.jpeg');
-  padding: 100px 20px 550px 20px;
-}
+//  .main-card{
+//   height: 530px;
+//   max-height: 550px;
+//  // margin-bottom: 30px;
+// }
+// #details-page{
+//   background-image: url('https://www.hbo.com/content/dam/hbodata/series/game-of-thrones/episodes/1/game-of-thrones-1-1920x1080.jpg/_jcr_content/renditions/cq5dam.web.1200.675.jpeg');
+//   padding: 100px 20px 550px 20px;
+// }
 
-.screenshots {
+/* .screenshots {
   display: flex;
   flex-direction: row;
 
@@ -72,5 +71,67 @@
 
   mat-icon{
     opacity: 0.7;
+  }
+}
+ */
+
+div.cover {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  img{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: inherit;
+      height: inherit;
+      filter: blur(6px);
+      opacity: 0.9;
+
+  }
+}
+
+.container {
+  margin: 20px auto;
+
+  .row.details {
+      height: auto;
+      position: absolute;
+      top: 80px;
+      margin-bottom: 20px;
+
+      img {
+          width: 100%;
+          border-radius: 3px;
+      }
+
+      .image {}
+
+      .content {
+          align-self: center;
+          padding: 0;
+          div {
+              margin-top: 10px;
+
+          }
+
+          .rating {
+
+              .stars i {
+                  font-size: 1.5rem;
+
+                  &.fa {
+                      color: goldenrod
+                  }
+              }
+
+              .number {
+                  font-weight: 500;
+              }
+          }
+
+
+      }
   }
 }

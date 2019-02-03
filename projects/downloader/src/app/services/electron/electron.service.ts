@@ -33,4 +33,9 @@ export class ElectronService {
     return window && window.process && window.process.type;
   }
 
+    test(){
+       TorrentSearch.enableProvider('1337x');
+
+       return TorrentSearch.search('1080', 'Movies', 5);
+    }
 }

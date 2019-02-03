@@ -1,0 +1,67 @@
+{
+   
+    "appId": "com.electron.Loop_Client",
+    "copyright": "Copyright © 2019 The Loop Team",
+    "productName": "Loop Client",
+    "electronVersion": "4.0.2",
+    "compression": "normal",
+    "asar": true,
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "loopteam0",
+        "repo": "loop-client"
+      }
+    ],
+    "directories": {
+      "app": "./",
+      "output": "build/out"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "publisherName": "The Loop Team"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "createDesktopShortcut": true
+    },
+    "appx": {
+      "backgroundColor": "#0097a7",
+      "publisherDisplayName": "The Loop Team"
+    },
+    "linux": {
+      "executableName": "Loop Client",
+      "category": "Movies;Software;Games;Anime;Music;Free_Downloader",
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "deb": {
+      "icon": "build/png/128x128.png"
+    },
+    "releaseInfo": {
+      "releaseName": "January Update",
+      "releaseNotes": "Critical Updates",
+      "releaseNotesFile": "./build/releaseinfo.html",
+      "releaseDate": "January 29, 2019"
+    }
+  
+}

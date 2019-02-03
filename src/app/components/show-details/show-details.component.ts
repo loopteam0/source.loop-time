@@ -1,4 +1,5 @@
 import { Component ,  OnInit, OnDestroy } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material';
 import { ShowDownloadDialogComponent } from './default-dialog-dialog/shows-download.component';
 import { SearchService } from '../../services/search.service';
@@ -34,7 +35,8 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<ShowDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private request: SearchService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private sanitizer: DomSanitizer
     ){}
 
 
@@ -80,6 +82,10 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
     this.errorState= false;
     this.requestShowDetails();
   }
+
+  setBackground(url:string){
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+   }
 
   openSnackBar(msg: string) {
     this.UI.openSnackBar(` ${msg} `);

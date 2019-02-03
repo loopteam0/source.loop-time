@@ -1,9 +1,15 @@
-@import '../scss/toolbar';
+@import '../scss/_toolbar';
 
 
-mat-icon {
-    margin-right: 10px;
-}
+  mat-icon {
+      margin-right: 10px;
+  }
+  .title.head{
+    h4.lead{
+      font-size: 2rem;
+      font-weight: 400;
+    }
+  }
 
 .flex-container {
     display: flex;
@@ -35,12 +41,40 @@ mat-icon {
 
 }
 
-mat-tab-group {
-    overflow: hidden;
-}
+///download-card
+  mat-card.download-card{
+    margin-bottom: 10px;
+    transition: box-shadow 300ms cubic-bezier(.4,0,.2,1);
+    &:hover{
+      box-shadow: 3px 2px 8px 0px rgba(0, 0, 0, 0.4), 0px 1px 1px 0px rgba(0, 0, 0, 0.24), 0px 1px 3px 0px rgba(0, 0, 0, 0.22);
+    }
+    .progress-info{
+      display: flex;
+      align-items: center;
 
+      span{
+        margin-left: 8px;
+        font-size: 1.3rem;
+      }
+    }
 
-container-fluid {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-}
+    card-content{
+      margin-bottom: 16px;
+    }
+
+    mat-card-actions{
+      display: flex;
+      justify-content: center;
+
+      mat-icon{
+        opacity: 0.7;
+        cursor: pointer;
+
+        &:hover{
+          opacity: 1;
+          transition: opacity 0.4s cubic-bezier(.4,0,.2,1);
+        }
+      }
+    }
+  }
+

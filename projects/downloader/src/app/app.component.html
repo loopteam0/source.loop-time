@@ -1,24 +1,41 @@
 <!-- downloade html -->
+  <div class='container' >
 <div class="custom-container">
   <div class="title head">
     <div class="nun">
       <h4 class="lead">
-        Animes
+         Torrent Downloader
       </h4>
     </div>
     <div class="spacer"></div>
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
       <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
-    </mat-form-field>
+    </mat-form-field> -->
   </div>
 </div>
 
 
-<div class='container' >
-  <mat-card>
+  <mat-card class="download-card">
     <mat-card-content>
-    
+      <div class="progress-info">
+      <mat-progress-bar
+        [mode]="buffer"
+        [color]="color"
+        [value]="value"
+        [bufferValue]="bufferValue"
+        progressBarId = '2' >
+      </mat-progress-bar>
+      <span>{{value}}%</span>
+      </div>
     </mat-card-content>
+    <mat-card-actions>
+      <mat-icon>play_arrow</mat-icon>
+        <mat-icon>pause</mat-icon>
+        <mat-icon>replay</mat-icon>
+        <mat-icon>stop</mat-icon>
+        <mat-icon>delete</mat-icon>
+      </mat-card-actions>
   </mat-card>
 </div>
+

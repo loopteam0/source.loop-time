@@ -2,8 +2,8 @@
 @include mat-core();
 
 //light theme
-$border-color: #e3e3e3;
-$tab-color: #dee2e6;
+//$border-color: #e3e3e3;
+//$tab-color: #dee2e6;
 $primary: mat-palette($mat-cyan, 700 ,800);
 $accent: mat-palette($mat-pink, A700);
 $warn: mat-palette($mat-red);
@@ -16,11 +16,11 @@ $accent: mat-palette($mat-pink, A400);
 $warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($primary, $accent, $warn);
 
+$tab-color: #424242;
+$border-color: #424242;
 //use the required theme
 @include angular-material-theme($light-theme);
 
 .darkTheme {
-    $tab-color: #424242;
-    $border-color: #424242;
     @include angular-material-theme($dark-theme);
 }
