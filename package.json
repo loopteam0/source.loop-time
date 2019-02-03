@@ -38,7 +38,6 @@
         "provider": "github",
         "owner": "loopteam0",
         "repo": "loop-client",
-        "token": "da0a41dffff1a2ecb5a6e1cff63ed50658c9345f",
         "private": false
 
       }
