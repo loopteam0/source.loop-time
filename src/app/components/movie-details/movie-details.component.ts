@@ -146,7 +146,7 @@ export class MovieDownloadDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<MovieDownloadDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,public snackBar: MatSnackBar,
-   private electron: ElectronService
+    private electron: ElectronService
     ) {}
 
   onNoClick(): void {

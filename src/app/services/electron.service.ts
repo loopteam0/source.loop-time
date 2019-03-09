@@ -3,6 +3,7 @@ import { ipcRenderer, shell,  webFrame, remote, BrowserWindow } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
 import * as TorrentSearch  from 'torrent-search-api';
+import * as titlebar from 'custom-electron-titlebar';
 
 @Injectable()
 export class ElectronService {
@@ -15,6 +16,8 @@ export class ElectronService {
   shell: typeof shell;
   BrowserWindow: typeof BrowserWindow;
   TorrentSearch: typeof TorrentSearch;
+  customTitlebar: typeof titlebar;
+
    constructor() {
      // Conditional imports
      if (this.isElectron()) {
@@ -25,7 +28,8 @@ export class ElectronService {
       this.BrowserWindow = window.require('electron').BrowserWindow;
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
-      this.TorrentSearch = window.require('torrent-search-api')
+      this.TorrentSearch = window.require('torrent-search-api');
+      this.customTitlebar = window.require('custom-electron-titlebar');
     }
   }
 

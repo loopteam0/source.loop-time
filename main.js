@@ -5,6 +5,7 @@ const url  = require('url');
 const splashscreen = require("@trodi/electron-splashscreen");
 const {autoUpdater} = require('electron-updater');
 
+
 //const ipc = electron.ipcMain;
 const shell = electron.shell;
 //const BrowserWindow = electron.BrowserWindow;
@@ -44,6 +45,7 @@ function createWindow() {
     height: 650,
     show: false,
     minWidth: 960,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       webSecurity: false,
@@ -81,13 +83,15 @@ function createWindow() {
     }
   })
 
+  /// load HTML File
   splash.loadURL(url.format({
     pathname: path.join(rootPath, '/index.html'),
     protocol: 'file',
     slashes: true
   }));
 
- //splash.loadURL(`http://localhost:4200`);
+    // load Address during development
+  //  splash.loadURL(`http://localhost:4200`);
 
   // Event when the window is closed.
   splash.on('closed', () => {

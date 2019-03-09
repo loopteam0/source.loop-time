@@ -3,32 +3,24 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ElectronService } from '../../services/electron.service';
+import { UiServiceService } from '../../services/ui-service.service';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
 })
+
 export class NavBarComponent {
-darkTheme = false;
-mdScreen;
+  darkTheme = false;
+  mdScreen;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
+    .pipe(  map(result => result.matches) );
 
-  constructor(private breakpointObserver: BreakpointObserver, private electron: ElectronService,
-) {
-  // breakpointObserver.observe([
-  //   Breakpoints.HandsetLandscape,
-  //   Breakpoints.HandsetPortrait
-  // ]).subscribe(result => {
-  //   if (result.matches) {
-  //     this.mdScreen = true;
-  //   }
-  // });
-}
+  constructor(private breakpointObserver: BreakpointObserver,
+              private electron: ElectronService,
+              private UI: UiServiceService ) {}
 
   showLink() {
     if (this.electron.isElectron()) {
@@ -37,9 +29,13 @@ mdScreen;
       window.open('https://loopteam0.github.io');
     }
   }
+
     change() {
-        console.log('changed');
-        this.darkTheme = !this.darkTheme;
+      console.log('changed');
+      this.darkTheme = !this.darkTheme;
     }
 
+      ngOnInit(): void {
+        this.UI.setTitlebar('#424242');
+      }
   }

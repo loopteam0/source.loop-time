@@ -2,20 +2,19 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { ElectronService } from './electron.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class UiServiceService {
 
   instantSearch:boolean = true;
+  CustomTitlebar = this.electron.customTitlebar;
 
   constructor(public dialog: MatDialog,
     public snackbar: MatSnackBar,
-    private electron:ElectronService
+    private electron:ElectronService,
 
-    )
-     { }
+    ){ }
 
   openDialog(data:object , component:any, Class:string = null, H ='95vh', W = '90vw', close? ) {
 
@@ -62,6 +61,17 @@ export class UiServiceService {
       window.open(url);
     }
   }
+
+   // setting a custom titleBar
+   setTitlebar(color: string = '#fff'){
+    new this.CustomTitlebar.Titlebar({
+      backgroundColor: this.CustomTitlebar.Color.fromHex(color),
+      icon: '../../assets/icons/icon.png',
+      shadow: true
+
+    })
+  }
+
 
 
 

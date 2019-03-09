@@ -3,7 +3,7 @@ import { UiServiceService } from './services/ui-service.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-
+import { ElectronService } from './services/electron.service';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +11,13 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  torrentSearch;
+  torrentSearch: any;
   IsWindowOnline = navigator.onLine;
   subscription: Subscription;
+
   constructor(private UI: UiServiceService, private router: Router ) {}
 
 ngOnInit() {
-
-
 
     window.addEventListener('online', () =>
     this.UI.openSnackBar(` ✅ You are back online `, 5000)
@@ -31,9 +30,12 @@ ngOnInit() {
 
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => window.scrollTo( 0, 0))
+    ).subscribe(() => window.scrollTo( 0, 0));
+
 
   }
+
+
 
  ngOnDestroy(){
    this.subscription.unsubscribe()

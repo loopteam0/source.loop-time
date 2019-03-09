@@ -33,7 +33,7 @@ mat-nav-list {
     }
 
     .active {
-        border-left: 4px solid mat-color($primary);
+        border-left: 4px solid mat-color($accent);
         transition: 0.3s ease-out;
         mat-icon,
         fa-icon {
@@ -46,11 +46,12 @@ mat-nav-list {
 
     a {
         &:hover {
+            @include mat-elevation(2);
             border-left: 2px solid mat-color($primary);
             transition: 0.3s ease-out;
             background-color: lighten(mat-color($primary), 50%);
-            mat-icon,
-            fa-icon {
+
+            mat-icon, fa-icon {
                 margin-right: 8px;
                 color: mat-color($primary);
                 opacity: 1;
@@ -96,7 +97,7 @@ mat-sidenav-content, .mat-drawer-inner-container {
 
   button.menu-toggler{
   position: fixed;
-  top: 15px;
+  top: 45px;
   left: 5px;
   padding: 0;
   margin: 0;
@@ -117,4 +118,9 @@ mat-sidenav-content, .mat-drawer-inner-container {
   //   position: ;
   //   top: 0px;
   // }
+
+  .mat-drawer {
+    padding-top: 24px;
+  }
+
 

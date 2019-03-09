@@ -271,7 +271,9 @@ mat-card.errorHandler {
   overflow: hidden;
 }
 
-
+.titlebar.windows, .titlebar.linux {
+  z-index: 999999;
+}
 
 // animations
 @-webkit-keyframes sk-scaleout {
