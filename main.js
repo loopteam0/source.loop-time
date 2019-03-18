@@ -27,7 +27,6 @@ function checkForUpdates(){
 
   }
 
-
 }
 
 function check(){
@@ -68,8 +67,8 @@ function createWindow() {
     delay: 0,
     minVisible: 1500,
     splashScreenOpts: {
-      width: 500,
-      height: 375,
+      // width: 500,
+      // height: 375,
       transparent: true,
       icon: path.join(rootPath, '/assets/icons/icon.png'),
       backgroundColor: '#ffffff',
@@ -83,15 +82,15 @@ function createWindow() {
     }
   })
 
-  /// load HTML File
-  splash.loadURL(url.format({
-    pathname: path.join(rootPath, '/index.html'),
-    protocol: 'file',
-    slashes: true
-  }));
+  // load HTML File
+  // splash.loadURL(url.format({
+  //   pathname: path.join(rootPath, '/index.html'),
+  //   protocol: 'file',
+  //   slashes: true
+  // }));
 
     // load Address during development
-  //  splash.loadURL(`http://localhost:4200`);
+   splash.loadURL(`http://localhost:4200`);
 
   // Event when the window is closed.
   splash.on('closed', () => {

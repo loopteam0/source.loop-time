@@ -1,0 +1,18 @@
+categories: {
+  All: 'url:/search/{query}/1/',
+  Movies: 'Movies',
+  TV: 'TV',
+  Games: 'Games',
+  Music: 'Music',
+  Anime: 'Anime',
+  Applications: 'Apps',
+  Documentaries: 'Documentaries',
+  Xxx: 'XXX',
+  Other: 'Other',
+  PopularGames: 'url:/popular-games',
+  PopularOther: 'url:/popular-other',
+  PopularAnime: 'url:/popular-anime',
+  PopularMusics: 'url:/popular-music',
+  PopularApps: 'url:/popular-apps'
+
+}

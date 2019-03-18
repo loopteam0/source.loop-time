@@ -5,7 +5,7 @@
 @import "~@angular/material/theming";
 @import "./custom-theme";
 
-
+ /* css reboot */
 a {
   text-decoration: none;
 }
@@ -16,6 +16,14 @@ p {
   line-height: 1.5rem;
   font-weight: 400;
   letter-spacing: .03225em;
+}
+
+h4.lead {
+  font-size: 2rem;
+}
+
+.trucn {
+  text-overflow: ellipsis;
 }
 
 strong {
@@ -43,15 +51,8 @@ strong {
   transition: 0.1s ease-out;
 }
 
-h4.lead {
-  font-size: 2rem;
-}
 
-.trucn {
-  text-overflow: ellipsis;
-}
-
-.simplebar-scrollbar:before {
+/* .simplebar-scrollbar:before {
   background: mat-color($primary) !important;
 }
 
@@ -72,10 +73,10 @@ h4.lead {
 [data-simplebar=init] .simplebar-content,
 [data-simplebar=init] .simplebar-scroll-content {
   overflow: hidden !important;
-}
+} */
 
 
-
+/* Error box */
 .errorHandler {
   text-align: center;
   -webkit-animation-duration: 1s;
@@ -97,21 +98,17 @@ mat-card.errorHandler {
   background-color: rgba(255, 255, 255, .3) !important;
 }
 
-.mat-dialog-container {
-  border-radius: 3px;
-}
 
 .margier {
   margin: 50px;
 }
-
-
 
 .full-screen {
   height: 100% !important;
 }
 
 
+ /* doted spinners */
 #spinner.spinner {
   width: 40px;
   height: 40px;
@@ -124,8 +121,16 @@ mat-card.errorHandler {
 }
 
 
+/* dialogs */
+// .mat-dialog-container {
+//   border-radius: 3px;
+// }
+
+/* download dialog only */
 .shows-download-dialog,
 .other-download-dialog {
+  padding: 30px 0 10px 0;
+
   .mat-dialog-container {
     padding-top: 13px;
 
@@ -175,6 +180,22 @@ mat-card.errorHandler {
   }
 }
 
+.movie-download-dialog {
+  padding: 30px 0 10px 0;
+
+  .mat-dialog-container {
+    overflow: hidden;
+    margin-bottom: 0;
+
+    padding: {
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+
+}
+
 .other-download-dialog {
   mat-dialog-content {
     max-height: 77vh;
@@ -182,15 +203,15 @@ mat-card.errorHandler {
   }
 }
 
+
+/* details dialog */
 .Download-dialog {
-  border-radius: 5px;
+  padding: 30px 0 10px 0;
 
   .mat-dialog-container {
     padding: 0;
     overflow-y: auto;
     overflow-x: hidden;
-    border-radius: 10px;
-    background-color: inherit;
 
     &::-webkit-scrollbar {
       width: 6px;
@@ -231,20 +252,9 @@ mat-card.errorHandler {
   margin-right: auto;
 }
 
-.movie-download-dialog {
-  .mat-dialog-container {
-    overflow: hidden;
-    margin-bottom: 0;
 
-    padding: {
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-  }
 
-}
-
+/* close btns on download dialogs */
 .btn-close, #btn-close {
     color: mat-color($primary);
     border-radius: 50%;
@@ -271,11 +281,12 @@ mat-card.errorHandler {
   overflow: hidden;
 }
 
+/* styling custom title bar */
 .titlebar.windows, .titlebar.linux {
   z-index: 999999;
 }
 
-// animations
+/* // animations */
 @-webkit-keyframes sk-scaleout {
   0% {
     -webkit-transform: scale(0)

@@ -1,7 +1,7 @@
 <div id="details-page">
-  <button id="btn-close" mat-icon-button (click)="closeDialog()">
+  <!-- <button id="btn-close" mat-icon-button (click)="closeDialog()">
     <mat-icon>close</mat-icon>
-  </button>
+  </button> -->
   <mat-card *ngIf="errorState" class="errorHandler error-card">
     <mat-card-content>
       <div>
@@ -126,15 +126,19 @@
   <div class="cover">
     <img [src]="setBackground(showDetails.images.fanart)" alt="">
   </div>
-  <div class="container">
-    <div class="details row">
-      <div class="image col-4">
+
+  <div class="container-0">
+    <div class="details ">
+
+      <!-- movie image -->
+      <div class="image ">
         <img class="card-img-top" onerror="this.src='./assets/placeholder.show.png'" src="{{showDetails.images.banner}}"
           alt="image not found">
       </div>
-      <div class="content col">
-        <div>
-          <h1>{{showDetails.title|scan:'&'}}</h1> <span class="year">({{showDetails.year}})</span>
+
+      <!-- movie content -->
+      <div class="content ">
+          <h1>{{showDetails.title|scan:'&'}} <span *ngIf="showDetails.year" class="year">({{showDetails.year}})</span></h1>
           <div class="rating">
             <ng-template #t let-fill="fill">
               <span class="star" [class.full]="fill === 100">
@@ -164,11 +168,10 @@
               <button (click)="openShowsDialog(showDetails.episodes, showDetails.title,showDetails.num_seasons)"
               mat-button mat-raised-button>ALL EPISODES <mat-icon>file_download</mat-icon></button>
           </div>
-        </div>
       </div>
     </div>
   </div>
-      <mat-card class="properties">
+      <!-- <mat-card class="properties">
 
           <mat-tab-group mat-stretch-tabs class="tab-group">
             <mat-tab label="INFO">
@@ -219,5 +222,5 @@
           </mat-tab-group>
 
         </mat-card>
-
+ -->
 </div>

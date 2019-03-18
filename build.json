@@ -1,5 +1,5 @@
 {
-   
+
     "appId": "com.electron.Loop_Client",
     "copyright": "Copyright © 2019 The Loop Team",
     "productName": "Loop Client",
@@ -22,12 +22,14 @@
         {
           "target": "nsis",
           "arch": [
-            "x64"
+            "x64",
+            "ia32"
           ]
         }
       ],
       "icon": "build/icon.ico",
       "publisherName": "The Loop Team"
+
     },
     "nsis": {
       "oneClick": false,
@@ -39,7 +41,8 @@
     },
     "appx": {
       "backgroundColor": "#0097a7",
-      "publisherDisplayName": "The Loop Team"
+      "publisherDisplayName": "The Loop Team",
+
     },
     "linux": {
       "executableName": "Loop Client",
@@ -63,5 +66,5 @@
       "releaseNotesFile": "./build/releaseinfo.html",
       "releaseDate": "January 29, 2019"
     }
-  
+
 }
