@@ -79,7 +79,7 @@ mat-list-item {
 
         &:hover{
           color: mat-color($accent);
-          background-color: #f5005726;
+          background-color: transparentize(mat-color($accent), 0.8);
           transition: 0.3s ease-in-out;
         }
     }

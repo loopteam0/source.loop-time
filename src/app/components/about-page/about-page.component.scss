@@ -28,7 +28,7 @@
         line-height: 1.9em;
 
         mat-icon{
-            color: red;
+            color: mat-color($accent);
         }
 
     }
@@ -94,12 +94,12 @@
         cursor: pointer;
         color: mat-color($primary);
         &:hover {
-            color: darken($color: mat-color($primary), $amount: 20%);
+            color: darken(mat-color($primary), 20%);
             transition: 0.5s;
         }
     }
 
-    
+
 }
 span.imp{
         font-size: 1.05rem;

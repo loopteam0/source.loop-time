@@ -5,7 +5,7 @@
 @import "~@angular/material/theming";
 @import "./custom-theme";
 
- /* css reboot */
+/* css reboot */
 a {
   text-decoration: none;
 }
@@ -94,9 +94,9 @@ strong {
 
 }
 
-mat-card.errorHandler {
-  background-color: rgba(255, 255, 255, .3) !important;
-}
+// mat-card.errorHandler {
+//   background-color: rgba(255, 255, 255, .3) !important;
+// }
 
 
 .margier {
@@ -108,7 +108,7 @@ mat-card.errorHandler {
 }
 
 
- /* doted spinners */
+/* doted spinners */
 #spinner.spinner {
   width: 40px;
   height: 40px;
@@ -160,7 +160,7 @@ mat-card.errorHandler {
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: lighten($color: mat-color($primary), $amount: 5);
+        background-color: transparentize(mat-color($primary), 0.6);
         border-radius: 6px;
 
         &:hover {
@@ -180,18 +180,19 @@ mat-card.errorHandler {
   }
 }
 
-.movie-download-dialog {
+.movie-download-dialog,
+.login-dialog {
   padding: 30px 0 10px 0;
 
   .mat-dialog-container {
     overflow: hidden;
     margin-bottom: 0;
 
-    padding: {
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
+    // padding: {
+    //   left: 0;
+    //   right: 0;
+    //   bottom: 0;
+    // }
   }
 
 }
@@ -220,7 +221,7 @@ mat-card.errorHandler {
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: lighten($color: mat-color($primary), $amount: 5);
+      background-color: transparentize(mat-color($primary), 0.6);
       border-radius: 6px;
 
       &:hover {
@@ -252,21 +253,34 @@ mat-card.errorHandler {
   margin-right: auto;
 }
 
+.login-dialog .mat-dialog-container {
+  padding: 0px;
+
+
+  mat-tab-group {
+    height: 100%;
+  }
+
+  .mat-tab-body-wrapper {
+    height: 100%;
+  }
+}
 
 
 /* close btns on download dialogs */
-.btn-close, #btn-close {
-    color: mat-color($primary);
-    border-radius: 50%;
+.btn-close,
+#btn-close {
+  color: mat-color($primary);
+  border-radius: 50%;
 
-    &:hover {
-      background-color: #f5005636;
-      transition: 0.4s ease-in-out;
+  &:hover {
+    background-color: transparentize(mat-color($primary), 0.8);
+    transition: 0.4s ease-in-out;
 
-      mat-icon{
-        color: darken($color: mat-color($accent), $amount: 0%);
-      }
+    mat-icon {
+      color: mat-color($accent);
     }
+  }
 
 }
 
@@ -282,7 +296,8 @@ mat-card.errorHandler {
 }
 
 /* styling custom title bar */
-.titlebar.windows, .titlebar.linux {
+.titlebar.windows,
+.titlebar.linux {
   z-index: 999999;
 }
 
@@ -340,5 +355,12 @@ mat-card.errorHandler {
   }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

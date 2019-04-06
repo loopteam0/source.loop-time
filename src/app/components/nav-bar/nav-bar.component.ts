@@ -1,41 +1,53 @@
-import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ElectronService } from '../../services/electron.service';
-import { UiServiceService } from '../../services/ui-service.service';
+import { Component } from '@angular/core'
+import {
+    BreakpointObserver,
+    Breakpoints,
+    BreakpointState,
+} from '@angular/cdk/layout'
+import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators'
+import { ElectronService } from '../../services/electron.service'
+import { UiServiceService } from '../../services/ui-service.service'
+import { LoginComponent } from '../login/login.component'
+import { MatDialogRef, MatDialog } from '@angular/material'
 
 @Component({
-  selector: 'app-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.scss'],
+    selector: 'app-nav-bar',
+    templateUrl: './nav-bar.component.html',
+    styleUrls: ['./nav-bar.component.scss'],
 })
-
 export class NavBarComponent {
-  darkTheme = false;
-  mdScreen;
+    darkTheme = false
+    mdScreen
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(  map(result => result.matches) );
+    isHandset$: Observable<boolean> = this.breakpointObserver
+        .observe(Breakpoints.Handset)
+        .pipe(map(result => result.matches))
 
-  constructor(private breakpointObserver: BreakpointObserver,
-              private electron: ElectronService,
-              private UI: UiServiceService ) {}
+    constructor(
+        private breakpointObserver: BreakpointObserver,
+        private electron: ElectronService,
+        private UI: UiServiceService
+    ) {}
 
-  showLink() {
-    if (this.electron.isElectron()) {
-      this.electron.shell.openExternal('https://loopteam0.github.io');
-    } else {
-      window.open('https://loopteam0.github.io');
+    showLink() {
+        if (this.electron.isElectron()) {
+            this.electron.shell.openExternal('https://loopteam0.github.io')
+        } else {
+            window.open('https://loopteam0.github.io')
+        }
     }
-  }
 
     change() {
-      console.log('changed');
-      this.darkTheme = !this.darkTheme;
+        console.log('changed')
+        this.darkTheme = !this.darkTheme
     }
 
-      ngOnInit(): void {
-        this.UI.setTitlebar('#424242');
-      }
-  }
+    openLogin() {
+        this.UI.openDialog(null, LoginComponent, 'login-dialog')
+    }
+
+    ngOnInit(): void {
+        this.UI.setTitlebar('#424242')
+    }
+}

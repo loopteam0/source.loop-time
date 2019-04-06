@@ -1,0 +1,49 @@
+.wrapper {
+
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .field {
+    padding: 20px;
+    min-width: 400px;
+
+    .mat-form-field {
+      width: 100%;
+      margin: 10px 5px;
+    }
+
+    mat-divider {
+      width: 50%;
+      margin: auto
+    }
+  }
+
+  h3 {
+    width: 100%;
+    text-align: center;
+  }
+
+  .or {
+    text-align: center;
+    margin: 5px;
+  }
+
+  .buttons {
+
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    flex-direction: column;
+
+    button {
+      text-transform: uppercase;
+    }
+  }
+
+  .confirm {
+    padding: 0 0px 15px 10px;
+  }
+
+}

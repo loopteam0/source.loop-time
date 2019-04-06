@@ -49,7 +49,7 @@ mat-nav-list {
             @include mat-elevation(2);
             border-left: 2px solid mat-color($primary);
             transition: 0.3s ease-out;
-            background-color: lighten(mat-color($primary), 50%);
+            background-color: transparentize(mat-color($primary), 0.8);
 
             mat-icon, fa-icon {
                 margin-right: 8px;
@@ -72,12 +72,13 @@ mat-sidenav-content, .mat-drawer-inner-container {
 
     }
     &::-webkit-scrollbar-thumb{
-      background-color: lighten($color: mat-color($primary), $amount: 5);
+      background-color: transparentize($color: mat-color($primary), $amount: 0.6);
       border-radius: 6px;
+      transition: all 0.5s linear;
 
       &:hover{
         background-color: mat-color($primary);
-        transition: all 0.5s ease-in-out;
+        transition: all 0.5s linear;
       }
 
     }

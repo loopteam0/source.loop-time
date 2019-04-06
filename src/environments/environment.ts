@@ -3,8 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
-};
+    production: false,
+    fireBase: {
+        apiKey: 'AIzaSyD4L7mnqi9n2ccpqft1Fq996OjW0B79iEU',
+        authDomain: 'looptime-cd3a9.firebaseapp.com',
+        databaseURL: 'https://looptime-cd3a9.firebaseio.com',
+        projectId: 'looptime-cd3a9',
+        storageBucket: 'looptime-cd3a9.appspot.com',
+        messagingSenderId: '497829188991',
+    },
+}
 
 /*
  * In development mode, to ignore zone related error stack frames such as

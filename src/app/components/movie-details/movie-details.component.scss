@@ -50,7 +50,7 @@
                 cursor: pointer;
                 color: mat-color($primary);
                 &:hover {
-                    color: darken($color: mat-color($primary), $amount: 5%);
+                    color: darken(mat-color($primary), 50%);
                     transition: 0.3s;
                 }
             }
@@ -94,7 +94,7 @@
         .placeholder{
           width: 60px;
           height: 60px;
-          background-color: #d4d3d3;
+          background-color: $bg-color;
           margin: auto;
           border-radius: 50%;
         }

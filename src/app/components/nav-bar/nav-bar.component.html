@@ -1,56 +1,79 @@
-<mat-sidenav-container  [class.darkTheme]="darkTheme">
-    <mat-sidenav   #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'push' : 'side'" [opened]="!(isHandset$ | async)">
+<mat-sidenav-container [class.darkTheme]="darkTheme">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'push' : 'side'"
+    [opened]="!(isHandset$ | async)">
 
-        <!-- [opened]="!(isHandset$ | async)" -->
-        <mat-nav-list >
-            <a mat-list-item [routerLink]="['/trending']" routerLinkActive="active">
-                <mat-icon>new_releases</mat-icon> Trending</a>
-            <!-- <a mat-list-item [routerLink]="['/favorites']" routerLinkActive="active">
-                <mat-icon>favorite</mat-icon> Favorites</a> -->
-                <mat-divider></mat-divider>
-            <a mat-list-item [routerLink]="['/movies']" routerLinkActive="active" class="indent">
-                <mat-icon>hd</mat-icon>HD Movies</a>
-            <a mat-list-item [routerLink]="['/shows']" routerLinkActive="active" class="indent">
-                <mat-icon>live_tv</mat-icon> TV Shows</a>
-            <a mat-list-item [routerLink]="['/animes']" routerLinkActive="active" class="indent">
-                <mat-icon>local_movies </mat-icon> Anime</a>
-
-            <mat-divider></mat-divider>
-
-              <a mat-list-item [routerLink]="['/search']" routerLinkActive="active">
-                <mat-icon>search</mat-icon> Loop Search</a>
-
-            <mat-divider></mat-divider>
-
-            <a mat-list-item [routerLink]="['/games']" routerLinkActive="active" class="">
-                <mat-icon>gamepad</mat-icon> Games </a>
-            <a mat-list-item [routerLink]="['/softwares']" routerLinkActive="active" class="indent">
-                <mat-icon>apps</mat-icon> Softwares</a>
-            <a mat-list-item [routerLink]="['/musics']" routerLinkActive="active" class="indent">
-                <mat-icon>library_music</mat-icon> Music </a>
-            <a mat-list-item [routerLink]="['/books']" routerLinkActive="active" class="indent">
-                <mat-icon>library_books</mat-icon> Others </a>
-
-            <mat-divider></mat-divider>
-
-            <a mat-list-item (click)="showLink()" routerLinkActive="active">
-                <mat-icon>thumb_up_alt</mat-icon> Like Us</a>
-            <a mat-list-item [routerLink]="['/about']" routerLinkActive="active">
-                <mat-icon>info</mat-icon> About </a>
-
-        </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content  [ngStyle]="{'show': (!isHandset$ | async)}" >
-      <div [ngStyle]="{'menu-toggler': (isHandset$ | async)}">
-      <button class="menu-toggler" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
-         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    <!-- [opened]="!(isHandset$ | async)" -->
+    <mat-toolbar>
+      <button mat-icon-button (click)="openLogin()">
+        <mat-icon>account_circle</mat-icon>
       </button>
-      </div>
+      <span *ngIf="false">
+        User Display name
+      </span>
+    </mat-toolbar>
 
-        <!-- Add Content Here -->
-        <router-outlet >
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/trending']" routerLinkActive="active">
+        <mat-icon>new_releases</mat-icon> Trending
+      </a>
+      <!-- <a mat-list-item [routerLink]="['/favorites']" routerLinkActive="active">
+                <mat-icon>favorite</mat-icon> Favorites</a> -->
+      <mat-divider></mat-divider>
+      <a mat-list-item [routerLink]="['/movies']" routerLinkActive="active" class="indent">
+        <mat-icon>hd</mat-icon>HD Movies
+      </a>
+      <a mat-list-item [routerLink]="['/shows']" routerLinkActive="active" class="indent">
+        <mat-icon>live_tv</mat-icon> TV Shows
+      </a>
+      <a mat-list-item [routerLink]="['/animes']" routerLinkActive="active" class="indent">
+        <mat-icon>local_movies </mat-icon> Anime
+      </a>
 
-        </router-outlet>
+      <mat-divider></mat-divider>
 
-    </mat-sidenav-content>
+      <a mat-list-item [routerLink]="['/search']" routerLinkActive="active">
+        <mat-icon>search</mat-icon> Loop Search
+      </a>
+
+      <mat-divider></mat-divider>
+
+      <a mat-list-item [routerLink]="['/games']" routerLinkActive="active" class="">
+        <mat-icon>gamepad</mat-icon> Games
+      </a>
+      <a mat-list-item [routerLink]="['/softwares']" routerLinkActive="active" class="indent">
+        <mat-icon>apps</mat-icon> Softwares
+      </a>
+      <a mat-list-item [routerLink]="['/musics']" routerLinkActive="active" class="indent">
+        <mat-icon>library_music</mat-icon> Music
+      </a>
+      <a mat-list-item [routerLink]="['/books']" routerLinkActive="active" class="indent">
+        <mat-icon>library_books</mat-icon> Others
+      </a>
+
+      <mat-divider></mat-divider>
+
+      <a mat-list-item (click)="showLink()" routerLinkActive="active">
+        <mat-icon>thumb_up_alt</mat-icon> Like Us
+      </a>
+      <a mat-list-item [routerLink]="['/about']" routerLinkActive="active">
+        <mat-icon>info</mat-icon> About
+      </a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content [ngStyle]="{'show': (!isHandset$ | async)}">
+    <div [ngStyle]="{'menu-toggler': (isHandset$ | async)}">
+      <button class="menu-toggler" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+    </div>
+
+    <!-- Add Content Here -->
+    <router-outlet>
+
+    </router-outlet>
+
+  </mat-sidenav-content>
 </mat-sidenav-container>

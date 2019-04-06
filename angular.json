@@ -27,7 +27,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/fonts/material-icons/material-icons.css",
+              "./src/assets/fonts/material-icons/material-icons.css",
               "src/styles.scss",
               {
                 "input": "./node_modules/bootstrap/dist/css/bootstrap.css"

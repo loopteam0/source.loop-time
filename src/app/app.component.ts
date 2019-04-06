@@ -4,6 +4,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ElectronService } from './services/electron.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,12 @@ export class AppComponent implements OnInit, OnDestroy {
   IsWindowOnline = navigator.onLine;
   subscription: Subscription;
 
-  constructor(private UI: UiServiceService, private router: Router ) {}
+  constructor(private UI: UiServiceService, private router: Router,
+     private iconRegister: MatIconRegistry , private sanitizer: DomSanitizer
+
+     ) {
+      // this.iconRegister.addSvgIcon('menu', this.sanitizer.bypassSecurityTrustUrl(''))
+     }
 
 ngOnInit() {
 
