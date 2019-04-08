@@ -1,4 +1,3 @@
-
 @import "~@angular/material/theming";
 @import "../../../custom-theme.scss ";
 @import "./mixins.scss";
@@ -6,177 +5,158 @@
 //$image-width : 14rem;
 $min-image-width: 10rem;
 
-#btn-close{
+#btn-close {
   position: absolute;
   top: 0;
   right: 0;
 }
-.error-card{
+
+.error-card {
   width: 450px;
   margin: auto;
   padding: 30px;
 }
 
-#details-page{
-    margin: 0;
-    position: relative;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
+#details-page {
+  margin: 0;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 130px 20px 560px 20px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+
+  &::before {
+    content: '';
     width: 100%;
     height: 100%;
-    padding: 130px 20px 560px 20px;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    top: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.726);
+    position: absolute;
     border-radius: 5px;
-
-    &::before{
-      content: '';
-      width: 100%;
-      height: 100%;
-      top: 0;
-      right: 0;
-      background-color: rgba(0, 0, 0, 0.726);
-      position: absolute;
-      border-radius: 5px;
-      // filter: blur(30px);
+    // filter: blur(30px);
   }
 }
 
 .details-container {
+  display: flex;
+  flex-direction: row;
+  flex-basis: auto auto;
+  flex-wrap: initial;
+
+  .details-image {
+
+    // width: $image-width;
+    mat-card {
+      @include mat-elevation(8);
+      position: relative;
+      top: -100px;
+      width: 225px;
+      height: 335px;
+      padding: 0;
+
+      img {
+        height: inherit;
+        border-radius: inherit;
+        width: inherit;
+      }
+    }
+
+  }
+
+  .flex-flow {
+    width: 100%;
+    margin-left: 20px;
+
+    @media (min-width: 960px) {
+      mat-tab-group {
+        width: 600px;
+      }
+    }
+  }
+
+
+}
+
+
+.title-head {
+  h1 {
+    margin-bottom: 0;
+  }
+
+  h1 {
+    display: inline;
+    font-size: 2.2rem;
+  }
+
+
+  .year {
+    font-size: medium;
+    display: inline;
+    padding-bottom: 20px;
+    margin-left: 5px;
+    top: -4px;
+
+  }
+
+
+  .runtime {
     display: flex;
-    flex-direction: row;
-    flex-basis: auto auto;
-    flex-wrap: initial;
 
-    .details-image {
-       // width: $image-width;
-        mat-card {
-            @include mat-elevation(8);
-            position: relative;
-            top: -100px;
-            width: 225px;
-            height: 335px;
-            padding: 0;
-
-            img {
-                height: inherit;
-                border-radius: inherit;
-                width: inherit;
-            }
-        }
-
-    }
-    .flex-flow{
-        width: 100%;
-        margin-left: 20px;
-
-        @media (min-width: 960px) {
-          mat-tab-group{
-            width: 600px;
-          }
-        }
-      }
-
-
+    p {
+      margin-bottom: 0.5rem;
     }
 
-
-    .title-head{
-      h1{
-        margin-bottom: 0;
-      }
-      h1{
-        display: inline;
-        font-size: 2.2rem;
-      }
-
-
-    .year{
-      font-size: medium;
+    p {
       display: inline;
-      padding-bottom: 20px;
-      margin-left: 5px;
-      top: -4px;
-
-    }
-    .rating{
-      .star {
-        position: relative;
-        display: inline-block;
-        font-size: 1.7rem;
-        color: #d3d3d3;
-      }
-
-      .full {
-        color: mat-color($accent);
-      }
-
-      .half {
-        position: absolute;
-        display: inline-block;
-        overflow: hidden;
-        color: mat-color($accent);
-      }
-
-      .value{
-        font-size: 1.3rem;
-        margin-left: 4px;
-      }
-    }
-
-    .runtime{
-      display: flex;
-      p{
-        margin-bottom: 0.5rem;
-      }
-
-      p{
-        display: inline;
-        margin-left: 3px;
-      }
-    }
-
-    .download-button{
-      margin-top: 1rem;
-
-      button{
-        margin-right: 20px;
-        z-index: 1000;
-
-        &:hover{
-          background-color: rgba(255, 255, 255, 0.301);
-          transition: 0.3s ease-in-out;
-        }
-      }
-
-      mat-icon{
-        opacity: 0.7;
-      }
+      margin-left: 3px;
     }
   }
 
-  .properties{
-    padding-top: 0;
-    top: -80px;
-    min-height: 230px;
+  .download-button {
+    margin-top: 1rem;
 
-    .tab-group{
-      padding-top: 8px;
-      overflow-x: hidden;
-    }
-    .container{
-      margin-top: 10px;
+    button {
+      margin-right: 20px;
+      z-index: 1000;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.301);
+        transition: 0.3s ease-in-out;
+      }
     }
 
+    mat-icon {
+      opacity: 0.7;
+    }
+  }
+}
+
+.properties {
+  padding-top: 0;
+  top: -80px;
+  min-height: 230px;
+
+  .tab-group {
+    padding-top: 8px;
+    overflow-x: hidden;
   }
 
-
-  ///Responsiveness
-
-  @media only screen and (max-width: 944px){
-
+  .container {
+    margin-top: 10px;
   }
+
+}
+
+
+///Responsiveness
+
+@media only screen and (max-width: 944px) {}

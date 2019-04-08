@@ -4,6 +4,8 @@ import { auth } from 'firebase/app'
 import { User } from 'firebase'
 import { UiServiceService } from './ui-service.service'
 
+// setting up firebase
+
 @Injectable({
     providedIn: 'root',
 })

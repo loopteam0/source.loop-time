@@ -9,7 +9,12 @@ import { UiServiceService } from 'src/app/services/ui-service.service'
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-    user
+    //***** TODO login and creating of accounts */
+    //****  return data to the main window  */
+    // ***** check to see if user is loged  */
+    // ***** and disable the the login button */
+
+    user: firebase.auth.UserCredential
 
     constructor(
         private Auth: AuthService,
@@ -27,7 +32,9 @@ export class LoginComponent implements OnInit {
 
     signUpWtihEmail(email: string, password: string) {
         this.Auth.SignUpWithEmailAndPassword(email, password)
-            .then(res => (this.user = res))
+            .then(res => {
+                this.logIn(email, password)
+            })
             .catch(err => this.UI.openSnackBar(err.message))
     }
 
@@ -35,6 +42,10 @@ export class LoginComponent implements OnInit {
         this.Auth.signInWithEmailAndPassword(email, password)
             .then(res => {
                 this.user = res
+                console.log(this.user)
+                this.UI.openSnackBar(
+                    `You are welcome ${this.user.user.displayName}`
+                )
             })
             .catch(err => this.UI.openSnackBar(err.message))
     }

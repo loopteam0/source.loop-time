@@ -1,18 +1,7 @@
-
-<div id="details-page">
+<!-- <div id="details-page">
   <button mat-icon-button id="btn-close" (click)="closeMe()" ><mat-icon>close</mat-icon></button>
- <mat-card  *ngIf="errorState" class="error-card errorHandler">
-   <mat-card-content>
-      <div >
-          <h1>
-            An error occured
-          </h1>
-          <button mat-raised-button color="accent" (click)="getmoviedetails()">RETRY</button>
-        </div>
-   </mat-card-content>
- </mat-card>
 
-<!-- show spinner here -->
+
 <app-spinner *ngIf="loading"></app-spinner>
 
   <mat-card class="main-card animated fadeInDown" *ngIf="movieDetails">
@@ -27,7 +16,7 @@
       <div class="flex-flow">
 
         <div class="title-head">
-          <h1>{{movieDetails.title_english|scan:'&'}}</h1>
+          <h1></h1>
           <span class="year">({{movieDetails.year}})</span>
 
           <div class="rating">
@@ -54,7 +43,6 @@
 
           <div class="download-button">
             <button (click)="openDialog(movieDetails.torrents)"  mat-raised-button>DOWNLOAD <mat-icon>file_download</mat-icon> </button>
-            <button mat-raised-button (click)="watchTrailer(movieDetails.yt_trailer_code)">WATCH TRAILER <mat-icon>play_arrow</mat-icon> </button>
           </div>
         </div>
 
@@ -77,7 +65,7 @@
               <div class="screenshots">
                 <img src="{{movieDetails.medium_screenshot_image1}}" alt="">
                 <img src="{{movieDetails.medium_screenshot_image2}}" alt="">
-                <!-- <img src="{{movieDetails.medium_screenshot_image3}}" alt=""> -->
+
               </div>
             </mat-card>
           </div>
@@ -146,5 +134,145 @@
 
   </mat-card>
 
+
+</div> -->
+
+
+<div class="main-flow-control">
+  <mat-tab-group class="main-tab" mat-align-tabs="center" dynamicHeight>
+    <mat-tab class="summary" label="SUMMARY">
+
+
+      <app-spinner *ngIf="loading"></app-spinner>
+
+      <!-- error handler -->
+      <mat-card *ngIf="errorState" class="error-card errorHandler">
+        <mat-card-content>
+          <div>
+            <h1>
+              An error occured
+            </h1>
+            <button mat-raised-button color="accent" (click)="getmoviedetails()">RETRY</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+
+      <div *ngIf="movieDetails" class="container details">
+        <!-- movie image -->
+        <div class="image ">
+          <img class="card-img-top" onerror="this.src='./assets/placeholder.movie.png'"
+            src="{{movieDetails.large_cover_image}}" alt="image not found">
+        </div>
+
+        <!-- movie content -->
+        <div class="content ">
+
+          <h1>{{movieDetails.title_english|scan:'&'}} <span class="year small">{{movieDetails.year}}</span></h1>
+
+          <p class="meta">
+            <span>{{movieDetails.language}} | </span>
+            <!-- <span>{{movieDetails.date_uploaded}} | </span> -->
+            <span>{{movieDetails.runtime | duration }} | </span>
+            <span>{{movieDetails.mpa_rating ? movieDetails.mpa_rating : ''}} | </span>
+            <span>{{movieDetails.download_count}} downloads</span>
+          </p>
+
+          <div class="genre">
+            <mat-chip-list>
+              <mat-chip *ngFor="let item of movieDetails.genres">
+                {{ item }}
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+
+          <div class="rating">
+            <ng-template #t let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill"><i class="mat-icon star_rate"></i></span>&#9733;
+              </span>
+            </ng-template>
+            <ngb-rating [rate]="movieDetails.rating*5/10" [starTemplate]="t" [readonly]="true" max="5">
+            </ngb-rating>
+            <div class="imdb">
+              <span>imdb <span class="nb">{{movieDetails.rating}}</span></span>
+            </div>
+
+          </div>
+
+          <div class="container">
+            <p class="body">
+              {{movieDetails.description_intro | shorten: 430: ' ...'}}
+            </p>
+          </div>
+
+          <div class="buttons">
+            <button (click)="openDialog(movieDetails.torrents)" mat-raised-button>
+              Free Download <mat-icon>file_download</mat-icon>
+            </button>
+
+            <button (click)="openDialog(movieDetails.torrents)" mat-raised-button>
+              Buy Online <mat-icon>shoping_cart</mat-icon>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- trailler -->
+    <mat-tab *ngIf="movieDetails.yt_trailer_code" class="trailer" label="TRAILER">
+
+      <div class="trailer2">
+        <iframe *ngIf="movieDetails.yt_trailer_code" [src]="watchTrailer()" frameborder="0"></iframe>
+      </div>
+
+    </mat-tab>
+
+    <!-- simillar movies -->
+    <mat-tab label="CASTS & SCREENSHOTS">
+      <div class="cast-tab">
+        <div *ngIf="movieDetails.cast" class="container cast">
+          <h5>Cast:</h5>
+          <div class="row">
+            <div class="col" *ngFor="let item of movieDetails.cast">
+              <div class="placeholder"><img [src]="item.url_small_image" alt=""></div>
+              <p>{{item.name}}</p>
+              <p class="small">as</p>
+              <P class="cast-sub-text">{{item.character_name}}</P>
+            </div>
+          </div>
+        </div>
+
+
+        <div *ngIf="movieDetails.medium_screenshot_image1" class=" container ">
+          <h5>SCREENSHOTS:</h5>
+
+          <div class="screenshots">
+            <img src="{{movieDetails.medium_screenshot_image1}}" alt="">
+            <img src="{{movieDetails.medium_screenshot_image2}}" alt="">
+            <img src="{{movieDetails.medium_screenshot_image3}}" alt="">
+          </div>
+
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- simillar movies -->
+    <mat-tab label="SIMILAR MOVIES">
+
+    </mat-tab>
+  </mat-tab-group>
+
+  <div class="cover">
+    <img class="bg-image" [src]="setBackground(movieDetails.background_image_original)" alt="" />
+    <!-- <img class="bg-image" [src]="setBackground(showDetails.images.fanart)" alt="" /> -->
+  </div>
+
+  <div id="btn-close">
+    <button (click)="dialogRef.close()" mat-icon-button>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
 
 </div>

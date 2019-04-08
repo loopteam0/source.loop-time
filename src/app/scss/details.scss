@@ -5,80 +5,185 @@
 
 
 #btn-close {
+  position: absolute;
+  top: 33px;
+  right: 8px;
+}
+
+.main-flow-control {
+  width: 100%;
+  height: 100%;
+
+  .cover {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
     position: absolute;
     top: 0;
     right: 0;
+    bottom: 0;
+    left: 0;
+
+    .bg-image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+
+
+  mat-tab-group {
+    position: relative;
+    height: 100%;
+    top: 50px;
+
+    .mat-tab-body-content {
+      height: auto;
+      overflow: hidden !important;
+    }
+
+  }
+
+  .details {
+    margin-top: 30px;
+  }
 }
-.row{
-  width: 100%;
-}
-.error-card {
-    width: 450px;
-    margin: auto;
-    padding: 30px;
-}
-  /* rating stars */
-.content.col {
+
+.details {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+
+  .image {
+    flex: 1;
+    margin-right: 20px;
+  }
+
+  .content {
+    flex: 2;
+
+    .year.small {
+      font-size: 1rem;
+    }
+
+    .container {
+      padding-left: 0;
+    }
 
     .rating {
-        .star {
-            position: relative;
-            display: inline-block;
-            font-size: 1.7rem;
-            color: #d3d3d3;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .star {
+        position: relative;
+        display: inline-block;
+        font-size: 2rem;
+        color: #dbd7d775;
+      }
+
+      .full {
+        color: mat-color($accent);
+      }
+
+      .half {
+        position: absolute;
+        display: inline-block;
+        overflow: hidden;
+        color: mat-color($accent);
+      }
+
+      .value {
+        font-size: 1.3rem;
+        margin-left: 4px;
+      }
+
+      span.small {
+        text-align: left !important;
+        width: auto;
+        margin: unset;
+      }
+
+
+      .imdb {
+        width: 77px;
+        height: 30px;
+        margin-right: 4px;
+        margin-left: 5px;
+        padding: 4px 6px;
+        border-radius: 2px;
+        background-color: #FFB10A;
+        color: black;
+        font-weight: 500;
+
+        .nb {
+          color: white;
         }
-        .full {
-            color: mat-color($accent);
-        }
-        .half {
-            position: absolute;
-            display: inline-block;
-            overflow: hidden;
-            color: mat-color($accent);
-        }
-        .value {
-            font-size: 1.3rem;
-            margin-left: 4px;
-        }
+      }
     }
-}
 
-div.cover {
-  width: 100%;
-  height: 200px;
-  position: relative;
-  overflow: hidden;
-  img{
-      top: 0;
-      left: 0;
-      width: inherit;
-      height: inherit;
-      filter: blur(4px);
-      opacity: 0.9;
+    .genre {
+      mat-chip {
+        text-transform: capitalize;
+      }
+    }
 
-  }
-}
+    .buttons {
+      margin-top: 20px;
 
-.container-0 {
-  margin: 20px auto;
-
-  .row.details {
-      height: auto;
-      position: absolute;
-      top: 80px;
-      margin-bottom: 20px;
-
-
-      .content {
-          align-self: center;
-          padding: 0;
-          div {
-              margin-top: 10px;
-
-          }
+      button {
+        margin-right: 20px;
 
       }
+    }
+
   }
 }
 
-@media only screen and (max-width: 944px) {}
+// TRALLER TAB
+//
+//
+.trailer2 {
+  display: flex;
+  padding-top: 10px;
+
+  iframe {
+    width: 70vw;
+    height: 70vh;
+    margin: 30px auto;
+    background-color: rgba(255, 255, 255, 0.322);
+  }
+
+}
+
+.container.screenshots {
+
+  flex-wrap: wrap;
+  justify-content: center;
+
+  img {
+    margin: 5px;
+    width: 45%
+  }
+}
+
+.cast-tab {
+  overflow-y: auto;
+
+}
+
+mat-tab-group.main-tab {
+
+  margin: auto;
+
+  .mat-tab-body-wrapper {
+    height: 100%;
+    width: 100%;
+  }
+
+  mat-tab {
+    overflow-y: hidden;
+  }
+}

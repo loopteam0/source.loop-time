@@ -21,7 +21,7 @@ export class UiServiceService {
         Class: string = null,
         H = '95vh',
         W = '90vw',
-        close?
+        close?: boolean
     ) {
         const dialogRef = this.dialog.open(component, {
             data: data,

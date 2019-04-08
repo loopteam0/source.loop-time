@@ -9,8 +9,10 @@
 
     <mat-form-field>
       <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
-      <mat-icon class="animated infinite delay-4s" *ngIf="!input.value" matSuffix (click)="search(input)">search </mat-icon>
-      <mat-icon class="animated infinite delay-4s" *ngIf="input.value" matSuffix (click)="input.value=''">close </mat-icon>
+      <mat-icon class="animated infinite delay-4s" *ngIf="!input.value" matSuffix (click)="search(input)">search
+      </mat-icon>
+      <mat-icon class="animated infinite delay-4s" *ngIf="input.value" matSuffix (click)="input.value=''">close
+      </mat-icon>
 
     </mat-form-field>
   </div>
@@ -35,26 +37,28 @@
 
 
       <div class="card-container" *ngFor="let item of Movies ">
-       <div *ngIf="!moviesLoading">
-          <mat-card (click)="openDialog(item.id)" class=" animated bounceInUp">
-              <div class="img-box">
-                <img  mat-card-image onerror="this.src='./assets/placeholder.movie.png'"  src="{{item.large_cover_image}}" class="card-image" alt="">
-              </div>
-              <div class="icon">
-                  <a  mat-mini-fab>{{item.rating}}</a>
-              </div>
-              <div class="content">
-                <p class="title">{{item.title|scan:'&'}}</p>
-                <p class="year">{{item.year}}</p>
-              </div>
-            </mat-card>
-       </div>
+        <div *ngIf="!moviesLoading">
+          <mat-card (click)="openDialog(item.id,item.imdb_code)" class=" animated bounceInUp">
+            <div class="img-box">
+              <img mat-card-image onerror="this.src='./assets/placeholder.movie.png'" src="{{item.large_cover_image}}"
+                class="card-image" alt="">
+            </div>
+            <div class="icon">
+              <a mat-mini-fab>{{item.rating}}</a>
+            </div>
+            <div class="content">
+              <p class="title">{{item.title|scan:'&'}}</p>
+              <p class="year">{{item.year}}</p>
+            </div>
+          </mat-card>
+        </div>
       </div>
 
-  </div>
+    </div>
 
     <div *ngIf="home" class="home">
-      <button mat-raised-button color="primary"  (click)="RETRY()" class="home animated fadeInUp">HOME <mat-icon>home</mat-icon></button>
+      <button mat-raised-button color="primary" (click)="RETRY()" class="home animated fadeInUp">HOME <mat-icon>home
+        </mat-icon></button>
     </div>
 
 
@@ -66,7 +70,7 @@
       </div>
     </div>
 
-      <div class="margier"></div>
+    <div class="margier"></div>
   </div>
 </div>
 <app-quote *ngIf="errorState"></app-quote>

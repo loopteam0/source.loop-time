@@ -29,6 +29,7 @@ import { QuoteComponent } from './components/quote/quote.component'
 import { ServiceInterceptor } from './services/service.interceptor'
 import { SanitizerPipe } from './pipes/sanitizer.pipe'
 import { ConvertPipe } from './pipes/convert.pipe'
+import { JoinPipe } from './pipes/join.pipe'
 import { OpenExternalPipe } from './pipes/open-external.pipe'
 import { SearchService } from './services/search.service'
 import { ElectronService } from './services/electron.service'
@@ -84,6 +85,7 @@ import { AuthService } from './services/auth.service'
         QuoteComponent,
         OpenExternalPipe,
         DurationPipe,
+        JoinPipe,
         MoviesListComponent,
         ShowsListComponent,
         AnimesListComponent,
