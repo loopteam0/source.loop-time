@@ -77,22 +77,16 @@
           </div>
 
           <div class="buttons">
-            <button (click)="
-                                openShowsDialog(
+            <button (click)="openShowsDialog(
                                     showDetails.episodes,
                                     showDetails.title,
-                                    showDetails.num_seasons
-                                )
-                            " mat-raised-button>
+                                    showDetails.num_seasons)" mat-raised-button>
               Free Download <mat-icon>file_download</mat-icon>
             </button>
-            <button (click)="
-                                openShowsDialog(
+            <button (click)="openShowsDialog(
                                     showDetails.episodes,
                                     showDetails.title,
-                                    showDetails.num_seasons
-                                )
-                            " mat-raised-button>
+                                    showDetails.num_seasons)" mat-raised-button>
               Buy On {{showDetails.network}} <mat-icon>shoping_cart</mat-icon>
             </button>
           </div>
@@ -124,8 +118,7 @@
 
 </div>
 
-<!--
-<div id="details-page">
+<!--<div id="details-page">
   <button id="btn-close" mat-icon-button (click)="closeDialog()">
     <mat-icon>close</mat-icon>
   </button>

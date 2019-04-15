@@ -1,152 +1,298 @@
+<!-- <div id="details-page">
 
-<div id="details-page" >
+  <button id="btn-close" (click)="closeDialog()" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
 
-  <button id="btn-close" (click)="closeDialog()" mat-icon-button><mat-icon >close</mat-icon></button>
-
-  <mat-card  *ngIf="errorState" class="error-card errorHandler">
+  <mat-card *ngIf="errorState" class="error-card errorHandler">
     <mat-card-content>
-       <div >
-           <h1>
-             An error occured
-           </h1>
-           <button mat-raised-button color="accent" (click)="showDetails()">RETRY</button>
-         </div>
+      <div>
+        <h1>
+          An error occured
+        </h1>
+        <button mat-raised-button color="accent" (click)="showDetails()">RETRY</button>
+      </div>
     </mat-card-content>
   </mat-card>
 
- <!-- show spinner here -->
- <app-spinner *ngIf="loading"></app-spinner>
+  <!-- show spinner here
+  <app-spinner *ngIf="loading"></app-spinner>
 
-   <mat-card class="main-card animated fadeInDown" *ngIf="movieDetails">
-     <div class="details-container animated fadeInLeft">
+  <mat-card class="main-card animated fadeInDown" *ngIf="movieDetails">
+    <div class="details-container animated fadeInLeft">
 
-       <div class="details-image">
-         <mat-card>
-           <img class="card-img-top" onerror="this.src='./assets/placeholder.movie.png'" src="{{imageurl}}{{movieDetails.poster_path}}" alt="image not found">
-         </mat-card>
-       </div>
+      <div class="details-image">
+        <mat-card>
+          <img class="card-img-top" onerror="this.src='./assets/placeholder.movie.png'"
+            src="{{imageurl}}{{movieDetails.poster_path}}" alt="image not found">
+        </mat-card>
+      </div>
 
-       <div class="flex-flow">
+      <div class="flex-flow">
 
-         <div class="title-head">
-           <h1>{{movieDetails.title|scan:'&'}}</h1> <span class="year">({{movieDetails.release_date | date:"yyyy"}})</span>
+        <div class="title-head">
+          <h1>{{movieDetails.title|scan:'&'}}</h1> <span
+            class="year">({{movieDetails.release_date | date:"yyyy"}})</span>
 
-           <div class="rating">
-             <ng-template #t let-fill="fill">
-               <span class="star" [class.full]="fill === 100">
-                 <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+          <div class="rating">
+            <ng-template #t let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
 
-               </span>
-             </ng-template>
-             <ngb-rating [rate]="movieDetails.vote_average/2" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-             <span class="value">{{movieDetails.vote_average}}</span>
-             <span class="small">/10 RATING</span>
-             <span class="value">{{movieDetails.vote_count}}</span>
+              </span>
+            </ng-template>
+            <ngb-rating [rate]="movieDetails.vote_average/2" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+            <span class="value">{{movieDetails.vote_average}}</span>
+            <span class="small">/10 RATING</span>
+            <span class="value">{{movieDetails.vote_count}}</span>
             <span class="small">VOTES</span>
-           </div>
+          </div>
 
-           <div class="runtime">
-             <mat-icon>query_builder</mat-icon>
-             <p>{{movieDetails.runtime |duration}}</p>
-           </div>
-
-
-
-           <mat-chip-list>
-             <mat-chip *ngFor="let item of movieDetails.genres">{{item.name}}</mat-chip>
-           </mat-chip-list>
-
-           <div class="download-button">
-             <button (click)="openDialog(movieDetails.title,movieDetails.release_date )"  mat-raised-button>DOWNLOAD <mat-icon>file_download</mat-icon> </button>
-           </div>
-         </div>
-
-       </div>
-     </div>
-
-     <mat-card class="properties">
-
-       <mat-tab-group mat-stretch-tabs class="tab-group">
-         <mat-tab label="INFO">
-           <div class="container">
-             <p class="body">
-               <strong>Storyline:</strong> {{movieDetails.overview | shorten: 430: ' ...'}} </p>
-           </div>
-         </mat-tab>
-
-         <mat-tab label="SCREENSHOTS" *ngIf="movieDetails.medium_screenshot_image1">
-           <div *ngIf="movieDetails.medium_screenshot_image1">
-             <mat-card class="screenshots-card">
-               <div class="screenshots">
-                 <img src="{{movieDetails.medium_screenshot_image1}}" alt="">
-                 <img src="{{movieDetails.medium_screenshot_image2}}" alt="">
-                 <!-- <img src="{{movieDetails.medium_screenshot_image3}}" alt=""> -->
-               </div>
-             </mat-card>
-           </div>
-         </mat-tab>
-
-         <mat-tab  label="MEDIA">
-           <div class="general container">
-
-             <div class="cat-1">
-               <p >
-                   <strong>Website: </strong>
-                   <span ><a href="{{movieDetails.homepage}} ">{{movieDetails.homepage | shorten: 25: '...'}}</a> </span>
-                 </p>
+          <div class="runtime">
+            <mat-icon>query_builder</mat-icon>
+            <p>{{movieDetails.runtime |duration}}</p>
+          </div>
 
 
-               <p>
-                 <strong>Subtitles: </strong>
-                 <span>
-                   <a (click)="opensubtitle(movieDetails.imdb_id)">Here</a>
-                 </span>
-               </p>
 
-               <p>
-                   <strong>Released: </strong>
-                   <span>{{movieDetails.release_date}} </span>
-                 </p>
+          <mat-chip-list>
+            <mat-chip *ngFor="let item of movieDetails.genres">{{item.name}}</mat-chip>
+          </mat-chip-list>
+
+          <div class="download-button">
+            <button (click)="openDialog(movieDetails.title,movieDetails.release_date )" mat-raised-button>DOWNLOAD
+              <mat-icon>file_download</mat-icon> </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <mat-card class="properties">
+
+      <mat-tab-group mat-stretch-tabs class="tab-group">
+        <mat-tab label="INFO">
+          <div class="container">
+            <p class="body">
+              <strong>Storyline:</strong> {{movieDetails.overview | shorten: 430: ' ...'}} </p>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="SCREENSHOTS" *ngIf="movieDetails.medium_screenshot_image1">
+          <div *ngIf="movieDetails.medium_screenshot_image1">
+            <mat-card class="screenshots-card">
+              <div class="screenshots">
+                <img src="{{movieDetails.medium_screenshot_image1}}" alt="">
+                <img src="{{movieDetails.medium_screenshot_image2}}" alt="">
+                 <img src="{{movieDetails.medium_screenshot_image3}}" alt="">
+              </div>
+            </mat-card>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="MEDIA">
+          <div class="general container">
+
+            <div class="cat-1">
+              <p>
+                <strong>Website: </strong>
+                <span><a href="{{movieDetails.homepage}} ">{{movieDetails.homepage | shorten: 25: '...'}}</a> </span>
+              </p>
 
 
-             </div>
+              <p>
+                <strong>Subtitles: </strong>
+                <span>
+                  <a (click)="opensubtitle(movieDetails.imdb_id)">Here</a>
+                </span>
+              </p>
 
-             <div class="cat-2">
+              <p>
+                <strong>Released: </strong>
+                <span>{{movieDetails.release_date}} </span>
+              </p>
 
 
-               <p>
-                 <strong>Status: </strong>
-                 <span>{{movieDetails.status}} </span>
-               </p>
+            </div>
 
-               <p>
-                 <strong>Adult: </strong>
-                 <span>{{movieDetails.adult}} </span>
-               </p>
-               <p>
+            <div class="cat-2">
+
+
+              <p>
+                <strong>Status: </strong>
+                <span>{{movieDetails.status}} </span>
+              </p>
+
+              <p>
+                <strong>Adult: </strong>
+                <span>{{movieDetails.adult}} </span>
+              </p>
+              <p>
                 <strong>Language: </strong>
                 <span>{{movieDetails.original_language}} </span>
               </p>
-             </div>
+            </div>
 
-           </div>
-         </mat-tab>
+          </div>
+        </mat-tab>
 
-         <mat-tab label="COMPANIES" *ngIf="movieDetails.production_companies">
-           <div class="container cast">
-             <div class="row">
-
-
-
-             </div>
-           </div>
-         </mat-tab>
-       </mat-tab-group>
-
-     </mat-card>
-
-   </mat-card>
+        <mat-tab label="COMPANIES" *ngIf="movieDetails.production_companies">
+          <div class="container cast">
+            <div class="row">
 
 
- </div>
 
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+    </mat-card>
+
+  </mat-card>
+
+
+</div> -->
+
+
+<div class="main-flow-control">
+  <mat-tab-group class="main-tab" mat-align-tabs="center" dynamicHeight>
+    <mat-tab class="summary" label="SUMMARY">
+
+
+      <app-spinner *ngIf="loading"></app-spinner>
+
+      <!-- error handler -->
+      <mat-card *ngIf="errorState" class="error-card errorHandler">
+        <mat-card-content>
+          <div>
+            <h1>
+              An error occured
+            </h1>
+            <button mat-raised-button color="accent" (click)="showDetails()">RETRY</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+
+      <div *ngIf="movieDetails" class="container details">
+        <!-- movie image -->
+        <div class="image ">
+          <img class="card-img-top" onerror="this.src='./assets/placeholder.movie.png'"
+            src="{{imageurl}}{{movieDetails.poster_path}}" alt="image not found">
+
+        </div>
+
+        <!-- movie content -->
+        <div class="content ">
+
+          <h1>{{movieDetails.title|scan:'&'}}</h1> <span
+            class="year small">({{movieDetails.release_date | date:"yyyy"}})</span>
+
+          <p class="meta">
+            <span>{{movieDetails.language}} | </span>
+            <!-- <span>{{movieDetails.date_uploaded}} | </span> -->
+            <span>{{movieDetails.runtime |duration}} | </span>
+            <span>{{movieDetails.mpa_rating ? movieDetails.mpa_rating : ''}} | </span>
+            <span>{{movieDetails.download_count}} downloads</span>
+          </p>
+
+          <div class="genre">
+            <mat-chip-list>
+              <mat-chip *ngFor="let item of movieDetails.genres">
+                {{item.name}}
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+
+          <div class="rating">
+            <ng-template #t let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill"><i class="mat-icon star_rate"></i></span>&#9733;
+              </span>
+            </ng-template>
+            <ngb-rating [rate]="movieDetails.vote_average/2" [starTemplate]="t" [readonly]="true" max="5">
+            </ngb-rating>
+            <div class="imdb">
+              <span>imdb <span class="nb">{{movieDetails.vote_average}}</span></span>
+            </div>
+
+          </div>
+
+          <div class="container">
+            <p class="body">
+              {{movieDetails.description_intro | shorten: 430: ' ...'}}
+            </p>
+          </div>
+
+          <div class="buttons">
+            <button (click)="openDialog(movieDetails.title,movieDetails.release_date )" mat-raised-button>DOWNLOAD
+              <mat-icon>file_download</mat-icon> </button>
+
+
+            <a [href]="movieDetails.homepage" mat-raised-button>
+              Buy Online <mat-icon>shoping_cart</mat-icon>
+            </a>
+
+          </div>
+
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- trailler -->
+    <mat-tab *ngIf="movieDetails.yt_trailer_code" class="trailer" label="TRAILER">
+
+      <div class="trailer2">
+        <iframe *ngIf="movieDetails.yt_trailer_code" frameborder="0"></iframe>
+      </div>
+
+    </mat-tab>
+
+    <!-- simillar movies -->
+    <mat-tab label="CASTS & SCREENSHOTS">
+      <div class="cast-tab">
+        <div *ngIf="movieDetails.cast" class="container cast">
+          <h5>Cast:</h5>
+          <div class="row">
+            <div class="col" *ngFor="let item of movieDetails.cast">
+              <div class="placeholder"><img [src]="item.url_small_image" alt=""></div>
+              <p>{{item.name}}</p>
+              <p class="small">as</p>
+              <P class="cast-sub-text">{{item.character_name}}</P>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- <div *ngIf="movieDetails.medium_screenshot_image1" class=" container ">
+          <h5>SCREENSHOTS:</h5>
+
+          <div class="screenshots">
+            <img src="{{movieDetails.medium_screenshot_image1}}" alt="">
+            <img src="{{movieDetails.medium_screenshot_image2}}" alt="">
+            <img src="{{movieDetails.medium_screenshot_image3}}" alt="">
+          </div>
+
+        </div> -->
+      </div>
+    </mat-tab>
+
+    <!-- simillar movies -->
+    <mat-tab label="SIMILAR MOVIES">
+
+    </mat-tab>
+  </mat-tab-group>
+
+  <div class="cover">
+    <img class="bg-image" [src]="setBackground(movieDetails.background_image_original)" alt="" />
+    <!-- <img class="bg-image" [src]="setBackground(showDetails.images.fanart)" alt="" /> -->
+  </div>
+
+  <div id="btn-close">
+    <button (click)="dialogRef.close()" mat-icon-button>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+</div>

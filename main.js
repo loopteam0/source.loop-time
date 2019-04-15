@@ -3,7 +3,9 @@ const electron = require('electron');
 const path = require('path');
 const url = require('url');
 const splashscreen = require('@trodi/electron-splashscreen');
-const { autoUpdater } = require('electron-updater');
+const {
+  autoUpdater
+} = require('electron-updater');
 
 //const ipc = electron.ipcMain;
 const shell = electron.shell;
@@ -16,7 +18,7 @@ const downloadDir = `${app.getPath('downloads')}\\LoopClient\\`;
 const rootPath = path.join(__dirname, 'dist', 'app');
 let splash;
 
-const prod = true;
+const prod = false;
 
 // check for update at lunch time
 function checkForUpdates() {
@@ -227,7 +229,7 @@ app.on('ready', () => {
       role: 'close'
     })
   );
-  splash.webContents.on('context-menu', function(e, params) {
+  splash.webContents.on('context-menu', function (e, params) {
     // @ts-ignore
     menu.popup(splash, params.x, params.y);
   });

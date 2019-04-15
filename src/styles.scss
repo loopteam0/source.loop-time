@@ -52,30 +52,6 @@ strong {
 }
 
 
-/* .simplebar-scrollbar:before {
-  background: mat-color($primary) !important;
-}
-
-.simplebar-track.horizontal {
-  visibility: hidden !important;
-  display: none !important;
-}
-
-.simplebar-track .horizontal {
-  visibility: hidden !important;
-  display: none !important;
-}
-
-.simplebar-content {
-  margin-right: -8px !important;
-}
-
-[data-simplebar=init] .simplebar-content,
-[data-simplebar=init] .simplebar-scroll-content {
-  overflow: hidden !important;
-} */
-
-
 /* Error box */
 .errorHandler {
   text-align: center;
@@ -85,12 +61,14 @@ strong {
   animation-fill-mode: both;
   -webkit-animation-name: fadeInDown;
   animation-name: fadeInDown;
+  margin: 150px auto;
 
   h1 {
     font-size: 2.5rem;
     text-transform: uppercase;
     font-family: monospace;
   }
+
 
 }
 
@@ -122,9 +100,7 @@ strong {
 
 
 /* dialogs */
-// .mat-dialog-container {
-//   border-radius: 3px;
-// }
+
 
 /* download dialog only */
 .shows-download-dialog,

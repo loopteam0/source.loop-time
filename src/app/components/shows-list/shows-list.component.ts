@@ -5,7 +5,6 @@ import {
     OnDestroy,
     AfterViewInit,
     ElementRef,
-    Input,
 } from '@angular/core'
 import { MatSnackBar, MatInput } from '@angular/material'
 import { SearchService } from '../../services/search.service'
@@ -37,7 +36,6 @@ export class ShowsListComponent implements OnInit, OnDestroy, AfterViewInit {
     searchTerm
 
     subscribe: Subscription
-    typeAhead: Subscription
 
     @ViewChild('input') searchInput: ElementRef
 
@@ -97,7 +95,7 @@ export class ShowsListComponent implements OnInit, OnDestroy, AfterViewInit {
             info,
             ShowDetailsComponent,
             'Download-dialog',
-            '100vh',
+            '100%',
             '100vw'
         )
     }
@@ -163,6 +161,5 @@ export class ShowsListComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngOnDestroy(): void {
         this.subscribe.unsubscribe()
-        //this.typeAhead.unsubscribe();
     }
 }
