@@ -190,7 +190,7 @@
             class="year small">({{movieDetails.release_date | date:"yyyy"}})</span>
 
           <p class="meta">
-            <span>{{movieDetails.language}} | </span>
+            <span>{{movieDetails.spoken_languages[0].name}} | </span>
             <!-- <span>{{movieDetails.date_uploaded}} | </span> -->
             <span>{{movieDetails.runtime |duration}} | </span>
             <span>{{movieDetails.mpa_rating ? movieDetails.mpa_rating : ''}} | </span>
@@ -241,18 +241,18 @@
     </mat-tab>
 
     <!-- trailler -->
-    <mat-tab *ngIf="movieDetails.yt_trailer_code" class="trailer" label="TRAILER">
+    <!-- <mat-tab *ngIf="movieDetails.yt_trailer_code" class="trailer" label="TRAILER">
 
       <div class="trailer2">
         <iframe *ngIf="movieDetails.yt_trailer_code" frameborder="0"></iframe>
       </div>
 
-    </mat-tab>
+    </mat-tab> -->
 
     <!-- simillar movies -->
     <mat-tab label="CASTS & SCREENSHOTS">
       <div class="cast-tab">
-        <div *ngIf="movieDetails.cast" class="container cast">
+        <!-- <div *ngIf="movieDetails.cast" class="container cast">
           <h5>Cast:</h5>
           <div class="row">
             <div class="col" *ngFor="let item of movieDetails.cast">
@@ -262,7 +262,7 @@
               <P class="cast-sub-text">{{item.character_name}}</P>
             </div>
           </div>
-        </div>
+        </div> -->
 
 
         <!-- <div *ngIf="movieDetails.medium_screenshot_image1" class=" container ">
@@ -285,7 +285,7 @@
   </mat-tab-group>
 
   <div class="cover">
-    <img class="bg-image" [src]="setBackground(movieDetails.background_image_original)" alt="" />
+    <img class="bg-image" [src]="banner" alt="" />
     <!-- <img class="bg-image" [src]="setBackground(showDetails.images.fanart)" alt="" /> -->
   </div>
 

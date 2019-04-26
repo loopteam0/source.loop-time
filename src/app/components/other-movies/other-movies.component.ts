@@ -7,9 +7,10 @@ import { ElectronService } from '../../services/electron.service'
 import { MatSnackBar } from '@angular/material'
 import { DatePipe } from '@angular/common'
 import { UiServiceService } from 'src/app/services/ui-service.service'
+import { DomSanitizer } from '@angular/platform-browser';
 
-let MovieTitle
-let movieYear
+let MovieTitle: any
+let movieYear: string
 
 @Component({
     selector: 'app-other-movies',
@@ -17,16 +18,12 @@ let movieYear
     styleUrls: ['./other-movies.component.scss'],
 })
 export class OtherMoviesComponent implements OnInit {
-    loading
-    Moviesloading
-    parms
-    Id
-    movieDetails
-    movies
-    Loop = 'Loop For Movie'
-    imageurl
-    errorState
-    try = 'the meg: retrun - home'
+    loading: boolean
+    Id: any
+    movieDetails: any
+    imageurl: string
+    errorState: boolean
+    banner
 
     constructor(
         public UI: UiServiceService,
@@ -38,9 +35,11 @@ export class OtherMoviesComponent implements OnInit {
         private movieDB: MovieDbService,
         private electron: ElectronService,
         private snackbar: MatSnackBar,
-        private datepipe: DatePipe
+        private datepipe: DatePipe,
+        private sanitizer: DomSanitizer
     ) {
         this.imageurl = 'https://image.tmdb.org/t/p/w500'
+        //w780
     }
 
     ngOnInit() {
@@ -61,15 +60,17 @@ export class OtherMoviesComponent implements OnInit {
                     'yyyy'
                 )
                 this.errorState = false
+                this.setBackground(this.movieDetails.backdrop_path)
             },
             err => {
                 this.errorState = true
-                this.loading = false
+                this.loading = false,
+                this.UI.openSnackBar(err)
             }
         )
     }
 
-    opensubtitle(url) {
+    opensubtitle(url: any) {
         if (this.electron.isElectron()) {
             this.electron.shell.openExternal(
                 `www.yifysubtitles.com/movie-imdb/${url}`
@@ -79,7 +80,7 @@ export class OtherMoviesComponent implements OnInit {
         }
     }
 
-    openDialog(title, date): void {
+    openDialog(title: any, date: any): void {
         const info: object = {
             title: title,
             date: date,
@@ -96,12 +97,14 @@ export class OtherMoviesComponent implements OnInit {
         this.dialogRef.close()
     }
 
-    download(torrent) {
+    download(torrent: any) {
         this.torrent.downloadMagnet(torrent)
     }
 
-    setBackground(url) {}
-    showError(err) {
+    setBackground(url: any) {
+      this.banner = this.sanitizer.bypassSecurityTrustUrl(`https://image.tmdb.org/t/p/w780/${url}`)
+    }
+    showError(err: string) {
         this.snackbar.open(err)
     }
 }
@@ -178,13 +181,13 @@ export class OtherMovieDownloadDialogComponent implements OnInit {
         })
     }
 
-    downloadTorrent(torrent) {
+    downloadTorrent(torrent: any) {
         this.torrent.downloadTorrent(torrent).then(() => {
             console.log('done')
         })
     }
 
-    download(torrent) {
+    download(torrent: { title: string; }) {
         this.openSnackBar(torrent.title)
         this.torrent.downloadMagnet(torrent)
     }

@@ -94,8 +94,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
             info,
             OtherMoviesComponent,
             'Download-dialog',
-            '100%',
-            '100%'
+            '105vh',
+            '100vw'
         )
     }
 

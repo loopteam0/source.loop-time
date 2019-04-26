@@ -15,6 +15,9 @@ export class TorrentSearchApiService {
 
   try {
     this.electron.TorrentSearch.enableProvider('1337x');
+    this.electron.TorrentSearch.enableProvider('ThePirateBay');
+    this.electron.TorrentSearch.enableProvider('Torrent9');
+    this.electron.TorrentSearch.enableProvider('Torrentz2');
     let torrents = await this.electron.TorrentSearch.search( title, cat , limit);
 
     return torrents;
