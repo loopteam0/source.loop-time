@@ -7,18 +7,20 @@ import { throwError } from 'rxjs';
 })
 export class TorrentSearchApiService {
 
+  
 
   constructor(private electron: ElectronService) {
   }
 
- async getTorrents(title, cat, limit) {
+ async getTorrents(title: string , cat: string, limit: number) {
 
   try {
     this.electron.TorrentSearch.enableProvider('1337x');
     this.electron.TorrentSearch.enableProvider('ThePirateBay');
     this.electron.TorrentSearch.enableProvider('Torrent9');
-    this.electron.TorrentSearch.enableProvider('Torrentz2');
     let torrents = await this.electron.TorrentSearch.search( title, cat , limit);
+    //    let torrents = await this.electron.TorrentSearch.search(['1337x', 'ThePirateBay','Torrent9'], title, cat , limit);
+
 
     return torrents;
     } catch (error) {

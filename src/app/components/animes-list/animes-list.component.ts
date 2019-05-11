@@ -39,7 +39,7 @@ export class AnimesListComponent implements OnInit {
         });
   }
 
-  search(query:String) {
+  search(query:string) {
 
     this.searched = true;
     this.loading = true;

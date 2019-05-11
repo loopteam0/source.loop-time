@@ -95,7 +95,7 @@ export class ShowsListComponent implements OnInit, OnDestroy, AfterViewInit {
             info,
             ShowDetailsComponent,
             'Download-dialog',
-            '100%',
+            '100vh',
             '100vw'
         )
     }

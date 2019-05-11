@@ -221,21 +221,22 @@
     </mat-tab>
 
     <!-- trailler -->
-    <mat-tab *ngIf="movieDetails.yt_trailer_code" class="trailer" label="TRAILER">
+    <mat-tab *ngIf="trailer" class="trailer" label="TRAILER">
 
       <div class="trailer2">
-        <iframe *ngIf="movieDetails.yt_trailer_code" [src]="watchTrailer()" frameborder="0"></iframe>
+        <iframe *ngIf="trailer" [src]="trailer" frameborder="0"></iframe>
       </div>
 
     </mat-tab>
 
     <!-- simillar movies -->
     <mat-tab label="CASTS & SCREENSHOTS">
+
       <div class="cast-tab">
-        <div *ngIf="movieDetails.cast" class="container cast">
-          <h5>Cast:</h5>
+        <div *ngIf="movieDetails.cast[0]" class="container cast">
+         
           <div class="row">
-            <div class="col" *ngFor="let item of movieDetails.cast">
+            <div class="col" *ngFor="let item of movieDetails.cast[0]">
               <div class="placeholder"><img [src]="item.url_small_image" alt=""></div>
               <p>{{item.name}}</p>
               <p class="small">as</p>
@@ -246,15 +247,15 @@
 
 
         <div *ngIf="movieDetails.medium_screenshot_image1" class=" container ">
-          <h5>SCREENSHOTS:</h5>
 
           <div class="screenshots">
             <img src="{{movieDetails.medium_screenshot_image1}}" alt="">
             <img src="{{movieDetails.medium_screenshot_image2}}" alt="">
-            <img src="{{movieDetails.medium_screenshot_image3}}" alt="">
+            <!-- <img src="{{movieDetails.medium_screenshot_image3}}" alt=""> -->
           </div>
 
         </div>
+
       </div>
     </mat-tab>
 
@@ -265,7 +266,7 @@
   </mat-tab-group>
 
   <div class="cover">
-    <img class="bg-image" [src]="setBackground(movieDetails.background_image_original)" alt="" />
+    <img class="bg-image" [src]="coverImg" alt="" />
     <!-- <img class="bg-image" [src]="setBackground(showDetails.images.fanart)" alt="" /> -->
   </div>
 

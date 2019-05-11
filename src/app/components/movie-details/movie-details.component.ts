@@ -33,6 +33,8 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     errorState = false
     background
     banner
+    coverImg: any;
+    trailer: any;
 
     constructor(
         public UI: UiServiceService,
@@ -55,6 +57,8 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
                 this.showImage(this.movieDetails.imdb_code)
                 this.loading = false
                 this.errorState = false
+                this.watchTrailer()
+                this.setBackground(this.movieDetails.background_image_original);
             },
             err => {
                 this.openSnackBar(err)
@@ -104,7 +108,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     }
 
     setBackground(url: string) {
-        return this.sanitizer.bypassSecurityTrustUrl(url)
+        this.coverImg = this.sanitizer.bypassSecurityTrustUrl(url)
     }
 
     showImage(id) {
@@ -117,7 +121,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     }
 
     watchTrailer() {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(
+        this.trailer = this.sanitizer.bypassSecurityTrustResourceUrl(
             `https://www.youtube.com/embed/${this.movieDetails.yt_trailer_code}`
         )
     }
