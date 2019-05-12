@@ -14,7 +14,7 @@ const Menu = electron.Menu;
 const MenuItem = electron.MenuItem;
 const app = electron.app;
 const shortcut = electron.globalShortcut;
-const downloadDir = `${app.getPath('downloads')}/LoopClient/`;
+const downloadDir = `${app.getPath('downloads')}\\LoopClient\\`;
 const rootPath = path.join(__dirname, 'dist', 'app');
 let splash;
 
@@ -126,7 +126,7 @@ function downloadHandler() {
     // Set the save path, making Electron not to prompt a save dialog.
 
     let fileName = `[LOOP] ${item.getFilename()}`;
-    const downloadPath = `${downloadDir}/${fileName}`;
+    const downloadPath = `${downloadDir}\\${fileName}`;
     item.setSavePath(downloadPath);
 
     item.on('updated', (event, state) => {
