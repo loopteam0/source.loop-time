@@ -18,7 +18,7 @@
 <div>
 
   <div class="dft-container">
-      <!-- <mat-radio-group name="provider" (change)="onChange(provider)" [(ngModel)]="provider" class="radio-buttons">
+    <!-- <mat-radio-group name="provider" (change)="onChange(provider)" [(ngModel)]="provider" class="radio-buttons">
           <mat-radio-button checked='true' value="1337x">1337x</mat-radio-button>
           <mat-radio-button value="pirateBay">The PirateBay</mat-radio-button>
       </mat-radio-group> -->
@@ -59,7 +59,9 @@
               <th scope="row">
                 <mat-icon>library_music</mat-icon>
               </th>
-              <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align"><p class="table-title">{{item.title}}</p></td>
+              <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align">
+                <p class="table-title">{{item.title}}</p>
+              </td>
               <td>{{item.time}}</td>
               <td>{{item.size}}</td>
               <td>{{item.seeds}}</td>
@@ -77,4 +79,3 @@
   </div>
 
 </div>
-<app-quote></app-quote>

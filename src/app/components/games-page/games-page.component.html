@@ -19,7 +19,7 @@
 <div>
 
   <div class="dft-container">
-      <!-- <mat-radio-group name="provider" (change)="onChange(provider)" [(ngModel)]="provider" class="radio-buttons">
+    <!-- <mat-radio-group name="provider" (change)="onChange(provider)" [(ngModel)]="provider" class="radio-buttons">
           <mat-radio-button checked='true' value="1337x">1337x</mat-radio-button>
           <mat-radio-button value="pirateBay">The PirateBay</mat-radio-button>
       </mat-radio-group> -->
@@ -33,51 +33,52 @@
 
     <app-spinner *ngIf='loading'></app-spinner>
     <div *ngIf="searched" class="btn-container">
-        <button mat-raised-button class="btn-refresh"  (click)="show1337xTorrents()"> HOME </button>
+      <button mat-raised-button class="btn-refresh" (click)="show1337xTorrents()"> HOME </button>
+    </div>
+
+    <div class="wrapper">
+
+      <div class="">
+
+        <table *ngIf="Games" class="table table-borderless table-hover mat-elevation-z2">
+
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th class="align" scope="col">Title</th>
+              <th scope="col">Time</th>
+              <th scope="col">size</th>
+              <th scope="col">seeds</th>
+              <th scope="col">Peers</th>
+              <th scope="col">Download</th>
+            </tr>
+          </thead>
+
+          <tbody *ngFor='let item of Games | truthify'>
+            <tr class="animated bounceInUp">
+              <th scope="row">
+                <mat-icon>gamepad</mat-icon>
+              </th>
+              <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align">
+                <p class="table-title">{{item.title}}</p>
+              </td>
+              <td>{{item.time || item.uploadDate}}</td>
+              <td>{{item.size || item.size}}</td>
+              <td>{{item.seeds || item.seeders}}</td>
+              <td>{{item.peers || item.leechers}}</td>
+              <td><button (click)="download(item)" color="primary" mat-icon-button>
+                  <mat-icon>file_download</mat-icon>
+                </button></td>
+
+            </tr>
+          </tbody>
+
+        </table>
+
       </div>
-
-      <div class="wrapper">
-
-        <div class="">
-
-          <table *ngIf="Games" class="table table-borderless table-hover mat-elevation-z2">
-
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th class="align" scope="col">Title</th>
-                <th scope="col">Time</th>
-                <th scope="col">size</th>
-                <th scope="col">seeds</th>
-                <th scope="col">Peers</th>
-                <th scope="col">Download</th>
-              </tr>
-            </thead>
-
-            <tbody *ngFor='let item of Games | truthify'>
-              <tr class="animated bounceInUp">
-                <th scope="row">
-                  <mat-icon>gamepad</mat-icon>
-                </th>
-                <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align"><p class="table-title">{{item.title}}</p></td>
-                <td>{{item.time || item.uploadDate}}</td>
-                <td>{{item.size || item.size}}</td>
-                <td>{{item.seeds || item.seeders}}</td>
-                <td>{{item.peers || item.leechers}}</td>
-                <td><button (click)="download(item)" color="primary" mat-icon-button>
-                    <mat-icon>file_download</mat-icon>
-                  </button></td>
-
-              </tr>
-            </tbody>
-
-          </table>
-
-        </div>
-      </div>
+    </div>
 
 
 
   </div>
 </div>
-<app-quote></app-quote>

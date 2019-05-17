@@ -5,26 +5,23 @@
 @import "~@angular/material/theming";
 
 mat-icon {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .flex-container {
-    display: flex;
-    justify-content: center;
-    margin: 1rem auto;
-    width: 90%;
+  display: flex;
+  justify-content: center;
+  margin: 1rem auto;
+  width: 90%;
 }
 
 
 mat-tab-group {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 
 container-fluid {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-}
-app-quote{
-  margin-top: 30px;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }

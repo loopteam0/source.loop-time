@@ -7,8 +7,8 @@
     </div>
     <div class="spacer"></div>
     <mat-form-field>
-      <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
-      <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
+      <input #input (keyup.enter)="showTorrents(input.value)" matInput placeholder='Enter a Keyword' type='text'>
+      <mat-icon class="animated infinite delay-4s" matSuffix (click)="showTorrents(input.value)">search </mat-icon>
     </mat-form-field>
   </div>
 </div>
@@ -29,7 +29,7 @@
     <app-spinner *ngIf="loading"></app-spinner>
 
     <div *ngIf="searched" class="btn-container">
-      <button mat-raised-button class="btn-refresh"  (click)="showTorrents()"> HOME </button>
+      <button mat-raised-button class="btn-refresh" (click)="showTorrents()"> HOME </button>
     </div>
 
     <div class="wrapper">
@@ -50,13 +50,14 @@
             </tr>
           </thead>
 
-          <tbody *ngFor='let item of animes | truthify'>
+          <tbody *ngFor='let item of animes | async | truthify'>
             <tr class="dft-container animated bounceInUp">
               <th scope="row">
                 <mat-icon>library_music</mat-icon>
               </th>
               <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align">
-                <p class="table-title">{{item.title}}</p></td>
+                <p class="table-title">{{item.title}}</p>
+              </td>
               <td>{{item.time}}</td>
               <td>{{item.size}}</td>
               <td>{{item.seeds}}</td>
@@ -77,4 +78,3 @@
 
 
 </div>
-<app-quote></app-quote>

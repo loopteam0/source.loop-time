@@ -40,10 +40,11 @@
       <div *ngIf="!showsLoading">
         <mat-card (click)="openDialog(show.imdb_id)" class=" animated bounceInUp">
           <div class="img-box">
-            <img mat-card-image onerror="this.src='./assets/placeholder.shows.png'" class="card-image" src="{{show.images.poster}}" alt="{{show.title}} ">
+            <img mat-card-image onerror="this.src='./assets/placeholder.shows.png'" class="card-image"
+              src="{{show.images.poster}}" alt="{{show.title}} ">
           </div>
           <div class="icon">
-              <a  mat-mini-fab>{{show.rating.percentage/10}}</a>
+            <a mat-mini-fab>{{show.rating.percentage/10}}</a>
             <!-- <span>{{show.rating.percentage/10}}</span> -->
           </div>
           <div class="content">
@@ -62,14 +63,14 @@
       <mat-icon>home</mat-icon></button>
   </div>
 
-    <div class="container" *ngIf="pagination">
-      <div id="pagination">
-        <mat-paginator showFirstLastButtons [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="Page($event)">
-        </mat-paginator>
-      </div>
+  <div class="container" *ngIf="pagination">
+    <div id="pagination">
+      <mat-paginator showFirstLastButtons [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex"
+        (page)="Page($event)">
+      </mat-paginator>
     </div>
-
-    <div class="margier"></div>
-
   </div>
-<app-quote *ngIf="errorState"></app-quote>
+
+  <div class="margier"></div>
+
+</div>

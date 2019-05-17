@@ -22,7 +22,7 @@ $border-color: #424242;
 $bg-color: #1f1d1d;
 
 .mat-drawer-backdrop.mat-drawer-shown {
-  background-color: rgba(0, 0, 0, 0.63);
+  background-color: #000000a1;
 }
 
 
@@ -32,6 +32,8 @@ $bg-color: #1f1d1d;
 
   $border-color: #e3e3e3;
   $tab-color: #dee2e6;
+  $bg-color: #e4e4e4;
+
   @include angular-material-theme($light-theme);
 
   //Extra styling depending on the theme

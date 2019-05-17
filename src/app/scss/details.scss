@@ -160,8 +160,8 @@
 
 }
 
+////sreenshots
 .container.screenshots {
-
   flex-wrap: wrap;
   justify-content: center;
 
@@ -169,6 +169,11 @@
     margin: 5px;
     width: 45%
   }
+}
+
+///cast tab
+.container.cast{
+  padding: 30px auto;
 }
 
 .cast-tab {

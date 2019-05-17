@@ -20,11 +20,8 @@ import { MovieDetailsComponent } from './components/movie-details/movie-details.
 import { MovieDownloadDialogComponent } from './components/movie-details/movie-details.component'
 import { SearchPageComponent } from './components/search-page/search-page.component'
 import { MainPageComponent } from './components/main-page/main-page.component'
-import { AboutPageComponent } from './components/about-page/about-page.component'
 import { ShowDetailsComponent } from './components/show-details/show-details.component'
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 import { SpinnerComponent } from './components/spinner/spinner.component'
-import { QuoteComponent } from './components/quote/quote.component'
 
 import { ServiceInterceptor } from './services/service.interceptor'
 import { SanitizerPipe } from './pipes/sanitizer.pipe'
@@ -64,6 +61,8 @@ import { ScanPipe } from './pipes/scan.pipe'
 import { LoginComponent } from './components/login/login.component'
 import { environment } from 'src/environments/environment'
 import { AuthService } from './services/auth.service'
+import { ThemeService } from './services/theme.service'
+import { AppStateService } from './services/app-state.service'
 
 @NgModule({
     declarations: [
@@ -76,13 +75,10 @@ import { AuthService } from './services/auth.service'
         MainPageComponent,
         AdsPageComponent,
         MovieDetailsComponent,
-        AboutPageComponent,
         ShowDetailsComponent,
         SpinnerComponent,
         SanitizerPipe,
-        PageNotFoundComponent,
         ConvertPipe,
-        QuoteComponent,
         OpenExternalPipe,
         DurationPipe,
         JoinPipe,
@@ -130,6 +126,8 @@ import { AuthService } from './services/auth.service'
         UiServiceService,
         AuthService,
         TorrentSearchApiService,
+        ThemeService,
+        AppStateService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: ServiceInterceptor,

@@ -1,67 +1,70 @@
-import { Component, OnInit } from "@angular/core";
-import { TorrentSearchApiService } from "../../services/torrent-search-api.service";
-import { MatSnackBar } from '@angular/material';
+import { Component, OnInit } from '@angular/core'
+import { TorrentSearchApiService } from '../../services/torrent-search-api.service'
+import { MatSnackBar } from '@angular/material'
+import { UiServiceService } from 'src/app/services/ui-service.service'
+import { AppStateService } from 'src/app/services/app-state.service'
 
 @Component({
-  selector: "app-animes-list",
-  templateUrl: "./animes-list.component.html",
-  styleUrls: ["./animes-list.component.scss"]
+    selector: 'app-animes-list',
+    templateUrl: './animes-list.component.html',
+    styleUrls: ['./animes-list.component.scss'],
 })
 export class AnimesListComponent implements OnInit {
-  animes: any;
-  results: any;
-  loading: boolean;
-  searched = false;
-  errorState = false;
+    animes = this.State.animeListState
+    loading: boolean
+    searched: boolean = false
+    errorState: boolean = false
+    searchTerm = ''
+    limit = 100
+    category = 'PopularAnime'
+    constructor(
+        private Torrent: TorrentSearchApiService,
+        private snackbar: MatSnackBar,
+        private UI: UiServiceService,
+        private State: AppStateService
+    ) {}
 
-  constructor(
-    private Torrent: TorrentSearchApiService,
-    private snackbar: MatSnackBar) {}
+    ngOnInit() {
+        if (this.animes.value === null) {
+            this.showTorrents()
+        }
+    }
 
-  ngOnInit() {
-   this.showTorrents();
-  }
+    async showTorrents(query?: string) {
+        this.searched = false
+        this.loading = true
+        this.errorState = false
 
+        if (await query) {
+            this.searched = false
 
-  showTorrents() {
-    this.searched = false;
-    this.loading = true;
-    this.errorState = false;
-    this.Torrent.getTorrents('','PopularAnime', 100).then(torrents => {
-        this.animes = torrents;
-        this.errorState = false;
-        this.loading = false;
-      },
-        err => {
-          this.showError(err);
-          this.loading = false;
-          this.errorState = true;
-        });
-  }
+            this.searchTerm = query
+            this.limit = 50
+            this.category = 'Anime'
+        }
 
-  search(query:String) {
+        await this.Torrent.getTorrents(
+            this.searchTerm,
+            this.category,
+            this.limit
+        ).then(
+            torrents => {
+                this.State.animeListState.next(torrents)
+                this.errorState = false
+                this.loading = false
+                this.UI.openSnackBar(
+                    `showing ${this.animes.value.length} results`
+                )
+            },
+            err => {
+                this.UI.openSnackBar(err)
+                this.loading = false
+                this.errorState = true
+            }
+        )
+    }
 
-    this.searched = true;
-    this.loading = true;
-    this.errorState = false;
-    this.Torrent.getTorrents(query,'Anime', 50).then(res => {
-      this.animes = res;
-      this.loading = false;
-      this.showError(`${this.animes.length} Results Found For ${query}`);
-  },
-    err => {
-      this.showError(err);
-      this.loading = false;
-    });
-  }
-
-  download(torrent) {
-    this.Torrent.downloadMagnet(torrent);
-  }
-
-  showError(err, duration= 5000){
-    this.snackbar.open(err, null , {
-      duration: duration
-    })
-  }
+    download(torrent) {
+        this.Torrent.downloadMagnet(torrent)
+    }
 }

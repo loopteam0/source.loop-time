@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators'
 import { ElectronService } from '../../services/electron.service'
 import { UiServiceService } from '../../services/ui-service.service'
 import { LoginComponent } from '../login/login.component'
-import { MatDialogRef, MatDialog } from '@angular/material'
+import { ThemeService } from 'src/app/services/theme.service'
 
 @Component({
     selector: 'app-nav-bar',
@@ -27,7 +27,8 @@ export class NavBarComponent {
     constructor(
         private breakpointObserver: BreakpointObserver,
         private electron: ElectronService,
-        private UI: UiServiceService
+        private UI: UiServiceService,
+        private themeService: ThemeService
     ) {}
 
     showLink() {
@@ -44,7 +45,8 @@ export class NavBarComponent {
     }
 
     openLogin() {
-        this.UI.openDialog(null, LoginComponent, 'login-dialog')
+        // this.UI.openDialog(null, LoginComponent, 'login-dialog')
+        this.themeService.setTheme()
     }
 
     ngOnInit(): void {

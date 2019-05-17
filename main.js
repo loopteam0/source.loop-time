@@ -18,7 +18,7 @@ const downloadDir = `${app.getPath('downloads')}\\LoopClient\\`;
 const rootPath = path.join(__dirname, 'dist', 'app');
 let splash;
 
-const prod = false;
+const prod = true;
 
 // check for update at lunch time
 function checkForUpdates() {
@@ -64,8 +64,8 @@ function createWindow() {
     delay: 0,
     minVisible: 1500,
     splashScreenOpts: {
-      // width: 500,
-      // height: 375,
+      width: 500,
+      height: 375,
       transparent: true,
       icon: path.join(rootPath, '/assets/icons/icon.png'),
       backgroundColor: '#ffffff',
@@ -121,12 +121,19 @@ app.on('will-quit', () => {
 });
 
 //Handle all downloads
-function downloadHandler() {
+async function downloadHandler() {
   splash.webContents.session.on('will-download', (event, item, webContents) => {
     // Set the save path, making Electron not to prompt a save dialog.
 
     let fileName = `[LOOP] ${item.getFilename()}`;
-    const downloadPath = `${downloadDir}\\${fileName}`;
+    let downloadPath = `${downloadDir}/${fileName}`
+
+    if (process.platform == 'win32') {
+      downloadPath = `${downloadDir}\\LoopClient\\${fileName}`
+    } else if (process.platform == 'linux') {
+      downloadPath = `${downloadDir}/LoopClient/${fileName}`;
+    }
+
     item.setSavePath(downloadPath);
 
     item.on('updated', (event, state) => {
@@ -140,6 +147,7 @@ function downloadHandler() {
         }
       }
     });
+
     item.once('done', (event, state) => {
       if (state === 'completed') {
         console.log('Download successfully');
@@ -149,6 +157,7 @@ function downloadHandler() {
         console.log(`Download failed: ${state}`);
       }
     });
+
   });
 }
 

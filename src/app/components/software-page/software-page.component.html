@@ -20,7 +20,7 @@
 
   <div class="dft-container">
 
-      <!-- <mat-radio-group name="provider" (change)="onChange(provider)" [(ngModel)]="provider" class="radio-buttons">
+    <!-- <mat-radio-group name="provider" (change)="onChange(provider)" [(ngModel)]="provider" class="radio-buttons">
           <mat-radio-button checked='true' value="1337x">1337x</mat-radio-button>
           <mat-radio-button value="pirateBay">The PirateBay</mat-radio-button>
       </mat-radio-group> -->
@@ -36,13 +36,13 @@
 
     <div *ngIf="searched" class="btn-container">
       <button mat-raised-button class="btn-refresh" (click)="showSoftwares()">
-         HOME
+        HOME
       </button>
     </div>
 
     <div class="wrapper">
 
-      <div  class="">
+      <div class="">
 
         <table *ngIf="Softwares" class="table table-borderless table-hover mat-elevation-z2">
 
@@ -63,7 +63,9 @@
               <th scope="row">
                 <mat-icon>apps</mat-icon>
               </th>
-              <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align"><p class="table-title">{{item.title}}</p></td>
+              <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align">
+                <p class="table-title">{{item.title}}</p>
+              </td>
               <td>{{item.time}}</td>
               <td>{{item.size}}</td>
               <td>{{item.seeds}}</td>
@@ -83,4 +85,3 @@
 
 
 </div>
-<app-quote></app-quote>
