@@ -1,4 +1,4 @@
-//@ts-check
+﻿//@ts-check
 const electron = require('electron');
 const path = require('path');
 const url = require('url');
@@ -18,7 +18,7 @@ const downloadDir = `${app.getPath('downloads')}\\LoopClient\\`;
 const rootPath = path.join(__dirname, 'dist', 'app');
 let splash;
 
-const prod = true;
+const prod = false;
 
 // check for update at lunch time
 function checkForUpdates() {

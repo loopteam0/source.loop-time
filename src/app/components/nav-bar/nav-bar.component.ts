@@ -2,7 +2,6 @@ import { Component } from '@angular/core'
 import {
     BreakpointObserver,
     Breakpoints,
-    BreakpointState,
 } from '@angular/cdk/layout'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
@@ -45,8 +44,8 @@ export class NavBarComponent {
     }
 
     openLogin() {
-        // this.UI.openDialog(null, LoginComponent, 'login-dialog')
-        this.themeService.setTheme()
+         this.UI.openDialog(null, LoginComponent, 'login-dialog')
+        // this.themeService.setTheme()
     }
 
     ngOnInit(): void {

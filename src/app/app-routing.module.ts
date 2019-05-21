@@ -22,16 +22,53 @@ import { FavoritesComponent } from './components/favorites/favorites.component'
 
 const routes: Routes = [
     { path: '', redirectTo: '/trending', pathMatch: 'full' },
-    { path: 'trending', component: MainPageComponent },
-    { path: 'movies', component: MoviesListComponent },
-    { path: 'shows', component: ShowsListComponent },
-    { path: 'animes', component: AnimesListComponent },
-    { path: 'books', component: BookPageComponent },
-    { path: 'games', component: GamesPageComponent },
-    { path: 'musics', component: MusicPageComponent },
-    { path: 'softwares', component: SoftwarePageComponent },
-    { path: 'search', component: SearchPageComponent },
-    { path: 'favorites', component: FavoritesComponent },
+    {
+        path: 'trending',
+        loadChildren: './components/main-page/main-page.module#MainPageModule',
+    },
+    {
+        path: 'movies',
+        loadChildren:
+            './components/movies-list/movies-list.module#MoviesListModule',
+    },
+    {
+        path: 'shows',
+        loadChildren:
+            './components/shows-list/shows-list.module#ShowsListModule',
+    },
+    {
+        path: 'animes',
+        loadChildren:
+            './components/animes-list/animes-list.module#AnimesPageModule',
+    },
+    {
+        path: 'books',
+        loadChildren: './components/book-page/book-page.module#BookPageModule',
+    },
+    {
+        path: 'games',
+        loadChildren:
+            './components/games-page/games-page.module#GamesPageModule',
+    },
+    {
+        path: 'musics',
+        loadChildren:
+            './components/music-page/music-page.module#MusicPageModule',
+    },
+    {
+        path: 'softwares',
+        loadChildren:
+            './components/software-page/software-page.module#SoftwarePageModule',
+    },
+    {
+        path: 'search',
+        loadChildren:
+            './components/search-page/search-page.module#SearchPageModule',
+    },
+    {
+        path: 'favorites',
+        loadChildren: './components/favorites/favorites.module#FavoritesModule',
+    },
     {
         path: 'about',
         loadChildren: './components/about-page/about.module#AboutPageModule',

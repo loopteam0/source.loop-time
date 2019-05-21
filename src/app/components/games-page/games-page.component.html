@@ -9,8 +9,8 @@
     <div class="spacer"></div>
 
     <mat-form-field>
-      <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
-      <mat-icon class="animated infinite delay-4s" matSuffix (click)="search(input.value)">search </mat-icon>
+      <input #input (keyup.enter)="show1337xTorrents(input.value)" matInput placeholder='Enter a Keyword' type='text'>
+      <mat-icon class="animated infinite delay-4s" matSuffix (click)="show1337xTorrents(input.value)">search </mat-icon>
     </mat-form-field>
   </div>
 </div>
@@ -54,7 +54,7 @@
             </tr>
           </thead>
 
-          <tbody *ngFor='let item of Games | truthify'>
+          <tbody *ngFor='let item of Games | async | truthify'>
             <tr class="animated bounceInUp">
               <th scope="row">
                 <mat-icon>gamepad</mat-icon>

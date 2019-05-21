@@ -1,31 +1,32 @@
 <div class='searchPage'>
 
-    <div class='toolbar'>
-        <mat-card class='flex-container animated bounceInDown'>
+  <div class='toolbar'>
+    <mat-card class='flex-container animated bounceInDown'>
 
-            <mat-form-field >
-                <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
-                <mat-icon class="animated infinite delay-4s" *ngIf="!input.value" matSuffix (click)="search(input.value)">search
-                </mat-icon>
-                <mat-icon class="animated infinite delay-4s" *ngIf="input.value" matSuffix (click)="input.value=''">close
-                </mat-icon>
-                <mat-hint>Search All Categories</mat-hint>
-            </mat-form-field>
+      <mat-form-field>
+        <input #input (keyup.enter)="search(input.value)" matInput placeholder='Enter a Keyword' type='text'>
+        <mat-icon class="animated infinite delay-4s" *ngIf="!input.value" matSuffix (click)="search(input.value)">search
+        </mat-icon>
+        <mat-icon class="animated infinite delay-4s" *ngIf="input.value" matSuffix (click)="input.value=''">close
+        </mat-icon>
+        <mat-hint>Search All Categories</mat-hint>
+      </mat-form-field>
 
-            <mat-form-field class="select">
-              <mat-select placeholder="Limit" [(ngModel)]="limit" name="item">
-                <mat-option *ngFor="let item of category" [value]="item.value">
-                  {{item.name}}
-                </mat-option>
-              </mat-select>
-              <mat-hint>Limit</mat-hint>
-            </mat-form-field>
+      <mat-form-field class="select">
+        <mat-select placeholder="Limit" name="item">
+          <mat-option *ngFor="let item of category" [value]="item.value">
+            {{item.name}}
+          </mat-option>
+        </mat-select>
+        <mat-hint>Limit</mat-hint>
+      </mat-form-field>
 
-        </mat-card>
-    </div>
 
-    <div class="dft-container">
-      <!-- <mat-radio-group name="provider" (change)="onChange(provider)" [(ngModel)]="provider" class="radio-buttons">
+    </mat-card>
+  </div>
+
+  <div class="dft-container">
+    <!-- <mat-radio-group name="provider" (change)="onChange(provider)" [(ngModel)]="provider" class="radio-buttons">
           <mat-radio-button checked='true' value="1337x">1337x</mat-radio-button>
           <mat-radio-button value="pirateBay">The PirateBay</mat-radio-button>
       </mat-radio-group> -->
@@ -38,7 +39,7 @@
       <p class="lead" *ngIf="!loading">{{message}} </p>
       <div class="">
 
-        <table *ngIf="!loading" class="table table-borderless table-hover mat-elevation-z2" >
+        <table *ngIf="!loading" class="table table-borderless table-hover mat-elevation-z2">
 
           <thead>
             <tr>
@@ -52,12 +53,14 @@
             </tr>
           </thead>
 
-          <tbody *ngFor='let item of Results | truthify'>
+          <tbody *ngFor='let item of Results | async | truthify'>
             <tr class="animated bounceInUp">
               <th scope="row">
                 <mat-icon>search</mat-icon>
               </th>
-              <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align"><p class="table-title">{{item.title}}</p></td>
+              <td matTooltip="{{item.provider}}" matTooltipPosition="below" class="align">
+                <p class="table-title">{{item.title}}</p>
+              </td>
               <td>{{item.time}}</td>
               <td>{{item.size}}</td>
               <td>{{item.seeds}}</td>

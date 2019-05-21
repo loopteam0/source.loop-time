@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { TorrentSearchApiService } from '../../services/torrent-search-api.service'
-import { MatSnackBar } from '@angular/material'
 import { UiServiceService } from 'src/app/services/ui-service.service'
 import { AppStateService } from 'src/app/services/app-state.service'
+import { BehaviorSubject } from 'rxjs'
 
 @Component({
     selector: 'app-animes-list',
@@ -10,21 +10,22 @@ import { AppStateService } from 'src/app/services/app-state.service'
     styleUrls: ['./animes-list.component.scss'],
 })
 export class AnimesListComponent implements OnInit {
-    animes = this.State.animeListState
+    animes: BehaviorSubject<Array<any>> = this.State.animeListState
     loading: boolean
     searched: boolean = false
     errorState: boolean = false
+
     searchTerm = ''
     limit = 100
     category = 'PopularAnime'
     constructor(
         private Torrent: TorrentSearchApiService,
-        private snackbar: MatSnackBar,
         private UI: UiServiceService,
         private State: AppStateService
     ) {}
 
     ngOnInit() {
+        console.log(this.animes)
         if (this.animes.value === null) {
             this.showTorrents()
         }
@@ -53,7 +54,7 @@ export class AnimesListComponent implements OnInit {
                 this.errorState = false
                 this.loading = false
                 this.UI.openSnackBar(
-                    `showing ${this.animes.value.length} results`
+                    `showing ${this.animes.value.length || 0} results`
                 )
             },
             err => {

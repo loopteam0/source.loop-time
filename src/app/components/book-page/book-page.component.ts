@@ -1,57 +1,89 @@
-import { Component, OnInit } from "@angular/core";
-import { TorrentSearchApiService } from "../../services/torrent-search-api.service";
-import { MatSnackBar } from '@angular/material';
+import { Component, OnInit } from '@angular/core'
+import { TorrentSearchApiService } from '../../services/torrent-search-api.service'
+import { MatSnackBar } from '@angular/material'
+import { AppStateService } from 'src/app/services/app-state.service'
+import { UiServiceService } from 'src/app/services/ui-service.service'
 
 @Component({
-  selector: "app-book-page",
-  templateUrl: "./book-page.component.html",
-  styleUrls: ["./book-page.component.scss"]
+    selector: 'app-book-page',
+    templateUrl: './book-page.component.html',
+    styleUrls: ['./book-page.component.scss'],
 })
 export class BookPageComponent implements OnInit {
-  Others;
-  loading;
-  searchLoading;
-  searched;
- // provider = '1337x';
-  errorState = false;
-  constructor(private Torrent: TorrentSearchApiService, private snackbar: MatSnackBar) {}
+    Others = this.State.BooksListState
+    loading: boolean
+    searched: boolean
 
-  ngOnInit() {
-    this.showTorrents();
-  }
+    searchTerm = ''
+    limit = 100
+    category = 'PopularOther'
 
-  showTorrents() {
-    this.searched = false;
-    this.loading = true;
-    this.Torrent.getTorrents('', 'PopularOther', 100).then(res => {
-      this.Others = res;
-      this.loading = false;
-    this.errorState = false;
-    }, err => {
-    this.errorState = true;
-    this.loading = false;
-    });
-  }
+    // provider = '1337x';
+    errorState = false
+    constructor(
+        private Torrent: TorrentSearchApiService,
+        private snackbar: MatSnackBar,
+        private State: AppStateService,
+        private UI: UiServiceService
+    ) {}
 
-  search(key) {
-    this.searched = true;
-    this.loading = true;
-    this.errorState = false;
-    this.Torrent.getTorrents(key, 'Other' , 50).then(res => {
-      this.Others = res;
-      this.loading = false;
-      this.showError(`${this.Others.length} Results Found On ${key}`);
-    }, err => {
-    this.showError(err);
-    this.loading = false;
-    });
-  }
+    ngOnInit() {
+        if (this.Others.value === null) {
+            this.showTorrents()
+        }
+    }
 
-  download(torrent) {
-    this.Torrent.downloadMagnet(torrent);
-  }
+    async showTorrents(query?: string) {
+        this.searched = false
+        this.loading = true
 
-  showError(err){
-    this.snackbar.open(err);
-  }
+        if (await query) {
+            this.searched = false
+
+            this.searchTerm = query
+            this.limit = 50
+            this.category = 'Other'
+        }
+
+        this.Torrent.getTorrents(
+            this.searchTerm,
+            this.category,
+            this.limit
+        ).then(
+            res => {
+                this.State.BooksListState.next(res)
+                this.loading = false
+                this.errorState = false
+                this.UI.openSnackBar(
+                    `showing ${this.Others.value.length || 0} results`
+                )
+            },
+            err => {
+                this.errorState = true
+                this.loading = false
+            }
+        )
+    }
+
+    // search(key) {
+    //   this.searched = true;
+    //   this.loading = true;
+    //   this.errorState = false;
+    //   this.Torrent.getTorrents(key, 'Other' , 50).then(res => {
+    //     this.Others = res;
+    //     this.loading = false;
+    //     this.showError(`${this.Others.length} Results Found On ${key}`);
+    //   }, err => {
+    //   this.showError(err);
+    //   this.loading = false;
+    //   });
+    // }
+
+    download(torrent: any) {
+        this.Torrent.downloadMagnet(torrent)
+    }
+
+    showError(err: string) {
+        this.snackbar.open(err)
+    }
 }
