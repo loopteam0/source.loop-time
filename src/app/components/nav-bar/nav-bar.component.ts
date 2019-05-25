@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators'
 import { ElectronService } from '../../services/electron.service'
 import { UiServiceService } from '../../services/ui-service.service'
 import { LoginComponent } from '../login/login.component'
-import { ThemeService } from 'src/app/services/theme.service'
+import { ThemeService } from '../../services/theme.service'
 
 @Component({
     selector: 'app-nav-bar',

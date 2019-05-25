@@ -59,4 +59,15 @@ export class TorrentSearchApiService {
                 return err
             })
     }
+
+    //    parser torrent virus
+
+    async torrentParser(infoHash) {
+        const uri = this.electron.torrentParser.toMagnetURI({
+            infoHash,
+        })
+        console.log(uri)
+
+        this.electron.shell.openExternal(uri)
+    }
 }

@@ -10,10 +10,11 @@ import { Router } from '@angular/router'
 import { SearchService } from '../../services/search.service'
 import { FanartTvService } from '../../services/fanart-tv.service'
 import { MovieDetailsComponent } from '../movie-details/movie-details.component'
-import { UiServiceService } from 'src/app/services/ui-service.service'
+import { UiServiceService } from '../../services/ui-service.service'
 import { Subscription, fromEvent } from 'rxjs'
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 import { NgModel } from '@angular/forms'
+import { AppStateService } from '../../services/app-state.service'
 
 @Component({
     selector: 'app-movies-list',
@@ -45,12 +46,22 @@ export class MoviesListComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(
         public UI: UiServiceService,
         private request: SearchService,
-        private router: Router,
-        private fanartApi: FanartTvService
+        private State: AppStateService
     ) {}
 
     ngOnInit() {
         this.requestMoviesList(1)
+        // this.State.MovieListState.subscribe(res => {
+        //     switch (res) {
+        //         case null:
+        //             this.requestMoviesList(1)
+        //             break
+
+        //         default:
+        //             this.Movies = res
+        //             break
+        //     }
+        // })
     }
 
     ngAfterViewInit() {
@@ -171,5 +182,6 @@ export class MoviesListComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngOnDestroy(): void {
         this.subscribe.unsubscribe()
+        // this.State.MovieListState.next(this.Movies)
     }
 }

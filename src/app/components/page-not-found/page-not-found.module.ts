@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { PageNotFoundComponent } from './page-not-found.component'
-import { MaterialModule } from 'src/app/modules/material/material.module'
+import { MaterialModule } from '../../modules/material/material.module'
 
 const routes: Routes = [{ path: '', component: PageNotFoundComponent }]
 

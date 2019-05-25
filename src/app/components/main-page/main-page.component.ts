@@ -8,7 +8,7 @@ import {
 import { MatSnackBar } from '@angular/material'
 import { MovieDbService } from '../../services/movie-db.service'
 import { OtherMoviesComponent } from '../other-movies/other-movies.component'
-import { UiServiceService } from 'src/app/services/ui-service.service'
+import { UiServiceService } from '../../services/ui-service.service'
 import { Subscription, fromEvent } from 'rxjs'
 import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators'
 

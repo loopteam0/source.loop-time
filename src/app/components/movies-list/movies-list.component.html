@@ -36,11 +36,11 @@
     <div class="main-tab-container" id="top">
 
 
-      <div class="card-container" *ngFor="let item of Movies ">
+      <div class="card-container" *ngFor="let item of Movies">
         <div *ngIf="!moviesLoading">
           <mat-card (click)="openDialog(item.id,item.imdb_code)" class=" animated bounceInUp">
             <div class="img-box">
-              <img mat-card-image onerror="this.src='./assets/placeholder.movie.png'" src="{{item.large_cover_image}}"
+              <img mat-card-image onerror="this.src='./assets/placeholder.movie.png'" src="{{item.medium_cover_image}}"
                 class="card-image" alt="">
             </div>
             <div class="icon">

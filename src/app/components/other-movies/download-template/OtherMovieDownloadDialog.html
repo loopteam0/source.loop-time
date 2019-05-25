@@ -1,41 +1,42 @@
+<div class="tabs">
 
- <div class="tabs">
+  <button (click)="dialogRef.close()" class="btn-close" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+  <h4 mat-dialog-title>Download</h4>
 
-    <button (click)="dialogRef.close()" class="btn-close" mat-icon-button><mat-icon>close</mat-icon></button>
-     <h4 mat-dialog-title>Download</h4>
 
-
-    <mat-dialog-content>
+  <mat-dialog-content>
 
     <div *ngIf="errorState" class="error-card errorHandler">
-        <h1>
-          An error occured
-        </h1>
-        <button mat-raised-button color="accent" (click)="showMovies()">RETRY</button>
+      <h1>
+        An error occured
+      </h1>
+      <button mat-raised-button color="accent" (click)="showMovies()">RETRY</button>
+    </div>
+
+
+    <!-- show spinner here -->
+
+    <div *ngIf="loading" class="spinner-cont">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="tabs">
+      <div class="" class="files">
+
+        <mat-nav-list>
+          <mat-list-item *ngFor="let item of movies | truthify" class="animated bounceInRight">
+            <a class="trucn" matTooltip="{{item.provider}} || {{item.time}}" matLine>{{item.title|scan:'&'}}</a>
+            <span>{{item.size}}</span>
+            <a mat-icon-button (click)="download(item)" class="series-link">
+              <mat-icon matTooltip="Seeds: {{item.seeds}} || Peers: {{item.peers}}" color="primary">file_download
+              </mat-icon>
+            </a>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </mat-nav-list>
       </div>
-
-
-         <!-- show spinner here -->
-
-         <div *ngIf="loading" class="spinner-cont">
-           <div class="spinner" ></div>
-         </div>
-
-        <div class="tabs">
-            <div class=""  class="files">
-
-                <mat-nav-list >
-                    <mat-list-item *ngFor="let item of movies | truthify" class="animated bounceInRight">
-                        <a class="trucn" matTooltip="{{item.provider}} || {{item.time}}" matLine
-                        >{{item.title|scan:'&'}}</a>
-                        <span>{{item.size}}</span>
-                        <a mat-icon-button (click)="download(item)" class="series-link">
-                            <mat-icon matTooltip="Seeds: {{item.seeds}} || Peers: {{item.peers}}" color="primary">file_download</mat-icon>
-                        </a>
-                        <mat-divider ></mat-divider>
-                    </mat-list-item>
-                </mat-nav-list>
-            </div>
-        </div>
+    </div>
   </mat-dialog-content>
 </div>

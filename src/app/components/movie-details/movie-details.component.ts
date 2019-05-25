@@ -5,9 +5,10 @@ import { SearchService } from '../../services/search.service'
 import { ElectronService } from '../../services/electron.service'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'
 import { FanartTvService } from '../../services/fanart-tv.service'
-import { UiServiceService } from 'src/app/services/ui-service.service'
+import { UiServiceService } from '../../services/ui-service.service'
 import { Subscription } from 'rxjs'
 import { DomSanitizer } from '@angular/platform-browser'
+import { TorrentSearchApiService } from '../../services/torrent-search-api.service'
 
 export interface DialogData {
     torrents: Array<any>
@@ -33,8 +34,9 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     errorState = false
     background
     banner
-    coverImg: any;
-    trailer: any;
+    coverImg: any
+    trailer: any
+    randomMovies: import('/home/loop-inc/Documents/coding/Loop-Client/src/app/services/interface').MoviesInt[]
 
     constructor(
         public UI: UiServiceService,
@@ -54,11 +56,12 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         this.subscribe = this.request.getMovieDetails(this.Id).subscribe(
             data => {
                 this.movieDetails = data['movie']
-                this.showImage(this.movieDetails.imdb_code)
+                // this.showImage(this.movieDetails.imdb_code)
+                this.setBackground(this.movieDetails.background_image)
+                this.showRandomMovies(this.movieDetails.id)
                 this.loading = false
                 this.errorState = false
-                this.watchTrailer()
-                this.setBackground(this.movieDetails.background_image_original);
+                // this.watchTrailer()
             },
             err => {
                 this.openSnackBar(err)
@@ -74,20 +77,40 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         this.getmoviedetails()
     }
 
-    openDialog(data): void {
-        const info: object = {
-            title: this.movieDetails.title_long,
-            files: this.movieDetails.torrents,
-            torrents: this.movieDetails,
+    showRandomMovies(id) {
+        this.request.getRandomMovies(id).subscribe(res => {
+            this.randomMovies = res['movies']
+        })
+    }
+
+    openDialog(id, imdb_id): void {
+        if (id) {
+            const info: object = {
+                id: id,
+                imdb_id: imdb_id,
+            }
+            this.UI.openDialog(
+                info,
+                MovieDetailsComponent,
+                'Download-dialog',
+                '100%',
+                '100vw'
+            )
+        } else {
+            const info: object = {
+                title: this.movieDetails.title_long,
+                files: this.movieDetails.torrents,
+                torrents: this.movieDetails,
+            }
+            this.UI.openDialog(
+                info,
+                MovieDownloadDialogComponent,
+                'movie-download-dialog',
+                'auto',
+                'auto',
+                false
+            )
         }
-        this.UI.openDialog(
-            info,
-            MovieDownloadDialogComponent,
-            'movie-download-dialog',
-            'auto',
-            'auto',
-            false
-        )
     }
 
     closeMe() {
@@ -102,26 +125,28 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         this.UI.openSnackBar(`Downloading ${title} ${quality}`)
     }
 
-    openSubtitle(url) {
-        let link = `http://www.yifysubtitles.com/movie-imdb/${url}`
-        this.UI.openLink(link)
+    openSubtitle(url: any) {
+        this.UI.openLink(`http://www.yifysubtitles.com/movie-imdb/${url}`)
+    }
+
+    openLink() {
+        this.UI.openMartLink()
     }
 
     setBackground(url: string) {
         this.coverImg = this.sanitizer.bypassSecurityTrustUrl(url)
     }
 
-    showImage(id) {
-        this.fanartApi.getMovieImages(id, 'movies').subscribe(res => {
-            this.background = res['moviebackground']
-            this.banner = res['moviebanner']
-            console.log(res, this.background)
-            console.log(this.banner)
-        })
-    }
+    // showImage(id) {
+    //     this.fanartApi.getMovieImages(id, 'movies').subscribe(res => {
+    //         this.background = res['moviebackground']
+    //         this.banner = res['moviebanner']
+    //         console.log(res, this.background)
+    //     })
+    // }
 
     watchTrailer() {
-        this.trailer = this.sanitizer.bypassSecurityTrustResourceUrl(
+        return this.sanitizer.bypassSecurityTrustResourceUrl(
             `https://www.youtube.com/embed/${this.movieDetails.yt_trailer_code}`
         )
     }
@@ -160,7 +185,7 @@ export class MovieDownloadDialogComponent {
         public dialogRef: MatDialogRef<MovieDownloadDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         public snackBar: MatSnackBar,
-        private electron: ElectronService
+        private torrent: TorrentSearchApiService
     ) {}
 
     onNoClick(): void {
@@ -172,10 +197,7 @@ export class MovieDownloadDialogComponent {
     }
 
     download(url) {
-        this.electron.shell.openItem(url)
+        // this.electron.shell.openItem(url)
+        this.torrent.torrentParser(url)
     }
-
-    // retry(){
-    //   this.el.
-    // }
 }

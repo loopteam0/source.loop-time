@@ -18,7 +18,7 @@ const downloadDir = `${app.getPath('downloads')}\\LoopClient\\`;
 const rootPath = path.join(__dirname, 'dist', 'app');
 let splash;
 
-const prod = false;
+const prod = true;
 
 // check for update at lunch time
 function checkForUpdates() {

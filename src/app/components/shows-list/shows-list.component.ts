@@ -6,19 +6,12 @@ import {
     AfterViewInit,
     ElementRef,
 } from '@angular/core'
-import { MatSnackBar, MatInput } from '@angular/material'
 import { SearchService } from '../../services/search.service'
 import { ShowDetailsComponent } from '../show-details/show-details.component'
-import { UiServiceService } from 'src/app/services/ui-service.service'
+import { UiServiceService } from '../../services/ui-service.service'
 import { Subscription, fromEvent } from 'rxjs'
-import {
-    debounceTime,
-    distinctUntilChanged,
-    map,
-    tap,
-    switchMap,
-} from 'rxjs/operators'
-import { NgModel } from '@angular/forms'
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
+import { AppStateService } from '../../services/app-state.service'
 
 @Component({
     selector: 'app-shows-list',
@@ -26,7 +19,7 @@ import { NgModel } from '@angular/forms'
     styleUrls: ['./shows-list.component.scss'],
 })
 export class ShowsListComponent implements OnInit, OnDestroy, AfterViewInit {
-    public Shows: Array<any>
+    public Shows: any
     public Pages: any
     pagination: boolean = true
     errorState: boolean
@@ -45,10 +38,24 @@ export class ShowsListComponent implements OnInit, OnDestroy, AfterViewInit {
     pageIndex
     pageSizeOptions = [50, 30, 10]
 
-    constructor(private UI: UiServiceService, private request: SearchService) {}
+    constructor(
+        private UI: UiServiceService,
+        private request: SearchService,
+        private State: AppStateService
+    ) {}
 
     ngOnInit() {
         this.requestShowList(1)
+        //  this.State.TvShowsState.subscribe(res => {
+        //     switch (res) {
+        //         case null:
+        //             this.requestShowList(1)
+        //             break
+        //         default:
+        //             this.Shows = res
+        //             break
+        //     }
+        // })
     }
 
     ngAfterViewInit() {
@@ -161,5 +168,6 @@ export class ShowsListComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngOnDestroy(): void {
         this.subscribe.unsubscribe()
+        // this.State.TvShowsState.next(this.Shows)
     }
 }

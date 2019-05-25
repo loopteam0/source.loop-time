@@ -34,7 +34,7 @@ export class UiServiceService {
         })
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log(result)
+            // console.log(result)
         })
     }
 
@@ -67,6 +67,11 @@ export class UiServiceService {
         }
     }
 
+    openMartLink() {
+        this.electron.shell.openExternal(
+            'https://www.amazon.com/Amazon-Video/b/ref=sv_atv_logo?node=2858778011&ie=UTF8'
+        )
+    }
     // setting a custom titleBar
     setTitlebar(color: string = '#fff') {
         new this.CustomTitlebar.Titlebar({

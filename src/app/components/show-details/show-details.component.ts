@@ -5,8 +5,9 @@ import { ShowDownloadDialogComponent } from './default-dialog-dialog/shows-downl
 import { SearchService } from '../../services/search.service'
 import { Inject } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'
-import { UiServiceService } from 'src/app/services/ui-service.service'
+import { UiServiceService } from '../../services/ui-service.service'
 import { Subscription } from 'rxjs'
+import { FanartTvService } from '../../services/fanart-tv.service'
 
 export interface DialogData {
     episodes: object
@@ -30,6 +31,9 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
     Id
     showDataloading
     cover: ElementRef
+    background: any
+    banner: any
+    randomMovie: any
 
     constructor(
         public UI: UiServiceService,
@@ -37,18 +41,22 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
         private request: SearchService,
         public snackBar: MatSnackBar,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        private fanartApi: FanartTvService
     ) {}
 
     requestShowDetails() {
         // start spinner
         this.showDataloading = true
+        this.errorState = false
         /// get the details of the show from popCorn api
         this.subscribe = this.request.getShowDetails(this.Id).subscribe(
             data => {
                 this.showDetails = data
                 this.showDataloading = false
                 this.errorState = false
+                this.showRandom()
+                //  this.showImage(data['tvdb_id'])
             },
             err => {
                 this.openSnackBar(err)
@@ -56,6 +64,33 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
                 this.showDataloading = false
             }
         )
+    }
+
+    openDialog(data): void {
+        const info: object = {
+            id: data,
+        }
+        this.UI.openDialog(
+            info,
+            ShowDetailsComponent,
+            'Download-dialog',
+            '100vh',
+            '100vw'
+        )
+    }
+
+    // showImage(id) {
+    //     this.fanartApi.getMovieImages(id, 'tv').subscribe(res => {
+    //         this.background = res['moviebackground']
+    //         this.banner = res['moviebanner']
+    //         console.log(res, this.background)
+    //     })
+    // }
+
+    showRandom() {
+        this.subscribe = this.request.getRandomShows().subscribe(res => {
+            this.randomMovie = res
+        })
     }
 
     ngOnInit() {
@@ -73,13 +108,14 @@ export class ShowDetailsComponent implements OnInit, OnDestroy {
         this.UI.openDialog(
             info,
             ShowDownloadDialogComponent,
-            'shows-download-dialog'
+            'shows-download-dialog',
+            '100vh',
+            '100vw'
         )
     }
 
-    RETRY() {
-        this.errorState = false
-        this.requestShowDetails()
+    openLink() {
+        this.UI.openMartLink()
     }
 
     setBackground(url: string) {

@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router'
 import { NgModule } from '@angular/core'
 import { AboutPageComponent } from './about-page.component'
-import { MaterialModule } from 'src/app/modules/material/material.module'
+import { MaterialModule } from '../../modules/material/material.module'
 
 const routes: Routes = [{ path: '', component: AboutPageComponent }]
 

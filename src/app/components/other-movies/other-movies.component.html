@@ -186,15 +186,15 @@
         <!-- movie content -->
         <div class="content ">
 
-          <h1>{{movieDetails.title|scan:'&'}}</h1> <span
-            class="year small">({{movieDetails.release_date | date:"yyyy"}})</span>
+          <h1>{{movieDetails.title|scan:'&'}} <span
+              class="year small">({{movieDetails.release_date | date:"yyyy"}})</span></h1>
 
           <p class="meta">
             <span>{{movieDetails.spoken_languages[0].name}} | </span>
             <!-- <span>{{movieDetails.date_uploaded}} | </span> -->
             <span>{{movieDetails.runtime |duration}} | </span>
-            <span>{{movieDetails.mpa_rating ? movieDetails.mpa_rating : ''}} | </span>
-            <span>{{movieDetails.download_count}} downloads</span>
+            <!-- <span>{{movieDetails.mpa_rating ? movieDetails.mpa_rating : ''}} | </span> -->
+            <span>{{movieDetails.vote_count}} votes</span>
           </p>
 
           <div class="genre">
@@ -221,7 +221,7 @@
 
           <div class="container">
             <p class="body">
-              {{movieDetails.description_intro | shorten: 430: ' ...'}}
+              {{movieDetails.overview | shorten: 400: ' ...'}}
             </p>
           </div>
 
@@ -230,24 +230,15 @@
               <mat-icon>file_download</mat-icon> </button>
 
 
-            <a [href]="movieDetails.homepage" mat-raised-button>
+            <button (click)="openLink(movieDetails.homepage)" mat-raised-button>
               Buy Online <mat-icon>shoping_cart</mat-icon>
-            </a>
+            </button>
 
           </div>
 
         </div>
       </div>
     </mat-tab>
-
-    <!-- trailler -->
-    <!-- <mat-tab *ngIf="movieDetails.yt_trailer_code" class="trailer" label="TRAILER">
-
-      <div class="trailer2">
-        <iframe *ngIf="movieDetails.yt_trailer_code" frameborder="0"></iframe>
-      </div>
-
-    </mat-tab> -->
 
     <!-- simillar movies -->
     <mat-tab label="CASTS & SCREENSHOTS">
@@ -279,9 +270,9 @@
     </mat-tab>
 
     <!-- simillar movies -->
-    <mat-tab label="SIMILAR MOVIES">
+    <!-- <mat-tab label="SIMILAR MOVIES">
 
-    </mat-tab>
+    </mat-tab> -->
   </mat-tab-group>
 
   <div class="cover">

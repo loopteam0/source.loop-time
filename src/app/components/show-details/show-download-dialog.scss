@@ -3,104 +3,143 @@
 @import "../../scss/variables";
 
 
-    h4 {
-        text-align: center;
+h4 {
+  text-align: center;
 
-    }
-    .left{
-      float: right;
-      margin-right: 35px;
+}
 
-      span{
-        margin: 3px 10px;
+.left {
+  float: right;
+  margin-right: 35px;
 
-      }
+  span {
+    margin: 3px 10px;
 
-    }
+  }
+
+}
 
 
-.errorHandler{
+.errorHandler {
   text-align: center;
   margin: auto auto;
 
 }
-    .download {
-        margin: auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
 
-        button {
-            @include mat-elevation(2);
-            margin-bottom: 8px;
-            &:hover {
-                @include mat-elevation-transition;
-                @include mat-elevation(8);
-            }
-            &:active {
-                @include mat-elevation(8);
-            }
-        }
+.download {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  button {
+    @include mat-elevation(2);
+    margin-bottom: 8px;
+
+    &:hover {
+      @include mat-elevation-transition;
+      @include mat-elevation(8);
     }
 
-
-    h4 {
-        text-align: center;
+    &:active {
+      @include mat-elevation(8);
     }
-
-    mat-nav-list{
-        margin-bottom: 5px;
-    }
-
-mat-list-item {
-    padding-right: 0;
-    padding-left: 0;
-
-    &:hover{
-        background: none !important;
-        @include mat-elevation(2);
-        transition: 0.3s ease-in-out;
-        cursor: default;
-
-    }
-
-    mat-icon{
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: 0.3s ease-in-out;
-        border-radius: 50%;
-        &.hide{
-            visibility: hidden;
-        }
-
-        &:hover{
-          color: mat-color($accent);
-          background-color: transparentize(mat-color($accent), 0.8);
-          transition: 0.3s ease-in-out;
-        }
-    }
-
-    .series-link{
-        width: 40px !important;
-        max-width: 40px !important;
-        height: 40px;
-        margin: 2px 8px;
-        cursor: default;
-    }
+  }
 }
 
-.errorHandler{
+
+h4 {
+  text-align: center;
+}
+
+mat-nav-list {
+  margin-bottom: 5px;
+}
+
+mat-list-item {
+  padding-right: 0;
+  padding-left: 0;
+
+  &:hover {
+    background: none !important;
+    @include mat-elevation(2);
+    transition: 0.3s ease-in-out;
+    cursor: default;
+
+  }
+
+  mat-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    border-radius: 50%;
+
+    &.hide {
+      visibility: hidden;
+    }
+
+    &:hover {
+      color: mat-color($accent);
+      background-color: transparentize(mat-color($accent), 0.8);
+      transition: 0.3s ease-in-out;
+    }
+  }
+
+  .series-link {
+    width: 40px !important;
+    max-width: 40px !important;
+    height: 40px;
+    margin: 2px 8px;
+    cursor: default;
+  }
+}
+
+.errorHandler {
   text-align: center;
   margin: 30px auto;
 
 }
 
-.fade{
+.fade {
   opacity: 0.8;
 }
 
+.cover {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
+  .bg-image {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    opacity: .7;
+  }
+
+}
+
+
+
+.cont {
+  position: relative;
+  height: 100%;
+  top: 50px;
+  z-index: 1000;
+  margin-top: -50px;
+
+  .mat-tab-body-content {
+    height: auto;
+    overflow: hidden !important;
+  }
+
+}

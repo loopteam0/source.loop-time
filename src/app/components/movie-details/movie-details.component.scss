@@ -3,6 +3,7 @@
 @import "../../scss/mixins";
 @import "../../scss/details";
 @import "../../../custom-theme.scss";
+@import "../../scss/media-list";
 
 p.body {
   margin-bottom: 0;
@@ -22,55 +23,49 @@ p.body {
   }
 }
 
-.tab-content {
-  margin: 5px 16px;
-  padding: 16px;
+// .tab-content {
+//   margin: 5px 16px;
+//   padding: 16px;
 
-  .cat {
-    display: grid;
-    grid-template-columns: 50% 50%;
+//   .cat {
+//     display: grid;
+//     grid-template-columns: 50% 50%;
 
-  }
+//   }
 
-}
+// }
 
 
-.general {
-  margin: 16px;
-  margin-bottom: 0;
-  padding: 16px 0 0 0;
-  width: 95%;
-  display: grid;
-  grid-template-columns: 50% 50%;
-  overflow: hidden;
+// .general {
+//   margin: 16px;
+//   margin-bottom: 0;
+//   padding: 16px 0 0 0;
+//   width: 95%;
+//   display: grid;
+//   grid-template-columns: 50% 50%;
+//   overflow: hidden;
 
-  strong {
-    text-transform: capitalize;
-  }
+//   strong {
+//     text-transform: capitalize;
+//   }
 
-  .cat-1 {
-    a {
-      cursor: pointer;
-      color: mat-color($primary);
+//   .cat-1 {
+//     a {
+//       cursor: pointer;
+//       color: mat-color($primary);
 
-      &:hover {
-        color: darken(mat-color($primary), 50%);
-        transition: 0.3s;
-      }
-    }
-  }
+//       &:hover {
+//         color: darken(mat-color($primary), 50%);
+//         transition: 0.3s;
+//       }
+//     }
+//   }
 
-}
+// }
 
 .main-card {
   height: 530px;
   max-height: 550px;
-}
-
-#details-page {
-  padding-bottom: 540px;
-  padding-top: 110px;
-  background-image: url('https://consequenceofsound.files.wordpress.com/2018/06/how-to-train-your-dragon-the-hidden-world-toothless-hiccup-light-fury.png?w=10007');
 }
 
 
@@ -113,4 +108,11 @@ p.body {
 
 .screenshots-card {
   padding-bottom: 5px;
+}
+
+.main-tab-container .card-container {
+  mat-card {
+    width: 11rem !important;
+    height: 15rem !important;
+  }
 }

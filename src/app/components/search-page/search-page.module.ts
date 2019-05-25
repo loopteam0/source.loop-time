@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from '@angular/router'
 import { NgModule } from '@angular/core'
-import { MaterialModule } from 'src/app/modules/material/material.module'
+import { MaterialModule } from '../../modules/material/material.module'
 import { NgPipesModule } from 'ngx-pipes'
 import { CommonModule } from '@angular/common'
 import { SpinnerModule } from '../spinner/spinner.module'

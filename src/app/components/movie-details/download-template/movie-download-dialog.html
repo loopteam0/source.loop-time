@@ -26,9 +26,9 @@
                   <span>{{item.quality}} </span>
                 </p>
                 <p>
-                    <strong>Type: </strong>
-                    <span>{{item.type}}</span>
-                  </p>
+                  <strong>Type: </strong>
+                  <span>{{item.type}}</span>
+                </p>
               </div>
 
               <div class="cat-2 ">
@@ -49,8 +49,7 @@
 
             <div class="download">
               <div class="button">
-                <a class="animated fadeInUp" mat-fab [href]="item.url" (click)="openSnackBar(data.title , item.quality )"
-                  color="primary">
+                <a class="animated fadeInUp" mat-fab (click)="download(item.hash)" color="primary">
                   <mat-icon>file_download</mat-icon>
                 </a>
               </div>

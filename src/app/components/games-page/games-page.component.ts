@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { TorrentSearchApiService } from '../../services/torrent-search-api.service'
 import { MatSnackBar } from '@angular/material'
-import { AppStateService } from 'src/app/services/app-state.service'
-import { UiServiceService } from 'src/app/services/ui-service.service'
+import { AppStateService } from '../../services/app-state.service'
+import { UiServiceService } from '../../services/ui-service.service'
 
 @Component({
     selector: 'app-games-page',
@@ -11,9 +11,9 @@ import { UiServiceService } from 'src/app/services/ui-service.service'
 })
 export class GamesPageComponent implements OnInit {
     Games = this.State.GamesListState
-    PirateGames
-    loading
-    searched
+    PirateGames: any
+    loading: boolean
+    searched: boolean
     errorState = false
 
     searchTerm = ''
@@ -28,8 +28,19 @@ export class GamesPageComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        if (this.Games.value === null) {
-            this.show1337xTorrents()
+        switch (this.Games.value) {
+            case null:
+                console.log(this.Games.value)
+                this.show1337xTorrents()
+                break
+            case undefined:
+                console.log(this.Games.value)
+                this.show1337xTorrents()
+                break
+            default:
+                console.log(this.Games.value)
+
+                break
         }
     }
 
@@ -39,7 +50,7 @@ export class GamesPageComponent implements OnInit {
         this.errorState = false
 
         if (await query) {
-            this.searched = false
+            this.searched = true
 
             this.searchTerm = query
             this.limit = 50
@@ -55,9 +66,6 @@ export class GamesPageComponent implements OnInit {
                 this.State.GamesListState.next(res)
                 this.loading = false
                 this.errorState = false
-                this.UI.openSnackBar(
-                    `showing ${this.Games.value.length || 0} results`
-                )
             })
             .catch(err => {
                 this.loading = false

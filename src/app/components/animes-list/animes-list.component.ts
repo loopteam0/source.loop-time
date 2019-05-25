@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { TorrentSearchApiService } from '../../services/torrent-search-api.service'
-import { UiServiceService } from 'src/app/services/ui-service.service'
-import { AppStateService } from 'src/app/services/app-state.service'
+import { UiServiceService } from '../../services/ui-service.service'
+import { AppStateService } from '../../services/app-state.service'
 import { BehaviorSubject } from 'rxjs'
 
 @Component({
@@ -18,6 +18,7 @@ export class AnimesListComponent implements OnInit {
     searchTerm = ''
     limit = 100
     category = 'PopularAnime'
+
     constructor(
         private Torrent: TorrentSearchApiService,
         private UI: UiServiceService,
@@ -26,8 +27,18 @@ export class AnimesListComponent implements OnInit {
 
     ngOnInit() {
         console.log(this.animes)
-        if (this.animes.value === null) {
-            this.showTorrents()
+
+        switch (this.animes.value) {
+            case null:
+                console.log(this.animes.value)
+                this.showTorrents()
+                break
+            case undefined:
+                console.log(this.animes.value)
+                this.showTorrents()
+                break
+            default:
+                break
         }
     }
 
@@ -37,7 +48,7 @@ export class AnimesListComponent implements OnInit {
         this.errorState = false
 
         if (await query) {
-            this.searched = false
+            this.searched = true
 
             this.searchTerm = query
             this.limit = 50
@@ -51,11 +62,10 @@ export class AnimesListComponent implements OnInit {
         ).then(
             torrents => {
                 this.State.animeListState.next(torrents)
+                console.log(torrents)
+
                 this.errorState = false
                 this.loading = false
-                this.UI.openSnackBar(
-                    `showing ${this.animes.value.length || 0} results`
-                )
             },
             err => {
                 this.UI.openSnackBar(err)

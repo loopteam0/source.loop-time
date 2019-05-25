@@ -10,7 +10,7 @@
             <h1>
               An error occured
             </h1>
-            <button mat-raised-button color="accent" (click)="RETRY()">
+            <button mat-raised-button color="accent" (click)="requestShowDetails()">
               RETRY
             </button>
           </div>
@@ -34,15 +34,15 @@
         <!-- movie image -->
         <div class="image ">
           <img class="card-img-top" onerror="this.src='./assets/placeholder.show.png'"
-            src="{{ showDetails.images.banner }}" alt="image not found" />
+            src="{{showDetails.images.banner}}" alt="image not found" />
         </div>
 
         <!-- movie content -->
         <div class="content">
-          <h1>{{ showDetails.title | scan: '&' }} <span class="year small">{{showDetails.year}}</span></h1>
+          <h1>{{ showDetails.title | scan: '&' }} <span class="year small">({{showDetails.year}})</span></h1>
 
           <p class="meta">
-            <span>{{showDetails.network}} | </span>
+            <span>{{showDetails.network | scan: '&'}} | </span>
             <span> Season {{showDetails.num_seasons}} | </span>
             <span> on {{showDetails.air_day}} | </span>
             <!-- <span>{{showDetails.country}} | </span> -->
@@ -72,7 +72,7 @@
           </div>
           <div class="container">
             <p class="body">
-              {{ showDetails.synopsis | shorten: 430:[' ...'] }}
+              {{ showDetails.synopsis | shorten: 300: ' ...'}}
             </p>
           </div>
 
@@ -83,11 +83,8 @@
                                     showDetails.num_seasons)" mat-raised-button>
               Free Download <mat-icon>file_download</mat-icon>
             </button>
-            <button (click)="openShowsDialog(
-                                    showDetails.episodes,
-                                    showDetails.title,
-                                    showDetails.num_seasons)" mat-raised-button>
-              Buy On {{showDetails.network}} <mat-icon>shoping_cart</mat-icon>
+            <button (click)="openLink()" mat-raised-button>
+              Buy On {{showDetails.network | scan: '&'}} <mat-icon>shoping_cart</mat-icon>
             </button>
           </div>
         </div>
@@ -95,14 +92,35 @@
     </mat-tab>
 
     <!-- trailler -->
-    <mat-tab class="trailer" label="TRAILER">
+    <!-- <mat-tab class="trailer" label="TRAILER">
       <div class="trailer2">
         <iframe src="" frameborder="0"></iframe>
       </div>
-    </mat-tab>
+    </mat-tab> -->
 
     <!-- simillar movies -->
-    <mat-tab label="SIMILAR MOVIES"> </mat-tab>
+    <mat-tab label="SIMILAR MOVIES">
+
+      <div *ngIf="randomMovie" class="main-tab-container">
+        <div class="card-container">
+          <mat-card (click)="openDialog(randomMovie.imdb_id)" class=" animated bounceInUp">
+            <div class="img-box">
+              <img mat-card-image onerror="this.src='./assets/placeholder.shows.png'" class="card-image"
+                src="{{randomMovie.images.poster}}" alt="{{randomMovie.title}} ">
+            </div>
+            <div class="icon">
+              <a mat-mini-fab>{{randomMovie.rating.percentage/10}}</a>
+              <!-- <span>{{show.rating.percentage/10}}</span> -->
+            </div>
+            <div class="content">
+              <p class="title">{{randomMovie.title|scan:'&'}}</p>
+              <p class="year">{{randomMovie.year}}</p>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+
+    </mat-tab>
   </mat-tab-group>
 
   <div class="cover">

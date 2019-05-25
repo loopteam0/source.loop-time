@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { AuthService } from '../../services/auth.service'
 import { MatDialogRef } from '@angular/material'
-import { UiServiceService } from 'src/app/services/ui-service.service'
+import { UiServiceService } from '../../services/ui-service.service'
 
 @Component({
     selector: 'app-login',

@@ -6,8 +6,8 @@ import { TorrentSearchApiService } from '../../services/torrent-search-api.servi
 import { ElectronService } from '../../services/electron.service'
 import { MatSnackBar } from '@angular/material'
 import { DatePipe } from '@angular/common'
-import { UiServiceService } from 'src/app/services/ui-service.service'
-import { DomSanitizer } from '@angular/platform-browser';
+import { UiServiceService } from '../../services/ui-service.service'
+import { DomSanitizer } from '@angular/platform-browser'
 
 let MovieTitle: any
 let movieYear: string
@@ -64,19 +64,16 @@ export class OtherMoviesComponent implements OnInit {
             },
             err => {
                 this.errorState = true
-                this.loading = false,
-                this.UI.openSnackBar(err)
+                ;(this.loading = false), this.UI.openSnackBar(err)
             }
         )
     }
 
-    opensubtitle(url: any) {
+    openLink(url: any) {
         if (this.electron.isElectron()) {
-            this.electron.shell.openExternal(
-                `www.yifysubtitles.com/movie-imdb/${url}`
-            )
+            this.electron.shell.openExternal(url)
         } else {
-            window.open(`http://www.yifysubtitles.com/movie-imdb/${url}`)
+            window.open(url)
         }
     }
 
@@ -102,7 +99,9 @@ export class OtherMoviesComponent implements OnInit {
     }
 
     setBackground(url: any) {
-      this.banner = this.sanitizer.bypassSecurityTrustUrl(`https://image.tmdb.org/t/p/w780/${url}`)
+        this.banner = this.sanitizer.bypassSecurityTrustUrl(
+            `https://image.tmdb.org/t/p/w780/${url}`
+        )
     }
     showError(err: string) {
         this.snackbar.open(err)
@@ -187,7 +186,7 @@ export class OtherMovieDownloadDialogComponent implements OnInit {
         })
     }
 
-    download(torrent: { title: string; }) {
+    download(torrent) {
         this.openSnackBar(torrent.title)
         this.torrent.downloadMagnet(torrent)
     }

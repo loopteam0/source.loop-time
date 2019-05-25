@@ -125,6 +125,7 @@
     "electron-updater": "^4.0.6",
     "firebase": "5.9.2",
     "hammerjs": "^2.0.8",
+    "parse-torrent": "^6.1.2",
     "torrent-search-api": "^2.0.7"
   },
   "devDependencies": {

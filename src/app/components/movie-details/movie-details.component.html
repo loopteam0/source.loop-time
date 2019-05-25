@@ -168,7 +168,7 @@
         <!-- movie content -->
         <div class="content ">
 
-          <h1>{{movieDetails.title_english|scan:'&'}} <span class="year small">{{movieDetails.year}}</span></h1>
+          <h1>{{movieDetails.title_english|scan:'&'}} <span class="year small">({{movieDetails.year}})</span></h1>
 
           <p class="meta">
             <span>{{movieDetails.language}} | </span>
@@ -202,16 +202,16 @@
 
           <div class="container">
             <p class="body">
-              {{movieDetails.description_intro | shorten: 430: ' ...'}}
+              {{movieDetails.description_intro | shorten: 300: ' ...'}}
             </p>
           </div>
 
           <div class="buttons">
-            <button (click)="openDialog(movieDetails.torrents)" mat-raised-button>
+            <button (click)="openDialog()" mat-raised-button>
               Free Download <mat-icon>file_download</mat-icon>
             </button>
 
-            <button (click)="openDialog(movieDetails.torrents)" mat-raised-button>
+            <button (click)="openLink()" mat-raised-button>
               Buy Online <mat-icon>shoping_cart</mat-icon>
             </button>
           </div>
@@ -224,7 +224,7 @@
     <mat-tab *ngIf="trailer" class="trailer" label="TRAILER">
 
       <div class="trailer2">
-        <iframe *ngIf="trailer" [src]="trailer" frameborder="0"></iframe>
+        <iframe *ngIf="trailer" [src]="watchTrailer" frameborder="0"></iframe>
       </div>
 
     </mat-tab>
@@ -233,11 +233,11 @@
     <mat-tab label="CASTS & SCREENSHOTS">
 
       <div class="cast-tab">
-        <div *ngIf="movieDetails.cast[0]" class="container cast">
-         
-          <div class="row">
-            <div class="col" *ngFor="let item of movieDetails.cast[0]">
-              <div class="placeholder"><img [src]="item.url_small_image" alt=""></div>
+        <div *ngIf="movieDetails" class="container cast">
+
+          <div *ngIf="movieDetails.cast" class="row">
+            <div class="col" *ngFor="let item of movieDetails.cast">
+              <div class="placeholder"><img *ngIf="item.url_small_image" [src]="item.url_small_image" alt=""></div>
               <p>{{item.name}}</p>
               <p class="small">as</p>
               <P class="cast-sub-text">{{item.character_name}}</P>
@@ -246,9 +246,9 @@
         </div>
 
 
-        <div *ngIf="movieDetails.medium_screenshot_image1" class=" container ">
+        <div *ngIf="movieDetails" class=" container ">
 
-          <div class="screenshots">
+          <div *ngIf="movieDetails.medium_screenshot_image1" class="screenshots">
             <img src="{{movieDetails.medium_screenshot_image1}}" alt="">
             <img src="{{movieDetails.medium_screenshot_image2}}" alt="">
             <!-- <img src="{{movieDetails.medium_screenshot_image3}}" alt=""> -->
@@ -261,6 +261,29 @@
 
     <!-- simillar movies -->
     <mat-tab label="SIMILAR MOVIES">
+
+      <div class="main-tab-container" id="top">
+
+
+        <div class="card-container" *ngFor="let item of randomMovies">
+          <div *ngIf="randomMovies">
+            <mat-card (click)="openDialog(item.id,item.imdb_code)" class=" animated bounceInUp">
+              <div class="img-box">
+                <img mat-card-image onerror="this.src='./assets/placeholder.movie.png'"
+                  src="{{item.medium_cover_image}}" class="card-image" alt="">
+              </div>
+              <div class="icon">
+                <a mat-mini-fab>{{item.rating}}</a>
+              </div>
+              <div class="content">
+                <p class="title">{{item.title|scan:'&'}}</p>
+                <p class="year">{{item.year}}</p>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+
+      </div>
 
     </mat-tab>
   </mat-tab-group>

@@ -6,7 +6,7 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators'
 import { MatSnackBar } from '@angular/material'
 import { MatTableDataSource } from '@angular/material'
 import { TorrentSearchApiService } from '../../services/torrent-search-api.service'
-import { AppStateService } from 'src/app/services/app-state.service'
+import { AppStateService } from '../../services/app-state.service'
 
 @Component({
     selector: `app-music-page`,
@@ -14,9 +14,9 @@ import { AppStateService } from 'src/app/services/app-state.service'
     styleUrls: [`./music-page.component.scss`],
 })
 export class MusicPageComponent implements OnInit {
-    loading
+    loading: boolean
     Musics = this.State.MusicsListState
-    searched
+    searched: boolean
     errorState = false
 
     searchTerm = ''
@@ -34,8 +34,18 @@ export class MusicPageComponent implements OnInit {
     paginator: MatPaginator
 
     ngOnInit() {
-        if (this.Musics.value === null) {
-            this.showMusics()
+        switch (this.Musics.value) {
+            case null:
+                console.log(this.Musics.value)
+                this.showMusics()
+                break
+            case undefined:
+                console.log(this.Musics.value)
+                this.showMusics()
+                break
+            default:
+                console.log(this.Musics.value)
+                break
         }
     }
 
@@ -45,7 +55,7 @@ export class MusicPageComponent implements OnInit {
         this.errorState = false
 
         if (await query) {
-            this.searched = false
+            this.searched = true
 
             this.searchTerm = query
             this.limit = 50
@@ -60,9 +70,7 @@ export class MusicPageComponent implements OnInit {
             torrents => {
                 this.State.MusicsListState.next(torrents)
                 this.errorState = false
-                this.showError(
-                    `Showing ${this.Musics.value.length || 0} Results`
-                )
+
                 this.loading = false
             },
             err => {

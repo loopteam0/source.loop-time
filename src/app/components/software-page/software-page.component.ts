@@ -5,8 +5,8 @@ import { DataSource } from '@angular/cdk/collections'
 import { MatTableDataSource } from '@angular/material'
 import { TorrentSearchApiService } from '../../services/torrent-search-api.service'
 import { MatSnackBar } from '@angular/material'
-import { AppStateService } from 'src/app/services/app-state.service'
-import { UiServiceService } from 'src/app/services/ui-service.service'
+import { AppStateService } from '../../services/app-state.service'
+import { UiServiceService } from '../../services/ui-service.service'
 
 @Component({
     selector: 'app-software-page',
@@ -16,9 +16,9 @@ import { UiServiceService } from 'src/app/services/ui-service.service'
 export class SoftwarePageComponent implements OnInit {
     // dataSource = new TorrentSource(Torrent);
     Softwares = this.State.SoftwaresListState
-    loading
-    searching
-    results
+    loading: boolean
+    searching: any
+    results: any
     errorState = false
     searched: boolean
     provider = '1337x'
@@ -39,8 +39,19 @@ export class SoftwarePageComponent implements OnInit {
 
     ngOnInit() {
         //  this.dataSource.paginator = this.paginator;
-        if (this.Softwares.value === null) {
-            this.showSoftwares()
+        switch (this.Softwares.value) {
+            case null:
+                console.log(this.Softwares.value)
+                this.showSoftwares()
+                break
+            case undefined:
+                console.log(this.Softwares.value)
+                this.showSoftwares()
+                break
+            default:
+                console.log(this.Softwares.value)
+
+                break
         }
     }
 
@@ -49,7 +60,7 @@ export class SoftwarePageComponent implements OnInit {
         this.loading = true
 
         if (await query) {
-            this.searched = false
+            this.searched = true
 
             this.searchTerm = query
             this.limit = 50
@@ -65,9 +76,6 @@ export class SoftwarePageComponent implements OnInit {
                 this.State.SoftwaresListState.next(res)
                 this.loading = false
                 this.errorState = false
-                this.UI.openSnackBar(
-                    `showing ${this.Softwares.value.length || 0} results`
-                )
             },
             err => {
                 this.showError(err)

@@ -2,9 +2,9 @@ import { Routes, RouterModule } from '@angular/router'
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { NgPipesModule } from 'ngx-pipes'
-import { MaterialModule } from 'src/app/modules/material/material.module'
+import { MaterialModule } from '../../modules/material/material.module'
 import { FavoritesComponent } from './favorites.component'
-import { FavoritesService } from 'src/app/services/favorites.service'
+import { FavoritesService } from '../../services/favorites.service'
 import { SpinnerModule } from '../spinner/spinner.module'
 
 const routes: Routes = [{ path: '', component: FavoritesComponent }]

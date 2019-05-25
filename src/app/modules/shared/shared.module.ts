@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { ConvertPipe } from 'src/app/pipes/convert.pipe'
-import { DurationPipe } from 'src/app/pipes/duration.pipe'
-import { JoinPipe } from 'src/app/pipes/join.pipe'
-import { OpenExternalPipe } from 'src/app/pipes/open-external.pipe'
-import { SanitizerPipe } from 'src/app/pipes/sanitizer.pipe'
-import { ScanPipe } from 'src/app/pipes/scan.pipe'
-import { UndefinedPipe } from 'src/app/pipes/undefined.pipe'
-import { BackgroundDirective } from 'src/app/directives/background.directive'
+import { ConvertPipe } from '../../pipes/convert.pipe'
+import { DurationPipe } from '../../pipes/duration.pipe'
+import { JoinPipe } from '../../pipes/join.pipe'
+import { OpenExternalPipe } from '../../pipes/open-external.pipe'
+import { SanitizerPipe } from '../../pipes/sanitizer.pipe'
+import { ScanPipe } from '../../pipes/scan.pipe'
+import { UndefinedPipe } from '../../pipes/undefined.pipe'
+import { BackgroundDirective } from '../../directives/background.directive'
 
 @NgModule({
     imports: [CommonModule],

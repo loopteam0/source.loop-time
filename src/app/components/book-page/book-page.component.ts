@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { TorrentSearchApiService } from '../../services/torrent-search-api.service'
 import { MatSnackBar } from '@angular/material'
-import { AppStateService } from 'src/app/services/app-state.service'
-import { UiServiceService } from 'src/app/services/ui-service.service'
+import { AppStateService } from '../../services/app-state.service'
+import { UiServiceService } from '../../services/ui-service.service'
 
 @Component({
     selector: 'app-book-page',
@@ -28,8 +28,17 @@ export class BookPageComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        if (this.Others.value === null) {
-            this.showTorrents()
+        switch (this.Others.value) {
+            case null:
+                console.log(this.Others.value)
+                this.showTorrents()
+                break
+            case undefined:
+                console.log(this.Others.value)
+                this.showTorrents()
+                break
+            default:
+                break
         }
     }
 
@@ -38,7 +47,7 @@ export class BookPageComponent implements OnInit {
         this.loading = true
 
         if (await query) {
-            this.searched = false
+            this.searched = true
 
             this.searchTerm = query
             this.limit = 50
@@ -54,9 +63,6 @@ export class BookPageComponent implements OnInit {
                 this.State.BooksListState.next(res)
                 this.loading = false
                 this.errorState = false
-                this.UI.openSnackBar(
-                    `showing ${this.Others.value.length || 0} results`
-                )
             },
             err => {
                 this.errorState = true

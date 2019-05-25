@@ -31,7 +31,7 @@ import { UiServiceService } from './services/ui-service.service'
 import { ElectronStorageService } from './services/electron-storage.service'
 import { TorrentSearchApiService } from './services/torrent-search-api.service'
 import { LoginComponent } from './components/login/login.component'
-import { environment } from 'src/environments/environment'
+import { environment } from '../environments/environment'
 import { AuthService } from './services/auth.service'
 import { ThemeService } from './services/theme.service'
 import { AppStateService } from './services/app-state.service'
@@ -41,11 +41,9 @@ import { SpinnerModule } from './components/spinner/spinner.module'
     declarations: [
         AppComponent,
         NavBarComponent,
-
         MovieDownloadDialogComponent,
         OtherMovieDownloadDialogComponent,
         ShowDownloadDialogComponent,
-
         MovieDetailsComponent,
         ShowDetailsComponent,
         OtherMoviesComponent,

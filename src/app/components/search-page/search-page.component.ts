@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { UiServiceService } from 'src/app/services/ui-service.service'
-import { TorrentSearchApiService } from 'src/app/services/torrent-search-api.service'
-import { AppStateService } from 'src/app/services/app-state.service'
+import { UiServiceService } from '../../services/ui-service.service'
+import { TorrentSearchApiService } from '../../services/torrent-search-api.service'
+import { AppStateService } from '../../services/app-state.service'
 import { BehaviorSubject } from 'rxjs'
 
 export interface Category {
@@ -54,6 +54,7 @@ export class SearchPageComponent implements OnInit {
 
     ngOnInit() {
         let msg = `Showing Top ${this.limit} Torrents of the Day`
+
         this.search('', 'Top100', msg)
     }
 
